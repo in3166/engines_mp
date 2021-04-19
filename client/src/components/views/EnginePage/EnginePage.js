@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
-import Navbar from '../NavBar/NavBar';
-//import Footer from '../Footer/Footer';
-import SideBar from '../SideBar/SideBar';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
-
+// import Navbar from '../NavBar/NavBar';
+// //import Footer from '../Footer/Footer';
+// import SideBar from '../SideBar/SideBar';
+// import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import { Layout, Menu, Breadcrumb } from 'antd';
-import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/icons';
-
-const { SubMenu } = Menu;
+//import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/icons';
+//const { SubMenu } = Menu;
 const { Header, Content, Footer, Sider } = Layout;
+
 
 function EnginePage() {
     const [getMessage, setGetMessage] = useState({})
@@ -53,7 +52,7 @@ function EnginePage() {
                 >
                     Engine
                         </Content>
-                <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
+                {/* <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer> */}
             </Layout>
         </div>
     )

@@ -5,12 +5,35 @@ import Navbar from '../NavBar/NavBar';
 //import Footer from '../Footer/Footer';
 import SideBar from '../SideBar/SideBar';
 
+import { Doughnut } from 'react-chartjs-2';
 
-import { Layout, Menu, Breadcrumb } from 'antd';
+import { Layout, Menu, Breadcrumb, Row, Col } from 'antd';
 import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/icons';
 
 const { SubMenu } = Menu;
 const { Header, Content, Footer, Sider } = Layout;
+
+
+const data = {
+    labels: [
+        'Red',
+        'Green',
+        'Yellow'
+    ],
+    datasets: [{
+        data: [300, 50, 100],
+        backgroundColor: [
+            '#FF6384',
+            '#36A2EB',
+            '#FFCE56'
+        ],
+        hoverBackgroundColor: [
+            '#FF6384',
+            '#36A2EB',
+            '#FFCE56'
+        ]
+    }]
+};
 
 function LandingPage() {
     const [getMessage, setGetMessage] = useState({})
@@ -56,6 +79,7 @@ function LandingPage() {
                     <Breadcrumb.Item>List</Breadcrumb.Item>
                     <Breadcrumb.Item>App</Breadcrumb.Item>
                 </Breadcrumb>
+                DashBoard
                 <Content
                     className="site-layout-background"
                     style={{
@@ -66,9 +90,38 @@ function LandingPage() {
                         border: '1px solid'
                     }}
                 >
-                    Content
-                        </Content>
-                <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
+                    <Row gutter={[16, 16]}>
+                        <Col lg={12} xs={24} >
+                            <div className="chart">
+                                <h2>Engine1</h2>
+                                <Doughnut data={data} />
+                            </div>
+                        </Col>
+
+                        <Col lg={12} xs={24} >
+                            <div className="chart">
+                                <h2>Engine2</h2>
+                                <Doughnut data={data} />
+                            </div>
+                        </Col>
+
+                        <Col lg={12} xs={24} >
+                            <div className="chart">
+                                <h2>Engine3</h2>
+                                <Doughnut data={data} />
+                            </div>
+                        </Col>
+
+                        <Col lg={12} xs={24} >
+                            <div className="chart">
+                                <h2>Engine4</h2>
+                                <Doughnut data={data} />
+                            </div>
+                        </Col>
+                    </Row>
+
+                </Content>
+                {/* <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer> */}
             </Layout>
             {/* </Layout>
             </Layout> */}

@@ -4,6 +4,7 @@
 - react-hook-form: 회원가입, 로그인
 - React Router Dom: 페이지 이동 시 사용
 - http-proxy-middleware: proxy 사용
+- chart.js: npm install --save chart.js@2.9.4 react-chartjs-2
 
 ## 모듈 다운로드
 `npm install`

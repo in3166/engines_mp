@@ -8,7 +8,7 @@ import RegisterPage from './components/views/RegisterPage/RegisterPage';
 import EnginePage from './components/views/EnginePage/EnginePage';
 
 import Navbar from './components/views/NavBar/NavBar';
-//import Footer from './components/views/Footer/Footer';
+import FooterComponent from './components/views/Footer/FooterComponent';
 import SideBar from './components/views/SideBar/SideBar';
 import { Layout } from 'antd';
 //const { Header, Content, Footer, Sider } = Layout;
@@ -30,8 +30,8 @@ function App(props) {
                 <SideBar />}
               <Route exact path="/" component={LandingPage} />
               <Route path="/engine/1" component={EnginePage} />
-
             </Layout>
+            <FooterComponent />
           </Layout>
         </>
       </Switch>
