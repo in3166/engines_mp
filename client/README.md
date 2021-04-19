@@ -5,6 +5,9 @@
 - React Router Dom: 페이지 이동 시 사용
 - http-proxy-middleware: proxy 사용
 
+## 모듈 다운로드
+`npm install`
+
 ## 구조
 - Redux 위한 폴더
   - _actions

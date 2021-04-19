@@ -44,7 +44,7 @@ function NavBar() {
                         type="primary"
                         onClick={showDrawer}
                     >
-                        <AlignRightOutlined />
+                        <AlignRightOutlined style={{ padding: 0 }} />
                     </Button>
                 </Dropdown>
             </div>
