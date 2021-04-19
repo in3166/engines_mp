@@ -43,8 +43,9 @@ function NavBar() {
                         className="menu__mobile-button"
                         type="primary"
                         onClick={showDrawer}
+                        style={{ padding: 5 }}
                     >
-                        <AlignRightOutlined style={{ padding: 0 }} />
+                        <AlignRightOutlined />
                     </Button>
                 </Dropdown>
             </div>

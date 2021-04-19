@@ -1,5 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useForm } from 'react-hook-form';
+import { Link } from 'react-router-dom';
+
 import axios from 'axios';
 import '../RegisterPage/Form.css';
 
@@ -38,7 +40,7 @@ function LoginPage() {
             {/* {errors.exampleRequired && <p>This field is required</p>} */}
             <input type="submit" value="로그인" />
             <div className="back">
-                <a href="/">돌아가기</a>
+                <Link to="/">돌아가기</Link>
             </div>
         </form>
     )

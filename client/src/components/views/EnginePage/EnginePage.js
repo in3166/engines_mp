@@ -4,7 +4,7 @@ import axios from 'axios';
 import Navbar from '../NavBar/NavBar';
 //import Footer from '../Footer/Footer';
 import SideBar from '../SideBar/SideBar';
-
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 
 import { Layout, Menu, Breadcrumb } from 'antd';
 import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/icons';
@@ -12,7 +12,7 @@ import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/
 const { SubMenu } = Menu;
 const { Header, Content, Footer, Sider } = Layout;
 
-function LandingPage() {
+function EnginePage() {
     const [getMessage, setGetMessage] = useState({})
     const [PredictMessage, setPredictMessage] = useState({})
 
@@ -35,21 +35,6 @@ function LandingPage() {
 
     return (
         <div style={{ width: '100%' }}>
-            {/* <div>
-                {getMessage.status === 200 ?
-                    <h3>{getMessage.data.message}</h3>
-                    :
-                    <h3>/test/LOADING</h3>}
-                <hr />
-                {PredictMessage.status === 200 ?
-                    <h3>{PredictMessage.data.message}</h3>
-                    :
-                    <h3>/predict/LOADING</h3>}
-            </div> */}
-            {/* <Layout>
-                <Navbar />
-                <Layout>
-                    <SideBar /> */}
             <Layout style={{ padding: '0 24px 24px', overflow: 'auto' }}>
                 <Breadcrumb style={{ margin: '16px 0' }}>
                     <Breadcrumb.Item>Home</Breadcrumb.Item>
@@ -66,14 +51,12 @@ function LandingPage() {
                         border: '1px solid'
                     }}
                 >
-                    Content
+                    Engine
                         </Content>
                 <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
             </Layout>
-            {/* </Layout>
-            </Layout> */}
         </div>
     )
 }
 
-export default LandingPage
+export default EnginePage
