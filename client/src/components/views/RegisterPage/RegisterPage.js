@@ -13,7 +13,7 @@ function RegisterPage() {
         //Axios...
     }; // your form submit function which will invoke after successful validation
 
-    console.log(watch("email")); // you can watch individual input by pass the name of the input
+    //console.log(watch("email")); // you can watch individual input by pass the name of the input
 
 
     return (

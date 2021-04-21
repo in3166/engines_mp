@@ -8,8 +8,8 @@ function FooterComponent() {
 
 
     return (
-        <div>
-            <Footer style={{ textAlign: 'center', padding: '0 0 10px 10px' }}>Ant Design ©2018 Created by Ant UED</Footer>
+        <div style={{ display: 'inline' }}>
+            <Footer style={{ textAlign: 'center', padding: '3px 3px 3px 3px', backgroundColor: 'white' }}>Ant Design ©2021 Created by Ant UED</Footer>
         </div>
     )
 }

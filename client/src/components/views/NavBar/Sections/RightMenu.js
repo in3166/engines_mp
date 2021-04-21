@@ -6,6 +6,7 @@ import axios from 'axios';
 import { withRouter } from 'react-router-dom';
 //import { useSelector } from "react-redux";
 import Icon from '@ant-design/icons';
+import { Link } from 'react-router-dom';
 
 function RightMenu(props) {
     //const user = useSelector(state => state.user)
@@ -24,10 +25,10 @@ function RightMenu(props) {
     return (
         <Menu mode={props.mode}>
             <Menu.Item key="mail" className="customclass">
-                <a href="/login">Signin</a>
+                <Link to="/login">Signin</Link>
             </Menu.Item>
             <Menu.Item key="app">
-                <a href="/register">Signup</a>
+                <Link to="/register">Signup</Link>
             </Menu.Item>
         </Menu>
     )

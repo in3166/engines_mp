@@ -5,6 +5,7 @@ import { Drawer, Button } from 'antd';
 import { Layout, Menu, Image, Dropdown } from 'antd';
 import { AlignRightOutlined, DownOutlined } from '@ant-design/icons';
 import './Sections/Navbar.css';
+import { Link } from 'react-router-dom';
 
 const { Header } = Layout;
 
@@ -26,7 +27,7 @@ function NavBar() {
     return (
         <nav className="menu" style={{ zIndex: 5, width: '100%' }}>
             <div className="menu__logo">
-                <a href="/"><img className="logo" src="/logo.png" alt="logo" /></a>
+                <Link to="/"><img className="logo" src="/logo.png" alt="logo" /></Link>
             </div>
 
             <div className="menu__container">

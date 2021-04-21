@@ -5,10 +5,10 @@ import Navbar from '../NavBar/NavBar';
 //import Footer from '../Footer/Footer';
 import SideBar from '../SideBar/SideBar';
 
-import { Doughnut } from 'react-chartjs-2';
-
-import { Layout, Menu, Breadcrumb, Row, Col } from 'antd';
+import { Doughnut, Line } from 'react-chartjs-2';
+import { Layout, Menu, Breadcrumb, Row, Col, Progress, Space } from 'antd';
 import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/icons';
+
 
 const { SubMenu } = Menu;
 const { Header, Content, Footer, Sider } = Layout;
@@ -33,6 +33,85 @@ const data = {
             '#FFCE56'
         ]
     }]
+};
+
+const chartData = {
+    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+    datasets: [
+        {
+            label: "First dataset",
+            data: [33, 53, 85, 41, 44, 65],
+            fill: true,
+            backgroundColor: "rgba(75,192,192,0.2)",
+            borderColor: "rgba(75,192,192,1)"
+        },
+        {
+            label: "Second dataset",
+            data: [33, 25, 35, 51, 54, 76],
+            fill: false,
+            borderColor: "#742774"
+        }
+    ]
+};
+
+const options = {
+    responsive: true,
+    maintainAspectRatio: false,
+    //tooltips 사용시
+    tooltips: {
+        enabled: true,
+        mode: "nearest",
+        position: "average",
+        intersect: false,
+    },
+    scales: {
+        xAxes: [
+            {
+                //   position: "top", //default는 bottom
+                display: true,
+                scaleLabel: {
+                    display: true,
+                    labelString: "Step",
+                    fontFamily: "Montserrat",
+                    fontColor: "black",
+                },
+                ticks: {
+                    // beginAtZero: true,
+                    maxTicksLimit: 10, //x축에 표시할 최대 눈금 수
+                },
+            },
+        ],
+        yAxes: [
+            {
+                display: true,
+                //   padding: 10,
+                scaleLabel: {
+                    display: true,
+                    labelString: "Coverage",
+                    fontFamily: "Montserrat",
+                    fontColor: "black",
+                },
+                ticks: {
+                    beginAtZero: true,
+                    stepSize: 20,
+                    min: 0,
+                    max: 100,
+                    //y축 scale 값에 % 붙이기 위해 사용
+                    callback: function (value) {
+                        return value + "%";
+                    },
+                },
+            },
+        ],
+    },
+};
+
+const legend = {
+    display: true,
+    labels: {
+        fontColor: "black",
+    },
+    position: "top", //label를 넣어주지 않으면 position이 먹히지 않음
 };
 
 function LandingPage() {
@@ -76,14 +155,12 @@ function LandingPage() {
             <Layout style={{ padding: '0 24px 24px', overflow: 'auto' }}>
                 <Breadcrumb style={{ margin: '16px 0' }}>
                     <Breadcrumb.Item>Home</Breadcrumb.Item>
-                    <Breadcrumb.Item>List</Breadcrumb.Item>
-                    <Breadcrumb.Item>App</Breadcrumb.Item>
+                    <Breadcrumb.Item>DashBoard</Breadcrumb.Item>
                 </Breadcrumb>
-                DashBoard
                 <Content
                     className="site-layout-background"
                     style={{
-                        padding: 24,
+                        padding: 12,
                         margin: 0,
                         minHeight: 280,
                         height: '100%',
@@ -91,28 +168,49 @@ function LandingPage() {
                     }}
                 >
                     <Row gutter={[16, 16]}>
-                        <Col lg={12} xs={24} >
+                        <Col lg={8} xs={23} >
+                            <div className="chart" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around', alignItems: 'center' }}>
+                                <Progress type="circle" percent={30} width={80} strokeWidth={10} />
+                                <Progress type="circle" percent={70} width={80} strokeWidth={10} status="exception" />
+                                <Progress type="circle" percent={100} width={80} strokeWidth={10} />
+                            </div>
+                        </Col>
+                        <Col lg={8} xs={23} >
+                            <div className="chart">
+                                <Line data={chartData} legend={legend} options={options} />
+                            </div>
+                        </Col>
+
+                        <Col lg={8} xs={23} >
+                            <div className="chart">
+                                <Progress percent={30} />
+                                <Progress percent={50} status="active" />
+                                <Progress percent={70} status="exception" />
+                                <Progress percent={100} />
+                            </div>
+                        </Col>
+
+                        <Col lg={12} xs={23} >
                             <div className="chart">
                                 <h2>Engine1</h2>
                                 <Doughnut data={data} />
                             </div>
                         </Col>
 
-                        <Col lg={12} xs={24} >
+                        <Col lg={12} xs={23} >
                             <div className="chart">
                                 <h2>Engine2</h2>
                                 <Doughnut data={data} />
                             </div>
                         </Col>
-
-                        <Col lg={12} xs={24} >
+                        <Col lg={12} xs={23} >
                             <div className="chart">
                                 <h2>Engine3</h2>
                                 <Doughnut data={data} />
                             </div>
                         </Col>
 
-                        <Col lg={12} xs={24} >
+                        <Col lg={12} xs={23} >
                             <div className="chart">
                                 <h2>Engine4</h2>
                                 <Doughnut data={data} />

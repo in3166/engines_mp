@@ -1,10 +1,15 @@
 .ant-layout,
 .ant-layout-sider {
   min-height: 91vh;
+  width: 100%;
 }
 
 .ant-layout-sider {
   background: white !important;
+}
+
+.ant-layout-sider-trigger {
+  position: relative !important;
 }
 
 .App {
@@ -48,5 +53,9 @@
 }
 
 .chart {
+  padding: 10px;
+  height: 100%;
   border: wheat solid 1px;
+  background-color: white;
+  box-shadow: #3f4146 2px 2px 4px;
 }

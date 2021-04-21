@@ -14,12 +14,19 @@ function LoginPage() {
         //Axios...
     }; // your form submit function which will invoke after successful validation
 
-    console.log(watch("email")); // you can watch individual input by pass the name of the input
+    //console.log(watch("email")); // you can watch individual input by pass the name of the input
 
     return (
         <form
             onSubmit={handleSubmit(onSubmit)}
         >
+            <div className="login_logo">
+                <a href="/"><img className="logo" src="/logo.png" alt="logo" /></a>
+            </div>
+
+            <br />
+            <br />
+            <br />
 
             <label>ID</label>
             <input name="id" type="text" error={errors.email}

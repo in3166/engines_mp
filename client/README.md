@@ -1,10 +1,11 @@
 
 ## 사용 모듈
 - axios
-- react-hook-form: 회원가입, 로그인
+- react-hook-form: 회원가입, 로그인 form
 - React Router Dom: 페이지 이동 시 사용
 - http-proxy-middleware: proxy 사용
-- chart.js: npm install --save chart.js@2.9.4 react-chartjs-2
+- chart.js: npm install --save chart.js@2.9.4 react-chartjs-2 (최신버전 사용 시 오류 발생)
+- react-highlight-words
 
 ## 모듈 다운로드
 `npm install`

@@ -11,7 +11,6 @@ function SideBar() {
     const [Collapsed, setCollapsed] = useState(false);
 
     const onCollapse = Collapsed => {
-        console.log(Collapsed);
         setCollapsed(Collapsed);
     };
 
@@ -32,11 +31,12 @@ function SideBar() {
                 <SubMenu key="sub1" icon={<SettingFilled />} title="Engines">
                     <Menu.Item key="2">
                         <Link to="/engine/1">
-                            Engine1
-                    </Link></Menu.Item>
-                    <Menu.Item key="3">Engine2</Menu.Item>
-                    <Menu.Item key="4">Engine3</Menu.Item>
-                    <Menu.Item key="5">Engine4</Menu.Item>
+                            Engine-1
+                        </Link>
+                    </Menu.Item>
+                    <Menu.Item key="3">Engine-2</Menu.Item>
+                    <Menu.Item key="4">Engine-3</Menu.Item>
+                    <Menu.Item key="5">Engine-4</Menu.Item>
                 </SubMenu>
                 <SubMenu key="sub2" icon={<LaptopOutlined />} title="예측 결과 분석">
                     <Menu.Item key="6">기계 분석</Menu.Item>
@@ -55,7 +55,11 @@ function SideBar() {
                     <Menu.Item key="15">사이트별 엔진</Menu.Item>
                 </SubMenu>
                 <SubMenu key="sub5" icon={<HddOutlined />} title="부품/자재 관리">
-                    <Menu.Item key="16">부품/자재 목록</Menu.Item>
+                    <Menu.Item key="16">
+                        <Link to="/unitlist">
+                            부품/자재 목록
+                        </Link>
+                    </Menu.Item>
                     <Menu.Item key="17">부품/자재 재고</Menu.Item>
                     <Menu.Item key="18">본사 재고</Menu.Item>
                 </SubMenu>
