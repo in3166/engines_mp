@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React from 'react';
+//import axios from 'axios';
 
-import Navbar from '../NavBar/NavBar';
+//import Navbar from '../NavBar/NavBar';
 //import Footer from '../Footer/Footer';
-import SideBar from '../SideBar/SideBar';
+//import SideBar from '../SideBar/SideBar';
 
 import { Doughnut, Line } from 'react-chartjs-2';
-import { Layout, Menu, Breadcrumb, Row, Col, Progress, Space } from 'antd';
-import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/icons';
+import { Layout, Breadcrumb, Row, Col, Progress } from 'antd';
+//import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/icons';
 
 
-const { SubMenu } = Menu;
-const { Header, Content, Footer, Sider } = Layout;
+//const { SubMenu } = Menu;
+const { Content } = Layout;
 
 
 const data = {
@@ -115,8 +115,8 @@ const legend = {
 };
 
 function LandingPage() {
-    const [getMessage, setGetMessage] = useState({})
-    const [PredictMessage, setPredictMessage] = useState({})
+   // const [getMessage, setGetMessage] = useState({})
+   // const [PredictMessage, setPredictMessage] = useState({})
 
     // useEffect(() => {
     //     axios.get('/api/test').then(response => {

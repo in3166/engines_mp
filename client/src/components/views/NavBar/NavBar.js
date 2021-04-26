@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, {  useState } from 'react';
 import LeftMenu from './Sections/LeftMenu';
 import RightMenu from './Sections/RightMenu';
-import { Drawer, Button } from 'antd';
-import { Layout, Menu, Image, Dropdown } from 'antd';
-import { AlignRightOutlined, DownOutlined } from '@ant-design/icons';
+import {  Button } from 'antd';
+import {  Menu, Dropdown } from 'antd';
+import { AlignRightOutlined } from '@ant-design/icons';
 import './Sections/Navbar.css';
 import { Link } from 'react-router-dom';
 
-const { Header } = Layout;
+//const { Header } = Layout;
 
 function NavBar() {
     const [visible, setVisible] = useState(false)

@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import React, {  useState } from 'react';
+import {  Link } from 'react-router-dom';
 import { Layout, Menu } from 'antd';
 import { UserOutlined, LaptopOutlined, NotificationOutlined, DashboardOutlined, SettingFilled, ProfileOutlined, HddOutlined, IdcardOutlined } from '@ant-design/icons';
 

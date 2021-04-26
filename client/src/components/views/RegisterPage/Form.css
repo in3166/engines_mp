@@ -1,6 +1,6 @@
 body {
   -ms-overflow-style: none;
-  background: #1f1a2e;
+  background: #1f1a2e !important;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
@@ -9,10 +9,18 @@ body {
 html,
 body {
   width: 100%;
-  height: 96vh;
+  height: 96vh !important;
 }
 
-form {
+.form_h1 {
+  font-weight: 100;
+  color: white;
+  text-align: center;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgb(79, 98, 148);
+}
+
+.form {
   background-color: #0e101c;
   max-width: 500px;
   margin: 2rem auto;
@@ -23,42 +31,16 @@ form {
   padding: 3rem;
 }
 
-h1 {
-  font-weight: 100;
-  color: white;
-  text-align: center;
-  padding-bottom: 10px;
-  border-bottom: 1px solid rgb(79, 98, 148);
-}
-
-.form {
-  background: #0e101c;
-  max-width: 400px;
-  margin: 0 auto;
-  border: 1px solid rgb(167, 167, 167);
-}
-
-p {
+.form_p {
   color: #bf1650;
 }
 
-p::before {
+.form_p::before {
   display: inline;
   content: "⚠ ";
 }
 
-input {
-  display: block;
-  box-sizing: border-box;
-  width: 100%;
-  border-radius: 4px;
-  border: 1px solid white;
-  padding: 10px 15px;
-  margin-bottom: 10px;
-  font-size: 14px;
-}
-
-label {
+.form_label {
   line-height: 2;
   text-align: left;
   display: block;
@@ -67,48 +49,66 @@ label {
   color: white;
   font-size: 14px;
   font-weight: 200;
+  min-width: 6rem;
 }
 
-button[type="submit"],
-input[type="submit"] {
+.form_input {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  border-radius: 4px;
+  border: 1px solid white;
+  padding: 10px 15px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  min-width: 6rem;
+}
+
+.form_button[type="submit"],
+.form_input[type="submit"] {
   background: #ebf37c;
   color: rgb(32, 32, 32);
   text-transform: uppercase;
   border: none;
-  margin-top: 60px;
-  padding: 20px;
+  margin-top: 55px;
+  padding: 16px;
   box-shadow: #96979b 1px 1px 2px;
   font-size: 17px;
   font-weight: 700;
-  letter-spacing: 10px;
+  letter-spacing: 5px;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 13rem;
+  min-width: 6rem;
 }
 
-button[type="submit"]:hover,
-input[type="submit"]:hover {
+.form_button[type="submit"]:hover,
+.form_input[type="submit"]:hover {
   background: #585e40;
   cursor: pointer;
 }
 
-button[type="submit"]:active,
-input[type="button"]:active,
-input[type="submit"]:active {
+.form_button[type="submit"]:active,
+.form_input[type="button"]:active,
+.form_input[type="submit"]:active {
   transition: 0.3s all;
   transform: translateY(3px);
   border: 1px solid transparent;
   opacity: 0.8;
 }
 
-input:disabled {
+.form_input:disabled {
   opacity: 0.4;
 }
 
-input[type="button"]:hover {
+.form_input[type="button"]:hover {
   transition: 0.3s all;
 }
 
-button[type="submit"],
-input[type="button"],
-input[type="submit"] {
+.form_button[type="submit"],
+.form_input[type="button"],
+.form_input[type="submit"] {
   -webkit-appearance: none;
 }
 
@@ -117,7 +117,7 @@ input[type="submit"] {
   margin: 0 auto;
 }
 
-button[type="button"] {
+.form_button[type="button"] {
   display: block;
   appearance: none;
   background: #333;
@@ -128,11 +128,11 @@ button[type="button"] {
   border-radius: 4px;
 }
 
-hr {
+.form_hr {
   margin-top: 30px;
 }
 
-button {
+.form_button {
   display: block;
   appearance: none;
   margin-top: 40px;
@@ -143,11 +143,14 @@ button {
   border-radius: 4px;
 }
 
-.title {
+.form_title {
+  color: white;
+  display: block;
   font-size: 30px;
   font-weight: 500;
   text-align: center;
-  margin-top: 3rem;
+  margin-top: 2rem;
+  min-width: 8rem;
 }
 
 .regi_div {
@@ -158,6 +161,7 @@ button {
 
 .back {
   text-align: center;
+  margin: 7px;
 }
 
 .login_logo {

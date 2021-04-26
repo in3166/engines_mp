@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React from 'react';
 
-import { Layout, Menu, Breadcrumb } from 'antd';
-const { Header, Content, Sider, Footer } = Layout;
+import { Layout } from 'antd';
+const { Footer } = Layout;
 
 function FooterComponent() {
 

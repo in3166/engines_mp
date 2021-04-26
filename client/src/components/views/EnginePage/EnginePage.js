@@ -1,36 +1,147 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import Asa from '../UnitListPage/Asa'
+import React, { useState } from 'react';
+//import axios from 'axios';
 // import Navbar from '../NavBar/NavBar';
 // //import Footer from '../Footer/Footer';
 // import SideBar from '../SideBar/SideBar';
 // import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
-import { Layout, Menu, Breadcrumb } from 'antd';
+import { Layout, Breadcrumb } from 'antd';
 //import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/icons';
 //const { SubMenu } = Menu;
-const { Header, Content, Footer, Sider } = Layout;
+import { Table, Input, Button, Space } from 'antd';
+import Highlighter from 'react-highlight-words';
+import { SearchOutlined } from '@ant-design/icons';
 
+const { Content} = Layout;
+
+
+const data = [
+    {
+        key: '1',
+        name: 'John Brown',
+        age: 32,
+        address: 'New York No. 1 Lake Park',
+    },
+    {
+        key: '2',
+        name: 'Joe Black',
+        age: 42,
+        address: 'London No. 1 Lake Park',
+    },
+    {
+        key: '3',
+        name: 'Jim Green',
+        age: 32,
+        address: 'Sidney No. 1 Lake Park',
+    },
+    {
+        key: '4',
+        name: 'Jim Red',
+        age: 32,
+        address: 'London No. 2 Lake Park',
+    },
+];
 
 function EnginePage() {
-    const [getMessage, setGetMessage] = useState({})
-    const [PredictMessage, setPredictMessage] = useState({})
+    const [searchText, setsearchText] = useState("");
+    const [searchedColumn, setsearchedColumn] = useState("");
 
-    // useEffect(() => {
-    //     axios.get('/api/test').then(response => {
-    //         console.log("test", response)
-    //         setGetMessage(response)
-    //     }).catch(error => {
-    //         console.log(error)
-    //     })
+    const getColumnSearchProps = dataIndex => ({
 
-    //     axios.post('/api/predict').then(response => {
-    //         console.log("predict", response)
-    //         setPredictMessage(response)
-    //     }).catch(error => {
-    //         console.log(error)
-    //     })
+        filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
+            <div style={{ padding: 8 }}>
+                <Input
+                    ref={node => {
+                        const searchInput = node;
+                    }}
+                    placeholder={`Search ${dataIndex}`}
+                    value={selectedKeys[0]}
+                    onChange={e => setSelectedKeys(e.target.value ? [e.target.value] : [])}
+                    onPressEnter={() => handleSearch(selectedKeys, confirm, dataIndex)}
+                    style={{ width: 188, marginBottom: 8, display: 'block' }}
+                />
+                <Space>
+                    <Button
+                        type="primary"
+                        onClick={() => handleSearch(selectedKeys, confirm, dataIndex)}
+                        icon={<SearchOutlined />}
+                        size="small"
+                        style={{ width: 90 }}
+                    >
+                        Search
+            </Button>
+                    <Button onClick={() => handleReset(clearFilters)} size="small" style={{ width: 90 }}>
+                        Reset
+            </Button>
+                    <Button
+                        type="link"
+                        size="small"
+                        onClick={() => {
+                            confirm({ closeDropdown: false });
+                            setsearchText(selectedKeys[0])
+                            setsearchedColumn(dataIndex)
+                        }}
+                    >
+                        Filter
+            </Button>
+                </Space>
+            </div>
+        ),
+        filterIcon: filtered => <SearchOutlined style={{ color: filtered ? '#1890ff' : undefined }} />,
+        onFilter: (value, record) =>
+            record[dataIndex]
+                ? record[dataIndex].toString().toLowerCase().includes(value.toLowerCase())
+                : '',
+        onFilterDropdownVisibleChange: visible => {
+            if (visible) {
+                setTimeout(() => this.searchInput.select(), 100);
+            }
+        },
+        render: text =>
+            searchedColumn === dataIndex ? (
+                <Highlighter
+                    highlightStyle={{ backgroundColor: '#ffc069', padding: 0 }}
+                    searchWords={[searchText]}
+                    autoEscape
+                    textToHighlight={text ? text.toString() : ''}
+                />
+            ) : (
+                text
+            ),
+    });
 
-    // }, [])
+    const handleSearch = (selectedKeys, confirm, dataIndex) => {
+        confirm();
+        setsearchText(selectedKeys[0])
+        setsearchedColumn(dataIndex)
+    };
+
+    const handleReset = clearFilters => {
+        clearFilters();
+        setsearchText('')
+    };
+
+    const columns = [
+        {
+            title: 'Name',
+            dataIndex: 'name',
+            key: 'name',
+            width: '30%',
+            ...getColumnSearchProps('name'),
+        },
+        {
+            title: 'Age',
+            dataIndex: 'age',
+            key: 'age',
+            width: '20%',
+            ...getColumnSearchProps('age'),
+        },
+        {
+            title: 'Address',
+            dataIndex: 'address',
+            key: 'address',
+            ...getColumnSearchProps('address'),
+        },
+    ];
 
     return (
         <div style={{ width: '100%' }}>
@@ -50,8 +161,7 @@ function EnginePage() {
                         border: '1px solid'
                     }}
                 >
-                    Engine
-                    <Asa />
+                   <Table columns={columns} dataSource={data} />
                 </Content>
                 {/* <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer> */}
             </Layout>
