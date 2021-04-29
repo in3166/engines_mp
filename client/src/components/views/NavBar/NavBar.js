@@ -5,29 +5,30 @@ import {  Button } from 'antd';
 import {  Menu, Dropdown } from 'antd';
 import { AlignRightOutlined } from '@ant-design/icons';
 import './Sections/Navbar.css';
-import { Link } from 'react-router-dom';
 
+//import { Link } from 'react-router-dom';
 //const { Header } = Layout;
 
 function NavBar() {
-    const [visible, setVisible] = useState(false)
+    const [visible, setVisible] = useState(false);
 
+    
     const showDrawer = () => {
-        setVisible(true)
+        setVisible(true);
     };
 
-    const onClose = () => {
-        setVisible(false)
-    };
+    // const onClose = () => {
+    //     setVisible(false)
+    // };
 
-    const setMenu = () => {
-        setVisible(false)
-    };
+    // const setMenu = () => {
+    //     setVisible(false)
+    // };
 
     return (
         <nav className="menu" style={{ zIndex: 5, width: '100%' }}>
             <div className="menu__logo">
-                <Link to="/"><img className="logo" src="/logo.png" alt="logo" /></Link>
+                <a href="/"><img className="logo" src="/logo.png" alt="logo" /></a>
             </div>
 
             <div className="menu__container">
