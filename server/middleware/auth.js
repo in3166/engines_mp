@@ -1,5 +1,6 @@
 const { User } = require('../models/User');
 
+// Token User DB와 Cookie에 존재, 두 개 비교
 let auth = (req, res, next) => {
   let token = req.cookies.w_auth;
 

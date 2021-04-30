@@ -11,6 +11,7 @@ import BackTopUtil from './components/utils/BackTopUtil/BackTopUtil';
 import Navbar from './components/views/NavBar/NavBar';
 import FooterComponent from './components/views/Footer/FooterComponent';
 import SideBar from './components/views/SideBar/SideBar';
+import Auth from './hoc/auth';
 import { Layout } from 'antd';
 //const { Header, Content, Footer, Sider } = Layout;
 
@@ -21,16 +22,16 @@ function App(props) {
     <div>
       <Switch>
         <>
-          <Route path="/login" component={LoginPage} />
-          <Route path="/register" component={RegisterPage} />
+          <Route path="/login" component={Auth(LoginPage, false)} />
+          <Route path="/register" component={Auth(RegisterPage, false)} />
           {props.location.pathname !== '/login' && props.location.pathname !== '/register' &&
             <Layout>
               <Navbar />
               <Layout>
                 <SideBar />
-                <Route exact path="/" component={LandingPage} />
-                <Route path="/engine/1" component={EnginePage} />
-                <Route path="/unitlist" component={UnitListPage} />
+                <Route exact path="/" component={Auth(LandingPage, null)} />
+                <Route path="/engine/1" component={Auth(EnginePage, true)} />
+                <Route path="/unitlist" component={Auth(UnitListPage,true)} />
               </Layout>
               <FooterComponent />
               <BackTopUtil />

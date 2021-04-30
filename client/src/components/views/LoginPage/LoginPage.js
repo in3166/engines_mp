@@ -2,15 +2,24 @@ import React, {  useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 
-//import axios from 'axios';
+import axios from 'axios';
 import '../RegisterPage/Form.css';
 
-function LoginPage() {
+function LoginPage(props) {
     const { register, watch, formState: { errors }, handleSubmit } = useForm();
     const password = useRef();
     password.current = watch("password");
     const onSubmit = data => {
         console.log(data);
+        axios.post('/api/users/login', data)
+        .then((res) => {
+            if(res.data.loginSuccess){
+                props.history.push("/");
+            }else{
+                alert(res.data.message)
+            }
+            //console.log(res.data.id, res.data.userId, res.data.loginSuccess, res.data.message)
+        })
         //Axios...
     }; // your form submit function which will invoke after successful validation
 
