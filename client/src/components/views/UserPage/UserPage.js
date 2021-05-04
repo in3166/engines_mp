@@ -1,6 +1,6 @@
 import React from 'react'
 import { Layout, Breadcrumb } from 'antd';
-import {useSelector} from 'react-redux'
+//import {useSelector} from 'react-redux'
 const { Content } = Layout;
 
 function UserPage(props) {
@@ -27,7 +27,7 @@ function UserPage(props) {
                   <div>
                     ID: {userData.id} <br/>
                     이름: {userData.name} <br/>
-                    권한: {userData.role == 0 ? '일반 사용자' : '관리자' } <br/>
+                    권한: {userData.role === 0 ? '일반 사용자' : '관리자' } <br/>
                     Email: <input type="email" placeholder={userData.email}/><br/>
                     <button>비밀번호 변경</button><br/>
                     <button>저장</button>

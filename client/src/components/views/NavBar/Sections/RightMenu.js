@@ -7,7 +7,6 @@ import { withRouter } from 'react-router-dom';
 import { useSelector } from "react-redux";
 import { Link } from 'react-router-dom';
 import { UserOutlined } from '@ant-design/icons';
-import SizeContext from 'antd/lib/config-provider/SizeContext';
 
 function RightMenu(props) {
     const user = useSelector(state => state.user)
@@ -41,9 +40,9 @@ function RightMenu(props) {
                 return (
                     <Menu mode={props.mode}>
                  <Menu.Item key="user" className="customclass" style={{marginRight:0}}>
-                    <Link to="/user" ><UserOutlined style={{fontSize: '20px', fontStyle:'bold', paddingLeft:'10px'}}/></Link>
+                    <Link to="/user" style={{ paddingBottom:0}} ><UserOutlined style={{fontSize: '20px', fontStyle:'bold', paddingLeft:'10px', paddingBottom:0}}/></Link>
                  </Menu.Item>
-                 <Menu.Item key="logout">
+                 <Menu.Item key="logout" style={{marginLeft:0}}>
                       <a onClick={logoutHandler}>Logout</a>
                   </Menu.Item>
                 </Menu>

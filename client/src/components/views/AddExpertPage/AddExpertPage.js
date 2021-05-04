@@ -1,6 +1,6 @@
 import React, {useState,useEffect} from 'react'
 import { Layout, Breadcrumb } from 'antd';
-import {useSelector} from 'react-redux'
+//import {useSelector} from 'react-redux'
 import { Transfer, Button } from 'antd';
 
 
@@ -28,7 +28,7 @@ function AddExpertPage() {
         setmockData(mockData2);
         settargetKeys(targetKeys2);
     }
-    
+
     useEffect(() => {
         getMock()
     },[])

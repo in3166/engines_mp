@@ -67,7 +67,7 @@ userSchema.methods.generateToken = function(cb){
     var user = this;
     // jwt로 token 생성
     // _id는 모델의 object id, user._id + secretToken = token / secretToken => user._id 알아낼 수 있음 나중에
-    var token = jwt.sign(user._id.toHexString(),'secretToken');
+    var token = jwt.sign({id: user._id.toHexString()},'secretToken', {expiresIn: '1h'});
     user.token = token;
     user.save(function(err, user){
         if(err) return cb(err);
@@ -77,13 +77,18 @@ userSchema.methods.generateToken = function(cb){
 
 userSchema.statics.findByToken = function(token, cb){
     var user = this;
-    // token decode
+    // token decode 검증
     jwt.verify(token, 'secretToken', function(err, decoded){
         // 복호화된 토큰 decoded
-        user.findOne({"_id":decoded, "token":token}, function(err, user){
-            if(err) return cb(err);
-            cb(null, user);
-        })
+        if(decoded){
+            user.findOne({"_id":decoded.id, "token":token}, function(err, user){
+                if(err) return cb(err);
+                cb(null, user);
+            })
+        }else{
+            cb(null);
+        }
+
     })
 }
 
