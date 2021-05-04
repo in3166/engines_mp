@@ -34,7 +34,7 @@ function App(props) {
                 <Route exact path="/" component={Auth(LandingPage, null)} />
                 <Route path="/engine/1" component={Auth(EnginePage, true)} />
                 <Route path="/unitlist" component={Auth(UnitListPage,true)} />
-                <Route path="/addExpert" component={Auth(AddExpertPage,true)} />
+                <Route path="/addExpert" component={Auth(AddExpertPage,true, true)} />
                 <Route path="/user" component={Auth(UserPage, true)} />
               </Layout>
               <FooterComponent />

@@ -59,3 +59,13 @@
   background-color: white;
   box-shadow: #3f4146 2px 2px 4px;
 }
+
+/* table 체크박스 */
+table tr th.ant-table-selection-column,
+table tr td.ant-table-selection-column {
+  padding-right: 15px !important;
+}
+
+.ant-popover {
+  z-index: 9999 !important;
+}

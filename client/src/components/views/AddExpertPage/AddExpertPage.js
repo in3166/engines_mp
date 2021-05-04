@@ -9,7 +9,7 @@ const { Content } = Layout;
 function AddExpertPage() {
     const [mockData, setmockData] = useState([]);
     const [targetKeys, settargetKeys] = useState([]);
-
+ 
     const getMock = () => {
         const targetKeys2 = [];
         const mockData2 = [];
@@ -32,6 +32,8 @@ function AddExpertPage() {
     useEffect(() => {
         getMock()
     },[])
+    // 모든 사용자 불러오기
+
 
     const handleChange = targetKeys => {
         settargetKeys( targetKeys );
@@ -63,8 +65,9 @@ function AddExpertPage() {
             >
               <div>
                     <Transfer
-                        locale={{itemUnit: `일반 사용자`, itemsUnit: `전문가`}}
+                        locale={{itemsUnit:'명'}}
                         dataSource={mockData}
+                        titles={['일반 사용자', '전문가']}
                         showSearch
                         listStyle={{
                         width: 250,
@@ -73,7 +76,7 @@ function AddExpertPage() {
                         operations={['추가', '제거']}
                         targetKeys={targetKeys}
                         onChange={handleChange}
-                        render={item => `${item.title}-${item.description}`}
+                        render={item => `${item.title}`}
                         footer={renderFooter}
                     />
               </div>

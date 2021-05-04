@@ -67,7 +67,7 @@ userSchema.methods.generateToken = function(cb){
     var user = this;
     // jwt로 token 생성
     // _id는 모델의 object id, user._id + secretToken = token / secretToken => user._id 알아낼 수 있음 나중에
-    var token = jwt.sign({id: user._id.toHexString()},'secretToken', {expiresIn: '1h'});
+    var token = jwt.sign({id: user._id.toHexString()},'secretToken', {expiresIn: '2h'});
     user.token = token;
     user.save(function(err, user){
         if(err) return cb(err);
@@ -88,7 +88,6 @@ userSchema.statics.findByToken = function(token, cb){
         }else{
             cb(null);
         }
-
     })
 }
 

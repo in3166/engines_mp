@@ -16,6 +16,7 @@ C:/jupyter/linear/Jintech/engine2/web-react
 
 - redux-promise: dispatch에게 `Promise`을 받는 방법을 알려주는 미들웨어
 - redux-thunk: dispatch에게 `function`을 받는 방법을 알려주는 미들웨어
+- npm install react-icons --save
 
 ## 모듈 다운로드
 
@@ -55,3 +56,5 @@ C:/jupyter/linear/Jintech/engine2/web-react
 ## 참고
 
 - proxy 파일 대신 package.json 안에 // "proxy": "http://localhost:5000", 추가해도 됨.
+- jwt refresh token 미구현
+- 서버 고려 사항: xss filter(sanitize-html), csrf, halmet(http 헤더)
