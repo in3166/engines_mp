@@ -3,23 +3,39 @@ import React, { useRef } from 'react';
 import { useForm } from 'react-hook-form';
 //import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { registerUser } from "../../../_actions/user_actions";
+import { useDispatch } from "react-redux";
 import './Form.css';
 
 function RegisterPage(props) {
+    const dispatch = useDispatch();
     const { register, watch, formState: { errors }, handleSubmit } = useForm();
     const password = useRef();
     password.current = watch("password");
     const onSubmit = data => {
-        console.log(data);
-        axios.post('/api/users/register', data)
-        .then((res) => {
-            if(res.data.success){
-                props.history.push("/login");
-            }else{
-                alert(res.data.err)
+        //console.log(data);
+
+        dispatch(registerUser(data))
+        .then(res => {
+            if (res.payload.success) {
+              props.history.push("/login");
+            } else {
+              alert("[Error]: "+res.payload.message);
             }
-            //console.log(res.data.id, res.data.userId, res.data.loginSuccess, res.data.message)
-        })
+          })
+          .catch(err=>{
+              alert("[Error]: "+err);
+            })
+
+        // axios.post('/api/users/register', data)
+        // .then((res) => {
+        //     if(res.data.success){
+        //         props.history.push("/login");
+        //     }else{
+        //         alert(res.data.err)
+        //     }
+        //     //console.log(res.data.id, res.data.userId, res.data.loginSuccess, res.data.message)
+        // })
     }; // your form submit function which will invoke after successful validation
 
     //console.log(watch("email")); // you can watch individual input by pass the name of the input
@@ -74,13 +90,10 @@ function RegisterPage(props) {
             {errors.name && errors.name.type === "required" && <p className="form_p">This name field is required</p>}
             {errors.name && errors.name.type === "maxLength" && <p className="form_p">Your input exceed maximum input</p>}
 
-            
-
-
             {/* {errors.exampleRequired && <p>This field is required</p>} */}
             <input type="submit" className="form_input" value="등록" />
             <div className="back">
-                <Link to="/">돌아가기</Link>
+                <Link to="/">취소</Link>
             </div>
         </form>
     )

@@ -41,7 +41,7 @@ const data = [
     },
 ];
 
-function EnginePage() {
+function EnginePage(props) {
     const [searchText, setsearchText] = useState("");
     const [searchedColumn, setsearchedColumn] = useState("");
 
@@ -143,8 +143,11 @@ function EnginePage() {
         },
     ];
 
-    return (
-        <div style={{ width: '100%' }}>
+    if(!props?.user?.userData?.isAuth){
+        return null;
+    }else{
+        return (
+            <div style={{ width: '100%' }}>
             <Layout style={{ padding: '0 24px 24px', overflow: 'auto' }}>
                 <Breadcrumb style={{ margin: '16px 0' }}>
                     <Breadcrumb.Item>Home</Breadcrumb.Item>
@@ -160,13 +163,14 @@ function EnginePage() {
                         height: '100%',
                         border: '1px solid'
                     }}
-                >
+                    >
                    <Table columns={columns} dataSource={data} />
                 </Content>
                 {/* <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer> */}
             </Layout>
         </div>
     )
+}
 }
 
 export default EnginePage

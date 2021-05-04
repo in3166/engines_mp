@@ -24,7 +24,8 @@ const userSchema = mongoose.Schema({
     },
     role:{
         type: Number,
-        default: 0
+        default: 0 
+        // 0: 일반 사용자, 1: 관리자, 2: 전문가, 3: 엔지니어
     },
     token:{
         type: String

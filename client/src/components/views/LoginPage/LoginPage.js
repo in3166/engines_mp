@@ -1,27 +1,40 @@
 import React, {  useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
-
+import { loginUser } from "../../../_actions/user_actions";
 import axios from 'axios';
 import '../RegisterPage/Form.css';
+import { useDispatch } from "react-redux";
 
 function LoginPage(props) {
+    const dispatch = useDispatch();
+
     const { register, watch, formState: { errors }, handleSubmit } = useForm();
     const password = useRef();
     password.current = watch("password");
-    const onSubmit = data => {
-        console.log(data);
-        axios.post('/api/users/login', data)
-        .then((res) => {
-            if(res.data.loginSuccess){
+
+    const onSubmit =(data) => {
+
+          dispatch(loginUser(data))
+            .then(res => {
+              if (res.payload.loginSuccess) {
+                window.localStorage.setItem('userId', res.payload.userId);
+                // remember me
+                // if (rememberMe === true) {
+                //   window.localStorage.setItem('rememberMe', values.id);
+                // } else {
+                //   localStorage.removeItem('rememberMe');
+                // }
                 props.history.push("/");
-            }else{
-                alert(res.data.message)
-            }
-            //console.log(res.data.id, res.data.userId, res.data.loginSuccess, res.data.message)
-        })
-        //Axios...
-    }; // your form submit function which will invoke after successful validation
+              } else {
+                alert(res.payload.message)
+              }
+            })
+            .catch(err => {
+                alert(err)
+            });
+
+    }
 
     //console.log(watch("email")); // you can watch individual input by pass the name of the input
 
@@ -58,7 +71,8 @@ function LoginPage(props) {
             {/* {errors.exampleRequired && <p>This field is required</p>} */}
             <input className="form_input" type="submit" value="로그인" />
             <div className="back">
-                <Link to="/">돌아가기</Link>
+                <Link to="/register">회원가입</Link> <br/>
+                <Link to="/">취소</Link>
             </div>
         </form>
     )

@@ -10,6 +10,8 @@ import UnitListPage from './components/views/UnitListPage/UnitListPage';
 import BackTopUtil from './components/utils/BackTopUtil/BackTopUtil';
 import Navbar from './components/views/NavBar/NavBar';
 import FooterComponent from './components/views/Footer/FooterComponent';
+import UserPage from './components/views/UserPage/UserPage';
+import AddExpertPage from './components/views/AddExpertPage/AddExpertPage';
 import SideBar from './components/views/SideBar/SideBar';
 import Auth from './hoc/auth';
 import { Layout } from 'antd';
@@ -32,6 +34,8 @@ function App(props) {
                 <Route exact path="/" component={Auth(LandingPage, null)} />
                 <Route path="/engine/1" component={Auth(EnginePage, true)} />
                 <Route path="/unitlist" component={Auth(UnitListPage,true)} />
+                <Route path="/addExpert" component={Auth(AddExpertPage,true)} />
+                <Route path="/user" component={Auth(UserPage, true)} />
               </Layout>
               <FooterComponent />
               <BackTopUtil />

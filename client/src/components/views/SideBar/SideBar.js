@@ -1,14 +1,16 @@
 import React, {  useState } from 'react';
 import {  Link } from 'react-router-dom';
 import { Layout, Menu } from 'antd';
-import { UserOutlined, LaptopOutlined, NotificationOutlined, DashboardOutlined, SettingFilled, ProfileOutlined, HddOutlined, IdcardOutlined } from '@ant-design/icons';
+import { TeamOutlined, LaptopOutlined, NotificationOutlined, DashboardOutlined, SettingFilled, ProfileOutlined, HddOutlined, IdcardOutlined } from '@ant-design/icons';
+import { useSelector } from "react-redux";
 
 const { SubMenu } = Menu;
 const { Sider } = Layout;
 
 function SideBar() {
     const [Collapsed, setCollapsed] = useState(false);
-
+    let user = useSelector(state => state.user);
+    //console.log("user: ",user);
     const onCollapse = Collapsed => {
         setCollapsed(Collapsed);
     };
@@ -43,11 +45,17 @@ function SideBar() {
                     <Menu.Item key="8">전문가 분석</Menu.Item>
                     <Menu.Item key="9">통합 분석</Menu.Item>
                 </SubMenu>
-                <SubMenu key="sub3" icon={<UserOutlined />} title="전문가 관리">
-                    <Menu.Item key="10">전문가 등록</Menu.Item>
+                {user?.userData?.role === 1 &&
+                <SubMenu key="sub3" icon={<TeamOutlined />} title="전문가 관리">
+                    <Menu.Item key="10">
+                        <Link to="/addExpert">
+                        전문가 등록
+                        </Link>
+                        </Menu.Item>
                     <Menu.Item key="11">전문가 그룹</Menu.Item>
                     <Menu.Item key="12">권한 관리</Menu.Item>
                 </SubMenu>
+                }
                 <SubMenu key="sub4" icon={<IdcardOutlined />} title="사용자 관리">
                     <Menu.Item key="13">권한 관리</Menu.Item>
                     <Menu.Item key="14">사이트 관리</Menu.Item>

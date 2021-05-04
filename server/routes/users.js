@@ -23,18 +23,29 @@ router.get("/auth", auth, (req, res) => {
 
 router.post("/register", (req, res) => {
 
-    const user = new User(req.body);
-
-    user.save((err, userInfo) => {
-        if (err) return res.json({ success: false, err });
-        return res.status(200).json({
-            success: true
-        });
+    
+    User.findOne({ id: req.body.id }, (err, user) => {
+        if (user){
+            return res.json({
+                lsuccess: false,
+                message: "아이디가 이미 존재합니다."
+            })
+        }else{
+            const user = new User(req.body);
+            user.save((err, userInfo) => {
+                if (err) {
+                    return res.json({ success: false, message:err.code });
+                    console.log(err)
+                }
+                    return res.status(200).json({
+                    success: true
+                });
+            });
+        }
     });
 });
 
 router.post("/login", (req, res) => {
-    
     // User모델에서 로그인 요청된 id가 db에 있는지 확인
     User.findOne({ id: req.body.id }, (err, user) => {
         if (!user)
