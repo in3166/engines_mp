@@ -11,6 +11,7 @@
 - bcrypt 라이브러리
 - jsonwebtoken 라이브러리
 - concurrently 라이브러리
+- async
 
 ## DB
 

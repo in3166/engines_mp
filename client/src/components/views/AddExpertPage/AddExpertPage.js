@@ -2,6 +2,7 @@ import React, {useState,useEffect} from 'react'
 import { Layout, Breadcrumb } from 'antd';
 //import {useSelector} from 'react-redux'
 import { Transfer, Button } from 'antd';
+import axios from 'axios';
 
 
 const { Content } = Layout;
@@ -9,38 +10,70 @@ const { Content } = Layout;
 function AddExpertPage() {
     const [mockData, setmockData] = useState([]);
     const [targetKeys, settargetKeys] = useState([]);
+    const [selectedKeys, setselectedKeys] = useState([]);
  
-    const getMock = () => {
+    const getAllUsers = () => {
         const targetKeys2 = [];
         const mockData2 = [];
-        for (let i = 0; i < 20; i++) {
-            const data = {
-                key: i.toString(),
-                title: `user${i + 1}`,
-                //description: `description of content${i + 1}`,
-                chosen: Math.random() * 2 > 1,
-            };
-            if (data.chosen) {
-                targetKeys2.push(data.key);
+
+        axios.get('/api/users/getAllUsers')
+        .then(res=>{
+            for (let i = 0; i < res.data.users.length; i++) {
+                const data = {
+                    key: i.toString(),
+                    id: `${res.data.users[i].id}`,
+                    //description: `description of content${i + 1}`,
+                    chosen: res.data.users[i].role,
+                };
+                // 전문가의 경우 타겟 오른쪽 박스
+                if (data.chosen === 2) {
+                    targetKeys2.push(data.key);
+                }
+                // 일반 사용자나 전문가일 경우 list에 넣기
+                if(data.chosen === 0 || data.chosen === 2){
+                    mockData2.push(data);
+                }
             }
-            mockData2.push(data);
-        }
-        setmockData(mockData2);
-        settargetKeys(targetKeys2);
+            setmockData(mockData2);
+            settargetKeys(targetKeys2);
+        })
     }
 
     useEffect(() => {
-        getMock()
+        getAllUsers()
     },[])
     // 모든 사용자 불러오기
 
 
-    const handleChange = targetKeys => {
-        settargetKeys( targetKeys );
+    const handleChange = (targetKey,direction,movekey) => {
+        console.log('direction:', direction, ' / movekey: ',movekey)
+        
+        let body = {
+            users:mockData.filter(user => {
+                return movekey.find(o => o === user.key)
+            }),
+            direction: direction
+        };
+        console.log(body);
+        axios.post('/api/users/changeRole', body)
+        .then(res=>{
+
+        })
+        settargetKeys( targetKey );
       };
 
+    //  const handleSelectChange = (sourceSelectedKeys, targetSelectedKeys) => {
+    //     console.log('selectedKeys: ',selectedKeys)
+    //     console.log('sourceSelectedKeys: ',sourceSelectedKeys)
+    //     console.log('targetSelectedKeys: ',targetSelectedKeys)
+    //     setselectedKeys(
+    //         [...sourceSelectedKeys, ...targetSelectedKeys]
+    //     );
+    //     console.log('after selectedKeys: ',selectedKeys)
+    //   };
+
     const renderFooter = () => (
-        <Button size="small" style={{ float: 'right', margin: 5 }} onClick={getMock}>
+        <Button size="small" style={{ float: 'right', margin: 5 }} onClick={getAllUsers}>
           reload
         </Button>
       );
@@ -65,7 +98,7 @@ function AddExpertPage() {
             >
               <div>
                     <Transfer
-                        locale={{itemsUnit:'명'}}
+                        locale={{itemUnit:'명', itemsUnit:'명'}}
                         dataSource={mockData}
                         titles={['일반 사용자', '전문가']}
                         showSearch
@@ -75,8 +108,10 @@ function AddExpertPage() {
                         }}
                         operations={['추가', '제거']}
                         targetKeys={targetKeys}
+                        //selectedKeys={selectedKeys}
+                        //onSelectChange={handleSelectChange}
                         onChange={handleChange}
-                        render={item => `${item.title}`}
+                        render={item => `${item.id}`}
                         footer={renderFooter}
                     />
               </div>

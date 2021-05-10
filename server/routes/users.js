@@ -3,7 +3,7 @@ const router = express.Router();
 const { User } = require("../models/User");
 
 const { auth } = require("../middleware/auth");
-//const async = require("async");
+const async = require("async");
 
 //=================================
 //             User
@@ -78,6 +78,43 @@ router.get("/logout", auth, (req, res) => {
             success: true
         });
     });
+});
+
+// 전문가 권한 유저 목록 가져오기
+router.get("/getAllUsers", (req, res) => {
+    User.find((err, users) => {
+        if (err) return res.json({ success: false, err });
+        return res.status(200).send({
+            success: true,
+            users: users
+        });
+    });
+});
+
+// 전문가 권한 수정
+router.post("/changeRole", (req, res) => {
+    let direction = req.body.direction;
+    let users = req.body.users;
+   // console.log(direction)
+   // console.log(users)
+    // 전문가에서 제거
+    //if(direction === 'left'){
+        async.eachSeries(users, (user, cb)=>{
+            console.log(user)
+            User.updateMany(
+                {id: user.id},
+                {role: user.chosen === 0 ? 2 : 0},
+                {new: false},
+                cb)
+        }, (err) => {
+            if(err)  return res.status(400).json({ success: false, err })
+            res.status(200).json({
+                success: true
+            })
+        })
+    //}else{
+
+    //}
 });
 
 module.exports = router;
