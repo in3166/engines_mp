@@ -100,7 +100,7 @@ router.post("/changeRole", (req, res) => {
     // 전문가에서 제거
     //if(direction === 'left'){
         async.eachSeries(users, (user, cb)=>{
-            console.log(user)
+            //console.log(user)
             User.updateMany(
                 {id: user.id},
                 {role: user.chosen === 0 ? 2 : 0},

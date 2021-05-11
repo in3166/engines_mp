@@ -46,7 +46,8 @@ function AddExpertPage() {
 
 
     const handleChange = (targetKey,direction,movekey) => {
-        console.log('direction:', direction, ' / movekey: ',movekey)
+        //console.log('direction:', direction, ' / movekey: ',movekey)
+        //console.log('targetKey:', targetKey)
         
         let body = {
             users:mockData.filter(user => {
@@ -54,12 +55,14 @@ function AddExpertPage() {
             }),
             direction: direction
         };
-        console.log(body);
+        //console.log(body);
         axios.post('/api/users/changeRole', body)
         .then(res=>{
-
+            if(res.data.success){
+                settargetKeys( targetKey );
+                getAllUsers()
+            }
         })
-        settargetKeys( targetKey );
       };
 
     //  const handleSelectChange = (sourceSelectedKeys, targetSelectedKeys) => {
