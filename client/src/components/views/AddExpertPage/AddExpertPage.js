@@ -3,14 +3,14 @@ import { Layout, Breadcrumb } from 'antd';
 //import {useSelector} from 'react-redux'
 import { Transfer, Button } from 'antd';
 import axios from 'axios';
-
+import {ReloadOutlined } from '@ant-design/icons';
 
 const { Content } = Layout;
 
 function AddExpertPage() {
     const [mockData, setmockData] = useState([]);
     const [targetKeys, settargetKeys] = useState([]);
-    const [selectedKeys, setselectedKeys] = useState([]);
+   // const [selectedKeys, setselectedKeys] = useState([]);
  
     const getAllUsers = () => {
         const targetKeys2 = [];
@@ -77,7 +77,7 @@ function AddExpertPage() {
 
     const renderFooter = () => (
         <Button size="small" style={{ float: 'right', margin: 5 }} onClick={getAllUsers}>
-          reload
+          <ReloadOutlined />
         </Button>
       );
 
@@ -106,8 +106,8 @@ function AddExpertPage() {
                         titles={['일반 사용자', '전문가']}
                         showSearch
                         listStyle={{
-                        width: 250,
-                        height: 300,
+                        width: '100%',
+                        height: 400,
                         }}
                         operations={['추가', '제거']}
                         targetKeys={targetKeys}
