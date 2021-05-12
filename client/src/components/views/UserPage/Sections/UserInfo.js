@@ -9,12 +9,6 @@ function UserInfo(props) {
     const dispatch = useDispatch();
     const { register, formState: { errors }, handleSubmit } = useForm();
 
-
-    const layout = {
-        labelCol: { span: 4 },
-        wrapperCol: { span: 14 },
-      };
-
       const onSubmit = data => {
         let body ={
             id: props.userData.id,
@@ -37,7 +31,7 @@ function UserInfo(props) {
     
     return (
         <div>
-            <Form {...layout} name="userinfo-change"  onFinish={handleSubmit(onSubmit)}>
+            <Form {...props.layout} name="userinfo-change"  onFinish={handleSubmit(onSubmit)}>
                  <Form.Item label="ID">
                     <label className='userpage_label'>{props.userData.id}</label>
                 </Form.Item>

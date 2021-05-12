@@ -11,11 +11,6 @@ function PasswordChange(props) {
     const { register, watch, formState: { errors }, handleSubmit } = useForm();
     password.current = watch("password");
 
-    const layout = {
-        labelCol: { span: 4 },
-        wrapperCol: { span: 14 },
-      };
-
     const onSubmit = data => {
         let body ={
             id: props.userData.id,
@@ -39,7 +34,7 @@ function PasswordChange(props) {
 
     return (
         <div>
-            <Form {...layout} name="password-change" onFinish={handleSubmit(onSubmit)}>
+            <Form {...props.layout} name="password-change" onFinish={handleSubmit(onSubmit)}>
                 <Form.Item label="비밀번호">
                     <input
                         className="userpage_input"
