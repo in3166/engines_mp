@@ -3,6 +3,8 @@ import {
     REGISTER_USER,
     AUTH_USER,
     LOGOUT_USER,
+    CHANGE_USER,
+    CHANGE_USER_PASSWORD
 } from '../_actions/types';
 
 
@@ -16,7 +18,10 @@ export default function doo (state = {}, action) {
             return { ...state, userData: action.payload }
         case LOGOUT_USER:
             return { ...state }
-        
+        case CHANGE_USER:
+            return {...state }
+        case CHANGE_USER_PASSWORD:
+            return {...state }
         default:
             return state;
     }

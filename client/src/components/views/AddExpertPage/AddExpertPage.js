@@ -1,7 +1,7 @@
 import React, {useState,useEffect} from 'react'
 import { Layout, Breadcrumb } from 'antd';
 //import {useSelector} from 'react-redux'
-import { Transfer, Button } from 'antd';
+import { Transfer, Button,message } from 'antd';
 import axios from 'axios';
 import {ReloadOutlined } from '@ant-design/icons';
 
@@ -60,8 +60,12 @@ function AddExpertPage() {
         .then(res=>{
             if(res.data.success){
                 settargetKeys( targetKey );
-                getAllUsers()
+                getAllUsers();
+                message.success('권한이 성공적으로 변경되었습니다.');
             }
+        })
+        .catch(err=>{
+            if(err) message.error('권한 변경 오류');
         })
       };
 

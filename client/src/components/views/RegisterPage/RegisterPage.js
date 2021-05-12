@@ -12,6 +12,7 @@ function RegisterPage(props) {
     const { register, watch, formState: { errors }, handleSubmit } = useForm();
     const password = useRef();
     password.current = watch("password");
+    
     const onSubmit = data => {
         //console.log(data);
 
@@ -43,7 +44,7 @@ function RegisterPage(props) {
 
     return (
         <form
-        className="form"
+            className="form"
             onSubmit={handleSubmit(onSubmit)}
         >
             <label className="form_title">회원가입</label>

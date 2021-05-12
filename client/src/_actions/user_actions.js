@@ -4,6 +4,8 @@ import {
     REGISTER_USER,
     AUTH_USER,
     LOGOUT_USER,
+    CHANGE_USER,
+    CHANGE_USER_PASSWORD
 
 } from './types';
 import { USER_SERVER } from '../components/Config.js';
@@ -45,6 +47,26 @@ export function logoutUser() {
 
     return {
         type: LOGOUT_USER,
+        payload: request
+    }
+}
+
+export function changeUser(dataToSubmit) {
+    const request = axios.post(`${USER_SERVER}/changeUser`, dataToSubmit)
+        .then(response => response.data);
+
+    return {
+        type: CHANGE_USER,
+        payload: request
+    }
+}
+
+export function changePassord(dataToSubmit) {
+    const request = axios.post(`${USER_SERVER}/changePassword`, dataToSubmit)
+        .then(response => response.data);
+
+    return {
+        type: CHANGE_USER_PASSWORD,
         payload: request
     }
 }

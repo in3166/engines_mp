@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { User } = require("../models/User");
-
+const bcrypt = require('bcrypt');
 const { auth } = require("../middleware/auth");
 const async = require("async");
 
@@ -115,6 +115,40 @@ router.post("/changeRole", (req, res) => {
     //}else{
 
     //}
+});
+
+
+router.post("/changeUser", (req, res) => {
+    User.findOneAndUpdate({ id: req.body.id }, { email: req.body.email, name: req.body.name}, (err, doc)=>{
+        if (err) return res.json({ success: false, err });
+        return res.status(200).send({
+            success: true
+        });
+    });
+});
+
+router.post("/changePassword", (req, res) => {
+    let newPassowrd = req.body.password;
+
+    bcrypt.genSalt(10, function(err, salt){
+        if(err) {
+            return res.json({ success: false, err: '암호화 실패 1' });
+        }
+        bcrypt.hash(req.body.password, salt, function(err, hash){
+            if(err) {
+                return res.json({ success: false, err: '암호화 실패 2' });
+            }
+             newPassowrd = hash; // 암호화 성공
+             User.findOneAndUpdate({ id: req.body.id }, {password: newPassowrd}, (err, doc)=>{
+                if (err) {
+                    return res.json({ success: false, err });
+                }
+                return res.status(200).send({
+                    success: true
+                });
+            });
+        });
+    });
 });
 
 module.exports = router;
