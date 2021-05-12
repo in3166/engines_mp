@@ -10,9 +10,89 @@ import { Layout, Breadcrumb } from 'antd';
 import { Table, Input, Button, Space } from 'antd';
 import Highlighter from 'react-highlight-words';
 import { SearchOutlined } from '@ant-design/icons';
+import { Doughnut, Line } from 'react-chartjs-2';
 
 const { Content} = Layout;
 
+
+const chartData = {
+    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+    datasets: [
+        {
+            label: "First dataset",
+            data: [33, 53, 85, 41, 44, 65],
+            fill: true,
+            backgroundColor: "rgba(75,192,192,0.2)",
+            borderColor: "rgba(75,192,192,1)"
+        },
+        {
+            label: "Second dataset",
+            data: [33, 25, 35, 51, 54, 76],
+            fill: false,
+            borderColor: "#742774"
+        }
+    ]
+};
+
+const options = {
+    responsive: true,
+    maintainAspectRatio: false,
+    //tooltips 사용시
+    tooltips: {
+        enabled: true,
+        mode: "nearest",
+        position: "average",
+        intersect: false,
+    },
+    scales: {
+        xAxes: [
+            {
+                //   position: "top", //default는 bottom
+                display: true,
+                scaleLabel: {
+                    display: true,
+                    labelString: "Step",
+                    fontFamily: "Montserrat",
+                    fontColor: "black",
+                },
+                ticks: {
+                    // beginAtZero: true,
+                    maxTicksLimit: 10, //x축에 표시할 최대 눈금 수
+                },
+            },
+        ],
+        yAxes: [
+            {
+                display: true,
+                //   padding: 10,
+                scaleLabel: {
+                    display: true,
+                    labelString: "Coverage",
+                    fontFamily: "Montserrat",
+                    fontColor: "black",
+                },
+                ticks: {
+                    beginAtZero: true,
+                    stepSize: 20,
+                    min: 0,
+                    max: 100,
+                    //y축 scale 값에 % 붙이기 위해 사용
+                    callback: function (value) {
+                        return value + "%";
+                    },
+                },
+            },
+        ],
+    },
+};
+
+const legend = {
+    display: true,
+    labels: {
+        fontColor: "black",
+    },
+    position: "top", //label를 넣어주지 않으면 position이 먹히지 않음
+};
 
 const data = [
     {
@@ -44,14 +124,14 @@ const data = [
 function EnginePage(props) {
     const [searchText, setsearchText] = useState("");
     const [searchedColumn, setsearchedColumn] = useState("");
-
+    const [searchInput, setsearchInput] = useState({});
+    
     const getColumnSearchProps = dataIndex => ({
-
         filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
             <div style={{ padding: 8 }}>
                 <Input
                     ref={node => {
-                        const searchInput = node;
+                        setsearchInput(node);
                     }}
                     placeholder={`Search ${dataIndex}`}
                     value={selectedKeys[0]}
@@ -68,21 +148,10 @@ function EnginePage(props) {
                         style={{ width: 90 }}
                     >
                         Search
-            </Button>
+                    </Button>
                     <Button onClick={() => handleReset(clearFilters)} size="small" style={{ width: 90 }}>
                         Reset
-            </Button>
-                    <Button
-                        type="link"
-                        size="small"
-                        onClick={() => {
-                            confirm({ closeDropdown: false });
-                            setsearchText(selectedKeys[0])
-                            setsearchedColumn(dataIndex)
-                        }}
-                    >
-                        Filter
-            </Button>
+                    </Button>
                 </Space>
             </div>
         ),
@@ -91,11 +160,6 @@ function EnginePage(props) {
             record[dataIndex]
                 ? record[dataIndex].toString().toLowerCase().includes(value.toLowerCase())
                 : '',
-        onFilterDropdownVisibleChange: visible => {
-            if (visible) {
-                setTimeout(() => this.searchInput.select(), 100);
-            }
-        },
         render: text =>
             searchedColumn === dataIndex ? (
                 <Highlighter
@@ -162,8 +226,13 @@ function EnginePage(props) {
                         minHeight: 280,
                         height: '100%',
                         border: '1px solid'
-                    }}
-                    >
+                    }}>
+                    <div className="chart">
+                        <Line data={chartData} legend={legend} options={options} />
+                    </div>
+                    <br/>
+                    <hr/>
+                    <br/>
                    <Table columns={columns} dataSource={data} />
                 </Content>
                 {/* <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer> */}

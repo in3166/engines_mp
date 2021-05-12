@@ -51,20 +51,20 @@ function RegisterPage(props) {
 
             <label className="form_label">ID</label>
             <input name="id" type="text" error={errors.id} className="form_input"
-                {...register("id", { required: true, minLength: 6 })}
+                {...register("id", { required: true, minLength: 5 })}
             />
             {errors.id &&  errors.id.type === "required" &&<p className="form_p">This id field is required</p>}
-            {errors.id &&  errors.id.type === "minLength" &&<p className="form_p">ID must have at least 6 characters</p>}
+            {errors.id &&  errors.id.type === "minLength" &&<p className="form_p">ID must have at least 5 characters</p>}
 
             <label className="form_label">Password</label>
             <input
              className="form_input"
                 name="password"
                 type="password"
-                {...register("password", { required: true, minLength: 8 })}
+                {...register("password", { required: true, minLength: 7 })}
             />
             {errors.password && errors.password.type === "required" && <p className="form_p">This password field is required</p>}
-            {errors.password && errors.password.type === "minLength" && <p className="form_p">Password must have at least 8 characters</p>}
+            {errors.password && errors.password.type === "minLength" && <p className="form_p">Password must have at least 7 characters</p>}
 
             <label className="form_label">Password Confirm</label>
             <input

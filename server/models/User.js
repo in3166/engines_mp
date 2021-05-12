@@ -92,6 +92,21 @@ userSchema.statics.findByToken = function(token, cb){
     })
 }
 
+userSchema.pre('findOneAndUpdate', async function (next) {
+    var user = this;
+    try {
+        if (user._update.password) {
+            const genSalt = await bcrypt.genSalt(saltRound);
+            const hash = await bcrypt.hash(user._update.password, genSalt);
+            user._update.password = hash; // 암호화 성공
+         }
+        next();
+    } catch (err) {
+        console.log(err);
+        return next(err);
+    }
+});
+
 const User = mongoose.model('User', userSchema);
 
 module.exports = {User}

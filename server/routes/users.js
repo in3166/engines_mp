@@ -99,22 +99,19 @@ router.post("/changeRole", (req, res) => {
    // console.log(users)
     // 전문가에서 제거
     //if(direction === 'left'){
-        async.eachSeries(users, (user, cb)=>{
-            //console.log(user)
-            User.updateMany(
-                {id: user.id},
-                {role: user.chosen === 0 ? 2 : 0},
-                {new: false},
-                cb)
-        }, (err) => {
-            if(err)  return res.status(400).json({ success: false, err })
-            res.status(200).json({
-                success: true
-            })
+    async.eachSeries(users, (user, cb)=>{
+        //console.log(user)
+        User.updateMany(
+            {id: user.id},
+            {role: user.chosen === 0 ? 2 : 0},
+            {new: false},
+            cb)
+    }, (err) => {
+        if(err)  return res.status(400).json({ success: false, err })
+        res.status(200).json({
+            success: true
         })
-    //}else{
-
-    //}
+    })
 });
 
 
@@ -130,23 +127,13 @@ router.post("/changeUser", (req, res) => {
 router.post("/changePassword", (req, res) => {
     let newPassowrd = req.body.password;
 
-    bcrypt.genSalt(10, function(err, salt){
-        if(err) {
-            return res.json({ success: false, err: '암호화 실패 1' });
+     User.findOneAndUpdate({ id: req.body.id }, {password: newPassowrd}, (err, doc)=>{
+        if (err) {
+            console.log(err)
+            return res.json({ success: false, err });
         }
-        bcrypt.hash(req.body.password, salt, function(err, hash){
-            if(err) {
-                return res.json({ success: false, err: '암호화 실패 2' });
-            }
-             newPassowrd = hash; // 암호화 성공
-             User.findOneAndUpdate({ id: req.body.id }, {password: newPassowrd}, (err, doc)=>{
-                if (err) {
-                    return res.json({ success: false, err });
-                }
-                return res.status(200).send({
-                    success: true
-                });
-            });
+        return res.status(200).send({
+            success: true
         });
     });
 });
