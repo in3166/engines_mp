@@ -1,11 +1,11 @@
 import React,{ useState , useEffect } from 'react'
-import { Layout, Breadcrumb, Table, Space, Button, message, Popconfirm, Modal } from 'antd';
-import { DeleteFilled ,EditOutlined } from '@ant-design/icons';
+import { Layout, Breadcrumb, Table, Space, Button, message, Popconfirm, Modal, Select } from 'antd';
+import { DeleteFilled ,EditOutlined,QuestionCircleOutlined } from '@ant-design/icons';
 import axios from 'axios';
 
-//const { SubMenu } = Menu;
-const {  Content } = Layout;
-
+// const { SubMenu } = Menu;
+const { Content } = Layout;
+const { Option } = Select;
 // const data = [
 //     {
 //     id: 2,
@@ -48,14 +48,21 @@ function UsersAuthPage() {
         getAllUsers()
     },[])
 
-    const confirm = () => {
+    const deleteConfirm = (user) => {
+        console.log(user)
         message.info('Clicked on Yes.');
     }
 
     const onClickUpdate = (data) => {
-        setModalData(data);
-        setModalVisible(true);
+         let tempData = Object.assign({},data);
+         setModalData(tempData);
+         setModalVisible(true);
     }
+
+    // const onClickDelete = (data) => {
+    // let tempData = Object.assign({},data);
+    // setModalData(tempData);
+    // }
 
     const columns = [
         {
@@ -117,15 +124,16 @@ function UsersAuthPage() {
         {
             title: '삭제',
             key: 'action',
-            render: (r,data) => {
+            render: (r, user) => {
                 return (
                     <Space size="middle">
                         <Popconfirm
                             placement="leftBottom"
                             title='정말로 삭제하시겠습니까?'
-                            onConfirm={confirm}
+                            onConfirm={()=>deleteConfirm(user)}
                             okText="Yes"
                             cancelText="No"
+                            icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
                         >
                             <a><DeleteFilled /></a>
                         </Popconfirm>
@@ -151,6 +159,18 @@ function UsersAuthPage() {
           Table.SELECTION_NONE,
           Table.SELECTION_INVERT,
         ]
+    }
+
+    const modalOnOk = (auth) =>{
+        
+       //setModalData(auth);
+        setModalVisible(false);
+    }
+
+    const handleAuthChange = (value) =>{
+        // modalData.auth = value;
+        //selected = value;
+        setModalData(prev => ({...prev, auth: value}));
     }
 
     
@@ -182,14 +202,19 @@ function UsersAuthPage() {
                         title="권한 수정"
                         style={{ top: 200 }}
                         visible={modalVisible}
-                        onOk={() => setModalVisible(false)}
+                        onOk={() => modalOnOk(false)}
                         onCancel={() => setModalVisible(false)}
                     >
-                        <p>{modalData.id}</p>
-                        <p>{modalData.name}</p>
-                        <p>{modalData.email}</p>
-                        <p>{modalData.auth}</p>
-
+                        <p>ID: {modalData.id}</p>
+                        <p>이름: {modalData.name}</p>
+                        <p>Email: {modalData.email}</p>
+                        <div>권한: 
+                                <Select value={modalData.auth}  style={{ width: 120 }}  onChange={value=>handleAuthChange(value)}>
+                                    <Option value='일반 사용자'>일반 사용자</Option>
+                                    <Option value='전문가'>전문가</Option>
+                                    <Option value='엔지니어'>엔지니어</Option>
+                                </Select>
+                        </div>
                     </Modal>
                 </Content>
             </Layout>
