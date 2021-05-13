@@ -57,7 +57,11 @@ function SideBar() {
                 </SubMenu>
                 }
                 <SubMenu key="sub4" icon={<IdcardOutlined />} title="사용자 관리">
-                    <Menu.Item key="13">권한 관리</Menu.Item>
+                    <Menu.Item key="13">
+                        <Link to="/usersAuth">
+                            권한 관리
+                        </Link>
+                    </Menu.Item>
                     <Menu.Item key="14">사이트 관리</Menu.Item>
                     <Menu.Item key="15">사이트별 엔진</Menu.Item>
                 </SubMenu>

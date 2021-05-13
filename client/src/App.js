@@ -13,6 +13,7 @@ import FooterComponent from './components/views/Footer/FooterComponent';
 import UserPage from './components/views/UserPage/UserPage';
 import AddExpertPage from './components/views/AddExpertPage/AddExpertPage';
 import SideBar from './components/views/SideBar/SideBar';
+import UsersAuth from './components/views/UsersAuthPage/UsersAuthPage';
 import Auth from './hoc/auth';
 import { Layout } from 'antd';
 //const { Header, Content, Footer, Sider } = Layout;
@@ -36,6 +37,7 @@ function App(props) {
                 <Route path="/unitlist" component={Auth(UnitListPage,true)} />
                 <Route path="/addExpert" component={Auth(AddExpertPage,true, true)} />
                 <Route path="/user" component={Auth(UserPage, true)} />
+                <Route path="/usersAuth" component={Auth(UsersAuth, true, true)} />
               </Layout>
               <FooterComponent />
               <BackTopUtil />
