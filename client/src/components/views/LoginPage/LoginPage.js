@@ -71,7 +71,7 @@ function LoginPage(props) {
             {/* {errors.exampleRequired && <p>This field is required</p>} */}
             <input className="form_input" type="submit" value="로그인" />
             <div className="back">
-                <Link to="/register">회원가입</Link> <br/>
+                <Link to="/register" style={{fontWeight:'bold'}}>회원가입</Link> <br/>
                 <Link to="/">취소</Link>
             </div>
         </form>

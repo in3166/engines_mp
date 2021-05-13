@@ -138,4 +138,21 @@ router.post("/changePassword", (req, res) => {
     });
 });
 
+router.post("/passwordCheck", (req, res) => {
+     User.findOne({ id: req.body.id }, (err, user)=>{
+        if (err) return res.json({ success: false, err });
+
+        user.comparePassword(req.body.password, (err, isMatch) => {
+            if(err)  return res.json({ success: false, err });
+            if(isMatch){
+                return res.status(200).send({
+                    success: true
+                });
+            }else{
+                return res.json({ success: false, err: '비밀번호를 확인하세요.' });
+            }
+        });
+    });
+});
+
 module.exports = router;

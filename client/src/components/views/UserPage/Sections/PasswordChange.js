@@ -19,7 +19,6 @@ function PasswordChange(props) {
 
         dispatch(changePassord(body))
         .then(res => {
-            console.log(res.payload.err)
             if (res.payload.success) {
                 message.success('비밀번호가 변경되었습니다.');
             } else {
