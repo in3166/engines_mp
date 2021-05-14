@@ -20,7 +20,7 @@ const chartData = {
     datasets: [
         {
             label: "First dataset",
-            data: [33, 53, 85, 41, 44, 65],
+            data: [33, 53, 85, 41, 44, 65, 70, 55],
             fill: true,
             backgroundColor: "rgba(75,192,192,0.2)",
             borderColor: "rgba(75,192,192,1)"

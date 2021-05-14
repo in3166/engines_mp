@@ -4,4 +4,6 @@ export const CHANGE_USER = 'change_user';
 export const CHANGE_USER_PASSWORD = 'change_user_password';
 export const AUTH_USER = 'auth_user';
 export const LOGOUT_USER = 'logout_user';
+export const DELETE_USERS = 'delete_users';
+export const CHANGE_ROLE = 'change_role';
 

@@ -5,7 +5,9 @@ import {
     AUTH_USER,
     LOGOUT_USER,
     CHANGE_USER,
-    CHANGE_USER_PASSWORD
+    CHANGE_USER_PASSWORD,
+    DELETE_USERS,
+    CHANGE_ROLE
 
 } from './types';
 import { USER_SERVER } from '../components/Config.js';
@@ -67,6 +69,26 @@ export function changePassord(dataToSubmit) {
 
     return {
         type: CHANGE_USER_PASSWORD,
+        payload: request
+    }
+}
+
+export function deleteUsers(dataToSubmit) {
+    const request = axios.post(`${USER_SERVER}/deleteUsers`, dataToSubmit)
+        .then(response => response.data);
+
+    return {
+        type: DELETE_USERS,
+        payload: request
+    }
+}
+
+export function changeRole(dataToSubmit) {
+    const request = axios.post(`${USER_SERVER}/changeRole`, dataToSubmit)
+        .then(response => response.data);
+
+    return {
+        type: CHANGE_ROLE,
         payload: request
     }
 }

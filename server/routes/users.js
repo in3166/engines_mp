@@ -29,15 +29,24 @@ router.post("/register", (req, res) => {
                 message: "아이디가 이미 존재합니다."
             })
         }else{
-            const user = new User(req.body);
-            user.save((err, userInfo) => {
-                if (err) {
-                    return res.json({ success: false, message:err.code });
-                    console.log(err)
+            User.findOne({ email: req.body.email }, (err, user) => {
+                if (user){
+                    return res.json({
+                        lsuccess: false,
+                        message: "Email이 이미 존재합니다."
+                    })
+                }else{
+                    const user = new User(req.body);
+                    user.save((err, userInfo) => {
+                        if (err) {
+                            return res.json({ success: false, message:err.code });
+                            console.log(err)
+                        }
+                            return res.status(200).json({
+                            success: true
+                        });
+                    });
                 }
-                    return res.status(200).json({
-                    success: true
-                });
             });
         }
     });
@@ -92,7 +101,7 @@ router.get("/getAllUsers", (req, res) => {
 });
 
 // 전문가 권한 수정
-router.post("/changeRole", (req, res) => {
+router.post("/changeExpertRole", (req, res) => {
     let direction = req.body.direction;
     let users = req.body.users;
    // console.log(direction)
@@ -152,6 +161,28 @@ router.post("/passwordCheck", (req, res) => {
                 return res.json({ success: false, err: '비밀번호를 확인하세요.' });
             }
         });
+    });
+});
+
+router.post("/deleteUser", (req, res) => {
+     User.deleteOne({ id: req.body.id }, (err, user)=>{
+        if (err) return res.json({ success: false, err });
+        return res.json({ success: true });
+    });
+});
+
+router.post("/deleteUsers", (req, res) => {
+     User.deleteMany({ id: {$in: req.body.id} }, (err, user)=>{
+        if (err) return res.json({ success: false, err });
+        return res.json({ success: true });
+    });
+});
+
+router.post("/changeRole", (req, res) => {
+    console.log(req.body.id, req.body.role)
+     User.findOneAndUpdate({ id: req.body.id }, {role: req.body.role}, (err, user)=>{
+        if (err) return res.json({ success: false, err });
+        return res.json({ success: true });
     });
 });
 

@@ -56,7 +56,7 @@ function AddExpertPage() {
             direction: direction
         };
         //console.log(body);
-        axios.post('/api/users/changeRole', body)
+        axios.post('/api/users/changeExpertRole', body)
         .then(res=>{
             if(res.data.success){
                 settargetKeys( targetKey );

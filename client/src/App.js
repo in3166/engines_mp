@@ -13,7 +13,7 @@ import FooterComponent from './components/views/Footer/FooterComponent';
 import UserPage from './components/views/UserPage/UserPage';
 import AddExpertPage from './components/views/AddExpertPage/AddExpertPage';
 import SideBar from './components/views/SideBar/SideBar';
-import UsersAuth from './components/views/UsersAuthPage/UsersAuthPage';
+import UsersAuth from './components/views/UsersAuthPage/UsersRolePage';
 import Auth from './hoc/auth';
 import { Layout } from 'antd';
 //const { Header, Content, Footer, Sider } = Layout;
