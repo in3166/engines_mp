@@ -3,6 +3,8 @@ C:/jupyter/linear/Jintech/engine2/web-react
 ## 사용 모듈
 
 - axios
+- prop-types
+- npm i @ant-design/icons
 - react-hook-form: 회원가입, 로그인 form
 - React Router Dom: 페이지 이동 시 사용
 - http-proxy-middleware: proxy 사용

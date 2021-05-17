@@ -4,8 +4,20 @@ module.exports = {
     es6: true,
     node: true,
   },
-  extends: ['eslint:recommended', 'airbnb', 'plugin:prettier/recommended'],
+  extends: [
+    'eslint:recommended',
+    'plugin:react/recommended',
+    'airbnb',
+    'plugin:prettier/recommended',
+  ],
   rules: {
+    'react/prop-types': 'off',
+    'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
+    'react/jsx-props-no-spreading': 'off',
+    'no-underscore-dangle': [
+      'error',
+      { allow: ['__REDUX_DEVTOOLS_EXTENSION__'] },
+    ],
     'react/jsx-filename-extension': [
       'error',
       {

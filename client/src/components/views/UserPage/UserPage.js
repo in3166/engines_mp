@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import {
   Layout,
   Input,
@@ -23,32 +24,33 @@ const layout = {
 };
 
 function UserPage(props) {
-  const { userData } = props.user;
+  const { user } = props; // 구조 분해 할당 체크
+
   // const user = useSelector(state => state.user.userData);
   // console.log('userselect', user)
   const [passwordCheck, setpasswordCheck] = useState(false);
 
-  if (userData == null) {
+  if (user.userData == null) {
     return null;
   }
 
-  const onSubmit = (data) => {
+  const onSubmit = data => {
     const body = {
-      id: userData.id,
+      id: user.userData.id,
       password: data.password,
     };
 
     axios
       .post('/api/users/passwordCheck', body)
-      .then((res) => {
+      .then(res => {
         if (res.data.success) {
           setpasswordCheck(true);
         } else {
           message.error(res.data.err);
         }
       })
-      .catch((err) => {
-        alert(`[Error]: ${err}`);
+      .catch(err => {
+        message.error(`[Error]: ${err}`);
       });
   };
 
@@ -73,10 +75,10 @@ function UserPage(props) {
               style={{ background: 'white', padding: '0 20px 10px 20px' }}
             >
               <TabPane tab="개인정보" key="1">
-                <UserInfo userData={userData} layout={layout} />
+                <UserInfo user={user} layout={layout} />
               </TabPane>
               <TabPane tab="비밀번호 변경" key="2">
-                <PasswordChange userData={userData} layout={layout} />
+                <PasswordChange user={user} layout={layout} />
               </TabPane>
             </Tabs>
           ) : (
@@ -108,5 +110,9 @@ function UserPage(props) {
     </div>
   );
 }
+
+UserPage.propTypes = {
+  user: PropTypes.objectOf(PropTypes.object).isRequired,
+};
 
 export default UserPage;

@@ -19,6 +19,7 @@ import {
 } from '@ant-design/icons';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
+import PropTypes from 'prop-types';
 import { deleteUsers, changeRole } from '../../../_actions/user_actions';
 
 // const { SubMenu } = Menu;
@@ -26,6 +27,7 @@ const { Content } = Layout;
 const { Option } = Select;
 
 function UsersRolePage(props) {
+  const { user } = props;
   const [users, setUsers] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [modalData, setModalData] = useState({});
@@ -39,8 +41,8 @@ function UsersRolePage(props) {
     const tempUser = [];
     setLoading(true);
 
-    axios.get('/api/users/getAllUsers').then((res) => {
-      for (let i = 0; i < res.data.users.length; i++) {
+    axios.get('/api/users/getAllUsers').then(res => {
+      for (let i = 0; i < res.data.users.length; i += 1) {
         let role = '';
 
         if (res.data.users[i].role !== 1) {
@@ -58,6 +60,7 @@ function UsersRolePage(props) {
           tempUser.push(data);
         }
       }
+
       setUsers(tempUser);
     });
     setTimeout(() => {
@@ -66,8 +69,112 @@ function UsersRolePage(props) {
   };
 
   useEffect(() => {
+    if (user.userData.isAdmin) {
+      getAllUsers();
+    }
+    return () => setLoading(false); // cleanup function 메모리 누수 방지
+  }, [user]);
+
+  // 개별 삭제 버튼
+  const deleteConfirm = userDel => {
+    const body = {
+      id: userDel.id,
+    };
+
+    axios.post('/api/users/deleteUser', body).then(res => {
+      if (res.data.success) {
+        message.success('회원 탈퇴를 완료하였습니다.');
+      } else {
+        message.error('회원 탈퇴를 실패하였습니다.', res.data.err);
+      }
+    });
     getAllUsers();
-  }, []);
+  };
+
+  // 수정 버튼
+  const onClickUpdate = data => {
+    const tempData = { ...data };
+    setModalData(tempData);
+    setModalVisible(true);
+  };
+
+  // 수정 모달 권한 변경
+  const handleRoleChange = value => {
+    // modalData.role = value; set으로 하지않으면 rerender가 안됨
+    // selected = value;
+    setModalData(prev => ({ ...prev, role: value }));
+  };
+
+  // 수정 모달 OK 버튼 - redux
+  const modalOnOk = () => {
+    let newRole = modalData.role;
+    // modalData.role === '일반 사용자'
+    //   ? 0
+    //   : modalData.role === '전문가'
+    //   ? 2
+    //   : 3;
+    switch (newRole) {
+      case '일반 사용자':
+        newRole = 0;
+        break;
+      case '전문가':
+        newRole = 2;
+        break;
+      case '엔지니어':
+        newRole = 3;
+        break;
+      default:
+        newRole = 0;
+        break;
+    }
+
+    const body = {
+      id: modalData.id,
+      role: newRole,
+    };
+
+    // console.log(body);
+
+    dispatch(changeRole(body))
+      .then(res => {
+        if (res.payload.success) {
+          message.success('권한이 수정되었습니다.');
+          getAllUsers();
+        } else {
+          message.error('권한 수정을 실패하였습니다.');
+        }
+      })
+      .catch(err => {
+        message.error(`[Error]: ${err}`);
+      });
+
+    setModalVisible(false);
+  };
+
+  // 회원 탈퇴 버튼
+  const deleteUsersButton = () => {
+    const body = {
+      id: [],
+    };
+    selectedUsers.forEach(userSel => {
+      body.id.push(userSel.id);
+    });
+
+    // redux post
+    dispatch(deleteUsers(body))
+      .then(res => {
+        if (res.payload.success) {
+          message.success('회원 탈퇴를 완료하였습니다.');
+          setSelectedRowKeys([]);
+          getAllUsers();
+        } else {
+          message.error('회원 탈퇴를 실패하였습니다. ', res.payload.err);
+        }
+      })
+      .catch(err => {
+        message.error(`[Error]: ${err}`);
+      });
+  };
 
   const columns = [
     {
@@ -118,12 +225,12 @@ function UsersRolePage(props) {
       title: '수정',
       dataIndex: 'update',
       key: 'action',
-      render: (r, user) => {
+      render: (r, userUp) => {
         return (
           <Space size="middle">
-            <a onClick={() => onClickUpdate(user)}>
+            <Button onClick={() => onClickUpdate(userUp)}>
               <EditOutlined />
-            </a>
+            </Button>
           </Space>
         );
       },
@@ -133,20 +240,20 @@ function UsersRolePage(props) {
     {
       title: '삭제',
       key: 'action',
-      render: (r, user) => {
+      render: (r, userDel) => {
         return (
           <Space size="middle">
             <Popconfirm
               placement="leftBottom"
               title="정말로 삭제하시겠습니까?"
-              onConfirm={() => deleteConfirm(user)}
+              onConfirm={() => deleteConfirm(userDel)}
               okText="Yes"
               cancelText="No"
               icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
             >
-              <a>
+              <Button>
                 <DeleteFilled />
-              </a>
+              </Button>
             </Popconfirm>
           </Space>
         );
@@ -169,95 +276,6 @@ function UsersRolePage(props) {
       Table.SELECTION_NONE,
       Table.SELECTION_INVERT,
     ],
-  };
-
-  // 수정 버튼
-  const onClickUpdate = (data) => {
-    const tempData = { ...data };
-    setModalData(tempData);
-    setModalVisible(true);
-  };
-
-  // 수정 모달 권한 변경
-  const handleRoleChange = (value) => {
-    // modalData.role = value; set으로 하지않으면 rerender가 안됨
-    // selected = value;
-    setModalData((prev) => ({ ...prev, role: value }));
-  };
-
-  // 수정 모달 OK 버튼 - redux
-  const modalOnOk = () => {
-    const newRole =
-      modalData.role === '일반 사용자'
-        ? 0
-        : modalData.role === '전문가'
-        ? 2
-        : 3;
-
-    const body = {
-      id: modalData.id,
-      role: newRole,
-    };
-
-    console.log(body);
-
-    dispatch(changeRole(body))
-      .then((res) => {
-        if (res.payload.success) {
-          message.success('권한이 수정되었습니다.');
-          getAllUsers();
-        } else {
-          message.error('권한 수정을 실패하였습니다.');
-        }
-      })
-      .catch((err) => {
-        alert(`[Error]: ${err}`);
-      });
-
-    setModalVisible(false);
-  };
-
-  // 개별 삭제 버튼
-  const deleteConfirm = (user) => {
-    console.log(user);
-
-    const body = {
-      id: user.id,
-    };
-
-    axios.post('/api/users/deleteUser', body).then((res) => {
-      if (res.data.success) {
-        message.success('회원 탈퇴를 완료하였습니다.');
-      } else {
-        message.error('회원 탈퇴를 실패하였습니다.', res.data.err);
-      }
-    });
-    getAllUsers();
-  };
-
-  // 회원 탈퇴 버튼
-  const deleteUsersButton = () => {
-    const body = {
-      id: [],
-    };
-    selectedUsers.forEach((user) => {
-      body.id.push(user.id);
-    });
-
-    // redux post
-    dispatch(deleteUsers(body))
-      .then((res) => {
-        if (res.payload.success) {
-          message.success('회원 탈퇴를 완료하였습니다.');
-          setSelectedRowKeys([]);
-          getAllUsers();
-        } else {
-          message.error('회원 탈퇴를 실패하였습니다. ', res.payload.err);
-        }
-      })
-      .catch((err) => {
-        alert(`[Error]: ${err}`);
-      });
   };
 
   return (
@@ -305,19 +323,19 @@ function UsersRolePage(props) {
               name="userinfo-change"
             >
               <Form.Item label="ID">
-                <label className="userpage_label">{modalData.id}</label>
+                <p className="userpage_label">{modalData.id}</p>
               </Form.Item>
               <Form.Item label="이름">
-                <label className="userpage_label">{modalData.name}</label>
+                <p className="userpage_label">{modalData.name}</p>
               </Form.Item>
               <Form.Item label="Email">
-                <label className="userpage_label">{modalData.email}</label>
+                <p className="userpage_label">{modalData.email}</p>
               </Form.Item>
               <Form.Item label="권한">
                 <Select
                   value={modalData.role}
                   style={{ width: 120 }}
-                  onChange={(value) => handleRoleChange(value)}
+                  onChange={value => handleRoleChange(value)}
                 >
                   <Option value="일반 사용자">일반 사용자</Option>
                   <Option value="전문가">전문가</Option>
@@ -331,5 +349,9 @@ function UsersRolePage(props) {
     </div>
   );
 }
+
+UsersRolePage.propTypes = {
+  user: PropTypes.objectOf(PropTypes.object).isRequired,
+};
 
 export default UsersRolePage;

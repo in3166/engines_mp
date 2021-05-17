@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { Switch, Route, withRouter } from 'react-router-dom';
+import { Switch, Route, withRouter, useLocation } from 'react-router-dom';
 import { Layout } from 'antd';
 import LandingPage from './components/views/LandingPage/LandingPage';
 import LoginPage from './components/views/LoginPage/LoginPage';
@@ -17,8 +17,9 @@ import UsersAuth from './components/views/UsersAuthPage/UsersRolePage';
 import Auth from './hoc/auth';
 // const { Header, Content, Footer, Sider } = Layout;
 
-function App(props) {
-  const { location } = props;
+function App() {
+  const location = useLocation();
+
   return (
     <div>
       <Switch>
