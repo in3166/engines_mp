@@ -1,19 +1,21 @@
 import React, { useState, useEffect } from 'react';
 // import {useSelector} from 'react-redux'
-import { Transfer, Button, message, Layout, Breadcrumb } from 'antd';
+import { Transfer, Button, message, Layout, Breadcrumb, Spin } from 'antd';
 import axios from 'axios';
 import { ReloadOutlined } from '@ant-design/icons';
 
 const { Content } = Layout;
 
 function AddExpertPage() {
-  const [mockData, setmockData] = useState([]);
+  const [userList, setUserList] = useState([]);
   const [targetKeys, settargetKeys] = useState([]);
+  const [loading, setLoading] = useState(false);
   // const [selectedKeys, setselectedKeys] = useState([]);
 
   const getAllUsers = () => {
+    setLoading(true);
     const targetKeys2 = [];
-    const mockData2 = [];
+    const tempUser = [];
 
     axios.get('/api/users/getAllUsers').then(res => {
       for (let i = 0; i < res.data.users.length; i += 1) {
@@ -29,16 +31,21 @@ function AddExpertPage() {
         }
         // 일반 사용자나 전문가일 경우 list에 넣기
         if (data.chosen === 0 || data.chosen === 2) {
-          mockData2.push(data);
+          tempUser.push(data);
         }
       }
-      setmockData(mockData2);
+      tempUser.sort((a, b) => a.id.localeCompare(b.id));
+      setUserList(tempUser);
       settargetKeys(targetKeys2);
     });
+    setTimeout(() => {
+      setLoading(false);
+    }, 500);
   };
 
   useEffect(() => {
     getAllUsers();
+    return () => setLoading(false);
   }, []);
   // 모든 사용자 불러오기
 
@@ -47,7 +54,7 @@ function AddExpertPage() {
     // console.log('targetKey:', targetKey)
 
     const body = {
-      users: mockData.filter(user => {
+      users: userList.filter(user => {
         return movekey.find(o => o === user.key);
       }),
       direction,
@@ -106,23 +113,25 @@ function AddExpertPage() {
           }}
         >
           <div>
-            <Transfer
-              locale={{ itemUnit: '명', itemsUnit: '명' }}
-              dataSource={mockData}
-              titles={['일반 사용자', '전문가']}
-              showSearch
-              listStyle={{
-                width: '100%',
-                height: 400,
-              }}
-              operations={['추가', '제거']}
-              targetKeys={targetKeys}
-              // selectedKeys={selectedKeys}
-              // onSelectChange={handleSelectChange}
-              onChange={handleChange}
-              render={item => `${item.id}`}
-              footer={renderFooter}
-            />
+            <Spin spinning={loading}>
+              <Transfer
+                locale={{ itemUnit: '명', itemsUnit: '명' }}
+                dataSource={userList}
+                titles={['일반 사용자', '전문가']}
+                showSearch
+                listStyle={{
+                  width: '100%',
+                  height: 400,
+                }}
+                operations={['추가', '제거']}
+                targetKeys={targetKeys}
+                // selectedKeys={selectedKeys}
+                // onSelectChange={handleSelectChange}
+                onChange={handleChange}
+                render={item => `${item.id}`}
+                footer={renderFooter}
+              />
+            </Spin>
           </div>
         </Content>
       </Layout>

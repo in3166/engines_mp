@@ -60,7 +60,7 @@ function EnginePage(props) {
             padding: 24,
             margin: 0,
             minHeight: 280,
-            width: '95%',
+            width: '98%',
             height: '100%',
             border: '1px solid',
           }}

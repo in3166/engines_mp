@@ -44,11 +44,18 @@ function PasswordChange(props) {
         name="password-change"
         onFinish={handleSubmit(onSubmit)}
       >
+        <input
+          type="text"
+          hidden
+          value={`${user.userData.id}`}
+          autoComplete="off"
+        />
         <Form.Item label="비밀번호">
           <input
             className="userpage_input"
             name="password"
             type="password"
+            autoComplete="new-password"
             {...register('password', { required: true, minLength: 8 })}
           />
           {errors.password && errors.password.type === 'required' && (
@@ -64,6 +71,7 @@ function PasswordChange(props) {
             className="userpage_input"
             name="password_confirm"
             type="password"
+            autoComplete="new-password"
             {...register('password_confirm', {
               required: true,
               validate: value => value === password.current,

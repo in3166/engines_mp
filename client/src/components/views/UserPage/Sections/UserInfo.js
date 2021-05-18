@@ -56,6 +56,7 @@ function UserInfo(props) {
             name="email"
             className="userpage_input"
             type="email"
+            autoComplete="on"
             error={errors.email}
             placeholder={user.userData.email}
             defaultValue={user.userData.email}
@@ -72,6 +73,7 @@ function UserInfo(props) {
             {...register('name', { required: true, maxLength: 10 })}
             placeholder={user.userData.name}
             defaultValue={user.userData.name}
+            autoComplete="on"
             name="name"
           />
           {errors.name && errors.name.type === 'required' && (

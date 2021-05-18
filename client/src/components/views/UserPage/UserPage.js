@@ -88,6 +88,12 @@ function UserPage(props) {
                 name="password-check"
                 onFinish={onSubmit}
               >
+                <input
+                  type="text"
+                  hidden
+                  value={`${user.userData.id}`}
+                  autoComplete="off"
+                />
                 <Form.Item
                   label="비밀번호"
                   name="password"
@@ -95,7 +101,7 @@ function UserPage(props) {
                     { required: true, message: 'Please input your password!' },
                   ]}
                 >
-                  <Input type="password" />
+                  <Input type="password" autoComplete="new-password" />
                 </Form.Item>
                 <Form.Item {...{ wrapperCol: { offset: 7, span: 16 } }}>
                   <Button type="primary" htmlType="submit">
