@@ -58,6 +58,7 @@ function RegisterPage() {
         type="text"
         error={errors.id}
         className="form_input"
+        autoComplete="on"
         {...register('id', { required: true, minLength: 5 })}
       />
       {errors.id && errors.id.type === 'required' && (
@@ -72,6 +73,7 @@ function RegisterPage() {
         className="form_input"
         name="password"
         type="password"
+        autoComplete="new-password"
         {...register('password', { required: true, minLength: 7 })}
       />
       {errors.password && errors.password.type === 'required' && (
@@ -86,6 +88,7 @@ function RegisterPage() {
         className="form_input"
         name="password_confirm"
         type="password"
+        autoComplete="new-password"
         {...register('password_confirm', {
           required: true,
           validate: value => value === password.current,
@@ -106,6 +109,7 @@ function RegisterPage() {
         type="email"
         error={errors.email}
         className="form_input"
+        autoComplete="on"
         {...register('email', { required: true, pattern: /^\S+@\S+$/i })}
       />
       {errors.email && <p className="form_p">This email field is required</p>}
@@ -114,6 +118,7 @@ function RegisterPage() {
       <input
         className="form_input"
         name="name"
+        autoComplete="on"
         {...register('name', { required: true, maxLength: 10 })}
       />
       {errors.name && errors.name.type === 'required' && (

@@ -14,6 +14,7 @@ import UserPage from './components/views/UserPage/UserPage';
 import AddExpertPage from './components/views/AddExpertPage/AddExpertPage';
 import SideBar from './components/views/SideBar/SideBar';
 import UsersAuth from './components/views/UsersAuthPage/UsersRolePage';
+import NotFound from './components/views/NotFound/NotFound';
 import Auth from './hoc/auth';
 // const { Header, Content, Footer, Sider } = Layout;
 
@@ -31,18 +32,24 @@ function App() {
               <Navbar />
               <Layout>
                 <SideBar />
-                <Route exact path="/" component={Auth(LandingPage, null)} />
-                <Route path="/engine/1" component={Auth(EnginePage, true)} />
-                <Route path="/unitlist" component={Auth(UnitListPage, true)} />
-                <Route
-                  path="/addExpert"
-                  component={Auth(AddExpertPage, true, true)}
-                />
-                <Route path="/user" component={Auth(UserPage, true)} />
-                <Route
-                  path="/usersAuth"
-                  component={Auth(UsersAuth, true, true)}
-                />
+                <Switch>
+                  <Route exact path="/" component={Auth(LandingPage, null)} />
+                  <Route path="/engine/1" component={Auth(EnginePage, true)} />
+                  <Route
+                    path="/unitlist"
+                    component={Auth(UnitListPage, true)}
+                  />
+                  <Route
+                    path="/addExpert"
+                    component={Auth(AddExpertPage, true, true)}
+                  />
+                  <Route path="/user" component={Auth(UserPage, true)} />
+                  <Route
+                    path="/usersAuth"
+                    component={Auth(UsersAuth, true, true)}
+                  />
+                  <Route component={NotFound} />
+                </Switch>
               </Layout>
               <FooterComponent />
               <BackTopUtil />

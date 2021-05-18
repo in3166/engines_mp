@@ -58,6 +58,7 @@ function LoginPage() {
       <p className="form_label">ID</p>
       <input
         className="form_input"
+        autoComplete="on"
         name="id"
         type="text"
         error={errors.email}
@@ -68,6 +69,7 @@ function LoginPage() {
       <p className="form_label">Password</p>
       <input
         className="form_input"
+        autoComplete="off"
         name="password"
         type="password"
         {...register('password', { required: true, minLength: 8 })}
@@ -80,7 +82,12 @@ function LoginPage() {
       )}
 
       {/* {errors.exampleRequired && <p>This field is required</p>} */}
-      <input className="form_input" type="submit" value="로그인" />
+      <input
+        className="form_input"
+        type="submit"
+        value="로그인"
+        autoComplete="off"
+      />
       <div className="back">
         <Link to="/register" style={{ fontWeight: 'bold' }}>
           회원가입
