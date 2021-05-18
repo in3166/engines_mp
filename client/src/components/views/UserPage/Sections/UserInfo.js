@@ -82,7 +82,7 @@ function UserInfo(props) {
           )}
         </Form.Item>
 
-        <Form.Item {...{ wrapperCol: { span: 14, offset: 4 } }}>
+        <Form.Item {...{ wrapperCol: { span: 14, offset: 5 } }}>
           <Button type="primary" htmlType="submit">
             저장
           </Button>

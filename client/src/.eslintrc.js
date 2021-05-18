@@ -11,7 +11,6 @@ module.exports = {
     'plugin:prettier/recommended',
   ],
   rules: {
-    'react/prop-types': 'off',
     'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
     'react/jsx-props-no-spreading': 'off',
     'no-underscore-dangle': [

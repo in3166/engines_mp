@@ -19,8 +19,8 @@ const { Content } = Layout;
 const { TabPane } = Tabs;
 
 const layout = {
-  labelCol: { span: 4 },
-  wrapperCol: { span: 14 },
+  labelCol: { span: 5 },
+  wrapperCol: { span: 13 },
 };
 
 function UserPage(props) {
@@ -82,9 +82,9 @@ function UserPage(props) {
               </TabPane>
             </Tabs>
           ) : (
-            <Card title="비밀번호 확인" bordered style={{ width: 600 }}>
+            <Card title="비밀번호 확인" bordered style={{ width: '100%' }}>
               <Form
-                {...{ labelCol: { span: 8 }, wrapperCol: { span: 12 } }}
+                {...{ labelCol: { span: 7 }, wrapperCol: { span: 11 } }}
                 name="password-check"
                 onFinish={onSubmit}
               >
@@ -97,7 +97,7 @@ function UserPage(props) {
                 >
                   <Input type="password" />
                 </Form.Item>
-                <Form.Item {...{ wrapperCol: { offset: 8, span: 16 } }}>
+                <Form.Item {...{ wrapperCol: { offset: 7, span: 16 } }}>
                   <Button type="primary" htmlType="submit">
                     확인
                   </Button>
