@@ -12,14 +12,16 @@ import {
   IdcardOutlined,
 } from '@ant-design/icons';
 import { useSelector } from 'react-redux';
+import useWindowDimensions from '../../utils/WindowSize/useWindowDimensions';
 
 const { SubMenu } = Menu;
 const { Sider } = Layout;
 
 function SideBar() {
   const [Collapse, setCollapsed] = useState(false);
+  const { width } = useWindowDimensions(Collapse);
   const user = useSelector(state => state.user);
-  // console.log("user: ",user);
+
   const onCollapse = Collapsed => {
     setCollapsed(Collapsed);
   };
@@ -32,6 +34,7 @@ function SideBar() {
       collapsible
       collapsed={Collapse}
       onCollapse={onCollapse}
+      collapsedWidth={width < 420 && Collapse ? 0 : 80}
     >
       <Menu
         mode="inline"

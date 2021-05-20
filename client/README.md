@@ -15,7 +15,6 @@ C:/jupyter/linear/Jintech/engine2/web-react
   - store에 state 변경을 하려면 dispatch(action)으로 하는데 `Action`은 plain object(객체 형식)
   - 그런데 store은 항상 객체 형식으로 받지 않고 'Promise'나 'function' 등의 형태로도 받음
 - react-redux
-
 - redux-promise: dispatch에게 `Promise`을 받는 방법을 알려주는 미들웨어
 - redux-thunk: dispatch에게 `function`을 받는 방법을 알려주는 미들웨어
 - npm install react-icons --save

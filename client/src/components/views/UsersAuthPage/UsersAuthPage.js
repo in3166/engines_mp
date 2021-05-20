@@ -147,6 +147,7 @@ function UsersRolePage(props) {
       },
       width: 160,
       align: 'center',
+      responsive: ['sm'],
     },
     {
       title: 'Email',
@@ -157,6 +158,7 @@ function UsersRolePage(props) {
       },
       width: 240,
       align: 'center',
+      responsive: ['md'],
     },
     {
       title: '권한',
@@ -211,6 +213,7 @@ function UsersRolePage(props) {
       },
       width: 70,
       align: 'center',
+      responsive: ['sm'],
     },
   ];
 
@@ -230,8 +233,8 @@ function UsersRolePage(props) {
   };
 
   return (
-    <div style={{ width: '100%' }}>
-      <Layout style={{ padding: '0 24px 24px', overflow: 'auto' }}>
+    <div style={{ width: '100%', overflow: 'auto' }}>
+      <Layout style={{ padding: '0 24px 24px' }}>
         <Breadcrumb style={{ margin: '16px 0' }}>
           <Breadcrumb.Item>Home</Breadcrumb.Item>
           <Breadcrumb.Item>사용자 관리</Breadcrumb.Item>
@@ -255,10 +258,13 @@ function UsersRolePage(props) {
             </div>
 
             <Table
+              style={{ overflow: 'auto' }}
               rowSelection={rowSelection}
               columns={columns}
               dataSource={users}
               bordered
+              tableLayout="auto"
+              scroll
             />
           </Spin>
 

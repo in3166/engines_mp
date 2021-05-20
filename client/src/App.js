@@ -13,7 +13,7 @@ import FooterComponent from './components/views/Footer/FooterComponent';
 import UserPage from './components/views/UserPage/UserPage';
 import AddExpertPage from './components/views/AddExpertPage/AddExpertPage';
 import SideBar from './components/views/SideBar/SideBar';
-import UsersAuth from './components/views/UsersAuthPage/UsersRolePage';
+import UsersAuth from './components/views/UsersAuthPage/UsersAuthPage';
 import NotFound from './components/views/NotFound/NotFound';
 import Auth from './hoc/auth';
 // const { Header, Content, Footer, Sider } = Layout;
