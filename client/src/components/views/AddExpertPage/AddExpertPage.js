@@ -3,13 +3,15 @@ import React, { useState, useEffect } from 'react';
 import { Transfer, Button, message, Layout, Breadcrumb, Spin } from 'antd';
 import axios from 'axios';
 import { ReloadOutlined } from '@ant-design/icons';
+import PropTypes from 'prop-types';
 
 const { Content } = Layout;
 
-function AddExpertPage() {
+function AddExpertPage(props) {
   const [userList, setUserList] = useState([]);
   const [targetKeys, settargetKeys] = useState([]);
   const [loading, setLoading] = useState(false);
+  const { user } = props;
   // const [selectedKeys, setselectedKeys] = useState([]);
 
   const getAllUsers = () => {
@@ -44,9 +46,9 @@ function AddExpertPage() {
   };
 
   useEffect(() => {
-    getAllUsers();
+    if (user?.userData?.isAdmin) getAllUsers();
     return () => setLoading(false);
-  }, []);
+  }, [user]);
   // 모든 사용자 불러오기
 
   const handleChange = (targetKey, direction, movekey) => {
@@ -54,8 +56,8 @@ function AddExpertPage() {
     // console.log('targetKey:', targetKey)
 
     const body = {
-      users: userList.filter(user => {
-        return movekey.find(o => o === user.key);
+      users: userList.filter(userfilter => {
+        return movekey.find(o => o === userfilter.key);
       }),
       direction,
     };
@@ -138,5 +140,9 @@ function AddExpertPage() {
     </div>
   );
 }
+
+AddExpertPage.propTypes = {
+  user: PropTypes.objectOf(PropTypes.object).isRequired,
+};
 
 export default AddExpertPage;

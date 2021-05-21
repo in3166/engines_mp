@@ -10,7 +10,6 @@ C:/jupyter/linear/Jintech/engine2/web-react
 - http-proxy-middleware: proxy 사용
 - chart.js: npm install --save chart.js@2.9.4 react-chartjs-2 (최신버전 사용 시 오류 발생)
 - react-highlight-words
-
 - redux
   - store에 state 변경을 하려면 dispatch(action)으로 하는데 `Action`은 plain object(객체 형식)
   - 그런데 store은 항상 객체 형식으로 받지 않고 'Promise'나 'function' 등의 형태로도 받음
@@ -59,3 +58,11 @@ C:/jupyter/linear/Jintech/engine2/web-react
 - proxy 파일 대신 package.json 안에 // "proxy": "http://localhost:5000", 추가해도 됨.
 - jwt refresh token 미구현
 - 서버 고려 사항: xss filter(sanitize-html), csrf, halmet(http 헤더)
+
+## 권한
+
+- isAuth
+  - true: 로그인 함.
+  - false: 로그인 안함. (auth.js에선 로그인 안한사람만 접근가능)
+  - null: 아무나 접근 가능
+- isAdmin: 관리자

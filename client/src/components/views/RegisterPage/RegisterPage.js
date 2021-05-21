@@ -50,7 +50,11 @@ function RegisterPage() {
 
   return (
     <form className="form" onSubmit={handleSubmit(onSubmit)}>
-      <p className="form_title">회원가입</p>
+      <div className="login_logo">
+        <a href="/" className="form_a">
+          <img className="logo" src="/logo.png" alt="logo" />
+        </a>
+      </div>
 
       <p className="form_label">ID</p>
       <input
@@ -131,7 +135,7 @@ function RegisterPage() {
       {/* {errors.exampleRequired && <p>This field is required</p>} */}
       <input type="submit" className="form_input" value="등록" />
       <div className="back">
-        <Link to="/">취소</Link>
+        <Link to="/login">취소</Link>
       </div>
     </form>
   );

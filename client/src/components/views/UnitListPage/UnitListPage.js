@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Layout, Breadcrumb, Table } from 'antd';
 // import { SearchOutlined } from '@ant-design/icons';
+import PropTypes from 'prop-types';
 
 // const { SubMenu } = Menu;
 const { Content } = Layout;
@@ -36,9 +37,9 @@ const data = [
   },
 ];
 
-function UnitListPage() {
+function UnitListPage(props) {
   const [selectedRowKey, setselectedRowKeys] = useState([]);
-
+  const { user } = props;
   const onSelectChange = selectedRowKeys => {
     // console.log('selectedRowKeys changed: ', selectedRowKeys);
     setselectedRowKeys(selectedRowKeys);
@@ -82,6 +83,8 @@ function UnitListPage() {
     },
   ];
 
+  if (!user?.userData?.isAuth) return null;
+
   const rowSelection = {
     selectedRowKey,
     onChange: onSelectChange,
@@ -120,5 +123,9 @@ function UnitListPage() {
     </div>
   );
 }
+
+UnitListPage.propTypes = {
+  user: PropTypes.objectOf(PropTypes.object).isRequired,
+};
 
 export default UnitListPage;
