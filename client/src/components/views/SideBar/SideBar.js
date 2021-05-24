@@ -54,7 +54,9 @@ function SideBar() {
           <Menu.Item key="5">Engine-4</Menu.Item>
         </SubMenu>
         <SubMenu key="sub2" icon={<LaptopOutlined />} title="예측 결과 분석">
-          <Menu.Item key="6">기계 분석</Menu.Item>
+          <Menu.Item key="6">
+            <Link to="/predictResult">기계 분석</Link>
+          </Menu.Item>
           <Menu.Item key="7">엔지니어 분석</Menu.Item>
           <Menu.Item key="8">전문가 분석</Menu.Item>
           <Menu.Item key="9">통합 분석</Menu.Item>

@@ -14,6 +14,7 @@ import UserPage from './components/views/UserPage/UserPage';
 import AddExpertPage from './components/views/AddExpertPage/AddExpertPage';
 import SideBar from './components/views/SideBar/SideBar';
 import UsersAuth from './components/views/UsersAuthPage/UsersAuthPage';
+import PredictResultPage from './components/views/PredictResultPage/PredictResultPage';
 import NotFound from './components/views/NotFound/NotFound';
 import Auth from './hoc/auth';
 // const { Header, Content, Footer, Sider } = Layout;
@@ -47,6 +48,10 @@ function App() {
                   <Route
                     path="/usersAuth"
                     component={Auth(UsersAuth, true, true)}
+                  />
+                  <Route
+                    path="/predictResult"
+                    component={Auth(PredictResultPage, true)}
                   />
                   <Route component={NotFound} />
                 </Switch>
