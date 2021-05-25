@@ -202,27 +202,27 @@ function LandingPage() {
               </div>
             </Col>
 
-            <Col lg={12} xs={23}>
+            <Col xl={6} lg={12} md={12} xs={23}>
               <div className="chart">
                 <h2>Engine1</h2>
                 <Doughnut data={data} />
               </div>
             </Col>
 
-            <Col lg={12} xs={23}>
+            <Col xl={6} lg={12} md={12} xs={23}>
               <div className="chart">
                 <h2>Engine2</h2>
                 <Doughnut data={data} />
               </div>
             </Col>
-            <Col lg={12} xs={23}>
+            <Col xl={6} lg={12} md={12} xs={23}>
               <div className="chart">
                 <h2>Engine3</h2>
                 <Doughnut data={data} />
               </div>
             </Col>
 
-            <Col lg={12} xs={23}>
+            <Col xl={6} lg={12} md={12} xs={23}>
               <div className="chart">
                 <h2>Engine4</h2>
                 <Doughnut data={data} />

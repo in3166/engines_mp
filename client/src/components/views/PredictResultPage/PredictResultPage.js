@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Layout, Breadcrumb, Button, Spin, message } from 'antd';
 import axios from 'axios';
 import { Line } from 'react-chartjs-2';
@@ -11,29 +11,19 @@ function PredictResultPage() {
   const [LineDatas, setLineDatas] = useState({});
   const [loading, setLoading] = useState(false);
 
-  const renderLine = () => {
-    if (loading) setLoading(false);
-    return (
-      <div className="chart" style={{ minHeight: 600 }}>
-        <Line
-          data={LineDatas?.chartData}
-          legend={LineDatas?.legend}
-          options={LineDatas?.options}
-        />
-      </div>
-    );
+  const renderLine = dataLine => {
+    setLoading(false);
+    setLineDatas(dataLine);
+    setRender(true);
   };
 
-  const flaskReq = async () => {
-    await setLoading(true);
-    await axios.get('/api/predict/engine1').then(async res => {
+  const flaskReq = () => {
+    setLoading(true);
+    axios.get('/api/predict/engine1').then(res => {
       if (res.data.success) {
         const { a, date, x } = res.data.data;
-        // console.log(a, x);
         const dataLine = datas(date, x, a);
-        // console.log('dateline: ', dataLine);
-        await setLineDatas(dataLine);
-        await setRender(true);
+        renderLine(dataLine);
         message.success('Success!');
       } else {
         setLoading(false);
@@ -42,11 +32,10 @@ function PredictResultPage() {
     });
   };
 
-  useEffect(() => {
-    if (loading) {
-      flaskReq();
-    }
-  }, [loading]);
+  // useEffect(() => {
+  //   console.log('useeffect loading', loading);
+  //   // setLoading(loading);
+  // }, [loading]);
 
   return (
     <Layout style={{ padding: '0 24px 24px', overflow: 'auto' }}>
@@ -67,12 +56,20 @@ function PredictResultPage() {
           }}
         >
           <div>
-            <Button onClick={() => setLoading(true)} disabled={loading}>
-              Flask Api 요청
+            <Button onClick={flaskReq} disabled={loading}>
+              Flask API 요청
             </Button>
             <br />
             <br />
-            {Render && renderLine()}
+            {Render && (
+              <div className="chart" style={{ minHeight: 600 }}>
+                <Line
+                  data={LineDatas?.chartData}
+                  legend={LineDatas?.legend}
+                  options={LineDatas?.options}
+                />
+              </div>
+            )}
           </div>
         </Content>
       </Spin>

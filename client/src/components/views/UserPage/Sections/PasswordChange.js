@@ -49,6 +49,7 @@ function PasswordChange(props) {
           hidden
           value={`${user.userData.id}`}
           autoComplete="off"
+          readOnly
         />
         <Form.Item label="비밀번호">
           <input
