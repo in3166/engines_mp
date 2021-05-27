@@ -52,8 +52,14 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
-const port = process.env.PORT || 5000
+const port1 = process.env.PORT || 5000
 
-app.listen(port, () => {
-  console.log(`Server Listening on ${port}`)
+app.listen(port1, () => {
+  console.log(`Server Listening on ${port1}`)
 });
+
+
+// const port2 = process.env.PORT || 6000
+// app.listen(port2, () => {
+//   console.log(`Server2 Listening on ${port2}`)
+// });

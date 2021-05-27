@@ -2,18 +2,25 @@ import React from 'react';
 import { Menu } from 'antd';
 import PropTypes from 'prop-types';
 
-const { SubMenu } = Menu;
-const MenuItemGroup = Menu.ItemGroup;
+// const { SubMenu } = Menu;
+// const MenuItemGroup = Menu.ItemGroup;
 
 function LeftMenu(props) {
   const { mode } = props;
 
   return (
     <Menu mode={mode}>
-      <Menu.Item key="mail">
-        <a href="/">Home</a>
+      <Menu.Item key="engine">
+        <a href="http://localhost:3002" target="_blank" rel="noreferrer">
+          부품/자재 관리
+        </a>
       </Menu.Item>
-      <SubMenu title={<span>Blogs</span>}>
+      <Menu.Item key="user">
+        <a href="http://localhost:3001" target="_blank" rel="noreferrer">
+          사용자 관리
+        </a>
+      </Menu.Item>
+      {/* <SubMenu title={<span>Menu2</span>}>
         <MenuItemGroup title="Item 1">
           <Menu.Item key="setting:1">Option 1</Menu.Item>
           <Menu.Item key="setting:2">Option 2</Menu.Item>
@@ -22,7 +29,7 @@ function LeftMenu(props) {
           <Menu.Item key="setting:3">Option 3</Menu.Item>
           <Menu.Item key="setting:4">Option 4</Menu.Item>
         </MenuItemGroup>
-      </SubMenu>
+      </SubMenu> */}
     </Menu>
   );
 }

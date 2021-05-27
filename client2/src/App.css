@@ -1,0 +1,76 @@
+.ant-layout,
+.ant-layout-sider {
+  min-height: 88.6vh;
+  width: 100%;
+}
+
+.ant-layout-sider {
+  background: white !important;
+}
+
+.ant-layout-sider-trigger {
+  position: relative !important;
+}
+
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.chart {
+  padding: 10px;
+  height: 100%;
+  border: wheat solid 1px;
+  background-color: white;
+  box-shadow: #3f4146 2px 2px 4px;
+  /*color: rgba(211, 7, 61, 0.603);*/
+}
+
+/* table 체크박스 */
+table tr th.ant-table-selection-column,
+table tr td.ant-table-selection-column {
+  padding-right: 15px !important;
+}
+
+.ant-popover {
+  z-index: 9999 !important;
+}
+
+.ant-scrolling-effect {
+  width: 100% !important;
+}

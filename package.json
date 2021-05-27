@@ -6,7 +6,7 @@
   "scripts": {
     "node": "node ./server/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "concurrently \"npm run node\" \"npm run start --prefix client\""
+    "dev": "concurrently \"npm run node\" \"npm run start --prefix client\" \"npm run start --prefix client2\" \"npm run start --prefix client3\""
   },
   "repository": {
     "type": "git",
