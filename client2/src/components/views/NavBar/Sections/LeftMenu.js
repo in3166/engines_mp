@@ -8,13 +8,13 @@ function LeftMenu(props) {
   return (
     <Menu mode={mode}>
       <Menu.Item key="engine">
-        <a href="http://localhost:3002" target="_blank" rel="noreferrer">
-          부품/자재 관리
+        <a href="http://localhost:3000" target="_blank" rel="noreferrer">
+          고장 예측
         </a>
       </Menu.Item>
       <Menu.Item key="predict">
-        <a href="http://localhost:3000" target="_blank" rel="noreferrer">
-          고장 예측
+        <a href="http://localhost:3002" target="_blank" rel="noreferrer">
+          사용자 관리
         </a>
       </Menu.Item>
     </Menu>

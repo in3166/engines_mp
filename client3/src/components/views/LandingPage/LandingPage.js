@@ -45,7 +45,7 @@ function LandingPage() {
         >
           <Row gutter={[16, 16]}>
             <Col lg={8} xs={23}>
-              <div>부품/자재 관리</div>
+              <div>사용자 관리</div>
             </Col>
           </Row>
         </Content>

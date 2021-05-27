@@ -5,13 +5,13 @@ import { Layout } from 'antd';
 import LandingPage from './components/views/LandingPage/LandingPage';
 import LoginPage from './components/views/LoginPage/LoginPage';
 import RegisterPage from './components/views/RegisterPage/RegisterPage';
-import UnitListPage from './components/views/UnitListPage/UnitListPage';
 import BackTopUtil from './components/utils/BackTopUtil/BackTopUtil';
 import Navbar from './components/views/NavBar/NavBar';
 import FooterComponent from './components/views/Footer/FooterComponent';
 import UserPage from './components/views/UserPage/UserPage';
 import SideBar from './components/views/SideBar/SideBar';
 import UsersAuth from './components/views/UsersAuthPage/UsersAuthPage';
+import AddExpertPage from './components/views/AddExpertPage/AddExpertPage';
 import UsersAuth2 from './components/views/UsersAuthPage/UsersAuthPage2';
 import PredictResultPage from './components/views/PredictResultPage/PredictResultPage';
 import NotFound from './components/views/NotFound/NotFound';
@@ -40,8 +40,8 @@ function App() {
                 <Switch>
                   <Route exact path="/" component={Auth(LandingPage, null)} />
                   <Route
-                    path="/unitlist"
-                    component={Auth(UnitListPage, true)}
+                    path="/addExpert"
+                    component={Auth(AddExpertPage, true)}
                   />
                   <Route path="/user" component={Auth(UserPage, true)} />
                   <Route

@@ -45,10 +45,10 @@ function LandingPage() {
         >
           <Row gutter={[16, 16]}>
             <Col lg={8} xs={23}>
-              <div>사용자 권한 관리</div>
+              <div>부품 관리</div>
             </Col>
             <Col lg={8} xs={23}>
-              <div>전문가 등록</div>
+              <div>자재 관리</div>
             </Col>
           </Row>
         </Content>

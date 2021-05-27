@@ -9,10 +9,9 @@ import BackTopUtil from './components/utils/BackTopUtil/BackTopUtil';
 import Navbar from './components/views/NavBar/NavBar';
 import FooterComponent from './components/views/Footer/FooterComponent';
 import UserPage from './components/views/UserPage/UserPage';
-import AddExpertPage from './components/views/AddExpertPage/AddExpertPage';
 import SideBar from './components/views/SideBar/SideBar';
 import UsersAuth from './components/views/UsersAuthPage/UsersAuthPage';
-import UsersAuth2 from './components/views/UsersAuthPage/UsersAuthPage2';
+import UnitListPage from './components/views/UnitListPage/UnitListPage';
 import NotFound from './components/views/NotFound/NotFound';
 import Auth from './hoc/auth';
 // const { Header, Content, Footer, Sider } = Layout;
@@ -26,11 +25,6 @@ function App() {
         <>
           <Route path="/login" component={Auth(LoginPage, false)} />
           <Route path="/register" component={Auth(RegisterPage, false)} />
-          <Route
-            exact
-            path="/userManage"
-            component={Auth(UsersAuth2, true, true)}
-          />
           {location.pathname !== '/login' && location.pathname !== '/register' && (
             <Layout>
               <Navbar />
@@ -39,8 +33,8 @@ function App() {
                 <Switch>
                   <Route exact path="/" component={Auth(LandingPage, null)} />
                   <Route
-                    path="/addExpert"
-                    component={Auth(AddExpertPage, true, true)}
+                    path="/utilList"
+                    component={Auth(UnitListPage, true)}
                   />
                   <Route path="/user" component={Auth(UserPage, true)} />
                   <Route

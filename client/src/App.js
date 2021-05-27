@@ -14,9 +14,9 @@ import UserPage from './components/views/UserPage/UserPage';
 import AddExpertPage from './components/views/AddExpertPage/AddExpertPage';
 import SideBar from './components/views/SideBar/SideBar';
 import UsersAuth from './components/views/UsersAuthPage/UsersAuthPage';
-import UsersAuth2 from './components/views/UsersAuthPage/UsersAuthPage2';
 import PredictResultPage from './components/views/PredictResultPage/PredictResultPage';
 import NotFound from './components/views/NotFound/NotFound';
+import PredictPage from './components/views/PredictPage/PredictResultPage';
 import Auth from './hoc/auth';
 // const { Header, Content, Footer, Sider } = Layout;
 
@@ -29,11 +29,6 @@ function App() {
         <>
           <Route path="/login" component={Auth(LoginPage, false)} />
           <Route path="/register" component={Auth(RegisterPage, false)} />
-          <Route
-            exact
-            path="/userManage"
-            component={Auth(UsersAuth2, true, true)}
-          />
           {location.pathname !== '/login' && location.pathname !== '/register' && (
             <Layout>
               <Navbar />
@@ -59,6 +54,7 @@ function App() {
                     path="/predictResult"
                     component={Auth(PredictResultPage, true)}
                   />
+                  <Route path="/predict" component={Auth(PredictPage, true)} />
                   <Route component={NotFound} />
                 </Switch>
               </Layout>

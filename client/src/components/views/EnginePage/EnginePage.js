@@ -42,7 +42,7 @@ function EnginePage(props) {
   ];
 
   const { user } = props;
-  if (!user.userData.isAuth) {
+  if (!user?.userData?.isAuth) {
     return null;
   }
 

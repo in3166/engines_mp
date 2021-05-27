@@ -2,16 +2,16 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Layout, Menu } from 'antd';
 import {
-  TeamOutlined,
+  // TeamOutlined,
   LaptopOutlined,
-  NotificationOutlined,
+  // NotificationOutlined,
   DashboardOutlined,
   SettingFilled,
-  ProfileOutlined,
-  HddOutlined,
-  IdcardOutlined,
+  // ProfileOutlined,
+  // HddOutlined,
+  // IdcardOutlined,
 } from '@ant-design/icons';
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
 import useWindowDimensions from '../../utils/WindowSize/useWindowDimensions';
 
 const { SubMenu } = Menu;
@@ -20,7 +20,7 @@ const { Sider } = Layout;
 function SideBar() {
   const [Collapse, setCollapsed] = useState(false);
   const { width } = useWindowDimensions(Collapse);
-  const user = useSelector(state => state.user);
+  // const user = useSelector(state => state.user);
 
   const onCollapse = Collapsed => {
     setCollapsed(Collapsed);
@@ -39,8 +39,8 @@ function SideBar() {
       <Menu
         mode="inline"
         defaultSelectedKeys={['1']}
-        // defaultOpenKeys={['sub1']}
         style={{ height: '100%', borderRight: 0 }}
+        defaultOpenKeys={['sub1', 'sub2']}
       >
         <Menu.Item key="1" icon={<DashboardOutlined />}>
           <Link to="/">DashBoard</Link>
@@ -57,11 +57,13 @@ function SideBar() {
           <Menu.Item key="6">
             <Link to="/predictResult">기계 분석</Link>
           </Menu.Item>
-          <Menu.Item key="7">엔지니어 분석</Menu.Item>
+          <Menu.Item key="7">
+            <Link to="/predict">엔지니어 분석</Link>
+          </Menu.Item>
           <Menu.Item key="8">전문가 분석</Menu.Item>
           <Menu.Item key="9">통합 분석</Menu.Item>
         </SubMenu>
-        <SubMenu key="sub5" icon={<HddOutlined />} title="부품/자재 관리">
+        {/* <SubMenu key="sub5" icon={<HddOutlined />} title="부품/자재 관리">
           <Menu.Item key="16">
             <Link to="/unitlist">부품/자재 목록</Link>
           </Menu.Item>
@@ -101,7 +103,7 @@ function SideBar() {
               <Menu.Item key="15">사이트별 엔진</Menu.Item>
             </SubMenu>
           </>
-        )}
+        )} */}
       </Menu>
     </Sider>
   );
