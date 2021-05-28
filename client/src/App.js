@@ -16,7 +16,7 @@ import SideBar from './components/views/SideBar/SideBar';
 import UsersAuth from './components/views/UsersAuthPage/UsersAuthPage';
 import PredictResultPage from './components/views/PredictResultPage/PredictResultPage';
 import NotFound from './components/views/NotFound/NotFound';
-import PredictPage from './components/views/PredictPage/PredictResultPage';
+import PredictPage from './components/views/PredictPage/PredictPage2';
 import Auth from './hoc/auth';
 // const { Header, Content, Footer, Sider } = Layout;
 

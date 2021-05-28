@@ -78,3 +78,11 @@ table tr td.ant-table-selection-column {
 .ant-checkbox-group-item {
   width: 80px;
 }
+
+.predictCard .ant-card-body {
+  min-height: 300px !important;
+}
+.predictCard .ant-card-body .ant-spin-nested-loading,
+.predictCard .ant-card-body .ant-spin {
+  min-height: 200px;
+}

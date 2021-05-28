@@ -5,7 +5,9 @@ import {
   Breadcrumb,
   Button,
   Spin,
+  Space,
   Checkbox,
+  Popconfirm,
   Tabs,
   Row,
   Table,
@@ -13,6 +15,7 @@ import {
   message,
   Card,
 } from 'antd';
+import { DeleteFilled, QuestionCircleOutlined } from '@ant-design/icons';
 import { Line } from 'react-chartjs-2';
 import datas from './Sections/datas';
 
@@ -110,6 +113,20 @@ function PredictResultPage() {
       });
   };
 
+  const deleteConfirm = userDel => {
+    const body = {
+      id: userDel.id,
+    };
+
+    axios.post('/api/users/deleteUser', body).then(res => {
+      if (res.data.success) {
+        message.success('회원 탈퇴를 완료하였습니다.');
+      } else {
+        message.error('회원 탈퇴를 실패하였습니다.', res.data.err);
+      }
+    });
+  };
+
   const columns = [
     {
       title: 'Name',
@@ -145,6 +162,31 @@ function PredictResultPage() {
         multiple: 4,
       },
       width: 200,
+    },
+    {
+      title: '삭제',
+      key: 'action',
+      render: (r, userDel) => {
+        return (
+          <Space size="middle">
+            <Popconfirm
+              placement="leftBottom"
+              title="정말로 삭제하시겠습니까?"
+              onConfirm={() => deleteConfirm(userDel)}
+              okText="Yes"
+              cancelText="No"
+              icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
+            >
+              <Button>
+                <DeleteFilled />
+              </Button>
+            </Popconfirm>
+          </Space>
+        );
+      },
+      width: 70,
+      align: 'center',
+      responsive: ['sm'],
     },
   ];
 
@@ -252,7 +294,11 @@ function PredictResultPage() {
                 offset={1}
               >
                 <Row>
-                  <Card bordered style={{ width: '100%', minHeight: 300 }}>
+                  <Card
+                    className="predictCard"
+                    bordered
+                    style={{ width: '100%', minHeight: 300 }}
+                  >
                     <Spin spinning={loading} tip="Loading..." size="large">
                       {Render && (
                         <div style={{ minHeight: 300 }}>
@@ -269,6 +315,7 @@ function PredictResultPage() {
                 <hr />
                 <Row>
                   <Table
+                    size="small"
                     rowSelection={rowSelection}
                     columns={columns}
                     dataSource={data}
