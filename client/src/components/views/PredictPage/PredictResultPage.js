@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import {
   Layout,
   Breadcrumb,
@@ -7,18 +8,36 @@ import {
   Checkbox,
   Tabs,
   Row,
-  Form,
   Table,
   Col,
+  message,
+  Card,
 } from 'antd';
-// import axios from 'axios';
-// import { Line } from 'react-chartjs-2';
-// import datas from './Sections/datas';
+import { Line } from 'react-chartjs-2';
+import datas from './Sections/datas';
 
 const { Content } = Layout;
 const CheckboxGroup = Checkbox.Group;
-const plainOptions = ['Apple', 'Pear', 'Orange'];
+const plainOptions = [
+  'Apple',
+  'Pear',
+  'Orange',
+  '1',
+  '2',
+  '123123123123',
+  '414123',
+  '151233',
+  '151234',
+  '151235',
+  '151236',
+  '151237',
+  '151238',
+  '151239',
+  '1512310',
+  '1512313',
+];
 const defaultCheckedList = ['Apple', 'Orange'];
+
 const { TabPane } = Tabs;
 const data = [
   {
@@ -56,10 +75,39 @@ function PredictResultPage() {
   const [indeterminate, setIndeterminate] = useState(true);
   const [checkAll, setCheckAll] = useState(false);
   const [selectedRowKey, setselectedRowKeys] = useState([]);
+  const [Render, setRender] = useState(false);
+  const [LineDatas, setLineDatas] = useState({});
+  const [loading, setLoading] = useState(false);
 
   const onSelectChange = selectedRowKeys => {
     // console.log('selectedRowKeys changed: ', selectedRowKeys);
     setselectedRowKeys(selectedRowKeys);
+  };
+
+  const renderLine = dataLine => {
+    // setLoading(false);
+    setLineDatas(dataLine);
+    setRender(true);
+  };
+
+  const flaskReq = () => {
+    setLoading(true);
+    axios
+      .get('/api/predict/engine1')
+      .then(res => {
+        if (res.data.success) {
+          const { a, date, x } = res.data.data;
+          const dataLine = datas(date, x, a);
+          renderLine(dataLine);
+          message.success('Success!');
+        } else {
+          // setLoading(false);
+          message.error('결과를 가져오지 못했습니다.');
+        }
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   const columns = [
@@ -125,93 +173,11 @@ function PredictResultPage() {
   };
 
   const GoodFruitForm = () => (
-    <Form>
-      <Form.Item>
-        <CheckboxGroup onChange={onChange} value={checkedList}>
-          <Row>
-            <Checkbox value="Apple">Apple</Checkbox>
-          </Row>
-          <Row>
-            <Checkbox value="Pear">Pear</Checkbox>
-          </Row>
-          <Row>
-            <Checkbox value="Orange">Orange</Checkbox>
-          </Row>
-          <Row>
-            <Checkbox value="Orange">Orange</Checkbox>
-          </Row>
-          <Row>
-            <Checkbox value="Orange">Orange</Checkbox>
-          </Row>
-          <Row>
-            <Checkbox value="Orange">Orange</Checkbox>
-          </Row>
-          <Row>
-            <Checkbox value="Orange">Orange</Checkbox>
-          </Row>
-          <Row>
-            <Checkbox value="Orange">Orange</Checkbox>
-          </Row>
-          <Row>
-            <Checkbox value="Orange">Orange</Checkbox>
-          </Row>
-          <Row>
-            <Checkbox value="Orange">Orange</Checkbox>
-          </Row>
-          <Row>
-            <Checkbox value="Orange">Orange</Checkbox>
-          </Row>
-          <Row>
-            <Checkbox value="Orange">Orange</Checkbox>
-          </Row>
-          <Row>
-            <Checkbox value="Orange">Orange</Checkbox>
-          </Row>
-          <Row>
-            <Checkbox value="Orange">Orange</Checkbox>
-          </Row>
-          <Row>
-            <Checkbox value="Orange">Orange</Checkbox>
-          </Row>
-          <Row>
-            <Checkbox value="Orange">Orange</Checkbox>
-          </Row>
-          <Row>
-            <Checkbox value="Orange">Orange</Checkbox>
-          </Row>
-          <Row>
-            <Checkbox value="Orange">Orange</Checkbox>
-          </Row>
-          <Row>
-            <Checkbox value="Orange">Orange</Checkbox>
-          </Row>
-          <Row>
-            <Checkbox value="Orange">Orange</Checkbox>
-          </Row>
-          <Row>
-            <Checkbox value="Orange">Orange</Checkbox>
-          </Row>
-          <Row>
-            <Checkbox value="Orange">Orange</Checkbox>
-          </Row>
-          <Row>
-            <Checkbox value="Orange">Orange</Checkbox>
-          </Row>
-          <Row>
-            <Checkbox value="Orange">Orange</Checkbox>
-          </Row>
-          <Row>
-            <Checkbox value="Orange">Orange</Checkbox>
-          </Row>
-          <Row>
-            <Checkbox value="Orange">Orange</Checkbox>
-          </Row>
-          <Row>
-            <Checkbox value="Orange">Orange</Checkbox>
-          </Row>
-        </CheckboxGroup>
-      </Form.Item>
-    </Form>
+    <CheckboxGroup
+      options={plainOptions}
+      onChange={onChange}
+      value={checkedList}
+    />
   );
   return (
     <Layout style={{ padding: '0 24px 24px', overflow: 'auto' }}>
@@ -220,87 +186,109 @@ function PredictResultPage() {
         <Breadcrumb.Item>예측 결과 분석</Breadcrumb.Item>
         <Breadcrumb.Item>기계 분석</Breadcrumb.Item>
       </Breadcrumb>
-      <Spin spinning={false} tip="Loading..." size="large">
-        <Content
-          className="site-layout-background"
-          style={{
-            padding: 12,
-            margin: 0,
-            minHeight: 700,
-            height: '100%',
-            border: '1px solid',
-          }}
+      <Content
+        className="site-layout-background"
+        style={{
+          padding: 12,
+          margin: 0,
+          minHeight: 700,
+          height: '100%',
+          border: '1px solid',
+        }}
+      >
+        <Tabs
+          defaultActiveKey="1"
+          size="large"
+          style={{ background: 'white', padding: '0 20px 10px 20px' }}
         >
-          <Tabs
-            defaultActiveKey="1"
-            size="large"
-            style={{ background: 'white', padding: '0 20px 10px 20px' }}
-          >
-            <TabPane tab="Engine-1" key="1">
-              <Row type="flex" justify="space-between" align="top">
-                <Col span={4} order={4} style={{ height: '100%' }}>
+          <TabPane tab="Engine-1" key="1">
+            <Row type="flex" align="top" style={{ width: '100%' }}>
+              <Col
+                md={24}
+                xl={2}
+                order={4}
+                style={{ height: '100%', minWidth: '140px' }}
+              >
+                <p>부품 목록</p>
+                <div
+                  style={{
+                    overflowX: 'hidden',
+                    height: '100%',
+                    borderRight: '1px solid #E9E9E9',
+                  }}
+                >
                   <div
                     style={{
-                      overflow: 'auto',
-                      height: '300px',
+                      borderBottom: '1px solid #E9E9E9',
                     }}
                   >
-                    <div
+                    <Checkbox
+                      indeterminate={indeterminate}
+                      onChange={onCheckAllChange}
+                      checked={checkAll}
                       style={{
-                        borderBottom: '1px solid #E9E9E9',
+                        overflow: 'hidden',
                       }}
                     >
-                      <Checkbox
-                        indeterminate={indeterminate}
-                        onChange={onCheckAllChange}
-                        checked={checkAll}
-                      >
-                        Check all
-                      </Checkbox>
-                    </div>
-                    <br />
-                    {GoodFruitForm()}
-                    <br />
+                      Check all
+                    </Checkbox>
                   </div>
-                  <Button>조회</Button>
-                </Col>
+                  <br />
+                  {GoodFruitForm()}
+                </div>
+                <br />
+                <Button onClick={flaskReq} disabled={loading}>
+                  조회
+                </Button>
+                <br />
+                <br />
+              </Col>
 
-                <Col span={19} order={4}>
-                  <Row>
-                    Graph <br />
-                    Graph Graph <br />
-                    Graph Graph <br />
-                    Graph Graph Graph <br />
-                    Graph Graph Graph <br />
-                    Graph Graph Graph Graph <br />
-                    Graph Graph Graph <br />
-                    Graph Graph Graph Graph <br />
-                    Graph Graph Graph <br />
-                    Graph
-                  </Row>
-                  <hr />
-                  <Row>
-                    <Table
-                      rowSelection={rowSelection}
-                      columns={columns}
-                      dataSource={data}
-                    />
-                  </Row>
-                </Col>
-              </Row>
-            </TabPane>
-            <TabPane tab="Engine-2" key="2">
-              <div>Engine-2</div>
-            </TabPane>
-            <TabPane tab="Engine-3" key="3">
-              <div>Engine-3</div>
-            </TabPane>
-            <TabPane tab="Engine-4" key="4">
-              <div>Engine-4</div>
-            </TabPane>
-          </Tabs>
-        </Content>
-      </Spin>
+              <Col
+                md={22}
+                xl={19}
+                style={{ height: '100%' }}
+                order={4}
+                offset={1}
+              >
+                <Row>
+                  <Card bordered style={{ width: '100%', minHeight: 300 }}>
+                    <Spin spinning={loading} tip="Loading..." size="large">
+                      {Render && (
+                        <div style={{ minHeight: 300 }}>
+                          <Line
+                            data={LineDatas?.chartData}
+                            legend={LineDatas?.legend}
+                            options={LineDatas?.options}
+                          />
+                        </div>
+                      )}
+                    </Spin>
+                  </Card>
+                </Row>
+                <hr />
+                <Row>
+                  <Table
+                    rowSelection={rowSelection}
+                    columns={columns}
+                    dataSource={data}
+                    style={{ width: '100%' }}
+                  />
+                </Row>
+              </Col>
+            </Row>
+          </TabPane>
+          <TabPane tab="Engine-2" key="2">
+            <div>Engine-2</div>
+          </TabPane>
+          <TabPane tab="Engine-3" key="3">
+            <div>Engine-3</div>
+          </TabPane>
+          <TabPane tab="Engine-4" key="4">
+            <div>Engine-4</div>
+          </TabPane>
+        </Tabs>
+      </Content>
     </Layout>
   );
 }

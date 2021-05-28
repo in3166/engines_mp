@@ -74,3 +74,7 @@ table tr td.ant-table-selection-column {
 .ant-scrolling-effect {
   width: 100% !important;
 }
+
+.ant-checkbox-group-item {
+  width: 80px;
+}
