@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   Layout,
   Table,
@@ -15,62 +15,63 @@ import {
   QuestionCircleOutlined,
 } from '@ant-design/icons';
 import axios from 'axios';
-import { useDispatch } from 'react-redux';
-import PropTypes from 'prop-types';
-import { deleteUsers } from '../../../_actions/user_actions';
+// import { useDispatch } from 'react-redux';
+// import PropTypes from 'prop-types';
+// import { deleteUsers } from '../../../_actions/user_actions';
 import UpdateModal from './Sections/UpdateModal';
+import { datas2 } from './Sections/datas';
 
 // const { SubMenu } = Menu;
 const { Content } = Layout;
 
-function UsersRolePage(props) {
-  const { user } = props;
-  const [users, setUsers] = useState([]);
+function LifeCodePage() {
+  // const { user } = props;
+  // const [users] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [modalData, setModalData] = useState({});
-  const [loading, setLoading] = useState(false);
+  const [loading] = useState(false);
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
-  const [selectedUsers, setSelectedUsers] = useState([]);
+  // const [selectedUsers, setSelectedUsers] = useState([]);
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
-  const getAllUsers = () => {
-    const tempUser = [];
-    setLoading(true);
+  //   const getAllUtils = () => {
+  //     const tempUser = [];
+  //     setLoading(true);
 
-    axios.get('/api/users/getAllUsers').then(res => {
-      for (let i = 0; i < res.data.users.length; i += 1) {
-        let role = '';
+  //     axios.get('/api/users/getAllUsers').then(res => {
+  //       for (let i = 0; i < res.data.users.length; i += 1) {
+  //         let role = '';
 
-        if (res.data.users[i].role !== 1) {
-          if (res.data.users[i].role === 0) role = '일반 사용자';
-          else if (res.data.users[i].role === 2) role = '전문가';
-          else if (res.data.users[i].role === 3) role = '엔지니어';
+  //         if (res.data.users[i].role !== 1) {
+  //           if (res.data.users[i].role === 0) role = '일반 사용자';
+  //           else if (res.data.users[i].role === 2) role = '전문가';
+  //           else if (res.data.users[i].role === 3) role = '엔지니어';
 
-          const data = {
-            key: i.toString(),
-            id: `${res.data.users[i].id}`,
-            name: res.data.users[i].name,
-            email: res.data.users[i].email,
-            role,
-          };
-          tempUser.push(data);
-        }
-      }
+  //           const data = {
+  //             key: i.toString(),
+  //             id: `${res.data.users[i].id}`,
+  //             name: res.data.users[i].name,
+  //             email: res.data.users[i].email,
+  //             role,
+  //           };
+  //           tempUser.push(data);
+  //         }
+  //       }
 
-      setUsers(tempUser);
-    });
-    setTimeout(() => {
-      setLoading(false);
-    }, 500);
-  };
+  //       setUsers(tempUser);
+  //     });
+  //     setTimeout(() => {
+  //       setLoading(false);
+  //     }, 500);
+  //   };
 
-  useEffect(() => {
-    if (user?.userData?.isAdmin) {
-      getAllUsers();
-    }
-    return () => setLoading(false); // cleanup function 메모리 누수 방지
-  }, [user]);
+  //   useEffect(() => {
+  //     if (user?.userData?.isAdmin) {
+  //       getAllUtils();
+  //     }
+  //     return () => setLoading(false); // cleanup function 메모리 누수 방지
+  //   }, [user]);
 
   // 개별 삭제 버튼
   const deleteConfirm = userDel => {
@@ -85,7 +86,6 @@ function UsersRolePage(props) {
         message.error('회원 탈퇴를 실패하였습니다.', res.data.err);
       }
     });
-    getAllUsers();
   };
 
   // 수정 버튼 modal 열기
@@ -102,30 +102,30 @@ function UsersRolePage(props) {
     setModalData(prev => ({ ...prev, role: value }));
   };
 
-  // 회원 탈퇴 버튼
-  const deleteUsersButton = () => {
-    const body = {
-      id: [],
-    };
-    selectedUsers.forEach(userSel => {
-      body.id.push(userSel.id);
-    });
+  //   // 회원 탈퇴 버튼
+  //   const deleteUsersButton = () => {
+  //     const body = {
+  //       id: [],
+  //     };
+  //     selectedUsers.forEach(userSel => {
+  //       body.id.push(userSel.id);
+  //     });
 
-    // redux post
-    dispatch(deleteUsers(body))
-      .then(res => {
-        if (res.payload.success) {
-          message.success('회원 탈퇴를 완료하였습니다.');
-          setSelectedRowKeys([]);
-          getAllUsers();
-        } else {
-          message.error('회원 탈퇴를 실패하였습니다. ', res.payload.err);
-        }
-      })
-      .catch(err => {
-        message.error(`[Error]: ${err}`);
-      });
-  };
+  //     // redux post
+  //     dispatch(deleteUsers(body))
+  //       .then(res => {
+  //         if (res.payload.success) {
+  //           message.success('회원 탈퇴를 완료하였습니다.');
+  //           setSelectedRowKeys([]);
+  //           getAllUsers();
+  //         } else {
+  //           message.error('회원 탈퇴를 실패하였습니다. ', res.payload.err);
+  //         }
+  //       })
+  //       .catch(err => {
+  //         message.error(`[Error]: ${err}`);
+  //       });
+  //   };
 
   const columns = [
     {
@@ -150,10 +150,10 @@ function UsersRolePage(props) {
       responsive: ['sm'],
     },
     {
-      title: 'Email',
-      dataIndex: 'email',
+      title: '설명',
+      dataIndex: 'desc',
       sorter: {
-        compare: (a, b) => a.email.localeCompare(b.email),
+        compare: (a, b) => a.desc.localeCompare(b.desc),
         multiple: 3,
       },
       width: 240,
@@ -161,15 +161,11 @@ function UsersRolePage(props) {
       responsive: ['md'],
     },
     {
-      title: '권한',
-      dataIndex: 'role',
-      filters: [
-        { text: '일반 사용자', value: '일반 사용자' },
-        { text: '전문가', value: '전문가' },
-        { text: '엔지니어', value: '엔지니어' },
-      ],
-      onFilter: (value, record) => {
-        return record.role.indexOf(value) === 0;
+      title: '예상 수명',
+      dataIndex: 'lifespan',
+      sorter: {
+        compare: (a, b) => a.lifespan.localeCompare(b.lifespan),
+        multiple: 3,
       },
       width: 110,
       align: 'center',
@@ -217,9 +213,9 @@ function UsersRolePage(props) {
     },
   ];
 
-  const onSelectChange = (record, selected) => {
+  const onSelectChange = record => {
     setSelectedRowKeys(record);
-    setSelectedUsers(selected);
+    // setSelectedUsers(selected);
   };
 
   const rowSelection = {
@@ -236,9 +232,9 @@ function UsersRolePage(props) {
     <div style={{ width: '100%', overflow: 'auto' }}>
       <Layout style={{ padding: '0 24px 24px' }}>
         <Breadcrumb style={{ margin: '16px 0' }}>
-          <Breadcrumb.Item>Home</Breadcrumb.Item>
-          <Breadcrumb.Item>사용자 관리</Breadcrumb.Item>
-          <Breadcrumb.Item>권한 관리</Breadcrumb.Item>
+          <Breadcrumb.Item>부품/자재 관리</Breadcrumb.Item>
+          <Breadcrumb.Item>수명 데이터 관리</Breadcrumb.Item>
+          <Breadcrumb.Item>사용 연한 기초 관리</Breadcrumb.Item>
         </Breadcrumb>
         <Content
           className="site-layout-background"
@@ -252,8 +248,9 @@ function UsersRolePage(props) {
         >
           <Spin spinning={loading}>
             <div style={{ float: 'right' }}>
-              <Button onClick={getAllUsers}>새로고침</Button>{' '}
-              <Button onClick={deleteUsersButton}>회원 탈퇴</Button> <br />
+              <Button onClick={onClickUpdate}>추가</Button>
+              <Button onClick>새로고침</Button>
+              <Button onClick>회원 탈퇴</Button> <br />
               <br />
             </div>
 
@@ -261,7 +258,7 @@ function UsersRolePage(props) {
               style={{ overflow: 'auto' }}
               rowSelection={rowSelection}
               columns={columns}
-              dataSource={users}
+              dataSource={datas2}
               bordered
               tableLayout="auto"
               scroll
@@ -270,7 +267,6 @@ function UsersRolePage(props) {
 
           <UpdateModal
             modalData={modalData}
-            getAllUsers={getAllUsers}
             handleRoleChange={handleRoleChange}
             modalVisible={modalVisible}
             setModalVisible={setModalVisible}
@@ -281,8 +277,8 @@ function UsersRolePage(props) {
   );
 }
 
-UsersRolePage.propTypes = {
-  user: PropTypes.objectOf(PropTypes.object).isRequired,
-};
+// LifeCodePage.propTypes = {
+//   user: PropTypes.objectOf(PropTypes.object).isRequired,
+// };
 
-export default UsersRolePage;
+export default LifeCodePage;

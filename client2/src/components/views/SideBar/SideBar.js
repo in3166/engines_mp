@@ -5,7 +5,6 @@ import {
   // TeamOutlined,
   // LaptopOutlined,
   NotificationOutlined,
-  DashboardOutlined,
   // SettingFilled,
   ProfileOutlined,
   HddOutlined,
@@ -39,26 +38,41 @@ function SideBar() {
       <Menu
         mode="inline"
         defaultSelectedKeys={['1']}
-        defaultOpenKeys={['sub5', 'sub6', 'sub7']}
+        defaultOpenKeys={['sub1', 'sub2', 'sub3']}
         style={{ height: '100%', borderRight: 0 }}
       >
-        <Menu.Item key="1" icon={<DashboardOutlined />}>
-          <Link to="/">DashBoard</Link>
-        </Menu.Item>
-        <SubMenu key="sub5" icon={<HddOutlined />} title="부품/자재 관리">
-          <Menu.Item key="16">
-            <Link to="/utilList">부품/자재 목록</Link>
+        <SubMenu key="sub1" icon={<HddOutlined />} title="수명 데이터 관리">
+          <Menu.Item key="1">
+            <Link to="/engineParts">엔진별 부품 목록</Link>
           </Menu.Item>
-          <Menu.Item key="17">부품/자재 재고</Menu.Item>
-          <Menu.Item key="18">본사 재고</Menu.Item>
+          <Menu.Item key="2">
+            <Link to="/lifeCode">사용 연한 기초 관리</Link>
+          </Menu.Item>
+          <Menu.Item key="3">
+            <Link to="/utilList">실 사용 연한 피드백</Link>
+          </Menu.Item>
         </SubMenu>
-        <SubMenu key="sub6" icon={<ProfileOutlined />} title="정비 주기 관리">
-          <Menu.Item key="19">부품별 정비 주기</Menu.Item>
-          <Menu.Item key="20">부품별 교체 시기</Menu.Item>
-          <Menu.Item key="21">정비 및 교체 이력</Menu.Item>
+        <SubMenu key="sub2" icon={<HddOutlined />} title="부품/자재 재고 관리">
+          {/* <Menu.Item key="4">
+            <Link to="/enginePartsList">엔진별 목록 관리</Link>
+          </Menu.Item> */}
+          <Menu.Item key="5">
+            <Link to="/sitePartsList">사이트별 재고 목록</Link>
+          </Menu.Item>
+          <Menu.Item key="6">
+            <Link to="/headquartersStocks">본사 재고 관리</Link>
+          </Menu.Item>
+          <Menu.Item key="7">
+            <Link to="/branchStocks">지사 재고 관리</Link>
+          </Menu.Item>
+        </SubMenu>
+        <SubMenu key="sub3" icon={<ProfileOutlined />} title="정비 주기 관리">
+          <Menu.Item key="8">부품별 정비 주기</Menu.Item>
+          <Menu.Item key="9">부품별 교체 시기</Menu.Item>
+          <Menu.Item key="10">정비 및 교체 이력</Menu.Item>
         </SubMenu>
         <SubMenu
-          key="sub7"
+          key="sub4"
           icon={<NotificationOutlined />}
           title="엔진 정비 메뉴얼"
         >

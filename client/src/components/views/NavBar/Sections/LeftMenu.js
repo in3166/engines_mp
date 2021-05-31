@@ -17,7 +17,7 @@ function LeftMenu(props) {
       </Menu.Item>
       <Menu.Item key="user">
         <a href="http://localhost:3002" target="_blank" rel="noreferrer">
-          사용자 관리
+          사용자/사이트 관리
         </a>
       </Menu.Item>
       {/* <SubMenu title={<span>Menu2</span>}>

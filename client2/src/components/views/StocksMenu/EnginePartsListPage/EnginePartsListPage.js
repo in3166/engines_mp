@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { Layout, Breadcrumb, Table, Button } from 'antd';
+import { Layout, Breadcrumb, Table, Button, Tabs } from 'antd';
 // import { SearchOutlined } from '@ant-design/icons';
 import PropTypes from 'prop-types';
 
 // const { SubMenu } = Menu;
 const { Content } = Layout;
-
+const { TabPane } = Tabs;
 const data = [
   {
     key: '1',
@@ -37,7 +37,7 @@ const data = [
   },
 ];
 
-function UnitListPage(props) {
+function EnginePartsListPage(props) {
   const [selectedRowKey, setselectedRowKeys] = useState([]);
   const { user } = props;
   const onSelectChange = selectedRowKeys => {
@@ -99,9 +99,9 @@ function UnitListPage(props) {
     <div style={{ width: '100%' }}>
       <Layout style={{ padding: '0 24px 24px', overflow: 'auto' }}>
         <Breadcrumb style={{ margin: '16px 0' }}>
-          <Breadcrumb.Item>Home</Breadcrumb.Item>
           <Breadcrumb.Item>부품/자재 관리</Breadcrumb.Item>
-          <Breadcrumb.Item>부품/자재 목록</Breadcrumb.Item>
+          <Breadcrumb.Item>부품/자재 재고 관리</Breadcrumb.Item>
+          <Breadcrumb.Item>엔진별 목록 관리</Breadcrumb.Item>
         </Breadcrumb>
         <Content
           className="site-layout-background"
@@ -113,26 +113,36 @@ function UnitListPage(props) {
             border: '1px solid',
           }}
         >
-          <div style={{ float: 'right' }}>
-            <Button>추가</Button>
-            <Button>수정</Button>
-            <Button>삭제</Button>
-            <br />
-            <br />
-          </div>
-          <Table
-            rowSelection={rowSelection}
-            columns={columns}
-            dataSource={data}
-          />
+          <Tabs
+            defaultActiveKey="1"
+            size="large"
+            style={{ background: 'white', padding: '0 20px 10px 20px' }}
+          >
+            <TabPane tab="Engine-1" key="1">
+              <div style={{ float: 'right' }}>
+                <Button>추가</Button>
+                <Button>삭제</Button>
+                <br />
+                <br />
+              </div>
+              <Table
+                rowSelection={rowSelection}
+                columns={columns}
+                dataSource={data}
+              />
+            </TabPane>
+            <TabPane tab="Engine-2" key="2" />
+            <TabPane tab="Engine-3" key="3" />
+            <TabPane tab="Engine-4" key="4" />
+          </Tabs>
         </Content>
       </Layout>
     </div>
   );
 }
 
-UnitListPage.propTypes = {
+EnginePartsListPage.propTypes = {
   user: PropTypes.objectOf(PropTypes.object).isRequired,
 };
 
-export default UnitListPage;
+export default EnginePartsListPage;
