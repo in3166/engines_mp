@@ -19,22 +19,19 @@ import datas from './Sections/datas';
 const { Content } = Layout;
 const CheckboxGroup = Checkbox.Group;
 const plainOptions = [
-  'Apple',
-  'Pear',
-  'Orange',
-  '1',
-  '2',
-  '123123123123',
-  '414123',
-  '151233',
-  '151234',
-  '151235',
-  '151236',
-  '151237',
-  '151238',
-  '151239',
-  '1512310',
-  '1512313',
+  '부품1',
+  '부품2',
+  '부품3',
+  '부품4',
+  '부품5',
+  '부품6',
+  '부품7',
+  '부품8',
+  '부품9',
+  '부품10',
+  '부품11',
+  '부품12',
+  '부품13',
 ];
 const defaultCheckedList = ['Apple', 'Orange'];
 

@@ -26,6 +26,7 @@ function RegisterPage() {
     dispatch(registerUser(data))
       .then(res => {
         if (res.payload.success) {
+          message.success(`[Success]: ${res.payload.message}`);
           history.push('/login');
         } else {
           message.error(`[Error]: ${res.payload.message}`);

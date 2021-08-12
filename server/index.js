@@ -21,7 +21,7 @@ const connect = mongoose.connect(config.mongoURI,
     useCreateIndex: true, useFindAndModify: false
   })
   .then(() => console.log('MongoDB Connected...'))
-  .catch(err => console.log(err));
+  .catch(err => console.log("MongoDB Connection error: ",err));
 
 //app.use(cors())
 

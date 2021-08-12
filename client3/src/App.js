@@ -3,8 +3,6 @@ import './App.css';
 import { Switch, Route, withRouter, useLocation } from 'react-router-dom';
 import { Layout } from 'antd';
 import LandingPage from './components/views/LandingPage/LandingPage';
-import LoginPage from './components/views/LoginPage/LoginPage';
-import RegisterPage from './components/views/RegisterPage/RegisterPage';
 import BackTopUtil from './components/utils/BackTopUtil/BackTopUtil';
 import Navbar from './components/views/NavBar/NavBar';
 import FooterComponent from './components/views/Footer/FooterComponent';
@@ -20,13 +18,18 @@ import Auth from './hoc/auth';
 
 function App() {
   const location = useLocation();
+  const redirectUrl = url => {
+    window.location.href = `http://localhost:3000/${url}`;
+    // maybe can add spinner while loading
+    return null;
+  };
 
   return (
     <div>
       <Switch>
         <>
-          <Route path="/login" component={Auth(LoginPage, false)} />
-          <Route path="/register" component={Auth(RegisterPage, false)} />
+          <Route path="/login" render={() => redirectUrl('login')} />
+          <Route path="/register" render={() => redirectUrl('register')} />
           <Route
             exact
             path="/userManage"
