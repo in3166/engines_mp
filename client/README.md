@@ -26,7 +26,7 @@ C:/jupyter/linear/Jintech/engine2/web-react
 
 ## 구조
 
-- Redux 위한 폴더
+- Redux 폴더
 
   - \_actions
   - \_reducer
