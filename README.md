@@ -1,6 +1,21 @@
-# 고장 예측
+# 공장 별 엔진 기능 장애 경고(고장 예측) 서비스 개발 [진행중]
 
 - 각 엔진별 데이터들을 받아서 엔진의 고장 여부 및 예측을 보여주는 서비스
+  <br>
+
+**<세부 기능>**
+
+- 사용자 관리 (회원가입, 로그인, 직급별 권한 관리)
+
+- 공장별 엔진, 부품, 수량 등 기본 데이터 관리
+
+  - 부족한 부품이나 재고가 적은 경우 알림 서비스 및 주문 기능 제공
+
+- 전문가 피드백 기능
+  - 고장 예측 알고리즘과 전문가의 분석을 제공하고 분석된 내용을 토대로 알람 기능을 제공하고
+  - 부품/자재의 현재 수량과 필요 수량을 비교하여 주문 기능 제공
+
+<br><br>
 
 ## Client
 
@@ -44,22 +59,23 @@
 ### 사용 모듈
 
 - React 라이브러리
-- axios
-- prop-types
-- npm i @ant-design/icons
-- react-hook-form: 회원가입, 로그인 form
-- React Router Dom: 페이지 이동 시 사용
-- http-proxy-middleware: proxy 사용
-- chart.js: npm install --save chart.js@2.9.4 react-chartjs-2 (최신버전 사용 시 오류 발생)
-- react-highlight-words
-- redux
+- `axios`
+- `prop-types`
+- `npm i @ant-design/icons`
+- `react-hook-form`: 회원가입, 로그인 form
+- `React Router Dom`: 페이지 이동 시 사용
+- `http-proxy-middleware`: proxy 사용
+- `chart.js`: `npm install --save chart.js@2.9.4 react-chartjs-2` (최신버전 사용 시 오류 발생)
+- `react-highlight-words`
+- `redux`
   - store에 state 변경을 하려면 dispatch(action)으로 하는데 `Action`은 plain object(객체 형식)
   - 그런데 store은 항상 객체 형식으로 받지 않고 'Promise'나 'function' 등의 형태로도 받음
-- react-redux
-- redux-promise: dispatch에게 `Promise`을 받는 방법을 알려주는 미들웨어
-- redux-thunk: dispatch에게 `function`을 받는 방법을 알려주는 미들웨어
-- npm install react-icons --save
-- <br><br>
+- `react-redux`
+- `redux-promise`: dispatch에게 `Promise`을 받는 방법을 알려주는 미들웨어
+- `redux-thunk`: dispatch에게 `function`을 받는 방법을 알려주는 미들웨어
+- `npm install react-icons --save`
+
+<br><br>
 
 ## Server
 
@@ -83,11 +99,11 @@
 
 ### 사용 모듈
 
-- Express
-- bcrypt 라이브러리
-- jsonwebtoken 라이브러리
-- concurrently 라이브러리
-- async 라이브러리
+- `Express`
+- `bcrypt 라이브러리`
+- `jsonwebtoken 라이브러리`
+- `concurrently 라이브러리`
+- `async 라이브러리`
 
 <br><br>
 

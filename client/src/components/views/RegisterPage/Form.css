@@ -14,19 +14,19 @@ body {
 
 .form_h1 {
   font-weight: 100;
-  color: white;
+  color: rgb(255, 255, 255);
   text-align: center;
   padding-bottom: 10px;
   border-bottom: 1px solid rgb(79, 98, 148);
 }
 
 .form {
-  background-color: #0c1230;
-  max-width: 500px;
+  background-color: #2c2452;
+  max-width: 400px;
   margin: 2rem auto;
   min-height: 100%;
-  border: 1px solid rgb(167, 167, 167);
-  box-shadow: #7a7a7a 3px 3px 5px 3px;
+  border: 3px solid rgb(0, 0, 0);
+  box-shadow: #191222 1px 1px 20px 3px;
   border-radius: 2rem;
   padding: 3rem;
 }
@@ -91,16 +91,17 @@ body {
 
 .form_button[type='submit'],
 .form_input[type='submit'] {
-  background: #f7fabf;
+  background: #faff97;
   color: rgb(32, 32, 32);
   text-transform: uppercase;
   border: none;
   margin-top: 55px;
   /* padding: 16px; */
-  box-shadow: #ababac 2px 2px 2px;
-  font-size: 17px;
+  box-shadow: #ababac 1px 1px 2px 1px;
+  font-size: 15px;
   font-weight: 700;
   letter-spacing: 5px;
+  height: 38px;
   text-align: center;
   margin-left: auto;
   margin-right: auto;
