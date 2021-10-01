@@ -8,32 +8,74 @@ const { Content } = Layout;
 const { TabPane } = Tabs;
 const data = [
   {
-    key: '1',
-    name: 'a',
-    chinese: 98,
-    math: 60,
-    english: 70,
+    key: 1,
+    id: 'p113',
+    name: 'Part1',
+    desc: '부품 설명1',
+    en: 'engine1',
   },
   {
-    key: '2',
-    name: 'ac',
-    chinese: 98,
-    math: 66,
-    english: 89,
+    key: 2,
+    id: 'p213',
+    name: 'Part2',
+    desc: '부품 설명2',
+    en: 'engine1',
   },
   {
-    key: '3',
-    name: 'ab',
-    chinese: 98,
-    math: 90,
-    english: 70,
+    key: 3,
+    id: 'p313',
+    name: 'Part3',
+    desc: '부품 설명3',
+    en: 'engine1',
   },
   {
-    key: '4',
-    name: 'd',
-    chinese: 88,
-    math: 99,
-    english: 89,
+    key: 4,
+    id: 'p413',
+    name: 'Part4',
+    desc: '부품 설명4',
+    en: 'engine2',
+  },
+  {
+    key: 5,
+    id: 'p513',
+    name: 'Part5',
+    desc: '부품 설명5',
+    en: 'engine2',
+  },
+  {
+    key: 6,
+    id: 'p613',
+    name: 'Part6',
+    desc: '부품 설명6',
+    en: 'engine3',
+  },
+  {
+    key: 7,
+    id: 'p613',
+    name: 'Part6',
+    desc: '부품 설명6',
+    en: 'engine3',
+  },
+  {
+    key: 8,
+    id: 'p613',
+    name: 'Part6',
+    desc: '부품 설명6',
+    en: 'engine3',
+  },
+  {
+    key: 9,
+    id: 'p613',
+    name: 'Part6',
+    desc: '부품 설명6',
+    en: 'engine3',
+  },
+  {
+    key: 10,
+    id: 'p613',
+    name: 'Part6',
+    desc: '부품 설명6',
+    en: 'engine3',
   },
 ];
 
@@ -51,36 +93,36 @@ function SitePartsListPage(props) {
   };
   const columns = [
     {
-      title: 'Name',
-      dataIndex: 'name',
+      title: 'ID',
+      dataIndex: 'id',
       sorter: {
-        compare: (a, b) => a.name.localeCompare(b.name),
+        compare: (a, b) => a.id.localeCompare(b.id),
         multiple: 1,
       },
       width: 100,
     },
     {
-      title: 'Engine',
-      dataIndex: 'chinese',
+      title: '부품 이름',
+      dataIndex: 'name',
       sorter: {
-        compare: (a, b) => a.chinese - b.chinese,
+        compare: (a, b) => a.name.localeCompare(b.name),
         multiple: 2,
       },
       width: 200,
     },
     {
-      title: 'Description',
-      dataIndex: 'math',
+      title: '설명',
+      dataIndex: 'desc',
       sorter: {
-        compare: (a, b) => a.math - b.math,
+        compare: (a, b) => a.desc.localeCompare(b.desc),
         multiple: 3,
       },
     },
     {
-      title: '예상 수명',
-      dataIndex: 'english',
+      title: '엔진',
+      dataIndex: 'en',
       sorter: {
-        compare: (a, b) => a.english - b.english,
+        compare: (a, b) => a.en.localeCompare(b.en),
         multiple: 4,
       },
       width: 200,
@@ -131,6 +173,7 @@ function SitePartsListPage(props) {
               </div>
               <div style={{ float: 'right' }}>
                 <Button>추가</Button>
+                <Button>수정</Button>
                 <Button>삭제</Button>
                 <br />
                 <br />
@@ -139,6 +182,7 @@ function SitePartsListPage(props) {
                 rowSelection={rowSelection}
                 columns={columns}
                 dataSource={data}
+                pagination={{ pageSize: 5 }}
               />
             </TabPane>
             <TabPane tab="Site-2" key="2" />

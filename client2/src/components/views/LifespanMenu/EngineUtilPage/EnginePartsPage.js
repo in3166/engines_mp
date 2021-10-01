@@ -44,10 +44,10 @@ function UnitListPage(props) {
       },
     },
     {
-      title: '필요 수량',
-      dataIndex: 'qu',
+      title: '위치',
+      dataIndex: 'location',
       sorter: {
-        compare: (a, b) => a.qu - b.qu,
+        compare: (a, b) => a.location.localeCompare(b.location),
         multiple: 4,
       },
       width: 200,
@@ -98,10 +98,10 @@ function UnitListPage(props) {
             size="large"
             style={{ background: 'white', padding: '0 20px 10px 20px' }}
           >
-            <TabPane tab="Engine-1" key="1">
+            <TabPane tab="Site-1" key="1">
               <Engine1List />
             </TabPane>
-            <TabPane tab="Engine-2" key="2">
+            <TabPane tab="Site-2" key="2">
               <div style={{ float: 'right' }}>
                 <Button>추가</Button>
                 <Button>수정</Button>
@@ -116,7 +116,7 @@ function UnitListPage(props) {
                 dataSource={data}
               />
             </TabPane>
-            <TabPane tab="Engine-3" key="3">
+            <TabPane tab="Site-3" key="3">
               <Table
                 size="small"
                 rowSelection={rowSelection}

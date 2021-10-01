@@ -21,7 +21,7 @@ function RegisterPage() {
   password.current = watch('password');
 
   const onSubmit = data => {
-    // console.log(data);
+    console.log(data);
 
     dispatch(registerUser(data))
       .then(res => {
@@ -124,10 +124,38 @@ function RegisterPage() {
         className="form_input"
         name="name"
         autoComplete="on"
-        {...register('name', { required: true, maxLength: 10 })}
+        {...register('name', { required: true, maxLength: 15 })}
       />
       {errors.name && errors.name.type === 'required' && (
         <p className="form_p">This name field is required</p>
+      )}
+      {errors.name && errors.name.type === 'maxLength' && (
+        <p className="form_p">Your input exceed maximum input</p>
+      )}
+
+      <p className="form_label">Department</p>
+      <input
+        className="form_input"
+        name="department"
+        autoComplete="on"
+        {...register('department', { required: true, maxLength: 20 })}
+      />
+      {errors.department && errors.department.type === 'required' && (
+        <p className="form_p">This department field is required</p>
+      )}
+      {errors.department && errors.department.type === 'maxLength' && (
+        <p className="form_p">Your input exceed maximum input</p>
+      )}
+
+      <p className="form_label">Position</p>
+      <input
+        className="form_input"
+        name="position"
+        autoComplete="on"
+        {...register('position', { required: true, maxLength: 10 })}
+      />
+      {errors.position && errors.position.type === 'required' && (
+        <p className="form_p">This position field is required</p>
       )}
       {errors.name && errors.name.type === 'maxLength' && (
         <p className="form_p">Your input exceed maximum input</p>

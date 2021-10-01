@@ -27,13 +27,19 @@ const userSchema = mongoose.Schema({
         default: 0 
         // 0: 일반 사용자, 1: 관리자, 2: 전문가, 3: 엔지니어
     },
+    department:{
+        type: String
+    },
+    position:{
+        type: String
+    },
     token:{
         type: String
     },
     tokenExp: {
         type: Number
     },
-})
+}, { timestamps: true })
 
 // 저장하기 전에 수행
 userSchema.pre('save', function(next){

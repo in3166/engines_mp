@@ -7,7 +7,7 @@ import BackTopUtil from './components/utils/BackTopUtil/BackTopUtil';
 import Navbar from './components/views/NavBar/NavBar';
 import FooterComponent from './components/views/Footer/FooterComponent';
 import EnginePartsPage from './components/views/LifespanMenu/EngineUtilPage/EnginePartsPage';
-import UserPage from './components/views/UserPage/UserPage';
+// import UserPage from './components/views/UserPage/UserPage';
 import SideBar from './components/views/SideBar/SideBar';
 import LifeCodePage from './components/views/LifespanMenu/LifeCodePage/LifeCodePage';
 import SitePartsListPage from './components/views/StocksMenu/SitePartsListPage/SitePartsListPage';
@@ -63,7 +63,8 @@ function App() {
                     path="/branchStocks"
                     component={Auth(BranchStocksPage, true)}
                   />
-                  <Route path="/user" component={Auth(UserPage, true)} />
+                  <Route path="/user" render={() => redirectUrl('user')} />
+                  {/* <Route path="/user" component={Auth(UserPage, true)} /> */}
                   <Route component={NotFound} />
                 </Switch>
               </Layout>

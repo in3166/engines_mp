@@ -9,7 +9,7 @@ const columns1 = [
     width: 100,
   },
   {
-    title: '부품 이름',
+    title: '엔진 이름',
     dataIndex: 'name',
     sorter: {
       compare: (a, b) => a.name.localeCompare(b.name),
@@ -26,8 +26,8 @@ const columns1 = [
     },
   },
   {
-    title: '필요 수량',
-    dataIndex: 'qu',
+    title: '위치',
+    dataIndex: 'location',
     sorter: {
       compare: (a, b) => a.qu - b.qu,
       multiple: 4,
@@ -47,7 +47,7 @@ const columns1 = [
 
 const columns2 = [
   { title: 'ID', dataIndex: 'id2', key: 'id2' },
-  { title: '자재 이름', dataIndex: 'name2', key: 'name2' },
+  { title: '부품 이름', dataIndex: 'name2', key: 'name2' },
   {
     title: '설명',
     dataIndex: 'desc2',

@@ -118,7 +118,7 @@ function EnginePartsListPage(props) {
             size="large"
             style={{ background: 'white', padding: '0 20px 10px 20px' }}
           >
-            <TabPane tab="Engine-1" key="1">
+            <TabPane tab="Site-1" key="1">
               <div style={{ float: 'right' }}>
                 <Button>추가</Button>
                 <Button>삭제</Button>
@@ -131,9 +131,9 @@ function EnginePartsListPage(props) {
                 dataSource={data}
               />
             </TabPane>
-            <TabPane tab="Engine-2" key="2" />
-            <TabPane tab="Engine-3" key="3" />
-            <TabPane tab="Engine-4" key="4" />
+            <TabPane tab="Site-2" key="2" />
+            <TabPane tab="Site-3" key="3" />
+            <TabPane tab="Site-4" key="4" />
           </Tabs>
         </Content>
       </Layout>

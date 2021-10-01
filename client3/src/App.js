@@ -6,7 +6,7 @@ import LandingPage from './components/views/LandingPage/LandingPage';
 import BackTopUtil from './components/utils/BackTopUtil/BackTopUtil';
 import Navbar from './components/views/NavBar/NavBar';
 import FooterComponent from './components/views/Footer/FooterComponent';
-import UserPage from './components/views/UserPage/UserPage';
+// import UserPage from './components/views/UserPage/UserPage';
 import SideBar from './components/views/SideBar/SideBar';
 import UsersAuth from './components/views/UsersAuthPage/UsersAuthPage';
 import AddExpertPage from './components/views/AddExpertPage/AddExpertPage';
@@ -46,7 +46,8 @@ function App() {
                     path="/addExpert"
                     component={Auth(AddExpertPage, true)}
                   />
-                  <Route path="/user" component={Auth(UserPage, true)} />
+                  <Route path="/user" render={() => redirectUrl('user')} />
+                  {/* <Route path="/user" component={Auth(UserPage, true)} /> */}
                   <Route
                     path="/usersAuth"
                     component={Auth(UsersAuth, true, true)}

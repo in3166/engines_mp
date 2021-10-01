@@ -19,6 +19,7 @@ import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { deleteUsers } from '../../../_actions/user_actions';
 import UpdateModal from './Sections/UpdateModal';
+import './Sections/UserAuth.css';
 
 // const { SubMenu } = Menu;
 const { Content } = Layout;
@@ -52,6 +53,8 @@ function UsersRolePage(props) {
             id: `${res.data.users[i].id}`,
             name: res.data.users[i].name,
             email: res.data.users[i].email,
+            department: res.data.users[i].department,
+            position: res.data.users[i].position,
             role,
           };
           tempUser.push(data);
@@ -110,21 +113,24 @@ function UsersRolePage(props) {
     selectedUsers.forEach(userSel => {
       body.id.push(userSel.id);
     });
-
-    // redux post
-    dispatch(deleteUsers(body))
-      .then(res => {
-        if (res.payload.success) {
-          message.success('회원 탈퇴를 완료하였습니다.');
-          setSelectedRowKeys([]);
-          getAllUsers();
-        } else {
-          message.error('회원 탈퇴를 실패하였습니다. ', res.payload.err);
-        }
-      })
-      .catch(err => {
-        message.error(`[Error]: ${err}`);
-      });
+    if (body.id.length === 0) {
+      message.error('사용자를 선택하세요.');
+    } else {
+      // redux post
+      dispatch(deleteUsers(body))
+        .then(res => {
+          if (res.payload.success) {
+            message.success('회원 탈퇴를 완료하였습니다.');
+            setSelectedRowKeys([]);
+            getAllUsers();
+          } else {
+            message.error('회원 탈퇴를 실패하였습니다. ', res.payload.err);
+          }
+        })
+        .catch(err => {
+          message.error(`[Error]: ${err}`);
+        });
+    }
   };
 
   const columns = [
@@ -135,7 +141,7 @@ function UsersRolePage(props) {
         compare: (a, b) => a.id.localeCompare(b.id),
         multiple: 1,
       },
-      width: 100,
+      minwidth: 100,
       align: 'center',
     },
     {
@@ -145,7 +151,7 @@ function UsersRolePage(props) {
         compare: (a, b) => a.name.localeCompare(b.name),
         multiple: 2,
       },
-      width: 160,
+      minwidth: 160,
       align: 'center',
       responsive: ['sm'],
     },
@@ -161,6 +167,28 @@ function UsersRolePage(props) {
       responsive: ['md'],
     },
     {
+      title: '부서',
+      dataIndex: 'department',
+      sorter: {
+        compare: (a, b) => a.depart.localeCompare(b.depart),
+        multiple: 3,
+      },
+      width: 100,
+      align: 'center',
+      responsive: ['md'],
+    },
+    {
+      title: '직급',
+      dataIndex: 'position',
+      sorter: {
+        compare: (a, b) => a.position.localeCompare(b.position),
+        multiple: 3,
+      },
+      width: 90,
+      align: 'center',
+      responsive: ['md'],
+    },
+    {
       title: '권한',
       dataIndex: 'role',
       filters: [
@@ -171,7 +199,7 @@ function UsersRolePage(props) {
       onFilter: (value, record) => {
         return record.role.indexOf(value) === 0;
       },
-      width: 110,
+      minwidth: 100,
       align: 'center',
     },
     {
@@ -187,7 +215,7 @@ function UsersRolePage(props) {
           </Space>
         );
       },
-      width: 70,
+      width: 20,
       align: 'center',
     },
     {
@@ -211,7 +239,7 @@ function UsersRolePage(props) {
           </Space>
         );
       },
-      width: 70,
+      width: 30,
       align: 'center',
       responsive: ['sm'],
     },

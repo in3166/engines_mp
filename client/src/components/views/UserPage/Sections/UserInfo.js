@@ -15,10 +15,13 @@ function UserInfo(props) {
   } = useForm();
 
   const onSubmit = data => {
+    console.log(data);
     const body = {
       id: user.userData.id,
       email: data.email,
       name: data.name,
+      department: data.department,
+      position: data.position,
     };
 
     dispatch(changeUser(body))
@@ -70,7 +73,7 @@ function UserInfo(props) {
         <Form.Item label="이름">
           <input
             className="userpage_input"
-            {...register('name', { required: true, maxLength: 10 })}
+            {...register('name', { required: true, maxLength: 15 })}
             placeholder={user.userData.name}
             defaultValue={user.userData.name}
             autoComplete="on"
@@ -80,6 +83,40 @@ function UserInfo(props) {
             <p className="form_p">This name field is required</p>
           )}
           {errors.name && errors.name.type === 'maxLength' && (
+            <p className="form_p">Your input exceed maximum input</p>
+          )}
+        </Form.Item>
+
+        <Form.Item label="부서">
+          <input
+            className="userpage_input"
+            {...register('department', { required: true, maxLength: 20 })}
+            placeholder={user.userData.department}
+            defaultValue={user.userData.department}
+            autoComplete="on"
+            name="department"
+          />
+          {errors.department && errors.department.type === 'required' && (
+            <p className="form_p">This department field is required</p>
+          )}
+          {errors.department && errors.department.type === 'maxLength' && (
+            <p className="form_p">Your input exceed maximum input</p>
+          )}
+        </Form.Item>
+
+        <Form.Item label="직급">
+          <input
+            className="userpage_input"
+            {...register('position', { required: true, maxLength: 20 })}
+            placeholder={user.userData.position}
+            defaultValue={user.userData.position}
+            autoComplete="on"
+            name="position"
+          />
+          {errors.position && errors.position.type === 'required' && (
+            <p className="form_p">This position field is required</p>
+          )}
+          {errors.position && errors.position.type === 'maxLength' && (
             <p className="form_p">Your input exceed maximum input</p>
           )}
         </Form.Item>

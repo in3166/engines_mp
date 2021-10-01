@@ -18,6 +18,8 @@ router.get("/auth", auth, (req, res) => {
         email: req.user.email,
         name: req.user.name,
         role: req.user.role,
+        department: req.user.department,
+        position: req.user.position,
     });
 });
 
@@ -29,14 +31,14 @@ router.post("/register", (req, res) => {
         }
         if (user){
             return res.json({
-                lsuccess: false,
+                success: false,
                 message: "아이디가 이미 존재합니다."
             })
         }else{
             User.findOne({ email: req.body.email }, (err, user) => {
                 if (user){
                     return res.json({
-                        lsuccess: false,
+                        success: false,
                         message: "Email이 이미 존재합니다."
                     })
                 }else{
@@ -47,7 +49,8 @@ router.post("/register", (req, res) => {
                             return res.json({ success: false, message:err });
                         }
                             return res.status(200).json({
-                            success: true
+                            success: true,
+                            message: "회원 가입을 성공했습니다."
                         });
                     });
                 }
@@ -112,7 +115,7 @@ router.post("/changeExpertRole", (req, res) => {
    // console.log(users)
     // 전문가에서 제거
     //if(direction === 'left'){
-    async.eachSeries(users, (user, cb)=>{
+    async.eachSeries(users, (user, cb)=>{ //each와 같지만 한번에 하나의 비동기 작업만 실행한다.
         //console.log(user)
         User.updateMany(
             {id: user.id},
@@ -127,9 +130,9 @@ router.post("/changeExpertRole", (req, res) => {
     })
 });
 
-
+// 상단바 개인정보 수정
 router.post("/changeUser", (req, res) => {
-    User.findOneAndUpdate({ id: req.body.id }, { email: req.body.email, name: req.body.name}, (err, doc)=>{
+    User.findOneAndUpdate({ id: req.body.id }, { email: req.body.email, name: req.body.name, department: req.body.department, position: req.body.position}, (err, doc)=>{
         if (err) return res.json({ success: false, err });
         return res.status(200).send({
             success: true

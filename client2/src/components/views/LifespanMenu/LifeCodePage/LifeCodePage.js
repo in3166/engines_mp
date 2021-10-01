@@ -91,6 +91,7 @@ function LifeCodePage() {
   // 수정 버튼 modal 열기
   const onClickUpdate = data => {
     const tempData = { ...data };
+    console.log(data);
     setModalData(tempData);
     setModalVisible(true);
   };
@@ -164,7 +165,7 @@ function LifeCodePage() {
       title: '예상 수명',
       dataIndex: 'lifespan',
       sorter: {
-        compare: (a, b) => a.lifespan.localeCompare(b.lifespan),
+        compare: (a, b) => a - b,
         multiple: 3,
       },
       width: 110,
@@ -249,8 +250,9 @@ function LifeCodePage() {
           <Spin spinning={loading}>
             <div style={{ float: 'right' }}>
               <Button onClick={onClickUpdate}>추가</Button>
+              <Button onClick>삭제</Button>
               <Button onClick>새로고침</Button>
-              <Button onClick>회원 탈퇴</Button> <br />
+              <br />
               <br />
             </div>
 
