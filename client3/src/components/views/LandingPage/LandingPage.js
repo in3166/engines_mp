@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
 import { Layout, Breadcrumb, Table, Button, message } from 'antd';
 import axios from 'axios';
 import { PlusOutlined, EditOutlined } from '@ant-design/icons';
+import { useSelector } from 'react-redux';
 import columns from './data/columns';
-// import { deleteUsers } from '../../../_actions/user_actions';
 import DeleteModal from './Sections/DeleteModal';
 import UserUpdateModal from './Sections/UserUpdateModal';
 import UserAddModal from './Sections/UserAddModal';
@@ -50,10 +50,6 @@ function LandingPage() {
   useEffect(() => {
     if (user?.userData?.isAdmin) getAllUsers();
   }, [user]);
-
-  if (user?.userData?.role !== 1) {
-    return <div>You are not admin.</div>;
-  }
 
   const onSelectChange = (record, selected) => {
     setSelectedRowKeys(record);
@@ -143,6 +139,9 @@ function LandingPage() {
                 scroll
               />
             </>
+          )}
+          {user?.userData?.role !== undefined && user?.userData?.role !== 1 && (
+            <div>You are not admin.</div>
           )}
         </Content>
       </Layout>

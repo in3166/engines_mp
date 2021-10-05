@@ -7,6 +7,7 @@ export default function foo(SpecificComponent, option, adminRoute = null) {
   // null: 아무나, true: 로그인 유저만 출입 가능, false: 로그인x 출입/ adminRoute=true: 관리자만 출입가능
   function AuthenticationCheck(props) {
     const user = useSelector(state => state.user);
+
     const dispatch = useDispatch();
     const history = useHistory();
 
@@ -27,7 +28,7 @@ export default function foo(SpecificComponent, option, adminRoute = null) {
       });
     }, [dispatch, history]);
     // ... Prop spreading is forbidden: rule 삭제 후 수정
-    return <SpecificComponent {...props} user={user} />;
+    return <SpecificComponent {...props} loaded user={user} />;
   }
 
   return AuthenticationCheck;
