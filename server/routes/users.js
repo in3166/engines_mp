@@ -140,6 +140,29 @@ router.post("/changeUser", (req, res) => {
     });
 });
 
+// 사용자 페이지 대시보드 유저정보 변경
+router.post("/updateUser", (req, res) => {
+    User.findOne({ id: req.body.newid }, (err, user) => {
+        if (err) {
+            console.log("err1: ",err)
+            return res.json({ success: false, message:err });
+        }
+        if (user){
+            return res.json({
+                success: false,
+                message: "아이디가 이미 존재합니다."
+            })
+        }else{
+            User.findOneAndUpdate({ id: req.body.id }, {id: req.body.newid, email: req.body.email, name: req.body.name, department: req.body.department, position: req.body.position, role: req.body.role}, (err, doc)=>{
+                if (err) return res.json({ success: false, err });
+                return res.status(200).send({
+                    success: true
+                });
+            });
+        }
+    })
+});
+
 router.post("/changePassword", (req, res) => {
     let newPassowrd = req.body.password;
 

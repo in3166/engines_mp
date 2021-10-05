@@ -117,8 +117,12 @@ function RegisterPage() {
         autoComplete="on"
         {...register('email', { required: true, pattern: /^\S+@\S+$/i })}
       />
-      {errors.email && <p className="form_p">This email field is required</p>}
-
+      {errors.email && errors.email.type === 'required' && (
+        <p className="form_p">This email field is required</p>
+      )}
+      {errors.email && errors.email.type === 'pattern' && (
+        <p className="form_p">Your input is wrong.</p>
+      )}
       <p className="form_label">Name</p>
       <input
         className="form_input"

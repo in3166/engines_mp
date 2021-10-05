@@ -13,6 +13,7 @@ import {
   DeleteFilled,
   EditOutlined,
   QuestionCircleOutlined,
+  ReloadOutlined,
 } from '@ant-design/icons';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
@@ -113,6 +114,7 @@ function UsersRolePage(props) {
     selectedUsers.forEach(userSel => {
       body.id.push(userSel.id);
     });
+
     if (body.id.length === 0) {
       message.error('사용자를 선택하세요.');
     } else {
@@ -280,8 +282,13 @@ function UsersRolePage(props) {
         >
           <Spin spinning={loading}>
             <div style={{ float: 'right' }}>
-              <Button onClick={getAllUsers}>새로고침</Button>{' '}
-              <Button onClick={deleteUsersButton}>회원 탈퇴</Button> <br />
+              <Button onClick={getAllUsers}>
+                <ReloadOutlined />
+              </Button>{' '}
+              <Button onClick={deleteUsersButton}>
+                <DeleteFilled />
+              </Button>{' '}
+              <br />
               <br />
             </div>
 

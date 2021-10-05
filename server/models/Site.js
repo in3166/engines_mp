@@ -11,7 +11,10 @@ const siteSchema = mongoose.Schema({
     country: {
         type: String,
     },
-    location: {
+    address: {
+        type: String,
+    },
+    phone: {
         type: String,
     },
     engine: [

@@ -7,6 +7,7 @@ import {
   CHANGE_USER_PASSWORD,
   DELETE_USERS,
   CHANGE_ROLE,
+  UPDATE_USER,
 } from '../_actions/types';
 
 export default function doo(state = {}, action) {
@@ -26,6 +27,8 @@ export default function doo(state = {}, action) {
     case DELETE_USERS:
       return { ...state };
     case CHANGE_ROLE:
+      return { ...state };
+    case UPDATE_USER:
       return { ...state };
     default:
       return state;

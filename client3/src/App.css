@@ -1,12 +1,19 @@
+p {
+  margin-bottom: 0;
+}
+.form_p {
+  color: red;
+}
 .ant-layout,
 .ant-layout-sider {
   min-height: 88.6vh;
   width: 100%;
 }
-
-.ant-layout-sider {
+.antd-table-custom-class thead th,
+.antd-table-custom-class tbody td {
+  white-space: pre-wrap;
+  text-overflow: ellipsis;
 }
-
 .ant-layout-sider-trigger {
   position: relative !important;
 }

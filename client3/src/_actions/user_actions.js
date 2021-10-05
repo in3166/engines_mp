@@ -8,6 +8,7 @@ import {
   CHANGE_USER_PASSWORD,
   DELETE_USERS,
   CHANGE_ROLE,
+  UPDATE_USER,
 } from './types';
 import USER_SERVER from '../components/Config';
 
@@ -95,6 +96,17 @@ export function changeRole(dataToSubmit) {
 
   return {
     type: CHANGE_ROLE,
+    payload: request,
+  };
+}
+
+export function updateUser(dataToSubmit) {
+  const request = axios
+    .post(`${USER_SERVER}/updateUser`, dataToSubmit)
+    .then(response => response.data);
+
+  return {
+    type: UPDATE_USER,
     payload: request,
   };
 }

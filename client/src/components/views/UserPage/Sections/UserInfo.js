@@ -15,7 +15,6 @@ function UserInfo(props) {
   } = useForm();
 
   const onSubmit = data => {
-    console.log(data);
     const body = {
       id: user.userData.id,
       email: data.email,
@@ -77,6 +76,7 @@ function UserInfo(props) {
             placeholder={user.userData.name}
             defaultValue={user.userData.name}
             autoComplete="on"
+            error={errors.name}
             name="name"
           />
           {errors.name && errors.name.type === 'required' && (
@@ -94,6 +94,7 @@ function UserInfo(props) {
             placeholder={user.userData.department}
             defaultValue={user.userData.department}
             autoComplete="on"
+            error={errors.department}
             name="department"
           />
           {errors.department && errors.department.type === 'required' && (
@@ -111,6 +112,7 @@ function UserInfo(props) {
             placeholder={user.userData.position}
             defaultValue={user.userData.position}
             autoComplete="on"
+            error={errors.position}
             name="position"
           />
           {errors.position && errors.position.type === 'required' && (

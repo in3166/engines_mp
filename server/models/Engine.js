@@ -1,26 +1,34 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-const engineSchema = mongoose.Schema({
+const engineSchema = mongoose.Schema(
+  {
     id: {
-        type: String,
-        unique: 1
+      type: String,
+      unique: 1,
     },
     name: {
-        type: String,
-        maxlength: 50
+      type: String,
+      maxlength: 50,
     },
-    parts:[{ type: mongoose.Schema.Types.ObjectId, ref: 'Part'}],
+    parts: [
+      {
+        part: { type: mongoose.Schema.Types.ObjectId, ref: "Part" },
+        requiredNumber: { type: Number },
+      },
+    ],
     defaultLifespan: {
-        type: Number,
+      type: Number,
     },
-    recentRepair:{
-        type: Date
+    recentRepair: {
+      type: Date,
     },
-    futureCheck:{
-        type: Date
-    }
-}, { timestamps: true })
+    futureCheck: {
+      type: Date,
+    },
+  },
+  { timestamps: true }
+);
 
-const Engine = mongoose.model('Engine', engineSchema);
+const Engine = mongoose.model("Engine", engineSchema);
 
-module.exports = {Engine}
+module.exports = { Engine };
