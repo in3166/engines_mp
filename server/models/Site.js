@@ -1,28 +1,34 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-const siteSchema = mongoose.Schema({
+const siteSchema = mongoose.Schema(
+  {
     id: {
-        type: String,
-        unique: 1
+      type: String,
+      unique: 1,
     },
     name: {
-        type: String,
+      type: String,
     },
     country: {
-        type: String,
+      type: String,
     },
     address: {
-        type: String,
+      type: String,
     },
     phone: {
-        type: String,
+      type: String,
     },
-    engine: [
-        { type: mongoose.Schema.Types.ObjectId, ref: 'Part'}
-    ]
-}, { timestamps: true })
+    engines: [{ type: mongoose.Schema.Types.ObjectId, ref: "Engine" }],
+    partStock: [
+      {
+        part: { type: mongoose.Schema.Types.ObjectId, ref: "Part" },
+        stock: { type: Number },
+      },
+    ],
+  },
+  { timestamps: true }
+);
 
+const Site = mongoose.model("Site", siteSchema);
 
-const Site = mongoose.model('Site', siteSchema);
-
-module.exports = { Site }
+module.exports = { Site };

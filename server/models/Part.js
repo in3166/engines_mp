@@ -9,15 +9,20 @@ const partSchema = mongoose.Schema({
         type: String,
         maxlength: 50
     },
-    engine:[{ type: mongoose.Schema.Types.ObjectId, ref: 'Engine'}],
     defaultLifespan: {
         type: Number,
     },
-    recentReplace:{
-        type: Date
+    // recentReplace:{
+    //     type: Date
+    // },
+    // futureReplace:{
+    //     type: Date
+    // },
+    price:{
+        type: Number
     },
-    futureReplace:{
-        type: Date
+    desc:{
+        type: String
     }
 }, { timestamps: true })
 

@@ -9,7 +9,8 @@ import {
   DELETE_USERS,
   CHANGE_ROLE,
 } from './types';
-import USER_SERVER from '../components/Config';
+
+import { USER_SERVER } from '../components/Config';
 
 export function registerUser(dataToSubmit) {
   const request = axios

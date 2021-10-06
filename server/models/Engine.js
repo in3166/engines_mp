@@ -10,21 +10,35 @@ const engineSchema = mongoose.Schema(
       type: String,
       maxlength: 50,
     },
-    parts: [
+    requiredParts: [
       {
         part: { type: mongoose.Schema.Types.ObjectId, ref: "Part" },
         requiredNumber: { type: Number },
       },
     ],
-    defaultLifespan: {
+    defaultLifespan: { // 교체시기
       type: Number,
     },
-    recentRepair: {
+    recentRepairDate: { // 최근 수리 날짜
       type: Date,
     },
-    futureCheck: {
+    futureCheck: { // 예상
       type: Date,
     },
+    maintenanceHistory:[
+      {
+        parts: [{
+          part: { type: mongoose.Schema.Types.ObjectId, ref: "Part" },
+          repairNumber: { type: Number },
+        }],
+        date:{
+          type: Date,
+        },
+        site:{
+          type: { type: mongoose.Schema.Types.ObjectId, ref: "Site" },
+        }
+      }
+    ]
   },
   { timestamps: true }
 );

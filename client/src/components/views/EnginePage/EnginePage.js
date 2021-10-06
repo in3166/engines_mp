@@ -6,45 +6,27 @@ import React from 'react';
 // import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 // import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/icons';
 // const { SubMenu } = Menu;
-import { Table, Layout, Breadcrumb } from 'antd';
+import { Layout, Breadcrumb } from 'antd';
 
 import { Line } from 'react-chartjs-2';
 import PropTypes from 'prop-types';
 // import Highlighter from 'react-highlight-words';
 // import { SearchOutlined } from '@ant-design/icons';
-import ColumnSearch from './Sections/ColumnSearch';
-import datas from './Sections/datas';
+
+import datas from './Data/datas';
+import columns from './Data/Columns';
+import EngineTable from './Sections/EngineTable';
 
 const { Content } = Layout;
 
 function EnginePage(props) {
-  const columns = [
-    {
-      title: 'Name',
-      dataIndex: 'name',
-      key: 'name',
-      width: '30%',
-      ...ColumnSearch('name'),
-    },
-    {
-      title: 'Age',
-      dataIndex: 'age',
-      key: 'age',
-      width: '20%',
-      ...ColumnSearch('age'),
-    },
-    {
-      title: 'Address',
-      dataIndex: 'address',
-      key: 'address',
-      ...ColumnSearch('address'),
-    },
-  ];
-
   const { user } = props;
+
   if (!user?.userData?.isAuth) {
     return null;
   }
+
+  // id 열에 검색버튼
 
   return (
     <div style={{ width: '100%' }}>
@@ -75,7 +57,7 @@ function EnginePage(props) {
           <br />
           <hr />
           <br />
-          <Table columns={columns} dataSource={datas.data} />
+          <EngineTable columns={columns} dataSource={datas.data} user={user} />
         </Content>
       </Layout>
     </div>

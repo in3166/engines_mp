@@ -12,6 +12,7 @@ export default function foo(SpecificComponent, option, adminRoute = null) {
     const history = useHistory();
 
     useEffect(() => {
+      // auth는 토큰 비교
       dispatch(auth()).then(res => {
         if (!res.payload.isAuth) {
           if (option) {

@@ -1,3 +1,4 @@
 // SERVER ROUTES
 const USER_SERVER = '/api/users';
-export default USER_SERVER;
+const ENGINE_SERVER = '/api/engines';
+export { USER_SERVER, ENGINE_SERVER };
