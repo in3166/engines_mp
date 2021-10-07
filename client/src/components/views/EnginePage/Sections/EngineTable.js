@@ -6,20 +6,28 @@ import { SearchOutlined } from '@ant-design/icons';
 import { getAllEngines } from '../../../../_actions/engine_actions';
 import ColumnSearch from '../Data/ColumnSearch';
 import PartsModal from './PartsModal';
+import MaintenanceModal from './MaintenanceModal';
 
 function EngineTable(props) {
   const { columns } = props;
   const [Engines, setEngines] = useState([]);
   const [ShowPartsModal, setShowPartsModal] = useState(false);
+  const [ShowMaintenanceModal, setShowMaintenanceModal] = useState(false);
   const [PartsInfo, setPartsInfo] = useState([]);
+  const [MaintenanceInfo, setMaintenanceInfo] = useState([]);
 
   const dispatch = useDispatch();
-  console.log(Engines);
+  console.log('모든 엔진들', Engines);
 
   columns[0] = { ...columns[0], ...ColumnSearch('id') };
   const handlerPartsShow = record => {
     setPartsInfo(record);
     setShowPartsModal(true);
+  };
+  const handleMaintenanceShow = record => {
+    console.log('ma', record);
+    setMaintenanceInfo(record);
+    setShowMaintenanceModal(true);
   };
   const repairCol = [
     {
@@ -27,12 +35,14 @@ function EngineTable(props) {
       dataIndex: 'repairParts',
       key: '5',
       width: '100',
-      render: () => {
+      render: (text, record) => {
         // console.log('text', text);
         // console.log('record', record);
         // console.log('index', index);
         return (
-          <Button onClick>
+          <Button
+            onClick={() => handleMaintenanceShow(record.maintenanceHistory)}
+          >
             <SearchOutlined />
           </Button>
         );
@@ -86,11 +96,20 @@ function EngineTable(props) {
   return (
     <div>
       <Table columns={newColumns} dataSource={Engines} />
-      <PartsModal
-        ShowPartsModal={ShowPartsModal}
-        setShowPartsModal={setShowPartsModal}
-        PartsInfo={PartsInfo}
-      />
+      {ShowPartsModal && (
+        <PartsModal
+          ShowPartsModal={ShowPartsModal}
+          setShowPartsModal={setShowPartsModal}
+          PartsInfo={PartsInfo}
+        />
+      )}
+      {ShowMaintenanceModal && (
+        <MaintenanceModal
+          ShowMaintenanceModal={ShowMaintenanceModal}
+          setShowMaintenanceModal={setShowMaintenanceModal}
+          MaintenanceInfo={MaintenanceInfo}
+        />
+      )}
     </div>
   );
 }

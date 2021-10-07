@@ -1,79 +1,37 @@
-import React, { useState } from 'react';
-import { Layout, Breadcrumb, Table, Button, Tabs } from 'antd';
-// import { SearchOutlined } from '@ant-design/icons';
+import React, { useState, useEffect } from 'react';
+import { Layout, Breadcrumb, Tabs, message } from 'antd';
 import PropTypes from 'prop-types';
-import Engine1List from './Sections/Engine1List';
-import { datas1 as data } from './Sections/datas';
-// const { SubMenu } = Menu;
+import { useDispatch } from 'react-redux';
+import EngineList from './Sections/EngineList';
+import { getAllSites } from '../../../../_actions/site_actions';
+import './Sections/antdTable.css';
+
 const { Content } = Layout;
 const { TabPane } = Tabs;
 
-function UnitListPage(props) {
-  const [selectedRowKey, setselectedRowKeys] = useState([]);
+function EnginePartsPage(props) {
   const { user } = props;
-  const onSelectChange = selectedRowKeys => {
-    // console.log('selectedRowKeys changed: ', selectedRowKeys);
-    setselectedRowKeys(selectedRowKeys);
+  const [Sites, setSites] = useState([]);
+  const dispatch = useDispatch();
+
+  const getSites = () => {
+    dispatch(getAllSites())
+      .then(res => {
+        if (res.payload.success) {
+          setSites(res.payload.sites);
+        } else {
+          message.error(res.payload.err);
+        }
+      })
+      .catch(err => {
+        message.error(err);
+      });
   };
 
-  const columns = [
-    {
-      title: 'ID',
-      dataIndex: 'id',
-      sorter: {
-        compare: (a, b) => a.id.localeCompare(b.id),
-        multiple: 1,
-      },
-      width: 100,
-    },
-    {
-      title: '이름',
-      dataIndex: 'name',
-      sorter: {
-        compare: (a, b) => a.name.localeCompare(b.name),
-        multiple: 2,
-      },
-      width: 200,
-    },
-    {
-      title: '설명',
-      dataIndex: 'desc',
-      sorter: {
-        compare: (a, b) => a.desc.localeCompare(b.desc),
-        multiple: 3,
-      },
-    },
-    {
-      title: '위치',
-      dataIndex: 'location',
-      sorter: {
-        compare: (a, b) => a.location.localeCompare(b.location),
-        multiple: 4,
-      },
-      width: 200,
-    },
-    {
-      title: '예상 수명',
-      dataIndex: 'lifespan',
-      sorter: {
-        compare: (a, b) => a.lifespan - b.lifespan,
-        multiple: 4,
-      },
-      width: 200,
-    },
-  ];
+  const useMountEffect = fun => useEffect(fun, []);
+  useMountEffect(getSites);
 
   if (!user?.userData?.isAuth) return null;
-
-  const rowSelection = {
-    selectedRowKey,
-    onChange: onSelectChange,
-    selections: [
-      Table.SELECTION_ALL,
-      Table.SELECTION_NONE,
-      Table.SELECTION_INVERT,
-    ],
-  };
 
   return (
     <div style={{ width: '100%' }}>
@@ -98,32 +56,15 @@ function UnitListPage(props) {
             size="large"
             style={{ background: 'white', padding: '0 20px 10px 20px' }}
           >
-            <TabPane tab="Site-1" key="1">
-              <Engine1List />
-            </TabPane>
-            <TabPane tab="Site-2" key="2">
-              <div style={{ float: 'right' }}>
-                <Button>추가</Button>
-                <Button>수정</Button>
-                <Button>삭제</Button>
-                <br />
-                <br />
-              </div>
-              <Table
-                size="small"
-                rowSelection={rowSelection}
-                columns={columns}
-                dataSource={data}
-              />
-            </TabPane>
-            <TabPane tab="Site-3" key="3">
-              <Table
-                size="small"
-                rowSelection={rowSelection}
-                columns={columns}
-                dataSource={data}
-              />
-            </TabPane>
+            {Sites.length > 0 &&
+              Sites.map((value, i) => {
+                const key = `tabs${i}`;
+                return (
+                  <TabPane tab={value.name} key={key}>
+                    <EngineList site={value} engines={value.engines} />
+                  </TabPane>
+                );
+              })}
           </Tabs>
         </Content>
       </Layout>
@@ -131,8 +72,8 @@ function UnitListPage(props) {
   );
 }
 
-UnitListPage.propTypes = {
+EnginePartsPage.propTypes = {
   user: PropTypes.objectOf(PropTypes.object).isRequired,
 };
 
-export default UnitListPage;
+export default EnginePartsPage;

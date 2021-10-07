@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 
 // import { UserOutlined } from '@ant-design/icons';
 import { FaUserCircle } from 'react-icons/fa';
-import USER_SERVER from '../../../Config';
+import { USER_SERVER } from '../../../Config';
 
 function RightMenu(props) {
   const user = useSelector(state => state.user);

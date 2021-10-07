@@ -1,6 +1,6 @@
-const columns1 = [
+const engineCol = [
   {
-    title: 'ID',
+    title: '엔진 ID',
     dataIndex: 'id',
     sorter: {
       compare: (a, b) => a.id.localeCompare(b.id),
@@ -15,46 +15,43 @@ const columns1 = [
       compare: (a, b) => a.name.localeCompare(b.name),
       multiple: 2,
     },
-    width: 200,
-  },
-  {
-    title: '설명',
-    dataIndex: 'desc',
-    sorter: {
-      compare: (a, b) => a.desc.localeCompare(b.desc),
-      multiple: 3,
-    },
-  },
-  {
-    title: '위치',
-    dataIndex: 'location',
-    sorter: {
-      compare: (a, b) => a.qu - b.qu,
-      multiple: 4,
-    },
-    width: 200,
+    width: 100,
   },
   {
     title: '예상 수명',
-    dataIndex: 'lifespan',
+    dataIndex: 'defaultLifespan',
     sorter: {
-      compare: (a, b) => a.lifespan - b.lifespan,
+      compare: (a, b) => a.defaultLifespan - b.defaultLifespan,
       multiple: 5,
+    },
+    width: 100,
+  },
+  {
+    title: '최근 수리 날짜',
+    dataIndex: 'recentRepairDate',
+    sorter: {
+      compare: (a, b) => a.recentRepairDate.localeCompare(b.recentRepairDate),
+      multiple: 3,
     },
     width: 200,
   },
 ];
 
-const columns2 = [
-  { title: 'ID', dataIndex: 'id2', key: 'id2' },
-  { title: '부품 이름', dataIndex: 'name2', key: 'name2' },
+const partCol = [
+  { title: '부품 ID', dataIndex: ['part', 'id'], key: 'id2' },
+  { title: '부품 이름', dataIndex: ['part', 'name'], key: 'name2' },
+  { title: '가격', dataIndex: ['part', 'price'], key: 'price' },
   {
     title: '설명',
-    dataIndex: 'desc2',
+    dataIndex: ['part', 'desc'],
     key: 'desc2',
   },
-  { title: '필요 수량', dataIndex: 'qu2', key: 'qu2' },
-  { title: '예상 수명', dataIndex: 'lifespan2', key: 'lifespan2' },
+  {
+    title: '예상 수명',
+    dataIndex: ['part', 'defaultLifespan'],
+    key: 'defaultLifespan',
+  },
+  { title: '필요 수량', dataIndex: 'requiredNumber', key: 'requiredNumber' },
 ];
 
-export { columns1, columns2 };
+export { engineCol, partCol };

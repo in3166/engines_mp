@@ -41,6 +41,9 @@ function SideBar() {
         defaultOpenKeys={['sub1', 'sub2', 'sub3']}
         style={{ height: '100%', borderRight: 0 }}
       >
+        <Menu.Item key="0">
+          <Link to="/">Dashboard</Link>
+        </Menu.Item>
         <SubMenu key="sub1" icon={<HddOutlined />} title="수명 데이터 관리">
           <Menu.Item key="1">
             <Link to="/engineParts">엔진별 부품 목록</Link>

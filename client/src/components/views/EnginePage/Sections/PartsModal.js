@@ -1,11 +1,10 @@
 import React from 'react';
-import { Modal, Table } from 'antd';
+import { Modal, Table, Button } from 'antd';
 import PropTypes from 'prop-types';
 
 const { Column } = Table;
 function PartsModal(props) {
   const { ShowPartsModal, setShowPartsModal, PartsInfo } = props;
-  console.log('partinfo', PartsInfo);
 
   const newParts = PartsInfo.map((a, i) => {
     const temp = a.part;
@@ -20,7 +19,12 @@ function PartsModal(props) {
       title="구성 부품"
       width="90%"
       visible={ShowPartsModal}
-      onOk={() => setShowPartsModal(false)}
+      onCancel={() => setShowPartsModal(false)}
+      footer={[
+        <Button key="back" onClick={() => setShowPartsModal(false)}>
+          OK
+        </Button>,
+      ]}
     >
       <Table dataSource={newParts}>
         <Column title="ID" dataIndex="id" key="id" />
