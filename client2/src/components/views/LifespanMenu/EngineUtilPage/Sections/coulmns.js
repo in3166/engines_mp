@@ -34,12 +34,13 @@ const engineCol = [
       multiple: 3,
     },
     width: 200,
+    responsive: ['lg'],
   },
 ];
 
 const partCol = [
   {
-    title: '부품 ID',
+    title: 'ID',
     dataIndex: ['part', 'id'],
     key: 'id2',
     sorter: {
@@ -48,7 +49,7 @@ const partCol = [
     },
   },
   {
-    title: '부품 이름',
+    title: '이름',
     dataIndex: ['part', 'name'],
     key: 'name2',
     sorter: {
@@ -73,6 +74,7 @@ const partCol = [
       compare: (a, b) => a.part.desc.localeCompare(b.part.desc),
       multiple: 3,
     },
+    responsive: ['md'],
   },
   {
     title: '예상 수명',

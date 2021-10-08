@@ -2,6 +2,15 @@ thead[class*='ant-table-thead'] th {
   background-color: rgb(243, 243, 243) !important;
 }
 
+col {
+  min-width: 0 !important;
+}
+
+.ant-table table table {
+  table-layout: fixed;
+  width: 100%;
+}
+
 .ant-layout,
 .ant-layout-sider {
   min-height: 88.6vh;
@@ -77,8 +86,4 @@ table tr td.ant-table-selection-column {
 
 .ant-scrolling-effect {
   width: 100% !important;
-}
-
-col {
-  min-width: 0 !important;
 }

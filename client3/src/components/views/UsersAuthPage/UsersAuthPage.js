@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import {
-  Layout,
   Table,
   Space,
   Button,
@@ -21,9 +20,6 @@ import PropTypes from 'prop-types';
 import { deleteUsers } from '../../../_actions/user_actions';
 import UpdateModal from './Sections/UpdateModal';
 import './Sections/UserAuth.css';
-
-// const { SubMenu } = Menu;
-const { Content } = Layout;
 
 function UsersRolePage(props) {
   const { user } = props;
@@ -143,7 +139,7 @@ function UsersRolePage(props) {
         compare: (a, b) => a.id.localeCompare(b.id),
         multiple: 1,
       },
-      minwidth: 100,
+      width: 60,
       align: 'center',
     },
     {
@@ -153,9 +149,9 @@ function UsersRolePage(props) {
         compare: (a, b) => a.name.localeCompare(b.name),
         multiple: 2,
       },
-      minwidth: 160,
+      width: 60,
       align: 'center',
-      responsive: ['sm'],
+      responsive: ['md'],
     },
     {
       title: 'Email',
@@ -164,9 +160,9 @@ function UsersRolePage(props) {
         compare: (a, b) => a.email.localeCompare(b.email),
         multiple: 3,
       },
-      width: 240,
+      width: 100,
       align: 'center',
-      responsive: ['md'],
+      responsive: ['xl'],
     },
     {
       title: '부서',
@@ -175,9 +171,9 @@ function UsersRolePage(props) {
         compare: (a, b) => a.depart.localeCompare(b.depart),
         multiple: 3,
       },
-      width: 100,
+      width: 70,
       align: 'center',
-      responsive: ['md'],
+      responsive: ['lg'],
     },
     {
       title: '직급',
@@ -186,7 +182,7 @@ function UsersRolePage(props) {
         compare: (a, b) => a.position.localeCompare(b.position),
         multiple: 3,
       },
-      width: 90,
+      width: 70,
       align: 'center',
       responsive: ['md'],
     },
@@ -201,7 +197,7 @@ function UsersRolePage(props) {
       onFilter: (value, record) => {
         return record.role.indexOf(value) === 0;
       },
-      minwidth: 100,
+      width: 85,
       align: 'center',
     },
     {
@@ -217,7 +213,7 @@ function UsersRolePage(props) {
           </Space>
         );
       },
-      width: 20,
+      width: 50,
       align: 'center',
     },
     {
@@ -241,7 +237,7 @@ function UsersRolePage(props) {
           </Space>
         );
       },
-      width: 30,
+      width: 50,
       align: 'center',
       responsive: ['sm'],
     },
@@ -263,56 +259,45 @@ function UsersRolePage(props) {
   };
 
   return (
-    <div style={{ width: '100%', overflow: 'auto' }}>
-      <Layout style={{ padding: '0 24px 24px' }}>
-        <Breadcrumb style={{ margin: '16px 0' }}>
-          <Breadcrumb.Item>Home</Breadcrumb.Item>
-          <Breadcrumb.Item>사용자 관리</Breadcrumb.Item>
-          <Breadcrumb.Item>권한 관리</Breadcrumb.Item>
-        </Breadcrumb>
-        <Content
-          className="site-layout-background"
-          style={{
-            padding: 24,
-            margin: 0,
-            minHeight: 280,
-            height: '100%',
-            border: '1px solid',
-          }}
-        >
-          <Spin spinning={loading}>
-            <div style={{ float: 'right' }}>
-              <Button onClick={getAllUsers}>
-                <ReloadOutlined />
-              </Button>{' '}
-              <Button onClick={deleteUsersButton}>
-                <DeleteFilled />
-              </Button>{' '}
-              <br />
-              <br />
-            </div>
+    <>
+      <Breadcrumb style={{ margin: '16px 0' }}>
+        <Breadcrumb.Item>Home</Breadcrumb.Item>
+        <Breadcrumb.Item>사용자 관리</Breadcrumb.Item>
+        <Breadcrumb.Item>권한 관리</Breadcrumb.Item>
+      </Breadcrumb>
+      <Spin spinning={loading}>
+        <div style={{ backgroundColor: 'white', padding: 20 }}>
+          <div style={{ float: 'right' }}>
+            <Button onClick={getAllUsers}>
+              <ReloadOutlined />
+            </Button>{' '}
+            <Button onClick={deleteUsersButton}>
+              <DeleteFilled />
+            </Button>{' '}
+            <br />
+            <br />
+          </div>
 
-            <Table
-              style={{ overflow: 'auto' }}
-              rowSelection={rowSelection}
-              columns={columns}
-              dataSource={users}
-              bordered
-              tableLayout="auto"
-              scroll
-            />
-          </Spin>
-
-          <UpdateModal
-            modalData={modalData}
-            getAllUsers={getAllUsers}
-            handleRoleChange={handleRoleChange}
-            modalVisible={modalVisible}
-            setModalVisible={setModalVisible}
+          <Table
+            style={{ overflow: 'auto' }}
+            rowSelection={rowSelection}
+            columns={columns}
+            dataSource={users}
+            bordered
+            tableLayout="auto"
+            scroll
           />
-        </Content>
-      </Layout>
-    </div>
+        </div>
+      </Spin>
+
+      <UpdateModal
+        modalData={modalData}
+        getAllUsers={getAllUsers}
+        handleRoleChange={handleRoleChange}
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+      />
+    </>
   );
 }
 

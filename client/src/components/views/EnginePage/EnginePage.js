@@ -40,7 +40,7 @@ function EnginePage(props) {
           data={datas.chartData}
           legend={datas.legend}
           options={datas.options}
-          width="100%"
+          style={{ width: '100%' }}
         />
       </div>
       <br />

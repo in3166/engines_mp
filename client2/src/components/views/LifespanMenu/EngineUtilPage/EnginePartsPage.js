@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Breadcrumb, Tabs, message } from 'antd';
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import EngineList from './Sections/EngineList';
 import { getAllSites } from '../../../../_actions/site_actions';
 import './Sections/antdTable.css';
@@ -12,22 +12,32 @@ function EnginePartsPage(props) {
   const { user } = props;
   const [Sites, setSites] = useState([]);
   const dispatch = useDispatch();
+  const site = useSelector(state => state.site.sites);
+
+  console.log('site: ', site?.sites);
+  // console.log(site.sites);
 
   const getSites = () => {
-    dispatch(getAllSites())
-      .then(res => {
-        if (res.payload.success) {
-          setSites(res.payload.sites);
-        } else {
-          message.error(res.payload.err);
-        }
-      })
-      .catch(err => {
-        message.error(err);
-      });
+    if (site?.sites) {
+      setSites(site.sites);
+    } else {
+      dispatch(getAllSites())
+        .then(res => {
+          if (res.payload.success) {
+            setSites(res.payload.sites);
+          } else {
+            message.error(res.payload.err);
+          }
+        })
+        .catch(err => {
+          message.error(err);
+        });
+    }
   };
 
-  const useMountEffect = fun => useEffect(fun, []);
+  const useMountEffect = fun => {
+    useEffect(fun, []);
+  };
   useMountEffect(getSites);
 
   if (!user?.userData?.isAuth) return null;
@@ -43,6 +53,7 @@ function EnginePartsPage(props) {
         defaultActiveKey="1"
         size="large"
         style={{ background: 'white', padding: '0 20px 10px 20px' }}
+        tabBarExtraContent="right"
       >
         {Sites.length > 0 &&
           Sites.map((value, i) => {

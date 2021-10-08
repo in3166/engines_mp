@@ -38,6 +38,7 @@ const columns = [
       compare: (a, b) => a.recentRepairDate - b.recentRepairDate,
       multiple: 3,
     },
+    responsive: ['lg'],
   },
   {
     title: '점검 예정일',
@@ -48,6 +49,7 @@ const columns = [
       compare: (a, b) => a.recentRepairDate - b.recentRepairDate,
       multiple: 3,
     },
+    responsive: ['lg'],
   },
 ];
 
