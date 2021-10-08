@@ -125,115 +125,95 @@ function LandingPage() {
 
   return (
     <div style={{ width: '100%' }}>
-      {/* <div>
-                {getMessage.status === 200 ?
-                    <h3>{getMessage.data.message}</h3>
-                    :
-                    <h3>/test/LOADING</h3>}
-                <hr />
-                {PredictMessage.status === 200 ?
-                    <h3>{PredictMessage.data.message}</h3>
-                    :
-                    <h3>/predict/LOADING</h3>}
-            </div> */}
-      {/* <Layout>
-                <Navbar />
-                <Layout>
-                    <SideBar /> */}
-      <Layout style={{ padding: '0 24px 24px', overflow: 'auto' }}>
-        <Breadcrumb style={{ margin: '16px 0' }}>
-          <Breadcrumb.Item>Home</Breadcrumb.Item>
-          <Breadcrumb.Item>DashBoard</Breadcrumb.Item>
-        </Breadcrumb>
-        <Content
-          className="site-layout-background"
-          style={{
-            padding: 12,
-            margin: 0,
-            minHeight: 280,
-            height: '100%',
-            border: '1px solid',
-          }}
-        >
-          <Row gutter={[16, 16]}>
-            <Col lg={8} xs={23}>
-              <div
-                className="chart"
-                style={{
-                  display: 'flex',
-                  flexWrap: 'wrap',
-                  justifyContent: 'space-around',
-                  alignItems: 'center',
-                }}
-              >
-                <Progress
-                  type="circle"
-                  percent={30}
-                  width={80}
-                  strokeWidth={10}
-                />
-                <Progress
-                  type="circle"
-                  percent={70}
-                  width={80}
-                  strokeWidth={10}
-                  status="exception"
-                />
-                <Progress
-                  type="circle"
-                  percent={100}
-                  width={80}
-                  strokeWidth={10}
-                />
-              </div>
-            </Col>
-            <Col lg={8} xs={23}>
-              <div className="chart">
-                <Line data={chartData} legend={legend} options={options} />
-              </div>
-            </Col>
+      <Breadcrumb style={{ margin: '16px 0' }}>
+        <Breadcrumb.Item>Home</Breadcrumb.Item>
+        <Breadcrumb.Item>DashBoard</Breadcrumb.Item>
+      </Breadcrumb>
+      <Content
+        className="site-layout-background"
+        style={{
+          padding: 12,
+          margin: 0,
+          minHeight: 280,
+          height: '100%',
+          border: '1px solid',
+        }}
+      >
+        <Row gutter={[16, 16]}>
+          <Col lg={8} xs={23}>
+            <div
+              className="chart"
+              style={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                justifyContent: 'space-around',
+                alignItems: 'center',
+              }}
+            >
+              <Progress
+                type="circle"
+                percent={30}
+                width={80}
+                strokeWidth={10}
+              />
+              <Progress
+                type="circle"
+                percent={70}
+                width={80}
+                strokeWidth={10}
+                status="exception"
+              />
+              <Progress
+                type="circle"
+                percent={100}
+                width={80}
+                strokeWidth={10}
+              />
+            </div>
+          </Col>
+          <Col lg={8} xs={23}>
+            <div className="chart">
+              <Line data={chartData} legend={legend} options={options} />
+            </div>
+          </Col>
 
-            <Col lg={8} xs={23}>
-              <div className="chart">
-                <Progress percent={30} />
-                <Progress percent={50} status="active" />
-                <Progress percent={70} status="exception" />
-                <Progress percent={100} />
-              </div>
-            </Col>
+          <Col lg={8} xs={23}>
+            <div className="chart">
+              <Progress percent={30} />
+              <Progress percent={50} status="active" />
+              <Progress percent={70} status="exception" />
+              <Progress percent={100} />
+            </div>
+          </Col>
 
-            <Col xl={12} lg={12} md={12} xs={23}>
-              <div className="chart">
-                <h2>Engine1</h2>
-                <Doughnut data={data} />
-              </div>
-            </Col>
+          <Col xl={12} lg={12} md={12} xs={23}>
+            <div className="chart">
+              <h2>Engine1</h2>
+              <Doughnut data={data} />
+            </div>
+          </Col>
 
-            <Col xl={12} lg={12} md={12} xs={23}>
-              <div className="chart">
-                <h2>Engine2</h2>
-                <Doughnut data={data} />
-              </div>
-            </Col>
-            <Col xl={12} lg={12} md={12} xs={23}>
-              <div className="chart">
-                <h2>Engine3</h2>
-                <Doughnut data={data} />
-              </div>
-            </Col>
+          <Col xl={12} lg={12} md={12} xs={23}>
+            <div className="chart">
+              <h2>Engine2</h2>
+              <Doughnut data={data} />
+            </div>
+          </Col>
+          <Col xl={12} lg={12} md={12} xs={23}>
+            <div className="chart">
+              <h2>Engine3</h2>
+              <Doughnut data={data} />
+            </div>
+          </Col>
 
-            <Col xl={12} lg={12} md={12} xs={23}>
-              <div className="chart">
-                <h2>Engine4</h2>
-                <Doughnut data={data} />
-              </div>
-            </Col>
-          </Row>
-        </Content>
-        {/* <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer> */}
-      </Layout>
-      {/* </Layout>
-            </Layout> */}
+          <Col xl={12} lg={12} md={12} xs={23}>
+            <div className="chart">
+              <h2>Engine4</h2>
+              <Doughnut data={data} />
+            </div>
+          </Col>
+        </Row>
+      </Content>
     </div>
   );
 }

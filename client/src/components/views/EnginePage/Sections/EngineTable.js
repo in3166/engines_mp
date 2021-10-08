@@ -95,7 +95,12 @@ function EngineTable(props) {
 
   return (
     <div>
-      <Table columns={newColumns} dataSource={Engines} />
+      <Table
+        columns={newColumns}
+        dataSource={Engines}
+        tableLayout="fixed"
+        style={{ width: '100%' }}
+      />
       {ShowPartsModal && (
         <PartsModal
           ShowPartsModal={ShowPartsModal}

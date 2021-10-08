@@ -7,6 +7,7 @@ const columns1 = [
       multiple: 1,
     },
     width: 100,
+    minWidth: 10,
   },
   {
     title: '부품 이름',
@@ -16,6 +17,7 @@ const columns1 = [
       multiple: 2,
     },
     width: 200,
+    minWidth: 10,
   },
   {
     title: '설명',
@@ -24,6 +26,7 @@ const columns1 = [
       compare: (a, b) => a.desc.localeCompare(b.desc),
       multiple: 3,
     },
+    minWidth: 10,
   },
   {
     title: '필요 수량',
@@ -33,6 +36,7 @@ const columns1 = [
       multiple: 4,
     },
     width: 200,
+    minWidth: 10,
   },
   {
     title: '예상 수명',
@@ -42,6 +46,7 @@ const columns1 = [
       multiple: 5,
     },
     width: 200,
+    minWidth: 10,
   },
 ];
 

@@ -6,7 +6,7 @@ const columns = [
       compare: (a, b) => a.id.localeCompare(b.id),
       multiple: 1,
     },
-    minwidth: 100,
+    width: 70,
     align: 'center',
   },
   {
@@ -16,7 +16,7 @@ const columns = [
       compare: (a, b) => a.name.localeCompare(b.name),
       multiple: 2,
     },
-    minwidth: 100,
+    width: 70,
     align: 'center',
     responsive: ['sm'],
   },
@@ -27,9 +27,9 @@ const columns = [
       compare: (a, b) => a.email.localeCompare(b.email),
       multiple: 3,
     },
-    width: 250,
+    width: 200,
     align: 'center',
-    responsive: ['md'],
+    responsive: ['xl'],
   },
   {
     title: '부서',
@@ -38,7 +38,7 @@ const columns = [
       compare: (a, b) => a.depart.localeCompare(b.depart),
       multiple: 3,
     },
-    width: 100,
+    width: 70,
     align: 'center',
     responsive: ['md'],
   },
@@ -49,7 +49,7 @@ const columns = [
       compare: (a, b) => a.position.localeCompare(b.position),
       multiple: 3,
     },
-    width: 100,
+    width: 70,
     align: 'center',
     responsive: ['md'],
   },
@@ -64,7 +64,7 @@ const columns = [
     onFilter: (value, record) => {
       return record.role.indexOf(value) === 0;
     },
-    minwidth: 100,
+    width: 70,
     align: 'center',
   },
 ];

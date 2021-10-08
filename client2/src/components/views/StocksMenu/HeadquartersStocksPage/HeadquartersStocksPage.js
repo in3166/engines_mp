@@ -1,22 +1,8 @@
 import React, { useState } from 'react';
-import {
-  Layout,
-  Breadcrumb,
-  Table,
-  Button,
-  Radio,
-  Popconfirm,
-  Space,
-} from 'antd';
+import { Breadcrumb, Table, Button, Radio, Popconfirm, Space } from 'antd';
 // import { SearchOutlined } from '@ant-design/icons';
 import PropTypes from 'prop-types';
-import {
-  DeleteFilled,
-  // EditOutlined,
-  QuestionCircleOutlined,
-} from '@ant-design/icons';
-// const { SubMenu } = Menu;
-const { Content } = Layout;
+import { DeleteFilled, QuestionCircleOutlined } from '@ant-design/icons';
 
 const data = [
   {
@@ -137,43 +123,32 @@ function HeadquartersStocksPage(props) {
   };
 
   return (
-    <div style={{ width: '100%' }}>
-      <Layout style={{ padding: '0 24px 24px', overflow: 'auto' }}>
-        <Breadcrumb style={{ margin: '16px 0' }}>
-          <Breadcrumb.Item>부품/자재 관리</Breadcrumb.Item>
-          <Breadcrumb.Item>부품/자재 재고 관리</Breadcrumb.Item>
-          <Breadcrumb.Item>본사 재고 목록</Breadcrumb.Item>
-        </Breadcrumb>
-        <Content
-          className="site-layout-background"
-          style={{
-            padding: 24,
-            margin: 0,
-            minHeight: 280,
-            height: '100%',
-            border: '1px solid',
-          }}
-        >
-          <div style={{ float: 'left' }}>
-            <Radio.Group onChange={onChange} value={value} defaultValue={1}>
-              <Radio value={1}>부품</Radio>
-              <Radio value={2}>자재</Radio>
-            </Radio.Group>
-          </div>
-          <div style={{ float: 'right' }}>
-            <Button>추가</Button>
-            <Button>삭제</Button>
-            <br />
-            <br />
-          </div>
-          <Table
-            rowSelection={rowSelection}
-            columns={columns}
-            dataSource={data}
-          />
-        </Content>
-      </Layout>
-    </div>
+    <>
+      <Breadcrumb style={{ margin: '16px 0' }}>
+        <Breadcrumb.Item>부품/자재 관리</Breadcrumb.Item>
+        <Breadcrumb.Item>부품/자재 재고 관리</Breadcrumb.Item>
+        <Breadcrumb.Item>본사 재고 목록</Breadcrumb.Item>
+      </Breadcrumb>
+      <div style={{ padding: 20, backgroundColor: 'white' }}>
+        <div>
+          <Radio.Group onChange={onChange} value={value} defaultValue={1}>
+            <Radio value={1}>부품</Radio>
+            <Radio value={2}>자재</Radio>
+          </Radio.Group>
+        </div>
+        <div style={{ float: 'right' }}>
+          <Button>추가</Button>
+          <Button>삭제</Button>
+          <br />
+          <br />
+        </div>
+        <Table
+          rowSelection={rowSelection}
+          columns={columns}
+          dataSource={data}
+        />
+      </div>
+    </>
   );
 }
 

@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Layout, Breadcrumb, Tabs, message } from 'antd';
+import { Breadcrumb, Tabs, message } from 'antd';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import EngineList from './Sections/EngineList';
 import { getAllSites } from '../../../../_actions/site_actions';
 import './Sections/antdTable.css';
 
-const { Content } = Layout;
 const { TabPane } = Tabs;
 
 function EnginePartsPage(props) {
@@ -35,39 +34,26 @@ function EnginePartsPage(props) {
 
   return (
     <div style={{ width: '100%' }}>
-      <Layout style={{ padding: '0 24px 24px', overflow: 'auto' }}>
-        <Breadcrumb style={{ margin: '16px 0' }}>
-          <Breadcrumb.Item>부품/자재 관리</Breadcrumb.Item>
-          <Breadcrumb.Item>수명 데이터 관리</Breadcrumb.Item>
-          <Breadcrumb.Item>엔진별 부품 목록</Breadcrumb.Item>
-        </Breadcrumb>
-        <Content
-          className="site-layout-background"
-          style={{
-            padding: 24,
-            margin: 0,
-            minHeight: 280,
-            height: '100%',
-            border: '1px solid',
-          }}
-        >
-          <Tabs
-            defaultActiveKey="1"
-            size="large"
-            style={{ background: 'white', padding: '0 20px 10px 20px' }}
-          >
-            {Sites.length > 0 &&
-              Sites.map((value, i) => {
-                const key = `tabs${i}`;
-                return (
-                  <TabPane tab={value.name} key={key}>
-                    <EngineList site={value} engines={value.engines} />
-                  </TabPane>
-                );
-              })}
-          </Tabs>
-        </Content>
-      </Layout>
+      <Breadcrumb style={{ margin: '16px 0' }}>
+        <Breadcrumb.Item>부품/자재 관리</Breadcrumb.Item>
+        <Breadcrumb.Item>수명 데이터 관리</Breadcrumb.Item>
+        <Breadcrumb.Item>엔진별 부품 목록</Breadcrumb.Item>
+      </Breadcrumb>
+      <Tabs
+        defaultActiveKey="1"
+        size="large"
+        style={{ background: 'white', padding: '0 20px 10px 20px' }}
+      >
+        {Sites.length > 0 &&
+          Sites.map((value, i) => {
+            const key = `tabs${i}`;
+            return (
+              <TabPane tab={value.name} key={key}>
+                <EngineList site={value} engine={value.engines} />
+              </TabPane>
+            );
+          })}
+      </Tabs>
     </div>
   );
 }

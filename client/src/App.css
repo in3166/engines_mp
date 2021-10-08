@@ -1,3 +1,6 @@
+canvas {
+  width: 100% !important;
+}
 .ant-layout,
 .ant-layout-sider {
   min-height: 88.6vh;
@@ -85,4 +88,8 @@ table tr td.ant-table-selection-column {
 .predictCard .ant-card-body .ant-spin-nested-loading,
 .predictCard .ant-card-body .ant-spin {
   min-height: 200px;
+}
+
+colgroup {
+  min-width: 0 !important;
 }

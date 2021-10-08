@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
 // import {useSelector} from 'react-redux'
-import { Transfer, Button, message, Layout, Breadcrumb, Spin } from 'antd';
+import { Transfer, Button, message, Breadcrumb, Spin } from 'antd';
 import axios from 'axios';
 import { ReloadOutlined } from '@ant-design/icons';
 import PropTypes from 'prop-types';
-
-const { Content } = Layout;
+import './Sections/antdTransfer.css';
 
 function AddExpertPage(props) {
   const [userList, setUserList] = useState([]);
@@ -97,47 +96,34 @@ function AddExpertPage(props) {
   );
 
   return (
-    <div style={{ width: '100%' }}>
-      <Layout style={{ padding: '0 24px 24px', overflow: 'auto' }}>
-        <Breadcrumb style={{ margin: '16px 0' }}>
-          <Breadcrumb.Item>Home</Breadcrumb.Item>
-          <Breadcrumb.Item>전문가 관리</Breadcrumb.Item>
-          <Breadcrumb.Item>전문가 등록</Breadcrumb.Item>
-        </Breadcrumb>
-        <Content
-          className="site-layout-background"
-          style={{
-            padding: 12,
-            margin: 0,
-            minHeight: 280,
-            height: '100%',
-            border: '1px solid',
-          }}
-        >
-          <div>
-            <Spin spinning={loading}>
-              <Transfer
-                locale={{ itemUnit: '명', itemsUnit: '명' }}
-                dataSource={userList}
-                titles={['일반 사용자', '전문가']}
-                showSearch
-                listStyle={{
-                  width: '100%',
-                  height: 400,
-                }}
-                operations={['추가', '제거']}
-                targetKeys={targetKeys}
-                // selectedKeys={selectedKeys}
-                // onSelectChange={handleSelectChange}
-                onChange={handleChange}
-                render={item => `${item.id}`}
-                footer={renderFooter}
-              />
-            </Spin>
-          </div>
-        </Content>
-      </Layout>
-    </div>
+    <>
+      <Breadcrumb style={{ margin: '16px 0' }}>
+        <Breadcrumb.Item>Home</Breadcrumb.Item>
+        <Breadcrumb.Item>전문가 관리</Breadcrumb.Item>
+        <Breadcrumb.Item>전문가 등록</Breadcrumb.Item>
+      </Breadcrumb>
+      <div style={{ backgroundColor: 'white', padding: 20 }}>
+        <Spin spinning={loading}>
+          <Transfer
+            locale={{ itemUnit: '명', itemsUnit: '명' }}
+            dataSource={userList}
+            titles={['일반 사용자', '전문가']}
+            showSearch
+            listStyle={{
+              width: '100%',
+              height: 400,
+            }}
+            operations={['추가', '제거']}
+            targetKeys={targetKeys}
+            // selectedKeys={selectedKeys}
+            // onSelectChange={handleSelectChange}
+            onChange={handleChange}
+            render={item => `${item.id}`}
+            footer={renderFooter}
+          />
+        </Spin>
+      </div>
+    </>
   );
 }
 

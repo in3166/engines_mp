@@ -55,7 +55,7 @@ function UserPage(props) {
   };
 
   return (
-    <div style={{ width: '100%' }}>
+    <div style={{ width: '100%', flex: '1 1 0', minWidth: '0' }}>
       <Layout style={{ padding: '0 24px 24px', overflow: 'auto' }}>
         <PageHeader title="User Page" />
 

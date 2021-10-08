@@ -6,14 +6,16 @@ const { Content } = Layout;
 
 function NotFound() {
   return (
-    <Layout style={{ padding: '30px', overflow: 'auto' }}>
+    <Layout
+      style={{ padding: '30px', overflow: 'auto', height: 'fit-content' }}
+    >
       <Content
         className="site-layout-background"
         style={{
           padding: 70,
           margin: 0,
           minHeight: 280,
-          height: '100%',
+          height: 'fit-content',
           border: '1px solid',
           textAlign: 'center',
         }}

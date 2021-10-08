@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import {
-  Layout,
   Table,
   Space,
   Button,
@@ -20,9 +19,6 @@ import axios from 'axios';
 // import { deleteUsers } from '../../../_actions/user_actions';
 import UpdateModal from './Sections/UpdateModal';
 import { datas2 } from './Sections/datas';
-
-// const { SubMenu } = Menu;
-const { Content } = Layout;
 
 function LifeCodePage() {
   // const { user } = props;
@@ -137,6 +133,7 @@ function LifeCodePage() {
         multiple: 1,
       },
       width: 100,
+      minWidth: 10,
       align: 'center',
     },
     {
@@ -147,6 +144,7 @@ function LifeCodePage() {
         multiple: 2,
       },
       width: 160,
+      minWidth: 10,
       align: 'center',
       responsive: ['sm'],
     },
@@ -158,6 +156,7 @@ function LifeCodePage() {
         multiple: 3,
       },
       width: 240,
+      minWidth: 10,
       align: 'center',
       responsive: ['md'],
     },
@@ -169,6 +168,7 @@ function LifeCodePage() {
         multiple: 3,
       },
       width: 110,
+      minWidth: 10,
       align: 'center',
     },
     {
@@ -185,6 +185,7 @@ function LifeCodePage() {
         );
       },
       width: 70,
+      minWidth: 10,
       align: 'center',
     },
     {
@@ -209,6 +210,7 @@ function LifeCodePage() {
         );
       },
       width: 70,
+      minWidth: 10,
       align: 'center',
       responsive: ['sm'],
     },
@@ -230,52 +232,39 @@ function LifeCodePage() {
   };
 
   return (
-    <div style={{ width: '100%', overflow: 'auto' }}>
-      <Layout style={{ padding: '0 24px 24px' }}>
-        <Breadcrumb style={{ margin: '16px 0' }}>
-          <Breadcrumb.Item>부품/자재 관리</Breadcrumb.Item>
-          <Breadcrumb.Item>수명 데이터 관리</Breadcrumb.Item>
-          <Breadcrumb.Item>사용 연한 기초 관리</Breadcrumb.Item>
-        </Breadcrumb>
-        <Content
-          className="site-layout-background"
-          style={{
-            padding: 24,
-            margin: 0,
-            minHeight: 280,
-            height: '100%',
-            border: '1px solid',
-          }}
-        >
-          <Spin spinning={loading}>
-            <div style={{ float: 'right' }}>
-              <Button onClick={onClickUpdate}>추가</Button>
-              <Button onClick>삭제</Button>
-              <Button onClick>새로고침</Button>
-              <br />
-              <br />
-            </div>
+    <>
+      <Breadcrumb style={{ margin: '16px 0' }}>
+        <Breadcrumb.Item>부품/자재 관리</Breadcrumb.Item>
+        <Breadcrumb.Item>수명 데이터 관리</Breadcrumb.Item>
+        <Breadcrumb.Item>사용 연한 기초 관리</Breadcrumb.Item>
+      </Breadcrumb>
+      <Spin spinning={loading}>
+        <div style={{ float: 'right' }}>
+          <Button onClick={onClickUpdate}>추가</Button>
+          <Button onClick>삭제</Button>
+          <Button onClick>새로고침</Button>
+          <br />
+          <br />
+        </div>
 
-            <Table
-              style={{ overflow: 'auto' }}
-              rowSelection={rowSelection}
-              columns={columns}
-              dataSource={datas2}
-              bordered
-              tableLayout="auto"
-              scroll
-            />
-          </Spin>
+        <Table
+          style={{ overflow: 'auto' }}
+          rowSelection={rowSelection}
+          columns={columns}
+          dataSource={datas2}
+          bordered
+          tableLayout="auto"
+          scroll
+        />
+      </Spin>
 
-          <UpdateModal
-            modalData={modalData}
-            handleRoleChange={handleRoleChange}
-            modalVisible={modalVisible}
-            setModalVisible={setModalVisible}
-          />
-        </Content>
-      </Layout>
-    </div>
+      <UpdateModal
+        modalData={modalData}
+        handleRoleChange={handleRoleChange}
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+      />
+    </>
   );
 }
 

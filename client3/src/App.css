@@ -80,3 +80,11 @@ table tr td.ant-table-selection-column {
 .ant-scrolling-effect {
   width: 100% !important;
 }
+
+col {
+  min-width: 0 !important;
+}
+
+.ant-table-content table {
+  table-layout: fixed !important;
+}

@@ -18,6 +18,8 @@ import NotFound from './components/views/NotFound/NotFound';
 import Auth from './hoc/auth';
 // const { Header, Content, Footer, Sider } = Layout;
 
+const { Content } = Layout;
+
 function App() {
   const location = useLocation();
   const redirectUrl = url => {
@@ -37,36 +39,54 @@ function App() {
               <Navbar />
               <Layout>
                 <SideBar />
-                <Switch>
-                  <Route exact path="/" component={Auth(LandingPage, null)} />
-                  <Route
-                    path="/engineParts"
-                    component={Auth(EnginePartsPage, true)}
-                  />
-                  <Route
-                    path="/lifeCode"
-                    component={Auth(LifeCodePage, true)}
-                  />
-                  <Route
-                    path="/enginePartsList"
-                    component={Auth(EnginePartsListPage, true)}
-                  />
-                  <Route
-                    path="/sitePartsList"
-                    component={Auth(SitePartsListPage, true)}
-                  />
-                  <Route
-                    path="/headquartersStocks"
-                    component={Auth(HeadquartersStocksPage, true)}
-                  />
-                  <Route
-                    path="/branchStocks"
-                    component={Auth(BranchStocksPage, true)}
-                  />
-                  <Route path="/user" render={() => redirectUrl('user')} />
-                  {/* <Route path="/user" component={Auth(UserPage, true)} /> */}
-                  <Route component={NotFound} />
-                </Switch>
+                <Layout style={{ padding: '0px 24px 24px', overflow: 'auto' }}>
+                  <Content
+                    className="site-layout-background"
+                    style={{
+                      padding: 24,
+                      margin: 0,
+                      minHeight: 280,
+                      width: '100%',
+                      height: '100%',
+                      // border: '1px solid',
+                    }}
+                  >
+                    <Switch>
+                      <Route
+                        exact
+                        path="/"
+                        component={Auth(LandingPage, null)}
+                      />
+                      <Route
+                        path="/engineParts"
+                        component={Auth(EnginePartsPage, true)}
+                      />
+                      <Route
+                        path="/lifeCode"
+                        component={Auth(LifeCodePage, true)}
+                      />
+                      <Route
+                        path="/enginePartsList"
+                        component={Auth(EnginePartsListPage, true)}
+                      />
+                      <Route
+                        path="/sitePartsList"
+                        component={Auth(SitePartsListPage, true)}
+                      />
+                      <Route
+                        path="/headquartersStocks"
+                        component={Auth(HeadquartersStocksPage, true)}
+                      />
+                      <Route
+                        path="/branchStocks"
+                        component={Auth(BranchStocksPage, true)}
+                      />
+                      <Route path="/user" render={() => redirectUrl('user')} />
+                      <Route component={NotFound} />
+                    </Switch>
+                    {/* <Route path="/user" component={Auth(UserPage, true)} /> */}
+                  </Content>
+                </Layout>
               </Layout>
               <FooterComponent />
               <BackTopUtil />

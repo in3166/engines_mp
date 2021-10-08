@@ -1,23 +1,11 @@
 import React from 'react';
 import { Table, Descriptions, Divider } from 'antd';
 import PropTypes from 'prop-types';
-import { engineCol, partCol } from './coulmns';
+import partCol from './coulmns';
 
 function EngineList(props) {
-  const { site, engine } = props;
-
-  const expandedRowRender = record => {
-    return (
-      <Table
-        size="small"
-        columns={partCol}
-        dataSource={record.requiredParts}
-        rowKey={a => a.part.id}
-        bordered
-      />
-    );
-  };
-
+  const { site, parts } = props;
+  console.log(parts);
   return (
     <>
       <Descriptions size="small" bordered>
@@ -26,14 +14,13 @@ function EngineList(props) {
         <Descriptions.Item label="Number">{site.phone}</Descriptions.Item>
       </Descriptions>
       <Divider plain>
-        <strong>Engine</strong>
+        <strong>Part</strong>
       </Divider>
       <Table
         size="middle"
-        columns={engineCol}
-        dataSource={engine}
-        expandable={{ expandedRowRender }}
-        rowKey="name"
+        columns={partCol}
+        dataSource={parts}
+        rowKey={a => a.part.id}
       />
     </>
   );
@@ -43,5 +30,5 @@ export default EngineList;
 
 EngineList.propTypes = {
   site: PropTypes.objectOf(PropTypes.any).isRequired,
-  engine: PropTypes.arrayOf(PropTypes.object).isRequired,
+  parts: PropTypes.arrayOf(PropTypes.object).isRequired,
 };

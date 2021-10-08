@@ -1,0 +1,11 @@
+@media (max-width: 625px) {
+  .ant-transfer {
+    flex-direction: column;
+  }
+
+  .ant-transfer-list {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    height: 300px !important;
+  }
+}

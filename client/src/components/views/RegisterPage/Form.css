@@ -21,12 +21,12 @@ body {
 }
 
 .form {
-  background-color: #1a1a47;
+  background-color: #17172c;
   max-width: 400px;
   margin: 2rem auto;
   min-height: 100%;
   border: 3px solid rgb(0, 0, 0);
-  box-shadow: #191222 1px 1px 20px 3px;
+  box-shadow: #17111f 1px 1px 20px 3px;
   border-radius: 2rem;
   padding: 3rem;
 }

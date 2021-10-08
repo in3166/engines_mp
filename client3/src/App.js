@@ -15,7 +15,7 @@ import PredictResultPage from './components/views/PredictResultPage/PredictResul
 import NotFound from './components/views/NotFound/NotFound';
 import Auth from './hoc/auth';
 // const { Header, Content, Footer, Sider } = Layout;
-
+const { Content } = Layout;
 function App() {
   const location = useLocation();
   const redirectUrl = url => {
@@ -40,24 +40,42 @@ function App() {
               <Navbar />
               <Layout>
                 <SideBar />
-                <Switch>
-                  <Route exact path="/" component={Auth(LandingPage, null)} />
-                  <Route
-                    path="/addExpert"
-                    component={Auth(AddExpertPage, true)}
-                  />
-                  <Route path="/user" render={() => redirectUrl('user')} />
-                  {/* <Route path="/user" component={Auth(UserPage, true)} /> */}
-                  <Route
-                    path="/usersAuth"
-                    component={Auth(UsersAuth, true, true)}
-                  />
-                  <Route
-                    path="/predictResult"
-                    component={Auth(PredictResultPage, true)}
-                  />
-                  <Route component={NotFound} />
-                </Switch>
+                <Layout style={{ padding: '0px 24px 24px', overflow: 'auto' }}>
+                  <Content
+                    className="site-layout-background"
+                    style={{
+                      padding: 24,
+                      margin: 0,
+                      minHeight: 280,
+                      width: '100%',
+                      height: '100%',
+                      // border: '1px solid',
+                    }}
+                  >
+                    <Switch>
+                      <Route
+                        exact
+                        path="/"
+                        component={Auth(LandingPage, null)}
+                      />
+                      <Route
+                        path="/addExpert"
+                        component={Auth(AddExpertPage, true)}
+                      />
+                      <Route path="/user" render={() => redirectUrl('user')} />
+                      {/* <Route path="/user" component={Auth(UserPage, true)} /> */}
+                      <Route
+                        path="/usersAuth"
+                        component={Auth(UsersAuth, true, true)}
+                      />
+                      <Route
+                        path="/predictResult"
+                        component={Auth(PredictResultPage, true)}
+                      />
+                      <Route component={NotFound} />
+                    </Switch>
+                  </Content>
+                </Layout>
               </Layout>
               <FooterComponent />
               <BackTopUtil />

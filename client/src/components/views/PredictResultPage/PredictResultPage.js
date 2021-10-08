@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import {
-  Layout,
   Breadcrumb,
   Button,
   Spin,
@@ -16,7 +15,6 @@ import {
 import { Line } from 'react-chartjs-2';
 import datas from './Sections/datas';
 
-const { Content } = Layout;
 const CheckboxGroup = Checkbox.Group;
 const plainOptions = [
   '부품1',
@@ -176,121 +174,110 @@ function PredictResultPage() {
     />
   );
   return (
-    <Layout style={{ padding: '0 24px 24px', overflow: 'auto' }}>
+    <>
       <Breadcrumb style={{ margin: '16px 0' }}>
         <Breadcrumb.Item>Home</Breadcrumb.Item>
         <Breadcrumb.Item>예측 결과 분석</Breadcrumb.Item>
         <Breadcrumb.Item>기계 분석</Breadcrumb.Item>
       </Breadcrumb>
-      <Content
-        className="site-layout-background"
-        style={{
-          padding: 12,
-          margin: 0,
-          minHeight: 700,
-          height: '100%',
-          border: '1px solid',
-        }}
+      <Tabs
+        defaultActiveKey="1"
+        size="large"
+        style={{ background: 'white', padding: '0 20px 10px 20px' }}
       >
-        <Tabs
-          defaultActiveKey="1"
-          size="large"
-          style={{ background: 'white', padding: '0 20px 10px 20px' }}
-        >
-          <TabPane tab="Engine-1" key="1">
-            <Row type="flex" align="top" style={{ width: '100%' }}>
-              <Col
-                md={24}
-                xl={2}
-                order={4}
-                style={{ height: '100%', minWidth: '140px' }}
+        <TabPane tab="Engine-1" key="1">
+          <Row type="flex" align="top" style={{ width: '100%' }}>
+            <Col
+              md={24}
+              xl={2}
+              order={4}
+              style={{ height: '100%', minWidth: '140px' }}
+            >
+              <p>부품 목록</p>
+              <div
+                style={{
+                  overflowX: 'hidden',
+                  height: '100%',
+                  borderRight: '1px solid #E9E9E9',
+                }}
               >
-                <p>부품 목록</p>
                 <div
                   style={{
-                    overflowX: 'hidden',
-                    height: '100%',
-                    borderRight: '1px solid #E9E9E9',
+                    borderBottom: '1px solid #E9E9E9',
                   }}
                 >
-                  <div
+                  <Checkbox
+                    indeterminate={indeterminate}
+                    onChange={onCheckAllChange}
+                    checked={checkAll}
                     style={{
-                      borderBottom: '1px solid #E9E9E9',
+                      overflow: 'hidden',
                     }}
                   >
-                    <Checkbox
-                      indeterminate={indeterminate}
-                      onChange={onCheckAllChange}
-                      checked={checkAll}
-                      style={{
-                        overflow: 'hidden',
-                      }}
-                    >
-                      Check all
-                    </Checkbox>
-                  </div>
-                  <br />
-                  {GoodFruitForm()}
+                    Check all
+                  </Checkbox>
                 </div>
                 <br />
-                <Button onClick={flaskReq} disabled={loading}>
-                  조회
-                </Button>
-                <br />
-                <br />
-              </Col>
+                {GoodFruitForm()}
+              </div>
+              <br />
+              <Button onClick={flaskReq} disabled={loading}>
+                조회
+              </Button>
+              <br />
+              <br />
+            </Col>
 
-              <Col
-                md={22}
-                xl={19}
-                style={{ height: '100%' }}
-                order={4}
-                offset={1}
-              >
-                <Row>
-                  <Card
-                    className="predictCard"
-                    bordered
-                    style={{ width: '100%', minHeight: 300 }}
-                  >
-                    <Spin spinning={loading} tip="Loading..." size="large">
-                      {Render && (
-                        <div style={{ minHeight: 300 }}>
-                          <Line
-                            data={LineDatas?.chartData}
-                            legend={LineDatas?.legend}
-                            options={LineDatas?.options}
-                          />
-                        </div>
-                      )}
-                    </Spin>
-                  </Card>
-                </Row>
-                <hr />
-                <Row>
-                  <Table
-                    size="small"
-                    rowSelection={rowSelection}
-                    columns={columns}
-                    dataSource={data}
-                    style={{ width: '100%' }}
-                  />
-                </Row>
-              </Col>
-            </Row>
-          </TabPane>
-          <TabPane tab="Engine-2" key="2">
-            <div>Engine-2</div>
-          </TabPane>
-          <TabPane tab="Engine-3" key="3">
-            <div>Engine-3</div>
-          </TabPane>
-          <TabPane tab="Engine-4" key="4">
-            <div>Engine-4</div>
-          </TabPane>
-        </Tabs>
-      </Content>
-    </Layout>
+            <Col
+              md={22}
+              xl={19}
+              style={{ height: '100%' }}
+              order={4}
+              offset={1}
+            >
+              <Row>
+                <Card
+                  className="predictCard"
+                  bordered
+                  style={{ width: '100%', minHeight: 300 }}
+                >
+                  <Spin spinning={loading} tip="Loading..." size="large">
+                    {Render && (
+                      <div style={{ minHeight: 300 }}>
+                        <Line
+                          data={LineDatas?.chartData}
+                          legend={LineDatas?.legend}
+                          options={LineDatas?.options}
+                        />
+                      </div>
+                    )}
+                  </Spin>
+                </Card>
+              </Row>
+              <hr />
+              <Row>
+                <Table
+                  size="small"
+                  rowSelection={rowSelection}
+                  columns={columns}
+                  dataSource={data}
+                  style={{ width: '100%' }}
+                />
+              </Row>
+            </Col>
+          </Row>
+        </TabPane>
+        <TabPane tab="Engine-2" key="2">
+          <div>Engine-2</div>
+        </TabPane>
+        <TabPane tab="Engine-3" key="3">
+          <div>Engine-3</div>
+        </TabPane>
+        <TabPane tab="Engine-4" key="4">
+          <div>Engine-4</div>
+        </TabPane>
+      </Tabs>
+    </>
   );
 }
 
