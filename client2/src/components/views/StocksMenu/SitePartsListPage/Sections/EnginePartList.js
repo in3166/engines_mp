@@ -1,18 +1,15 @@
 import React from 'react';
-import { Table, Descriptions, Divider } from 'antd';
+import { Table, Divider } from 'antd';
 import PropTypes from 'prop-types';
+import SiteDescription from '../../../../utils/SiteDescription/SiteDescription';
 import partCol from './coulmns';
 
 function EngineList(props) {
   const { site, parts } = props;
-  console.log(parts);
+  // console.log(parts);
   return (
     <>
-      <Descriptions size="small" bordered>
-        <Descriptions.Item label="ID">{site.id}</Descriptions.Item>
-        <Descriptions.Item label="Addres">{site.address}</Descriptions.Item>
-        <Descriptions.Item label="Number">{site.phone}</Descriptions.Item>
-      </Descriptions>
+      <SiteDescription site={site} />
       <Divider plain>
         <strong>Part</strong>
       </Divider>

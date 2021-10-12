@@ -73,7 +73,7 @@ function LandingPage() {
       message.error('사용자 한 명만 선택하세요.');
     }
   };
-
+  console.log(user?.userData);
   return (
     <>
       <Breadcrumb style={{ margin: '16px 0' }}>
@@ -127,7 +127,7 @@ function LandingPage() {
           />
         </div>
       )}
-      {user?.userData?.role !== undefined && user?.userData?.role !== 1 && (
+      {user?.userData !== undefined && user?.userData?.isAuth === false && (
         <div>You are not admin.</div>
       )}
     </>

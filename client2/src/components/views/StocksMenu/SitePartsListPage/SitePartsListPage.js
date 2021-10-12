@@ -1,20 +1,22 @@
 import React, { useState, useEffect } from 'react';
-
-import { Breadcrumb, Tabs, message } from 'antd';
-import { useDispatch } from 'react-redux';
+import { Breadcrumb, Tabs, message, Spin, Button } from 'antd';
+import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
+import { ReloadOutlined } from '@ant-design/icons';
 import { getAllSites } from '../../../../_actions/site_actions';
-// import { SearchOutlined } from '@ant-design/icons';
 import EnginePartList from './Sections/EnginePartList';
-// const { SubMenu } = Menu;
+
 const { TabPane } = Tabs;
 
 function SitePartsListPage(props) {
   const { user } = props;
   const [Sites, setSites] = useState([]);
+  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
+  const site = useSelector(state => state.site.sites);
 
-  const getSites = () => {
+  const reload = () => {
+    setLoading(true);
     dispatch(getAllSites())
       .then(res => {
         if (res.payload.success) {
@@ -25,7 +27,18 @@ function SitePartsListPage(props) {
       })
       .catch(err => {
         message.error(err);
+      })
+      .finally(() => {
+        setLoading(false);
       });
+  };
+
+  const getSites = () => {
+    if (site?.sites) {
+      setSites(site.sites);
+    } else {
+      reload();
+    }
   };
 
   const useMountEffect = fun => useEffect(fun, []);
@@ -44,13 +57,20 @@ function SitePartsListPage(props) {
         defaultActiveKey="1"
         size="large"
         style={{ background: 'white', padding: '0 20px 10px 20px' }}
+        tabBarExtraContent={
+          <Button onClick={reload}>
+            <ReloadOutlined />
+          </Button>
+        }
       >
         {Sites.length > 0 &&
           Sites.map((value, i) => {
             const key = `tabs${i}`;
             return (
               <TabPane tab={value.name} key={key}>
-                <EnginePartList site={value} parts={value.partStock} />
+                <Spin spinning={loading}>
+                  <EnginePartList site={value} parts={value.partStock} />
+                </Spin>
               </TabPane>
             );
           })}

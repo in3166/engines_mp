@@ -21,6 +21,8 @@ function SideBar() {
   const [Collapse, setCollapsed] = useState(false);
   const { width } = useWindowDimensions(Collapse);
   // const user = useSelector(state => state.user);
+  const href2 = window.location.href.split('/');
+  const href = href2[3];
 
   const onCollapse = Collapsed => {
     setCollapsed(Collapsed);
@@ -38,15 +40,16 @@ function SideBar() {
     >
       <Menu
         mode="inline"
-        defaultSelectedKeys={['1']}
+        defaultSelectedKeys={[`/${href}`]}
+        selectedKeys={[`/${href}`]}
         style={{ height: '100%', borderRight: 0 }}
         defaultOpenKeys={['sub1', 'sub2']}
       >
-        <Menu.Item key="1" icon={<DashboardOutlined />}>
+        <Menu.Item key="/" icon={<DashboardOutlined />}>
           <Link to="/">DashBoard</Link>
         </Menu.Item>
         <SubMenu key="sub1" icon={<SettingFilled />} title="Engines">
-          <Menu.Item key="2">
+          <Menu.Item key="/engine/1">
             <Link to="/engine/1">Engine-1</Link>
           </Menu.Item>
           <Menu.Item key="3">Engine-2</Menu.Item>
@@ -54,10 +57,10 @@ function SideBar() {
           <Menu.Item key="5">Engine-4</Menu.Item>
         </SubMenu>
         <SubMenu key="sub2" icon={<LaptopOutlined />} title="예측 결과 분석">
-          <Menu.Item key="6">
+          <Menu.Item key="/predictResult">
             <Link to="/predictResult">기계 분석</Link>
           </Menu.Item>
-          <Menu.Item key="7">
+          <Menu.Item key="/predict">
             <Link to="/predict">엔지니어 분석</Link>
           </Menu.Item>
           <Menu.Item key="8">전문가 분석</Menu.Item>

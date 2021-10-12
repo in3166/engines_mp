@@ -1,114 +1,53 @@
-import React, { useState } from 'react';
-import { Breadcrumb, Table, Button, Radio, Popconfirm, Space } from 'antd';
-// import { SearchOutlined } from '@ant-design/icons';
+import React, { useState, useEffect } from 'react';
+import { Breadcrumb, Table, Button, Divider, Spin, message } from 'antd';
 import PropTypes from 'prop-types';
-import { DeleteFilled, QuestionCircleOutlined } from '@ant-design/icons';
-
-const data = [
-  {
-    key: '1',
-    id: 'id-1',
-    name: 'a',
-    desc: 98,
-    qu: 60,
-  },
-  {
-    key: '2',
-    id: 'id-2',
-    name: 'ac',
-    desc: 98,
-    qu: 66,
-  },
-  {
-    key: '3',
-    id: 'id-3',
-    name: 'ab',
-    desc: 98,
-    qu: 90,
-  },
-  {
-    key: '4',
-    id: 'id-4',
-    name: 'd',
-    desc: 88,
-    qu: 99,
-  },
-];
+import { PlusOutlined, EditOutlined, DeleteFilled } from '@ant-design/icons';
+import axios from 'axios';
+import SiteDescription from '../../../utils/SiteDescription/SiteDescription';
+import columns from './data/columns';
+import PartAddModal from './Sections/PartAddModal';
+import '../formStyle.css';
 
 function HeadquartersStocksPage(props) {
   const [selectedRowKey, setselectedRowKeys] = useState([]);
-  const [value, setValue] = useState(1);
+  const [showAddConfirm, setshowAddConfirm] = useState(false);
+  // const [value, setValue] = useState(1);
   const { user } = props;
+  const [Sites, setSites] = useState({});
+  const [loading, setLoading] = useState(false);
+
   const onSelectChange = selectedRowKeys => {
-    // console.log('selectedRowKeys changed: ', selectedRowKeys);
+    console.log('selectedRowKeys changed: ', selectedRowKeys);
     setselectedRowKeys(selectedRowKeys);
   };
-  const onChange = e => {
-    console.log('radio checked', e.target.value);
-    setValue(e.target.value);
+
+  const reload = () => {
+    setLoading(true);
+    axios
+      .post('/api/sites/headParts')
+      .then(res => {
+        if (res.data.success) {
+          // console.log(res.data.sites);
+          setSites(...res.data.sites);
+        } else {
+          message.error(res.data.err);
+        }
+      })
+      .catch(err => {
+        message.error(err);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
-  const columns = [
-    {
-      title: 'ID',
-      dataIndex: 'id',
-      sorter: {
-        compare: (a, b) => a.id.localeCompare(b.id),
-        multiple: 1,
-      },
-      width: 100,
-    },
-    {
-      title: 'Name',
-      dataIndex: 'name',
-      sorter: {
-        compare: (a, b) => a.name.localeCompare(b.name),
-        multiple: 2,
-      },
-      width: 200,
-    },
-    {
-      title: '설명',
-      dataIndex: 'desc',
-      sorter: {
-        compare: (a, b) => a.desc.localeCompare(b.desc),
-        multiple: 3,
-      },
-    },
-    {
-      title: '재고',
-      dataIndex: 'qu',
-      sorter: {
-        compare: (a, b) => a.qu - b.qu,
-        multiple: 4,
-      },
-      width: 200,
-    },
-    {
-      title: '주문',
-      key: 'action',
-      render: () => {
-        return (
-          <Space size="middle">
-            <Popconfirm
-              placement="leftBottom"
-              title="정말로 삭제하시겠습니까?"
-              onConfirm
-              okText="Yes"
-              cancelText="No"
-              icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
-            >
-              <Button>
-                <DeleteFilled />
-              </Button>
-            </Popconfirm>
-          </Space>
-        );
-      },
-      width: 70,
-      align: 'center',
-      responsive: ['sm'],
-    },
-  ];
+
+  // const onChange = e => {
+  //   console.log('radio checked', e.target.value);
+  //   setValue(e.target.value);
+  // };
+
+  const useMountEffect = fun => useEffect(fun, []);
+  useMountEffect(reload);
 
   if (!user?.userData?.isAuth) return null;
 
@@ -130,23 +69,43 @@ function HeadquartersStocksPage(props) {
         <Breadcrumb.Item>본사 재고 목록</Breadcrumb.Item>
       </Breadcrumb>
       <div style={{ padding: 20, backgroundColor: 'white' }}>
-        <div>
+        {/* <div>
           <Radio.Group onChange={onChange} value={value} defaultValue={1}>
             <Radio value={1}>부품</Radio>
             <Radio value={2}>자재</Radio>
           </Radio.Group>
-        </div>
+        </div> */}
+
+        <SiteDescription site={Sites} />
+        <Divider plain>
+          <strong>Stock</strong>
+        </Divider>
+
         <div style={{ float: 'right' }}>
-          <Button>추가</Button>
-          <Button>삭제</Button>
-          <br />
-          <br />
+          <Button onClick={() => setshowAddConfirm(true)}>
+            <PlusOutlined />
+          </Button>
+          <PartAddModal
+            showAddConfirm={showAddConfirm}
+            setshowAddConfirm={setshowAddConfirm}
+          />
+          <Button onClick>
+            <EditOutlined />
+          </Button>
+          <Button onClick>
+            <DeleteFilled />
+          </Button>
         </div>
-        <Table
-          rowSelection={rowSelection}
-          columns={columns}
-          dataSource={data}
-        />
+        <br />
+        <br />
+        <Spin spinning={loading}>
+          <Table
+            rowSelection={rowSelection}
+            columns={columns}
+            dataSource={Sites.partStock}
+            rowKey={a => a.part.id}
+          />
+        </Spin>
       </div>
     </>
   );

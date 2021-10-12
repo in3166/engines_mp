@@ -8,6 +8,7 @@ import {
   // SettingFilled,
   ProfileOutlined,
   HddOutlined,
+  DashboardOutlined,
   // IdcardOutlined,
 } from '@ant-design/icons';
 // import { useSelector } from 'react-redux';
@@ -20,7 +21,8 @@ function SideBar() {
   const [Collapse, setCollapsed] = useState(false);
   const { width } = useWindowDimensions(Collapse);
   // const user = useSelector(state => state.user);
-
+  const href2 = window.location.href.split('/');
+  const href = href2[3];
   const onCollapse = Collapsed => {
     setCollapsed(Collapsed);
   };
@@ -37,21 +39,22 @@ function SideBar() {
     >
       <Menu
         mode="inline"
-        defaultSelectedKeys={['1']}
+        defaultSelectedKeys={[`/${href}`]}
+        selectedKeys={[`/${href}`]}
         defaultOpenKeys={['sub1', 'sub2', 'sub3']}
         style={{ height: '100%', borderRight: 0 }}
       >
-        <Menu.Item key="0">
+        <Menu.Item key="/" icon={<DashboardOutlined />}>
           <Link to="/">Dashboard</Link>
         </Menu.Item>
         <SubMenu key="sub1" icon={<HddOutlined />} title="수명 데이터 관리">
-          <Menu.Item key="1">
+          <Menu.Item key="/engineParts">
             <Link to="/engineParts">엔진별 부품 목록</Link>
           </Menu.Item>
-          <Menu.Item key="2">
+          <Menu.Item key="/lifeCode">
             <Link to="/lifeCode">사용 연한 기초 관리</Link>
           </Menu.Item>
-          <Menu.Item key="3">
+          <Menu.Item key="/utilList">
             <Link to="/utilList">실 사용 연한 피드백</Link>
           </Menu.Item>
         </SubMenu>
@@ -59,13 +62,13 @@ function SideBar() {
           {/* <Menu.Item key="4">
             <Link to="/enginePartsList">엔진별 목록 관리</Link>
           </Menu.Item> */}
-          <Menu.Item key="5">
+          <Menu.Item key="/sitePartsList">
             <Link to="/sitePartsList">사이트별 재고 목록</Link>
           </Menu.Item>
-          <Menu.Item key="6">
+          <Menu.Item key="/headquartersStocks">
             <Link to="/headquartersStocks">본사 재고 관리</Link>
           </Menu.Item>
-          <Menu.Item key="7">
+          <Menu.Item key="/branchStocks">
             <Link to="/branchStocks">지사 재고 관리</Link>
           </Menu.Item>
         </SubMenu>
@@ -79,9 +82,10 @@ function SideBar() {
           icon={<NotificationOutlined />}
           title="엔진 정비 메뉴얼"
         >
+          <Menu.Item key="27">엔진 목록</Menu.Item>
+          <Menu.Item key="28">부품 목록</Menu.Item>
           <Menu.Item key="22">메뉴얼 입력/수정</Menu.Item>
           <Menu.Item key="23">Import 모듈</Menu.Item>
-          <Menu.Item key="24">부품/공구 목록</Menu.Item>
           <Menu.Item key="25">수정 이력</Menu.Item>
           <Menu.Item key="26">검색 모듈</Menu.Item>
         </SubMenu>
