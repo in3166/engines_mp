@@ -17,7 +17,7 @@ function EngineList(props) {
         size="middle"
         columns={partCol}
         dataSource={parts}
-        rowKey={a => a.part.id}
+        rowKey={a => a?.part?.id}
       />
     </>
   );

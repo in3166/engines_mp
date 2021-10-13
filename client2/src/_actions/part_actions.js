@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_SITES } from './types';
+import { ADD_PART, GET_ALL_PARTS, DELETE_PART } from './types';
 import { PART_SERVER } from '../components/Config';
 
 export function addPart(dataToSubmit) {
@@ -8,18 +8,29 @@ export function addPart(dataToSubmit) {
     .then(response => response.data);
 
   return {
-    type: GET_SITES,
+    type: ADD_PART,
     payload: request,
   };
 }
 
-export function getAllSitessss(dataToSubmit) {
+export function getAllParts(dataToSubmit) {
   const request = axios
-    .post(`${PART_SERVER}/register`, dataToSubmit)
+    .post(`${PART_SERVER}/getAllParts`, dataToSubmit)
     .then(response => response.data);
 
   return {
-    type: GET_SITES,
+    type: GET_ALL_PARTS,
+    payload: request,
+  };
+}
+
+export function deletePart(dataToSubmit) {
+  const request = axios
+    .post(`${PART_SERVER}/deletePart`, dataToSubmit)
+    .then(response => response.data);
+
+  return {
+    type: DELETE_PART,
     payload: request,
   };
 }

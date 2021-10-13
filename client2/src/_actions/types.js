@@ -7,3 +7,6 @@ export const LOGOUT_USER = 'logout_user';
 export const DELETE_USERS = 'delete_users';
 export const CHANGE_ROLE = 'change_role';
 export const GET_SITES = 'get_sites';
+export const ADD_PART = 'add_part';
+export const GET_ALL_PARTS = 'get_all_parts';
+export const DELETE_PART = 'delete_part';

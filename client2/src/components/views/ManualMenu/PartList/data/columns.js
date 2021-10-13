@@ -14,7 +14,7 @@ const columns = [
       compare: (a, b) => a.id.localeCompare(b.id),
       multiple: 1,
     },
-    width: 100,
+    width: 70,
   },
   {
     title: 'Name',
@@ -23,7 +23,7 @@ const columns = [
       compare: (a, b) => a.name.localeCompare(b.name),
       multiple: 2,
     },
-    width: 200,
+    width: 70,
   },
   {
     title: '설명',
@@ -34,13 +34,22 @@ const columns = [
     },
   },
   {
-    title: '재고',
-    dataIndex: 'qu',
+    title: '기본 수명',
+    dataIndex: 'defaultLifespan',
     sorter: {
-      compare: (a, b) => a.qu - b.qu,
+      compare: (a, b) => a.defaultLifespan - b.defaultLifespan,
       multiple: 4,
     },
-    width: 200,
+    width: 120,
+  },
+  {
+    title: '가격',
+    dataIndex: 'price',
+    sorter: {
+      compare: (a, b) => a.price - b.price,
+      multiple: 4,
+    },
+    width: 90,
   },
   {
     title: '수정',

@@ -28,4 +28,9 @@ const partSchema = mongoose.Schema({
 
 const Part = mongoose.model('Part', partSchema);
 
+// partSchema.pre('save', function(next){
+//     var part = this;
+//     part.
+// })
+
 module.exports = {Part}
