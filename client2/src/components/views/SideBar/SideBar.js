@@ -83,7 +83,9 @@ function SideBar() {
           title="엔진 정비 메뉴얼"
         >
           <Menu.Item key="27">엔진 목록</Menu.Item>
-          <Menu.Item key="28">부품 목록</Menu.Item>
+          <Menu.Item key="/partList">
+            <Link to="/partList">부품 목록</Link>
+          </Menu.Item>
           <Menu.Item key="22">메뉴얼 입력/수정</Menu.Item>
           <Menu.Item key="23">Import 모듈</Menu.Item>
           <Menu.Item key="25">수정 이력</Menu.Item>

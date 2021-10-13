@@ -55,10 +55,15 @@
 - proxy 파일 대신 package.json 안에 // "proxy": "http://localhost:5000", 추가해도 됨.
 - jwt refresh token 미구현
 - 서버 고려 사항: xss filter(sanitize-html), csrf, halmet(http 헤더)
+
 - Conditional Rendering 중 잠깐 화면이 나오는 문제
+
   - Client3의 `LanderingPage`
   - userData가 undefined이어도 있는걸로? 생각
   - `user?.userData?.role !== undefined`를 추가해 해결
+
+- `Added non-passive event listener to a scroll-blocking 'wheel' event.` 경고 발생
+  - `https://unpkg.com/default-passive-events` 사용
 
 ### 사용 모듈
 

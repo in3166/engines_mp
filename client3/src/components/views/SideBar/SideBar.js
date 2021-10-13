@@ -38,7 +38,7 @@ function SideBar() {
         mode="inline"
         defaultSelectedKeys={[`/${href}`]}
         selectedKeys={[`/${href}`]}
-        defaultOpenKeys={['sub3', 'sub4']}
+        defaultOpenKeys={['sub3', 'sub4', 'sub5']}
         theme="dark"
       >
         <Menu.Item key="/" icon={<DashboardOutlined />}>

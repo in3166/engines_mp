@@ -15,6 +15,7 @@ import EnginePartsListPage from './components/views/StocksMenu/EnginePartsListPa
 import HeadquartersStocksPage from './components/views/StocksMenu/HeadquartersStocksPage/HeadquartersStocksPage';
 import BranchStocksPage from './components/views/StocksMenu/BranchStocksPage/BranchStocksPage';
 import NotFound from './components/views/NotFound/NotFound';
+import PartList from './components/views/ManualMenu/PartList/PartList';
 import Auth from './hoc/auth';
 // const { Header, Content, Footer, Sider } = Layout;
 
@@ -80,6 +81,10 @@ function App() {
                       <Route
                         path="/branchStocks"
                         component={Auth(BranchStocksPage, true)}
+                      />
+                      <Route
+                        path="/partList"
+                        component={Auth(PartList, true)}
                       />
                       <Route path="/user" render={() => redirectUrl('user')} />
                       <Route component={NotFound} />
