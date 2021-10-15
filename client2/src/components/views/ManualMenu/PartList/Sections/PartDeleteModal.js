@@ -8,7 +8,7 @@ function PartDeleteModal(props) {
   const { showDeleteConfirm, setshowDeleteConfirm, selectedRowKeys, getParts } =
     props;
   const dispatch = useDispatch();
-  const parts = useSelector(state => state.part.parts.parts);
+  const parts = useSelector(state => state?.part?.parts?.parts);
 
   const body = {
     id: [],
