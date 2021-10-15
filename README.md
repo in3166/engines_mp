@@ -114,8 +114,15 @@
     - Linux: `"start": "PORT=3006 react-scripts start"`
 
   - `npm install`
+
     - 리눅스에선 서버 프로젝트와 클라이언트 프로젝트 별로 설치해야줘야한다.
     - global로 설치하면 2번만 해도될 수 있다. (확인 필요)
+
+  - 주소 수정
+
+    - App.js
+    - Navbar/
+    - setupProxy.js
 
 ### 사용 모듈
 
