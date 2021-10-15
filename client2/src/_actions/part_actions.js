@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ADD_PART, GET_ALL_PARTS, DELETE_PART } from './types';
+import { ADD_PART, GET_ALL_PARTS, DELETE_PART, DELETE_PARTS } from './types';
 import { PART_SERVER } from '../components/Config';
 
 export function addPart(dataToSubmit) {
@@ -31,6 +31,17 @@ export function deletePart(dataToSubmit) {
 
   return {
     type: DELETE_PART,
+    payload: request,
+  };
+}
+
+export function deleteParts(dataToSubmit) {
+  const request = axios
+    .post(`${PART_SERVER}/deleteParts`, dataToSubmit)
+    .then(response => response.data);
+
+  return {
+    type: DELETE_PARTS,
     payload: request,
   };
 }

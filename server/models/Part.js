@@ -28,9 +28,9 @@ const partSchema = mongoose.Schema({
 
 const Part = mongoose.model('Part', partSchema);
 
-// partSchema.pre('save', function(next){
-//     var part = this;
-//     part.
-// })
+partSchema.pre('deleteOne', function(next){
+    var part = this;
+    part.model('Site').find()
+})
 
 module.exports = {Part}

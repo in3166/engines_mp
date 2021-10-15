@@ -10,3 +10,4 @@ export const GET_SITES = 'get_sites';
 export const ADD_PART = 'add_part';
 export const GET_ALL_PARTS = 'get_all_parts';
 export const DELETE_PART = 'delete_part';
+export const DELETE_PARTS = 'delete_parts';

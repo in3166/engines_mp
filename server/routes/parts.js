@@ -48,13 +48,13 @@ router.post("/addPart", (req, res) => {
 router.post("/deletePart", (req, res) => {
   // Object ID로 Site, Engine에서 쓰였는지 찾기
   console.log("id: ", req.body.id);
+
   Site.find({ partStock: { $elemMatch: { part: req.body.id } } }).exec(
     (err, parts) => {
       if (err) {
         return res.json({ success: false, err });
       }
       console.log(parts);
-      console.log(parts.length);
       if (Number(parts.length)) {
         return res.json({
           success: false,
@@ -62,20 +62,19 @@ router.post("/deletePart", (req, res) => {
         });
       } else {
         Engine.find({
-          partStock: { $elemMatch: { part: req.body.id } },
+          requiredParts: { $elemMatch: { part: req.body.id } },
         }).exec((err, parts) => {
           if (err) {
             return res.json({ success: false, err });
           }
           console.log(parts);
-          console.log(parts.length);
           if (Number(parts.length)) {
             return res.json({
               success: false,
               message: "엔진의 필요 부품 필드에 해당 부품이 존재합니다.",
             });
           } else {
-            Part.deleteOne({ id: req.body.id }, (err, part) => {
+            Part.deleteOne({ _id: req.body.id }, (err, part) => {
               if (err) return res.json({ success: false, err });
               return res.json({ success: true });
             });
@@ -85,6 +84,57 @@ router.post("/deletePart", (req, res) => {
     }
   );
 });
+
+router.post("/deleteParts", async (req, res) => {
+  // Object ID로 Site, Engine에서 쓰였는지 찾기
+  console.log("id: ", req.body.id);
+
+  let reqid = req.body.id;
+
+  let { ok, fail, err } = await findQ(reqid);
+
+  if (err) res.status(400).json(err);
+  else if (fail.length == reqid.length)
+    return res.status(200).json({ success: false, fail });
+  return res.status(200).json({ success: true, ok, fail });
+});
+
+async function findQ(reqid) {
+  let fail = [];
+  let ok = [];
+
+  const findPromise = reqid.map(async (id) => {
+    const cSite = await Site.find({
+      partStock: { $elemMatch: { part: id } },
+    });
+    const cEngine = await Engine.find({
+      requiredParts: { $elemMatch: { part: id } },
+    });
+
+    // console.log("cSite: ", cSite);
+    // console.log("cEngine: ", cEngine);
+    if (cSite.length === 0 && cEngine.length === 0) {
+      ok.push(id);
+      await Part.deleteOne({ _id: id });
+    } else {
+      fail.push(id);
+    }
+  });
+
+  //console.log("findPromise: ", findPromise);
+  // findPromise:  [ Promise { <pending> }, Promise { <pending> } ]
+
+  // 여기서 await 하지 않으면 바로 넘어감.
+  await Promise.all(findPromise)
+    .then((res) => {
+    })
+    .catch((err) => {
+      console.log(err);
+      return { undefined, undefined, err };
+    });
+
+  return { ok, fail, undefined };
+}
 
 router.post("/getAllParts", (req, res) => {
   Part.find().exec((err, parts) => {

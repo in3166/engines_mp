@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Breadcrumb, Button, message } from 'antd';
+import { Breadcrumb, Button, message, Spin } from 'antd';
 import PropTypes from 'prop-types';
 import { DeleteFilled, PlusOutlined, EditOutlined } from '@ant-design/icons';
 import { useDispatch } from 'react-redux';
@@ -11,17 +11,20 @@ function PartList(props) {
   const { user } = props;
 
   const [Parts, setParts] = useState([]);
-  const [selectedRowKey, setselectedRowKeys] = useState([]);
+  const [selectedRowKeys, setselectedRowKeys] = useState([]);
   const [showDeleteConfirm, setshowDeleteConfirm] = useState(false);
+  const [loading, setloading] = useState(false);
   const dispatch = useDispatch();
 
-  console.log(Parts);
+  // console.log(Parts);
 
   const getParts = () => {
+    setloading(true);
     dispatch(getAllParts())
       .then(res => {
-        console.log(res);
+        // console.log('res: ', res);
         if (res.payload.success) {
+          setselectedRowKeys([]);
           setParts(res.payload.parts);
         } else {
           message.error(res.payload.err);
@@ -29,6 +32,9 @@ function PartList(props) {
       })
       .catch(err => {
         message.error(err);
+      })
+      .finally(() => {
+        setloading(false);
       });
   };
 
@@ -39,7 +45,7 @@ function PartList(props) {
   useMountEffect(getParts);
 
   const deleteUsersButton = () => {
-    if (selectedRowKey.length === 0) {
+    if (selectedRowKeys.length === 0) {
       message.error('부품을 선택하세요.');
     } else {
       setshowDeleteConfirm(true);
@@ -69,18 +75,22 @@ function PartList(props) {
           <PartDeleteModal
             showDeleteConfirm={showDeleteConfirm}
             setshowDeleteConfirm={setshowDeleteConfirm}
-            selectedRowKey={selectedRowKey}
+            selectedRowKeys={selectedRowKeys}
             setselectedRowKeys={setselectedRowKeys}
             getParts={getParts}
           />
-          <br />
-          <br />
         </div>
-        <PartTable
-          Parts={Parts}
-          selectedRowKey={selectedRowKey}
-          setselectedRowKeys={setselectedRowKeys}
-        />
+        <br />
+        <br />
+
+        <Spin spinning={loading}>
+          <PartTable
+            Parts={Parts}
+            selectedRowKeys={selectedRowKeys}
+            setselectedRowKeys={setselectedRowKeys}
+            getParts={getParts}
+          />
+        </Spin>
       </div>
     </>
   );

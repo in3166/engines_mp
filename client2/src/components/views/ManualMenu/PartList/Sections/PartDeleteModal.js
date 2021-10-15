@@ -1,44 +1,55 @@
 import React from 'react';
 import { Modal, message } from 'antd';
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
-import { deletePart } from '../../../../../_actions/part_actions';
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteParts } from '../../../../../_actions/part_actions';
 
 function PartDeleteModal(props) {
-  const {
-    showDeleteConfirm,
-    setshowDeleteConfirm,
-    selectedRowKey,
-    setselectedRowKeys,
-    getParts,
-  } = props;
+  const { showDeleteConfirm, setshowDeleteConfirm, selectedRowKeys, getParts } =
+    props;
   const dispatch = useDispatch();
+  const parts = useSelector(state => state.part.parts.parts);
 
   const body = {
     id: [],
   };
 
-  selectedRowKey.forEach(id => {
+  selectedRowKeys.forEach(id => {
     body.id.push(id);
   });
 
-  console.log(selectedRowKey);
   const deleteOk = () => {
     // redux post
-    dispatch(deletePart(body))
+    dispatch(deleteParts(body))
       .then(res => {
+        const oktem = [];
+        const failtem = [];
+
+        res.payload.fail.forEach(v => {
+          parts.forEach(e => {
+            if (e._id === v) failtem.push(e.id);
+          });
+        });
+
         if (res.payload.success) {
-          message.success('부품을 삭제하였습니다.');
-          setselectedRowKeys([]);
-          getParts();
+          /* eslint no-underscore-dangle: 0 */
+          res.payload.ok.forEach(v => {
+            parts.forEach(e => {
+              if (e._id === v) oktem.push(e.id);
+            });
+          });
+
+          if (oktem.length) message.success(`삭제 완료: ${oktem}`);
+          if (failtem.length) message.warning(`삭제 실패: ${failtem}`);
         } else {
-          console.log(res.payload);
-          message.error(res.payload.message);
+          message.error(`삭제 실패: ${failtem}`);
+          message.error('엔진이나 사이트 목록에 사용되고 있습니다.');
         }
       })
       .catch(err => {
         message.error(`[Error]: ${err}`);
       });
+    getParts();
     setshowDeleteConfirm(false);
   };
 
@@ -63,7 +74,6 @@ export default PartDeleteModal;
 PartDeleteModal.propTypes = {
   showDeleteConfirm: PropTypes.bool.isRequired,
   setshowDeleteConfirm: PropTypes.func.isRequired,
-  selectedRowKey: PropTypes.arrayOf(PropTypes.string).isRequired,
-  setselectedRowKeys: PropTypes.func.isRequired,
+  selectedRowKeys: PropTypes.arrayOf(PropTypes.string).isRequired,
   getParts: PropTypes.func.isRequired,
 };

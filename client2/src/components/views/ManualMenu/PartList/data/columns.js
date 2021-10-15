@@ -1,11 +1,3 @@
-import React from 'react';
-import { Button, Popconfirm, Space } from 'antd';
-import {
-  DeleteFilled,
-  QuestionCircleOutlined,
-  EditOutlined,
-} from '@ant-design/icons';
-
 const columns = [
   {
     title: 'ID',
@@ -50,47 +42,6 @@ const columns = [
       multiple: 4,
     },
     width: 90,
-  },
-  {
-    title: '수정',
-    key: 'action',
-    render: () => {
-      return (
-        <Space size="middle">
-          <Button>
-            <EditOutlined />
-          </Button>
-        </Space>
-      );
-    },
-    width: 70,
-    align: 'center',
-    responsive: ['sm'],
-  },
-  {
-    title: '삭제',
-    key: 'action',
-    render: () => {
-      return (
-        <Space size="middle">
-          <Popconfirm
-            placement="leftBottom"
-            title="정말로 삭제하시겠습니까?"
-            onConfirm
-            okText="Yes"
-            cancelText="No"
-            icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
-          >
-            <Button>
-              <DeleteFilled />
-            </Button>
-          </Popconfirm>
-        </Space>
-      );
-    },
-    width: 70,
-    align: 'center',
-    responsive: ['sm'],
   },
 ];
 
