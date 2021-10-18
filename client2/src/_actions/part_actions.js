@@ -1,14 +1,21 @@
 import axios from 'axios';
-import { ADD_PART, GET_ALL_PARTS, DELETE_PART, DELETE_PARTS } from './types';
+import {
+  ADD_SITE_PART,
+  GET_ALL_PARTS,
+  DELETE_PART,
+  DELETE_PARTS,
+  UPDATE_PART,
+  ADD_PART,
+} from './types';
 import { PART_SERVER } from '../components/Config';
 
-export function addPart(dataToSubmit) {
+export function addSitePart(dataToSubmit) {
   const request = axios
-    .post(`${PART_SERVER}/addPart`, dataToSubmit)
+    .post(`${PART_SERVER}/addSitePart`, dataToSubmit)
     .then(response => response.data);
 
   return {
-    type: ADD_PART,
+    type: ADD_SITE_PART,
     payload: request,
   };
 }
@@ -42,6 +49,28 @@ export function deleteParts(dataToSubmit) {
 
   return {
     type: DELETE_PARTS,
+    payload: request,
+  };
+}
+
+export function updatePart(dataToSubmit) {
+  const request = axios
+    .post(`${PART_SERVER}/updatePart`, dataToSubmit)
+    .then(response => response.data);
+
+  return {
+    type: UPDATE_PART,
+    payload: request,
+  };
+}
+
+export function addPart(dataToSubmit) {
+  const request = axios
+    .post(`${PART_SERVER}/addPart`, dataToSubmit)
+    .then(response => response.data);
+
+  return {
+    type: ADD_PART,
     payload: request,
   };
 }

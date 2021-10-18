@@ -3,7 +3,7 @@ import { Modal, Form, message } from 'antd';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
-import { addPart } from '../../../../../_actions/part_actions';
+import { addSitePart } from '../../../../../_actions/part_actions';
 
 function PartAddModal(props) {
   const { showAddConfirm, setshowAddConfirm } = props;
@@ -27,7 +27,7 @@ function PartAddModal(props) {
       desc: part?.desc,
     };
 
-    dispatch(addPart(body))
+    dispatch(addSitePart(body))
       .then(res => {
         if (res.payload.success) {
           message.success('부품이 추가되었습니다.');

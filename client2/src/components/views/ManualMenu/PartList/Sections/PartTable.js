@@ -17,7 +17,13 @@ import axios from 'axios';
 import columns from '../data/columns';
 
 function PartTable(props) {
-  const { Parts, selectedRowKeys, setselectedRowKeys, getParts } = props;
+  const {
+    Parts,
+    selectedRowKeys,
+    setselectedRowKeys,
+    updatePartsButton,
+    getParts,
+  } = props;
   // 개별 삭제 버튼
   const deleteConfirm = id => {
     const body = {
@@ -45,10 +51,10 @@ function PartTable(props) {
     {
       title: '수정',
       key: 'action',
-      render: () => {
+      render: part => {
         return (
           <Space size="middle">
-            <Button>
+            <Button onClick={() => updatePartsButton([part], true)}>
               <EditOutlined />
             </Button>
           </Space>
@@ -118,4 +124,5 @@ PartTable.propTypes = {
   selectedRowKeys: PropTypes.arrayOf(PropTypes.any).isRequired,
   setselectedRowKeys: PropTypes.func.isRequired,
   getParts: PropTypes.func.isRequired,
+  updatePartsButton: PropTypes.func.isRequired,
 };

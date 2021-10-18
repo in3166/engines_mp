@@ -104,7 +104,9 @@
 
 ### 참고
 
-- 리눅스 설치 시 주의사항
+- git clone 주의사항
+
+  - server/config/dev.js 생성
 
   - 포트설정
 

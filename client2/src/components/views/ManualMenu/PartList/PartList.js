@@ -6,13 +6,18 @@ import { useDispatch } from 'react-redux';
 import { getAllParts } from '../../../../_actions/part_actions';
 import PartTable from './Sections/PartTable';
 import PartDeleteModal from './Sections/PartDeleteModal';
+import PartUpdateModal from './Sections/PartUpdateModal';
+import PartAddModal from './Sections/PartAddModal';
 
 function PartList(props) {
   const { user } = props;
 
   const [Parts, setParts] = useState([]);
   const [selectedRowKeys, setselectedRowKeys] = useState([]);
+  const [selectedPart, setselectedPart] = useState({});
   const [showDeleteConfirm, setshowDeleteConfirm] = useState(false);
+  const [showUpdateConfirm, setshowUpdateConfirm] = useState(false);
+  const [showAddConfirm, setshowAddConfirm] = useState(false);
   const [loading, setloading] = useState(false);
   const dispatch = useDispatch();
 
@@ -44,11 +49,27 @@ function PartList(props) {
 
   useMountEffect(getParts);
 
-  const deleteUsersButton = () => {
+  const deletePartsButton = () => {
     if (selectedRowKeys.length === 0) {
       message.error('부품을 선택하세요.');
     } else {
       setshowDeleteConfirm(true);
+    }
+  };
+
+  const updatePartsButton = (part, one) => {
+    if (selectedRowKeys.length === 1) {
+      part.forEach((e, i) => {
+        /* eslint no-underscore-dangle: 0 */
+        if (e._id === selectedRowKeys[0]) setselectedPart(part[i]);
+      });
+      setshowUpdateConfirm(true);
+    } else if (one) {
+      // 행에 있는 수정 버튼
+      setselectedPart(...part);
+      setshowUpdateConfirm(true);
+    } else {
+      message.error('부품 한 개를 선택하세요.');
     }
   };
 
@@ -63,15 +84,29 @@ function PartList(props) {
       </Breadcrumb>
       <div style={{ padding: 20, backgroundColor: 'white' }}>
         <div style={{ float: 'right' }}>
-          <Button>
+          <Button onClick={() => setshowAddConfirm(true)}>
             <PlusOutlined />
           </Button>
-          <Button>
+          <Button onClick={() => updatePartsButton(Parts)}>
             <EditOutlined />
           </Button>
-          <Button onClick={deleteUsersButton}>
+
+          <Button onClick={deletePartsButton}>
             <DeleteFilled />
           </Button>
+          <PartAddModal
+            showAddConfirm={showAddConfirm}
+            setshowAddConfirm={setshowAddConfirm}
+            getParts={getParts}
+          />
+          {selectedPart && (
+            <PartUpdateModal
+              showUpdateConfirm={showUpdateConfirm}
+              setshowUpdateConfirm={setshowUpdateConfirm}
+              selectedPart={selectedPart}
+              getParts={getParts}
+            />
+          )}
           <PartDeleteModal
             showDeleteConfirm={showDeleteConfirm}
             setshowDeleteConfirm={setshowDeleteConfirm}
@@ -89,6 +124,7 @@ function PartList(props) {
             selectedRowKeys={selectedRowKeys}
             setselectedRowKeys={setselectedRowKeys}
             getParts={getParts}
+            updatePartsButton={updatePartsButton}
           />
         </Spin>
       </div>
