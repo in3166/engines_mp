@@ -1,7 +1,8 @@
 import React from 'react';
 import { Menu } from 'antd';
 import PropTypes from 'prop-types';
-import CONFIG from '../../../../../../ipconfig.json';
+
+import CONFIG from '../../../../ipconfig.json';
 // const { SubMenu } = Menu;
 // const MenuItemGroup = Menu.ItemGroup;
 

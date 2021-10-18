@@ -1,6 +1,5 @@
-import CONFIG from '../../ipconfig.json';
-
 const { createProxyMiddleware } = require('http-proxy-middleware');
+const CONFIG = require('./ipconfig.json');
 
 module.exports = function (app) {
   app.use(

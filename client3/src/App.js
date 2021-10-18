@@ -13,7 +13,7 @@ import AddExpertPage from './components/views/AddExpertPage/AddExpertPage';
 import UsersAuth2 from './components/views/UsersAuthPage/UsersAuthPage2';
 import NotFound from './components/views/NotFound/NotFound';
 import Auth from './hoc/auth';
-import CONFIG from '../../ipconfig.json';
+import CONFIG from './ipconfig.json';
 // const { Header, Content, Footer, Sider } = Layout;
 
 const { Content } = Layout;

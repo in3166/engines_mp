@@ -115,7 +115,12 @@ router.post("/changeExpertRole", (req, res) => {
    // console.log(users)
     // 전문가에서 제거
     //if(direction === 'left'){
-    async.eachSeries(users, (user, cb)=>{ //each와 같지만 한번에 하나의 비동기 작업만 실행한다.
+    
+    // async.map 은 each와 유사하나, coll의 결과를 마지막 callback에 resutls로 관리
+    // async.each(coll, iteratee, [callback])
+    //   async.each는 coll에 있는 데이터를 순서에 상관없이 병렬적으로 모두 iteratee로 호출하고, 모두 종료되면 callback 날리는 형태
+    //   async.eachSeries는 coll에 등록된 item을 순서대로 하나씩 iteratee호출하고, 종료되면 다음 item으로 iteratee를 호출하는 형태, 모두 종료시 최종 callback 호출은 동일
+    async.eachSeries(users, (user, cb)=>{
         //console.log(user)
         User.updateMany(
             {id: user.id},

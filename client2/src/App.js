@@ -17,9 +17,12 @@ import BranchStocksPage from './components/views/StocksMenu/BranchStocksPage/Bra
 import NotFound from './components/views/NotFound/NotFound';
 import PartList from './components/views/ManualMenu/PartList/PartList';
 import Auth from './hoc/auth';
-import CONFIG from '../../ipconfig.json';
-// const { Header, Content, Footer, Sider } = Layout;
+import CONFIG from './ipconfig.json';
 
+// const { Header, Content, Footer, Sider } = Layout;
+// const CONFIG = {
+//   IP: 'http://localhost',
+// };
 const { Content } = Layout;
 
 function App() {
