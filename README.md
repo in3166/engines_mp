@@ -120,9 +120,15 @@
 
   - 주소 수정
 
+    - ./ipconfig.js 파일로 통합
+
     - App.js
     - Navbar/
     - setupProxy.js
+
+- gitignore 수정 후 적용하기
+  - 우선 git 캐시 삭제 후 커밋하기
+    - `git rm --cached setupProxy.js`
 
 ### 사용 모듈
 

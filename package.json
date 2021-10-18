@@ -1,0 +1,35 @@
+{
+  "name": "web-react",
+  "version": "1.0.0",
+  "description": "Prediction",
+  "main": "index.js",
+  "scripts": {
+    "node": "node ./server/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "concurrently \"npm run node\" \"npm run start --prefix client\" \"npm run start --prefix client2\" \"npm run start --prefix client3\"",
+    "dev2": "concurrently \"npm run node\" \"npm run start --prefix client2\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/in3166/predict_react.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/in3166/predict_react/issues"
+  },
+  "homepage": "https://github.com/in3166/predict_react#readme",
+  "dependencies": {
+    "async": "^3.2.0",
+    "axios": "^0.21.1",
+    "bcrypt": "^5.0.1",
+    "body-parser": "^1.19.0",
+    "concurrently": "^6.1.0",
+    "cookie-parser": "^1.4.5",
+    "elasticsearch": "^16.7.2",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.12.6",
+    "react-icons": "^4.2.0"
+  }
+}
