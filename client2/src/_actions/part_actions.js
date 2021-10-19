@@ -1,6 +1,5 @@
 import axios from 'axios';
 import {
-  ADD_SITE_PART,
   GET_ALL_PARTS,
   DELETE_PART,
   DELETE_PARTS,
@@ -8,17 +7,6 @@ import {
   ADD_PART,
 } from './types';
 import { PART_SERVER } from '../components/Config';
-
-export function addSitePart(dataToSubmit) {
-  const request = axios
-    .post(`${PART_SERVER}/addSitePart`, dataToSubmit)
-    .then(response => response.data);
-
-  return {
-    type: ADD_SITE_PART,
-    payload: request,
-  };
-}
 
 export function getAllParts(dataToSubmit) {
   const request = axios

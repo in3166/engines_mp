@@ -21,6 +21,7 @@ const siteSchema = mongoose.Schema(
     engines: [{ type: mongoose.Schema.Types.ObjectId, ref: "Engine" }],
     partStock: [
       {
+        _id: false,
         part: { type: mongoose.Schema.Types.ObjectId, ref: "Part" },
         stock: { type: Number },
       },

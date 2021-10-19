@@ -87,3 +87,7 @@ table tr td.ant-table-selection-column {
 .ant-scrolling-effect {
   width: 100% !important;
 }
+
+.ant-modal-root {
+  overflow: auto;
+}

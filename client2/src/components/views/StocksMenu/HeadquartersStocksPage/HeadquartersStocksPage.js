@@ -1,24 +1,40 @@
 import React, { useState, useEffect } from 'react';
-import { Breadcrumb, Table, Button, Divider, Spin, message } from 'antd';
+import {
+  Breadcrumb,
+  Table,
+  Button,
+  Divider,
+  Spin,
+  message,
+  Popconfirm,
+  Space,
+} from 'antd';
 import PropTypes from 'prop-types';
-import { PlusOutlined, EditOutlined, DeleteFilled } from '@ant-design/icons';
+import {
+  PlusOutlined,
+  EditOutlined,
+  DeleteFilled,
+  QuestionCircleOutlined,
+} from '@ant-design/icons';
 import axios from 'axios';
 import SiteDescription from '../../../utils/SiteDescription/SiteDescription';
 import columns from './data/columns';
 import PartAddModal from './Sections/PartAddModal';
+import PartUpdateModal from './Sections/PartUpdateModal';
 import '../formStyle.css';
 
 function HeadquartersStocksPage(props) {
   const [selectedRowKey, setselectedRowKeys] = useState([]);
   const [showAddConfirm, setshowAddConfirm] = useState(false);
+  const [showUpdateConfirm, setshowUpdateConfirm] = useState(false);
   // const [value, setValue] = useState(1);
   const { user } = props;
   const [Sites, setSites] = useState({});
   const [loading, setLoading] = useState(false);
 
-  const onSelectChange = selectedRowKeys => {
-    console.log('selectedRowKeys changed: ', selectedRowKeys);
-    setselectedRowKeys(selectedRowKeys);
+  const onSelectChange = (selectedRowKeys, site) => {
+    console.log('selectedRowKeys changed: ', site);
+    setselectedRowKeys(site);
   };
 
   const reload = () => {
@@ -40,7 +56,7 @@ function HeadquartersStocksPage(props) {
         setLoading(false);
       });
   };
-
+  console.log('sites: ', Sites);
   // const onChange = e => {
   //   console.log('radio checked', e.target.value);
   //   setValue(e.target.value);
@@ -61,6 +77,39 @@ function HeadquartersStocksPage(props) {
     ],
   };
 
+  const onclickUpdate = () => {
+    if (selectedRowKey.length === 1) {
+      setshowUpdateConfirm(true);
+    } else {
+      message.error('한 개의 부품을 선택하세요.');
+    }
+  };
+
+  const onDeleteConfirm = () => {
+    if (selectedRowKey.length === 0) {
+      message.error('부품을 선택하세요.');
+    } else {
+      const parts = selectedRowKey.map(e => {
+        /* eslint no-underscore-dangle: 0 */
+        return e.part._id;
+      });
+
+      const body = {
+        id: Sites.id,
+        parts,
+      };
+      axios
+        .post('/api/sites/deleteSitePart', body)
+        .then(res => {
+          if (res.data.success) {
+            message.success('부품을 삭제하였습니다.');
+          }
+        })
+        .catch(err => message.error(err))
+        .finally(reload());
+    }
+  };
+
   return (
     <>
       <Breadcrumb style={{ margin: '16px 0' }}>
@@ -69,13 +118,6 @@ function HeadquartersStocksPage(props) {
         <Breadcrumb.Item>본사 재고 목록</Breadcrumb.Item>
       </Breadcrumb>
       <div style={{ padding: 20, backgroundColor: 'white' }}>
-        {/* <div>
-          <Radio.Group onChange={onChange} value={value} defaultValue={1}>
-            <Radio value={1}>부품</Radio>
-            <Radio value={2}>자재</Radio>
-          </Radio.Group>
-        </div> */}
-
         <SiteDescription site={Sites} />
         <Divider plain>
           <strong>Stock</strong>
@@ -88,13 +130,35 @@ function HeadquartersStocksPage(props) {
           <PartAddModal
             showAddConfirm={showAddConfirm}
             setshowAddConfirm={setshowAddConfirm}
+            Sites={Sites}
+            reload={reload}
           />
-          <Button onClick>
+
+          <Button onClick={onclickUpdate}>
             <EditOutlined />
           </Button>
-          <Button onClick>
-            <DeleteFilled />
-          </Button>
+          <PartUpdateModal
+            showUpdateConfirm={showUpdateConfirm}
+            setshowUpdateConfirm={setshowUpdateConfirm}
+            Sites={Sites}
+            reload={reload}
+            selectedRowKey={selectedRowKey}
+          />
+
+          <Space size="middle">
+            <Popconfirm
+              placement="leftBottom"
+              title="정말로 삭제하시겠습니까?"
+              onConfirm={onDeleteConfirm}
+              okText="Yes"
+              cancelText="No"
+              icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
+            >
+              <Button>
+                <DeleteFilled />
+              </Button>
+            </Popconfirm>
+          </Space>
         </div>
         <br />
         <br />

@@ -1,5 +1,4 @@
 import {
-  ADD_SITE_PART,
   GET_ALL_PARTS,
   DELETE_PART,
   DELETE_PARTS,
@@ -9,8 +8,6 @@ import {
 
 export default function doo(state = {}, action) {
   switch (action.type) {
-    case ADD_SITE_PART:
-      return { ...state };
     case GET_ALL_PARTS:
       return { ...state, parts: action.payload };
     case DELETE_PART:

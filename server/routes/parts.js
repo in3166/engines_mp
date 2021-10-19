@@ -4,45 +4,7 @@ const { Part } = require("../models/Part");
 const { Site } = require("../models/Site");
 const { Engine } = require("../models/Engine");
 
-const async = require("async");
-const e = require("express");
 
-// 본사 부품 추가
-router.post("/addSitePart", (req, res) => {
-  Part.findOne({ id: req.body.id }, (err, part) => {
-    if (err) {
-      console.log("err1: ", err);
-      return res.json({ success: false, message: err });
-    }
-    if (part) {
-      return res.json({
-        success: false,
-        message: "아이디가 이미 존재합니다.",
-      });
-    } else {
-      Part.findOne({ name: req.body.name }, (err, part) => {
-        if (part) {
-          return res.json({
-            success: false,
-            message: "부품이 이미 존재합니다.",
-          });
-        } else {
-          const part = new Part(req.body);
-          part.save((err, partInfo) => {
-            if (err) {
-              console.log("err2: ", err);
-              return res.json({ success: false, message: err });
-            }
-            return res.status(200).json({
-              success: true,
-              message: "부품을 추가했습니다.",
-            });
-          });
-        }
-      });
-    }
-  });
-});
 
 router.post("/deletePart", (req, res) => {
   // Object ID로 Site, Engine에서 쓰였는지 찾기
@@ -84,6 +46,7 @@ router.post("/deletePart", (req, res) => {
   );
 });
 
+// 부품 목록 - 부품 삭제
 router.post("/deleteParts", async (req, res) => {
   // Object ID로 Site, Engine에서 쓰였는지 찾기
   console.log("id: ", req.body.id);
@@ -92,7 +55,7 @@ router.post("/deleteParts", async (req, res) => {
 
   let { ok, fail, err } = await findQ(reqid);
 
-  if (err) res.status(400).json(err);
+  if (err) return res.status(400).json(err);
   else if (fail.length == reqid.length)
     return res.status(200).json({ success: false, fail });
   return res.status(200).json({ success: true, ok, fail });

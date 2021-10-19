@@ -1,30 +1,63 @@
-import React from 'react';
-import { Modal, Form, message } from 'antd';
-import { useDispatch } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import {
+  Modal,
+  Form,
+  message,
+  Collapse,
+  Radio,
+  Pagination,
+  InputNumber,
+} from 'antd';
 import PropTypes from 'prop-types';
-import { useForm } from 'react-hook-form';
-import { addSitePart } from '../../../../../_actions/part_actions';
+import { useDispatch } from 'react-redux';
+import { getAllParts } from '../../../../../_actions/part_actions';
+import { addSitePart } from '../../../../../_actions/site_actions';
+
+const pageSize = 5;
 
 function PartAddModal(props) {
-  const { showAddConfirm, setshowAddConfirm } = props;
-  const dispatch = useDispatch();
+  const { showAddConfirm, setshowAddConfirm, Sites, reload } = props;
 
-  const {
-    register,
-    formState: { errors },
-    handleSubmit,
-  } = useForm();
+  const [RadioValue, setRadioValue] = useState(0);
+
+  const [data, setdata] = useState([]);
+  const [current, setcurrent] = useState(1);
+  const [minIndex, setminIndex] = useState(0);
+  const [maxIndex, setmaxIndex] = useState(0);
+
+  const dispatch = useDispatch();
+  const { Panel } = Collapse;
 
   const [form] = Form.useForm();
+
+  // 모든 부품 목록 보여주기
+  const getParts = () => {
+    dispatch(getAllParts())
+      .then(res => {
+        if (res.payload.success) {
+          setdata(res.payload.parts);
+          setmaxIndex(pageSize);
+        } else {
+          message.error(res.payload.err);
+        }
+      })
+      .catch(err => {
+        message.error(err);
+      });
+  };
+
+  const useMountEffect = fun => {
+    useEffect(fun, []);
+  };
+
+  useMountEffect(getParts);
 
   // 수정 모달 OK 버튼 - redux
   const modalOnOk = part => {
     const body = {
-      id: part?.id,
-      name: part?.name,
-      defaultLifespan: part?.defaultLifespan,
-      price: part?.price,
-      desc: part?.desc,
+      id: RadioValue,
+      stock: part?.stock,
+      site: Sites.id,
     };
 
     dispatch(addSitePart(body))
@@ -39,15 +72,28 @@ function PartAddModal(props) {
         message.error(`[Error]: ${err}`);
       })
       .finally(() => {
-        document.getElementById('id').value = '';
-        document.getElementById('name').value = '';
-        document.getElementById('defaultLifespan').value = '';
-        document.getElementById('price').value = '';
-        document.getElementById('desc').value = '';
+        document.getElementById('stock').value = '';
+        reload();
         setshowAddConfirm(false);
       });
 
     // form.resetFields();
+  };
+
+  // const onFinishFailed = errorInfo => {
+  //   console.log('Failed:', errorInfo);
+  //   form.resetFields();
+  // };
+
+  const handleChange = page => {
+    setcurrent(page);
+    setminIndex((page - 1) * pageSize);
+    setmaxIndex(page * pageSize);
+  };
+
+  const onChange = e => {
+    console.log('radio checked', e.target.value);
+    setRadioValue(e.target.value);
   };
 
   return (
@@ -57,41 +103,61 @@ function PartAddModal(props) {
       visible={showAddConfirm}
       onOk={form.submit}
       onCancel={() => setshowAddConfirm(false)}
+      destroyOnClose
     >
       <Form
         {...{ labelCol: { span: 6 }, wrapperCol: { span: 14 } }}
         name="userinfo-change"
         id="updateForm"
         form={form}
-        onFinish={handleSubmit(modalOnOk)}
+        onFinish={modalOnOk}
+        preserve={false}
       >
-        <Form.Item label="ID">
-          <select
-            name="part"
-            id="part"
-            className="form_select"
-            {...register('part', { required: true })}
-          >
-            <option value={0}>part1</option>
-            <option value={2}>part2</option>
-            <option value={3}>part3</option>
-          </select>
-          {errors.part && errors.part.type === 'required' && (
-            <p className="form_p">This role field is required</p>
-          )}
+        <Form.Item label="부품">
+          <Radio.Group value={RadioValue} onChange={onChange}>
+            {data?.map(
+              (data2, index) =>
+                index >= minIndex &&
+                index < maxIndex && (
+                  /* eslint no-underscore-dangle: 0 */
+                  <Radio value={data2._id} key={data2.id}>
+                    <Collapse defaultActiveKey={['1']}>
+                      <Panel
+                        showArrow={false}
+                        header={data2.name}
+                        key={data2.id}
+                      >
+                        <p>ID: {data2.id}</p>
+                        <p>가격: {data2.price}</p>
+                        <p>수명: {data2.defaultLifespan}</p>
+                        <p>설명: {data2.desc}</p>
+                      </Panel>
+                    </Collapse>
+                  </Radio>
+                ),
+            )}
+          </Radio.Group>
+          <Pagination
+            pageSize={pageSize}
+            current={current}
+            total={data.length}
+            onChange={handleChange}
+            style={{ bottom: '0px', textAlign: 'center' }}
+            size="small"
+          />
         </Form.Item>
-        <Form.Item label="재고">
-          <input
+
+        <Form.Item
+          name="stock"
+          label="재고"
+          rules={[{ required: true, message: 'Please input this field!' }]}
+        >
+          <InputNumber
             name="stock"
             id="stock"
             type="number"
-            autoComplete="on"
-            className="form_input"
-            {...register('stock', { required: true })}
+            className="input_num"
           />
-          {errors.stock && errors.stock.type === 'required' && (
-            <p className="form_p">This desc field is required</p>
-          )}
         </Form.Item>
       </Form>
     </Modal>
@@ -103,4 +169,6 @@ export default PartAddModal;
 PartAddModal.propTypes = {
   showAddConfirm: PropTypes.bool.isRequired,
   setshowAddConfirm: PropTypes.func.isRequired,
+  reload: PropTypes.func.isRequired,
+  Sites: PropTypes.objectOf(PropTypes.any).isRequired,
 };

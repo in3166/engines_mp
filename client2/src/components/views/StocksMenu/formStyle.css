@@ -4,6 +4,9 @@
   border-radius: 3px;
   padding: 5px;
 }
+.input_num {
+  width: 98%;
+}
 
 .form_select {
   width: 100%;
@@ -15,4 +18,24 @@
 .form_p {
   color: red;
   margin-bottom: 0;
+}
+
+.ant-radio {
+  margin-top: 5px;
+}
+.ant-radio-wrapper {
+  width: 100%;
+  align-items: flex-start;
+}
+.ant-radio-group {
+  width: 100%;
+}
+.ant-radio-wrapper > span:nth-child(2) {
+  width: 100%;
+  margin-bottom: 5px;
+}
+.ant-collapse > .ant-collapse-item > .ant-collapse-header {
+  width: 100%;
+  padding: 5px 5px;
+  padding-left: 0px;
 }

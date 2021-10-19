@@ -11,7 +11,7 @@ const columns = [
     title: 'ID',
     dataIndex: ['part', 'id'],
     sorter: {
-      compare: (a, b) => a.id.localeCompare(b.id),
+      compare: (a, b) => a.part.id.localeCompare(b.part.id),
       multiple: 1,
     },
     width: 100,
@@ -20,16 +20,16 @@ const columns = [
     title: 'Name',
     dataIndex: ['part', 'name'],
     sorter: {
-      compare: (a, b) => a.name.localeCompare(b.name),
+      compare: (a, b) => a.part.name.localeCompare(b.part.name),
       multiple: 2,
     },
-    width: 200,
+    width: 100,
   },
   {
     title: '설명',
     dataIndex: ['part', 'desc'],
     sorter: {
-      compare: (a, b) => a.desc.localeCompare(b.desc),
+      compare: (a, b) => a.part.desc.localeCompare(b.part.desc),
       multiple: 3,
     },
   },
@@ -37,10 +37,11 @@ const columns = [
     title: '재고',
     dataIndex: 'stock',
     sorter: {
-      compare: (a, b) => a.qu - b.qu,
+      compare: (a, b) => a.stock - b.stock,
       multiple: 4,
     },
-    width: 200,
+    showSorterTooltip: false,
+    width: 150,
   },
   {
     title: '주문',
