@@ -33,7 +33,6 @@ function HeadquartersStocksPage(props) {
   const [loading, setLoading] = useState(false);
 
   const onSelectChange = (selectedRowKeys, site) => {
-    console.log('selectedRowKeys changed: ', site);
     setselectedRowKeys(site);
   };
 
@@ -56,7 +55,7 @@ function HeadquartersStocksPage(props) {
         setLoading(false);
       });
   };
-  console.log('sites: ', Sites);
+
   // const onChange = e => {
   //   console.log('radio checked', e.target.value);
   //   setValue(e.target.value);

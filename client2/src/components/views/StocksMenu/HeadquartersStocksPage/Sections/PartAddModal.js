@@ -92,7 +92,6 @@ function PartAddModal(props) {
   };
 
   const onChange = e => {
-    console.log('radio checked', e.target.value);
     setRadioValue(e.target.value);
   };
 

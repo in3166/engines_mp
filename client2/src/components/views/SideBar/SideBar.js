@@ -82,7 +82,9 @@ function SideBar() {
           icon={<NotificationOutlined />}
           title="엔진 정비 메뉴얼"
         >
-          <Menu.Item key="27">엔진 목록</Menu.Item>
+          <Menu.Item key="/engineList">
+            <Link to="/engineList">엔진 목록</Link>
+          </Menu.Item>
           <Menu.Item key="/partList">
             <Link to="/partList">부품 목록</Link>
           </Menu.Item>

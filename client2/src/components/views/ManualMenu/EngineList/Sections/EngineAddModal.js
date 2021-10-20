@@ -1,76 +1,68 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Modal, Form, message } from 'antd';
-import { useForm } from 'react-hook-form';
-import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
-import { updatePart } from '../../../../../_actions/part_actions';
+import PropTypes from 'prop-types';
+import { useForm } from 'react-hook-form';
+import { addPart } from '../../../../../_actions/part_actions';
 
-function PartUpdateModal(props) {
-  const { showUpdateConfirm, setshowUpdateConfirm, selectedPart, getParts } =
-    props;
+function EngineAddModal(props) {
+  const { showAddConfirm, setshowAddConfirm, getEngines } = props;
+
   const dispatch = useDispatch();
-  const [part, setpart] = useState({});
+
   const {
     register,
     formState: { errors },
     handleSubmit,
-    reset,
   } = useForm();
 
   const [form] = Form.useForm();
-  useEffect(() => {
-    setpart(selectedPart);
-    reset(selectedPart); // 처음 설정 시 value가 안먹히는 문제 해결
-    return () => {
-      setpart({});
-    };
-  }, [reset, selectedPart]);
-
-  const modalOnOk = partText => {
+  const modalOnOk = part => {
     const body = {
-      /* eslint no-underscore-dangle: 0 */
-      _id: part._id,
-      id: partText.id,
-      name: partText?.name,
-      life: partText?.life,
-      price: partText?.price,
-      desc: partText?.desc,
+      id: part?.id,
+      name: part?.name,
+      defaultLifespan: part?.life,
+      price: part?.price,
+      desc: part?.desc,
     };
 
-    dispatch(updatePart(body))
+    dispatch(addPart(body))
       .then(res => {
         if (res.payload.success) {
-          message.success('성공');
+          message.success('엔진이 추가되었습니다.');
+          getEngines();
         } else {
-          message.error('실패: ', res.payload.message);
+          message.error(res.payload.message);
         }
       })
       .catch(err => {
-        message.error('[error]: ', err);
+        message.error(`[Error]: ${err}`);
       })
       .finally(() => {
-        getParts();
-        setshowUpdateConfirm(false);
+        document.getElementById('id').value = '';
+        document.getElementById('name').value = '';
+        document.getElementById('life').value = '';
+        document.getElementById('price').value = '';
+        document.getElementById('desc').value = '';
+        setshowAddConfirm(false);
       });
   };
 
   return (
     <div>
       <Modal
-        title="부품 정보 수정"
+        title="엔진 추가"
         style={{ top: 200 }}
-        visible={showUpdateConfirm}
-        destroyOnClose
+        visible={showAddConfirm}
         onOk={form.submit}
-        onCancel={() => setshowUpdateConfirm(false)}
+        onCancel={() => setshowAddConfirm(false)}
       >
         <Form
           {...{ labelCol: { span: 6 }, wrapperCol: { span: 14 } }}
           name="userinfo-change"
+          id="updateForm"
           form={form}
           onFinish={handleSubmit(modalOnOk)}
-          key={part}
-          preserve={false}
         >
           <Form.Item label="ID">
             <input
@@ -80,7 +72,6 @@ function PartUpdateModal(props) {
               autoComplete="on"
               className="form_input"
               error={errors.id}
-              defaultValue={part?.id}
               {...register('id', { required: true, minLength: 3 })}
             />
             {errors.id && <p className="form_p">This id field is required</p>}
@@ -88,7 +79,7 @@ function PartUpdateModal(props) {
               <p className="form_p">ID must have at least 3 characters</p>
             )}
           </Form.Item>
-          <Form.Item label="부품 이름">
+          <Form.Item label="엔진 이름">
             <input
               id="name"
               name="name"
@@ -96,7 +87,6 @@ function PartUpdateModal(props) {
               type="text"
               autoComplete="on"
               error={errors.name}
-              defaultValue={part?.name}
               {...register('name', { required: true, maxLength: 15 })}
             />
             {errors.name && errors.name.type === 'required' && (
@@ -108,12 +98,12 @@ function PartUpdateModal(props) {
           </Form.Item>
           <Form.Item label="기본 수명">
             <input
+              id="life"
               name="life"
               className="form_input"
               type="number"
               autoComplete="on"
               error={errors.life}
-              defaultValue={part?.defaultLifespan}
               {...register('life', { required: true })}
             />
             {errors.life && errors.life.type === 'required' && (
@@ -122,12 +112,12 @@ function PartUpdateModal(props) {
           </Form.Item>
           <Form.Item label="가격(원)">
             <input
+              id="price"
               name="price"
               className="form_input"
               type="text"
               autoComplete="on"
               error={errors.price}
-              defaultValue={part?.price}
               {...register('price', { required: true, maxLength: 20 })}
             />
             {errors.price && errors.price.type === 'required' && (
@@ -139,11 +129,11 @@ function PartUpdateModal(props) {
           </Form.Item>
           <Form.Item label="설명">
             <input
+              id="desc"
               name="desc"
               type="text"
               autoComplete="on"
               error={errors.desc}
-              defaultValue={part?.desc}
               {...register('desc', { required: true, maxLength: 20 })}
               className="form_input"
             />
@@ -160,11 +150,10 @@ function PartUpdateModal(props) {
   );
 }
 
-export default PartUpdateModal;
+export default EngineAddModal;
 
-PartUpdateModal.propTypes = {
-  showUpdateConfirm: PropTypes.bool.isRequired,
-  setshowUpdateConfirm: PropTypes.func.isRequired,
-  selectedPart: PropTypes.objectOf(PropTypes.any).isRequired,
-  getParts: PropTypes.func.isRequired,
+EngineAddModal.propTypes = {
+  getEngines: PropTypes.func.isRequired,
+  showAddConfirm: PropTypes.bool.isRequired,
+  setshowAddConfirm: PropTypes.func.isRequired,
 };

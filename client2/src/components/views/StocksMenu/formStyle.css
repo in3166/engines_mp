@@ -39,3 +39,19 @@
   padding: 5px 5px;
   padding-left: 0px;
 }
+
+.ant-checkbox {
+  margin-top: 5px;
+}
+.ant-checkbox-wrapper {
+  width: 100%;
+  align-items: flex-start;
+  margin-left: 8px;
+}
+.ant-checkbox-group {
+  width: 100%;
+}
+.ant-checkbox-wrapper > span:nth-child(2) {
+  width: 100%;
+  margin-bottom: 5px;
+}

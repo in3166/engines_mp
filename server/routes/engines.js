@@ -22,4 +22,32 @@ router.post("/getAllEngines", (req, res) => {
     });
 });
 
+// 엔진 목록에서 필요 부품 추가
+// partId: checkedList,
+// number: part?.number,
+// engine: PartsInfo._id,
+router.post("/addEnginRequiredPart", (req, res) => {
+  let parts = [];
+  let partID = req.body.partId;
+  let engine = req.body.engine;
+  let number = req.body.number;
+  partID.forEach((element) => {
+    parts.push({ part: element, requiredNumber: number });
+  });
+  console.log(parts);
+
+  
+  Engine.findOneAndUpdate(
+    { _id: engine },
+    { $addToSet: { requiredParts: { $each: parts } } }
+  ).exec((err, engines) => {
+    if (err) {
+      return res.json({ success: false, err });
+    }
+    return res.status(200).send({
+      success: true,
+    });
+  });
+});
+
 module.exports = router;

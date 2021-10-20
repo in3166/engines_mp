@@ -5,9 +5,13 @@ import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { updatePart } from '../../../../../_actions/part_actions';
 
-function PartUpdateModal(props) {
-  const { showUpdateConfirm, setshowUpdateConfirm, selectedPart, getParts } =
-    props;
+function EngineUpdateModal(props) {
+  const {
+    showUpdateConfirm,
+    setshowUpdateConfirm,
+    selectedEngine,
+    getEngines,
+  } = props;
   const dispatch = useDispatch();
   const [part, setpart] = useState({});
   const {
@@ -19,12 +23,12 @@ function PartUpdateModal(props) {
 
   const [form] = Form.useForm();
   useEffect(() => {
-    setpart(selectedPart);
-    reset(selectedPart); // 처음 설정 시 value가 안먹히는 문제 해결
+    setpart(selectedEngine);
+    reset(selectedEngine); // 처음 설정 시 value가 안먹히는 문제 해결
     return () => {
       setpart({});
     };
-  }, [reset, selectedPart]);
+  }, [reset, selectedEngine]);
 
   const modalOnOk = partText => {
     const body = {
@@ -49,7 +53,7 @@ function PartUpdateModal(props) {
         message.error('[error]: ', err);
       })
       .finally(() => {
-        getParts();
+        getEngines();
         setshowUpdateConfirm(false);
       });
   };
@@ -160,11 +164,11 @@ function PartUpdateModal(props) {
   );
 }
 
-export default PartUpdateModal;
+export default EngineUpdateModal;
 
-PartUpdateModal.propTypes = {
+EngineUpdateModal.propTypes = {
   showUpdateConfirm: PropTypes.bool.isRequired,
   setshowUpdateConfirm: PropTypes.func.isRequired,
-  selectedPart: PropTypes.objectOf(PropTypes.any).isRequired,
-  getParts: PropTypes.func.isRequired,
+  selectedEngine: PropTypes.objectOf(PropTypes.any).isRequired,
+  getEngines: PropTypes.func.isRequired,
 };

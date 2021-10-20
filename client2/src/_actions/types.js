@@ -14,3 +14,4 @@ export const DELETE_PART = 'delete_part';
 export const DELETE_PARTS = 'delete_parts';
 export const UPDATE_PART = 'update_part';
 export const ADD_PART = 'add_part';
+export const ENGINE_ADD_REQ_PART = 'engine_add_req_part';

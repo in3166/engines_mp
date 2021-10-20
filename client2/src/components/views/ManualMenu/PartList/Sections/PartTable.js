@@ -19,8 +19,8 @@ import columns from '../data/columns';
 function PartTable(props) {
   const {
     Parts,
-    selectedRowKeys,
     setselectedRowKeys,
+    selectedRowKeys,
     updatePartsButton,
     getParts,
   } = props;
@@ -95,9 +95,10 @@ function PartTable(props) {
   const columns2 = [...columns, ...columnButton];
 
   const rowSelection = {
-    selectedRowKeys,
-    onChange: selectedRowKey => {
-      setselectedRowKeys(selectedRowKey);
+    /* eslint no-underscore-dangle: 0 */
+    ...selectedRowKeys._id,
+    onChange: (selectedRowKey, sel2) => {
+      setselectedRowKeys(sel2);
     },
     selections: [
       Table.SELECTION_ALL,

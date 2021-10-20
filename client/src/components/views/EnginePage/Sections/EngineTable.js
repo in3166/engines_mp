@@ -20,15 +20,18 @@ function EngineTable(props) {
   console.log('모든 엔진들', Engines);
 
   columns[0] = { ...columns[0], ...ColumnSearch('id') };
+
   const handlerPartsShow = record => {
     setPartsInfo(record);
     setShowPartsModal(true);
   };
+
   const handleMaintenanceShow = record => {
     console.log('ma', record);
     setMaintenanceInfo(record);
     setShowMaintenanceModal(true);
   };
+
   const repairCol = [
     {
       title: '수리 이력',

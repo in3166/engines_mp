@@ -16,6 +16,7 @@ import HeadquartersStocksPage from './components/views/StocksMenu/HeadquartersSt
 import BranchStocksPage from './components/views/StocksMenu/BranchStocksPage/BranchStocksPage';
 import NotFound from './components/views/NotFound/NotFound';
 import PartList from './components/views/ManualMenu/PartList/PartList';
+import EngineList from './components/views/ManualMenu/EngineList/EngineList';
 import Auth from './hoc/auth';
 import CONFIG from './ipconfig.json';
 
@@ -85,6 +86,10 @@ function App() {
                       <Route
                         path="/branchStocks"
                         component={Auth(BranchStocksPage, true)}
+                      />
+                      <Route
+                        path="/engineList"
+                        component={Auth(EngineList, true)}
                       />
                       <Route
                         path="/partList"

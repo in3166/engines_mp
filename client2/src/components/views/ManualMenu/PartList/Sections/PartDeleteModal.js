@@ -14,8 +14,8 @@ function PartDeleteModal(props) {
     id: [],
   };
 
-  selectedRowKeys.forEach(id => {
-    body.id.push(id);
+  selectedRowKeys.forEach(part => {
+    body.id.push(part._id);
   });
 
   const deleteOk = () => {
