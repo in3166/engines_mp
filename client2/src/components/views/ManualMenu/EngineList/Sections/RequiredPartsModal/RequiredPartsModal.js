@@ -6,19 +6,22 @@ import PropTypes from 'prop-types';
 //   DeleteFilled,
 //   QuestionCircleOutlined,
 // } from '@ant-design/icons';
+import { useDispatch } from 'react-redux';
 import TableButtons from '../../../../../utils/TableButtons/TableButtons';
 import PartAddModal from './RequiredPartAddModal';
 import PartUpdateModal from './RequiredPartUpdateModal';
+import { deleteEnginRequiredPart } from '../../../../../../_actions/engine_actions';
 
 const { Column } = Table;
 function RequiredPartsModal(props) {
-  const { ShowPartsModal, setShowPartsModal, PartsInfo, getEngines } = props;
+  const { ShowPartsModal, setShowPartsModal, EngineInfo, getEngines } = props;
   const [ShowPartAdd, setShowPartAdd] = useState(false);
   const [ShowPartUpdate, setShowPartUpdate] = useState(false);
   const [selectedRowKeys, setselectedRowKeys] = useState([]);
   const [selectedPart, setselectedPart] = useState([]);
-
-  const newParts = PartsInfo.requiredParts.map((a, i) => {
+  const dispatch = useDispatch();
+  // 필요 부품 꺼내기
+  const newParts = EngineInfo.requiredParts.map((a, i) => {
     const temp = a.part;
     temp.requiredNumber = a.requiredNumber;
     temp.key = i;
@@ -30,8 +33,6 @@ function RequiredPartsModal(props) {
     /* eslint no-underscore-dangle: 0 */
     ...selectedRowKeys._id,
     onChange: (selectedRowKey, sel2) => {
-      console.log(sel2);
-      // setselKey(selectedRowKey);
       setselectedRowKeys(sel2);
     },
     selections: [
@@ -45,14 +46,33 @@ function RequiredPartsModal(props) {
     if (selectedRowKeys.length === 0) {
       message.error('부품을 선택하세요.');
     } else {
-      console.log(selectedRowKeys);
-      getEngines();
+      const partID = selectedRowKeys.map(e => e._id);
+      const body = {
+        engine: EngineInfo._id,
+        partID,
+      };
+
+      dispatch(deleteEnginRequiredPart(body))
+        .then(res => {
+          if (res.payload.success) {
+            message.success('필요 부품을 삭제하였습니다.');
+          } else {
+            message.error(res.payload.err);
+          }
+        })
+        .catch(err => {
+          message.error(`[Error]: ${err}`);
+        })
+        .finally(() => {
+          getEngines();
+          setShowPartsModal(false);
+        });
     }
   };
 
   return (
     <Modal
-      title={`${PartsInfo.name} 구성 부품`}
+      title={`${EngineInfo.name} 구성 부품`}
       width="90%"
       visible={ShowPartsModal}
       onCancel={() => setShowPartsModal(false)}
@@ -69,41 +89,23 @@ function RequiredPartsModal(props) {
         selectedRowKeys={selectedRowKeys}
         setselectedPart={setselectedPart}
       />
-      {/* <div style={{ float: 'right' }}>
-        <Space>
-          <Button onClick={() => setShowPartAdd(true)}>
-            <PlusOutlined />
-          </Button>
-          <Space size="middle">
-            <Popconfirm
-              placement="leftBottom"
-              title="정말로 삭제하시겠습니까?"
-              onConfirm //= {() => deleteConfirm(part._id)}
-              okText="Yes"
-              cancelText="No"
-              icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
-            >
-              <Button>
-                <DeleteFilled />
-              </Button>
-            </Popconfirm>
-          </Space>
-        </Space>
-      </div> */}
 
       <PartAddModal
         setShowPartAdd={setShowPartAdd}
         ShowPartAdd={ShowPartAdd}
         getEngines={getEngines}
-        PartsInfo={PartsInfo}
+        EngineInfo={EngineInfo}
+        setShowPartsModal={setShowPartsModal}
       />
 
       <PartUpdateModal
         setShowPartUpdate={setShowPartUpdate}
         ShowPartUpdate={ShowPartUpdate}
         selectedRowKeys={selectedRowKeys}
+        EngineInfo={EngineInfo}
         selectedPart={selectedPart}
         getEngines={getEngines}
+        setShowPartsModal={setShowPartsModal}
       />
 
       <br />
@@ -129,5 +131,5 @@ RequiredPartsModal.propTypes = {
   ShowPartsModal: PropTypes.bool.isRequired,
   setShowPartsModal: PropTypes.func.isRequired,
   getEngines: PropTypes.func.isRequired,
-  PartsInfo: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
+  EngineInfo: PropTypes.objectOf(PropTypes.any).isRequired,
 };

@@ -123,40 +123,42 @@ function HeadquartersStocksPage(props) {
         </Divider>
 
         <div style={{ float: 'right' }}>
-          <Button onClick={() => setshowAddConfirm(true)}>
-            <PlusOutlined />
-          </Button>
-          <PartAddModal
-            showAddConfirm={showAddConfirm}
-            setshowAddConfirm={setshowAddConfirm}
-            Sites={Sites}
-            reload={reload}
-          />
+          <Space>
+            <Button onClick={() => setshowAddConfirm(true)}>
+              <PlusOutlined />
+            </Button>
+            <PartAddModal
+              showAddConfirm={showAddConfirm}
+              setshowAddConfirm={setshowAddConfirm}
+              Sites={Sites}
+              reload={reload}
+            />
 
-          <Button onClick={onclickUpdate}>
-            <EditOutlined />
-          </Button>
-          <PartUpdateModal
-            showUpdateConfirm={showUpdateConfirm}
-            setshowUpdateConfirm={setshowUpdateConfirm}
-            Sites={Sites}
-            reload={reload}
-            selectedRowKey={selectedRowKey}
-          />
+            <Button onClick={onclickUpdate}>
+              <EditOutlined />
+            </Button>
+            <PartUpdateModal
+              showUpdateConfirm={showUpdateConfirm}
+              setshowUpdateConfirm={setshowUpdateConfirm}
+              Sites={Sites}
+              reload={reload}
+              selectedRowKey={selectedRowKey}
+            />
 
-          <Space size="middle">
-            <Popconfirm
-              placement="leftBottom"
-              title="정말로 삭제하시겠습니까?"
-              onConfirm={onDeleteConfirm}
-              okText="Yes"
-              cancelText="No"
-              icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
-            >
-              <Button>
-                <DeleteFilled />
-              </Button>
-            </Popconfirm>
+            <Space size="middle">
+              <Popconfirm
+                placement="leftBottom"
+                title="정말로 삭제하시겠습니까?"
+                onConfirm={onDeleteConfirm}
+                okText="Yes"
+                cancelText="No"
+                icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
+              >
+                <Button>
+                  <DeleteFilled />
+                </Button>
+              </Popconfirm>
+            </Space>
           </Space>
         </div>
         <br />

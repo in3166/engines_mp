@@ -50,7 +50,7 @@ function EngineUpdateModal(props) {
         }
       })
       .catch(err => {
-        message.error('[error]: ', err);
+        message.error(`[Error]: ${err}`);
       })
       .finally(() => {
         getEngines();

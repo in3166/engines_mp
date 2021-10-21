@@ -19,23 +19,23 @@ function EngineTable(props) {
   const { Engines, selectedRowKeys, setselectedRowKeys, getEngines } = props;
 
   const [ShowPartsModal, setShowPartsModal] = useState(false);
-  const [PartsInfo, setPartsInfo] = useState([]);
+  const [EngineInfo, setEngineInfo] = useState([]);
   const [selectedEngine, setselectedEngine] = useState({});
 
   const [showAddConfirm, setshowAddConfirm] = useState(false);
   const [ShowEngineUpdate, setShowEngineUpdate] = useState(false);
 
   const handlerPartsShow = record => {
-    setPartsInfo(record);
+    setEngineInfo(record);
     setShowPartsModal(true);
   };
 
   // 개별 삭제 버튼
-  const deleteConfirm = id => {
-    const body = {
-      id,
-    };
-    console.log('del: ', body);
+  const deleteConfirm = () => {
+    // const body = {
+    //   id,
+    // };
+    // console.log('del: ', body);
     // axios
     //   .post('/api/engines/deleteEngines', body)
     //   .then(res => {
@@ -67,7 +67,7 @@ function EngineTable(props) {
       width: '100',
       render: (text, record) => {
         // console.log('text', text);
-        console.log('record', record);
+        // console.log('record', record);
         // console.log('index', index);
         return (
           <Button onClick={() => handlerPartsShow(record)}>
@@ -170,7 +170,7 @@ function EngineTable(props) {
         <RequiredPartsModal
           ShowPartsModal={ShowPartsModal}
           setShowPartsModal={setShowPartsModal}
-          PartsInfo={PartsInfo}
+          EngineInfo={EngineInfo}
           getEngines={getEngines}
         />
       )}

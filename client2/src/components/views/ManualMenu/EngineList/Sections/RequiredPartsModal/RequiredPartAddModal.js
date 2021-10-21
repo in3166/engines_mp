@@ -17,7 +17,13 @@ import { addEnginRequiredPart } from '../../../../../../_actions/engine_actions'
 const pageSize = 5;
 
 function RequiredPartAddModal(props) {
-  const { ShowPartAdd, setShowPartAdd, PartsInfo, getEngines } = props;
+  const {
+    ShowPartAdd,
+    setShowPartAdd,
+    EngineInfo,
+    getEngines,
+    setShowPartsModal,
+  } = props;
   const [data, setdata] = useState([]);
   const [current, setcurrent] = useState(1);
   const [minIndex, setminIndex] = useState(0);
@@ -40,15 +46,14 @@ function RequiredPartAddModal(props) {
       .then(res => {
         if (res.payload.success) {
           setdata(res.payload.parts);
-
           setmaxIndex(pageSize);
           setplainOptions(res.payload.parts?.map(data2 => data2._id));
         } else {
-          message.error(res.payload.err);
+          message.error(`[Error]: ${res.payload.err}`);
         }
       })
       .catch(err => {
-        message.error(err);
+        message.error(`[Error]: ${err}`);
       });
   };
 
@@ -60,17 +65,13 @@ function RequiredPartAddModal(props) {
 
   // 수정 모달 OK 버튼 - redux
   const modalOnOk = part => {
-    console.log(part);
-    console.log(checkedList);
-    console.log(PartsInfo);
-
     if (!checkedList.length) {
       message.error('부품을 선택하세요.');
     } else {
       const body = {
         partId: checkedList,
         number: part?.number,
-        engine: PartsInfo._id,
+        engine: EngineInfo._id,
       };
 
       dispatch(addEnginRequiredPart(body))
@@ -88,6 +89,7 @@ function RequiredPartAddModal(props) {
           document.getElementById('number').value = '';
           getEngines();
           setShowPartAdd(false);
+          setShowPartsModal(false);
         });
     }
   };
@@ -100,7 +102,6 @@ function RequiredPartAddModal(props) {
 
   // 체크 박스 선택 시
   const onChange = list => {
-    console.log(list);
     setCheckedList(list);
     setIndeterminate(!!list.length && list.length < plainOptions.length);
     setCheckAll(list.length === plainOptions.length);
@@ -197,7 +198,7 @@ export default RequiredPartAddModal;
 RequiredPartAddModal.propTypes = {
   ShowPartAdd: PropTypes.bool.isRequired,
   setShowPartAdd: PropTypes.func.isRequired,
+  setShowPartsModal: PropTypes.func.isRequired,
   getEngines: PropTypes.func.isRequired,
-  selectedRowKeys: PropTypes.arrayOf(PropTypes.any).isRequired,
-  PartsInfo: PropTypes.arrayOf(PropTypes.any).isRequired,
+  EngineInfo: PropTypes.objectOf(PropTypes.any).isRequired,
 };

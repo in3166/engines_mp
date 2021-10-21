@@ -1,37 +1,53 @@
 import React from 'react';
-import { Button, Modal, Form, Input, InputNumber } from 'antd';
+import { Modal, Form, Input, InputNumber, message } from 'antd';
 import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
+import { updateEnginRequiredPart } from '../../../../../../_actions/engine_actions';
 
 function RequiredPartUpdateModal(props) {
-  const { ShowPartUpdate, setShowPartUpdate, selectedRowKeys, getEngines } =
-    props;
+  const {
+    ShowPartUpdate,
+    setShowPartUpdate,
+    setShowPartsModal,
+    selectedRowKeys,
+    getEngines,
+    EngineInfo,
+  } = props;
+  const dispatch = useDispatch();
   const [form] = Form.useForm();
-  console.log(selectedRowKeys);
 
-  const modalOnOk = () => {
-    // const body = {
-    //   id: RadioValue,
-    //   stock: part?.stock,
-    //   site: selectedRowKeys.id,
-    // };
+  // partsinfo 출력
+  const modalOnOk = num => {
+    /* eslint no-underscore-dangle: 0 */
 
-    // dispatch(addEnginRequiredPart(body))
-    //   .then(res => {
-    //     if (res.payload.success) {
-    //       message.success('필요 부품이 추가되었습니다.');
-    //     } else {
-    //       message.error(res.payload.message);
-    //     }
-    //   })
-    //   .catch(err => {
-    //     message.error(`[Error]: ${err}`);
-    //   })
-    //   .finally(() => {
-    //     document.getElementById('stock').value = '';
-    //     getEngines();
-    //     setShowPartAdd(false);
-    //   });
+    const body = {
+      partID: selectedRowKeys[0]._id,
+      number: num.number,
+      engine: EngineInfo._id,
+    };
+
+    console.log('EngineInfo:', EngineInfo);
+    console.log(body);
+
+    dispatch(updateEnginRequiredPart(body))
+      .then(res => {
+        if (res.payload.success) {
+          message.success('필요 부품이 수정되었습니다.');
+        } else {
+          message.error(res.payload.message);
+        }
+      })
+      .catch(err => {
+        message.error(`[Error]: ${err}`);
+      })
+      .finally(() => {
+        document.getElementById('number').value = '';
+        getEngines();
+        // setShowPartAdd(false);
+      });
+
     getEngines();
+    setShowPartsModal(false);
     // form.resetFields();
   };
 
@@ -42,13 +58,10 @@ function RequiredPartUpdateModal(props) {
           title="구성 부품 추가"
           width="80%"
           visible={ShowPartUpdate}
+          onOk={form.submit}
           onCancel={() => setShowPartUpdate(false)}
           style={{ top: 170 }}
-          footer={[
-            <Button key="back" onClick={() => setShowPartUpdate(false)}>
-              OK
-            </Button>,
-          ]}
+          destroyOnClose
         >
           <Form
             {...{ labelCol: { span: 6 }, wrapperCol: { span: 14 } }}
@@ -72,13 +85,13 @@ function RequiredPartUpdateModal(props) {
             </Form.Item>
 
             <Form.Item
-              name="stock"
+              name="number"
               label="재고"
               rules={[{ required: true, message: 'Please input this field!' }]}
             >
               <InputNumber
-                name="stock"
-                id="stock"
+                name="number"
+                id="number"
                 type="number"
                 className="input_num"
                 placeholder={selectedRowKeys[0].requiredNumber}
@@ -96,6 +109,8 @@ export default RequiredPartUpdateModal;
 RequiredPartUpdateModal.propTypes = {
   ShowPartUpdate: PropTypes.bool.isRequired,
   setShowPartUpdate: PropTypes.func.isRequired,
+  setShowPartsModal: PropTypes.func.isRequired,
   getEngines: PropTypes.func.isRequired,
   selectedRowKeys: PropTypes.arrayOf(PropTypes.any).isRequired,
+  EngineInfo: PropTypes.objectOf(PropTypes.any).isRequired,
 };

@@ -19,7 +19,6 @@ function EngineList(props) {
     setloading(true);
     dispatch(getAllEngines())
       .then(res => {
-        console.log('res: ', res);
         if (res.payload.success) {
           setselectedRowKeys([]);
           setEngines(res.payload.engines);
@@ -28,7 +27,7 @@ function EngineList(props) {
         }
       })
       .catch(err => {
-        message.error(err);
+        message.error(`[Error]: ${err}`);
       })
       .finally(() => {
         setloading(false);
