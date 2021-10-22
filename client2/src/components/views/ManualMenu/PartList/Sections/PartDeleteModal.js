@@ -48,9 +48,13 @@ function PartDeleteModal(props) {
       })
       .catch(err => {
         message.error(`[Error]: ${err}`);
+      })
+      .finally(() => {
+        console.log('지우고 새로');
+        getParts();
+        console.log('지우고 새로 끗');
+        setshowDeleteConfirm(false);
       });
-    getParts();
-    setshowDeleteConfirm(false);
   };
 
   return (
@@ -74,6 +78,6 @@ export default PartDeleteModal;
 PartDeleteModal.propTypes = {
   showDeleteConfirm: PropTypes.bool.isRequired,
   setshowDeleteConfirm: PropTypes.func.isRequired,
-  selectedRowKeys: PropTypes.arrayOf(PropTypes.string).isRequired,
+  selectedRowKeys: PropTypes.arrayOf(PropTypes.any).isRequired,
   getParts: PropTypes.func.isRequired,
 };

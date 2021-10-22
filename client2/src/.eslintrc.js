@@ -13,10 +13,10 @@ module.exports = {
   rules: {
     'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
     'react/jsx-props-no-spreading': 'off',
-    'no-underscore-dangle': [
-      'error',
-      { allow: ['__REDUX_DEVTOOLS_EXTENSION__'] },
-    ],
+    // 'no-underscore-dangle': [
+    //   'error',
+    //   { allow: ['__REDUX_DEVTOOLS_EXTENSION__'] },
+    // ],
     'react/jsx-filename-extension': [
       'error',
       {
@@ -29,5 +29,6 @@ module.exports = {
         endOfLine: 'auto',
       },
     ],
+    'no-underscore-dangle': 'off',
   },
 };

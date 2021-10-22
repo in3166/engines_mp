@@ -57,8 +57,12 @@ function SideBar() {
               <Menu.Item key="/usersAuth">
                 <Link to="/usersAuth">권한 관리</Link>
               </Menu.Item>
-              <Menu.Item key="14">부서 관리</Menu.Item>
-              <Menu.Item key="15">직급 관리</Menu.Item>
+              <Menu.Item key="/manageDepartment">
+                <Link to="/manageDepartment">부서 관리</Link>
+              </Menu.Item>
+              <Menu.Item key="/managePosition">
+                <Link to="/managePosition">직급 관리</Link>
+              </Menu.Item>
             </SubMenu>
             <SubMenu key="sub5" icon={<BankOutlined />} title="사이트 관리">
               <Menu.Item key="16">사이트 관리</Menu.Item>

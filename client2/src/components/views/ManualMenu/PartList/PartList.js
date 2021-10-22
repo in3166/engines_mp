@@ -32,6 +32,7 @@ function PartList(props) {
         if (res.payload.success) {
           setselectedRowKeys([]);
           setParts(res.payload.parts);
+          // console.log('set parts: ', res.payload.parts);
         } else {
           message.error(res.payload.err);
         }

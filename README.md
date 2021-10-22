@@ -63,7 +63,12 @@
   - `user?.userData?.role !== undefined`를 추가해 해결
 
 - `Added non-passive event listener to a scroll-blocking 'wheel' event.` 경고 발생
+
   - `https://unpkg.com/default-passive-events` 사용
+
+- vscode `listen EACCES: permission denied` (포트 사용 중)
+  - net stop winnat
+  - net start winnat
 
 ### 사용 모듈
 

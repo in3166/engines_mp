@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import {
-  Layout,
   Table,
   Space,
   Button,
@@ -13,15 +12,15 @@ import {
   DeleteFilled,
   EditOutlined,
   QuestionCircleOutlined,
+  ReloadOutlined,
 } from '@ant-design/icons';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
-import { deleteUsers } from '../../../_actions/user_actions';
+import { deleteUsers } from '../../../../_actions/user_actions';
 import UpdateModal from './Sections/UpdateModal';
-
-// const { SubMenu } = Menu;
-const { Content } = Layout;
+import './Sections/UserAuth.css';
+import columns from './data/columns';
 
 function UsersRolePage(props) {
   const { user } = props;
@@ -52,6 +51,8 @@ function UsersRolePage(props) {
             id: `${res.data.users[i].id}`,
             name: res.data.users[i].name,
             email: res.data.users[i].email,
+            department: res.data.users[i].department,
+            position: res.data.users[i].position,
             role,
           };
           tempUser.push(data);
@@ -111,69 +112,27 @@ function UsersRolePage(props) {
       body.id.push(userSel.id);
     });
 
-    // redux post
-    dispatch(deleteUsers(body))
-      .then(res => {
-        if (res.payload.success) {
-          message.success('회원 탈퇴를 완료하였습니다.');
-          setSelectedRowKeys([]);
-          getAllUsers();
-        } else {
-          message.error('회원 탈퇴를 실패하였습니다. ', res.payload.err);
-        }
-      })
-      .catch(err => {
-        message.error(`[Error]: ${err}`);
-      });
+    if (body.id.length === 0) {
+      message.error('사용자를 선택하세요.');
+    } else {
+      // redux post
+      dispatch(deleteUsers(body))
+        .then(res => {
+          if (res.payload.success) {
+            message.success('회원 탈퇴를 완료하였습니다.');
+            setSelectedRowKeys([]);
+            getAllUsers();
+          } else {
+            message.error('회원 탈퇴를 실패하였습니다. ', res.payload.err);
+          }
+        })
+        .catch(err => {
+          message.error(`[Error]: ${err}`);
+        });
+    }
   };
 
-  const columns = [
-    {
-      title: 'ID',
-      dataIndex: 'id',
-      sorter: {
-        compare: (a, b) => a.id.localeCompare(b.id),
-        multiple: 1,
-      },
-      width: 100,
-      align: 'center',
-    },
-    {
-      title: '이름',
-      dataIndex: 'name',
-      sorter: {
-        compare: (a, b) => a.name.localeCompare(b.name),
-        multiple: 2,
-      },
-      width: 160,
-      align: 'center',
-      responsive: ['sm'],
-    },
-    {
-      title: 'Email',
-      dataIndex: 'email',
-      sorter: {
-        compare: (a, b) => a.email.localeCompare(b.email),
-        multiple: 3,
-      },
-      width: 240,
-      align: 'center',
-      responsive: ['md'],
-    },
-    {
-      title: '권한',
-      dataIndex: 'role',
-      filters: [
-        { text: '일반 사용자', value: '일반 사용자' },
-        { text: '전문가', value: '전문가' },
-        { text: '엔지니어', value: '엔지니어' },
-      ],
-      onFilter: (value, record) => {
-        return record.role.indexOf(value) === 0;
-      },
-      width: 110,
-      align: 'center',
-    },
+  const col2 = [
     {
       title: '수정',
       dataIndex: 'update',
@@ -187,7 +146,7 @@ function UsersRolePage(props) {
           </Space>
         );
       },
-      width: 70,
+      width: 50,
       align: 'center',
     },
     {
@@ -211,12 +170,12 @@ function UsersRolePage(props) {
           </Space>
         );
       },
-      width: 70,
+      width: 50,
       align: 'center',
       responsive: ['sm'],
     },
   ];
-
+  const col = [...columns, ...col2];
   const onSelectChange = (record, selected) => {
     setSelectedRowKeys(record);
     setSelectedUsers(selected);
@@ -233,53 +192,45 @@ function UsersRolePage(props) {
   };
 
   return (
-    <Layout>
-      <div style={{ width: '100%', overflow: 'auto' }}>
-        <Layout style={{ padding: '0 24px 24px' }}>
-          <Breadcrumb style={{ margin: '16px 0' }}>
-            <Breadcrumb.Item>Home</Breadcrumb.Item>
-            <Breadcrumb.Item>사용자 관리</Breadcrumb.Item>
-            <Breadcrumb.Item>권한 관리</Breadcrumb.Item>
-          </Breadcrumb>
-          <Content
-            className="site-layout-background"
-            style={{
-              padding: 24,
-              margin: 0,
-              minHeight: 280,
-              height: '100%',
-              border: '1px solid',
-            }}
-          >
-            <Spin spinning={loading}>
-              <div style={{ float: 'right' }}>
-                <Button onClick={getAllUsers}>새로고침</Button>{' '}
-                <Button onClick={deleteUsersButton}>회원 탈퇴</Button> <br />
-                <br />
-              </div>
+    <>
+      <Breadcrumb style={{ margin: '16px 0' }}>
+        <Breadcrumb.Item>Home</Breadcrumb.Item>
+        <Breadcrumb.Item>사용자 관리</Breadcrumb.Item>
+        <Breadcrumb.Item>권한 관리</Breadcrumb.Item>
+      </Breadcrumb>
+      <Spin spinning={loading}>
+        <div style={{ backgroundColor: 'white', padding: 20 }}>
+          <div style={{ float: 'right' }}>
+            <Button onClick={getAllUsers}>
+              <ReloadOutlined />
+            </Button>{' '}
+            <Button onClick={deleteUsersButton}>
+              <DeleteFilled />
+            </Button>{' '}
+            <br />
+            <br />
+          </div>
 
-              <Table
-                style={{ overflow: 'auto' }}
-                rowSelection={rowSelection}
-                columns={columns}
-                dataSource={users}
-                bordered
-                tableLayout="auto"
-                scroll
-              />
-            </Spin>
+          <Table
+            style={{ overflow: 'auto' }}
+            rowSelection={rowSelection}
+            columns={col}
+            dataSource={users}
+            bordered
+            tableLayout="auto"
+            scroll
+          />
+        </div>
+      </Spin>
 
-            <UpdateModal
-              modalData={modalData}
-              getAllUsers={getAllUsers}
-              handleRoleChange={handleRoleChange}
-              modalVisible={modalVisible}
-              setModalVisible={setModalVisible}
-            />
-          </Content>
-        </Layout>
-      </div>
-    </Layout>
+      <UpdateModal
+        modalData={modalData}
+        getAllUsers={getAllUsers}
+        handleRoleChange={handleRoleChange}
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+      />
+    </>
   );
 }
 

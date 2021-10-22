@@ -14,14 +14,18 @@ function PartAddModal(props) {
     register,
     formState: { errors },
     handleSubmit,
+    reset,
   } = useForm();
 
   const [form] = Form.useForm();
   const modalOnOk = part => {
     const body = {
-      id: part?.id,
+      section1: part?.section1,
+      section2: part?.section2,
       name: part?.name,
-      defaultLifespan: part?.life,
+      defaultLifespan: part?.defaultLifespan,
+      expectLifespan: part?.expectLifespan,
+      actualLifespan: part?.actualLifespan,
       price: part?.price,
       desc: part?.desc,
     };
@@ -39,12 +43,13 @@ function PartAddModal(props) {
         message.error(`[Error]: ${err}`);
       })
       .finally(() => {
-        document.getElementById('id').value = '';
-        document.getElementById('name').value = '';
-        document.getElementById('life').value = '';
-        document.getElementById('price').value = '';
-        document.getElementById('desc').value = '';
+        // document.getElementById('id').value = '';
+        // document.getElementById('name').value = '';
+        // document.getElementById('life').value = '';
+        // document.getElementById('price').value = '';
+        // document.getElementById('desc').value = '';
         setshowAddConfirm(false);
+        reset();
       });
   };
 
@@ -52,10 +57,11 @@ function PartAddModal(props) {
     <div>
       <Modal
         title="부품 추가"
-        style={{ top: 200 }}
+        style={{ top: 50 }}
         visible={showAddConfirm}
         onOk={form.submit}
         onCancel={() => setshowAddConfirm(false)}
+        destroyOnClose
       >
         <Form
           {...{ labelCol: { span: 6 }, wrapperCol: { span: 14 } }}
@@ -63,20 +69,38 @@ function PartAddModal(props) {
           id="updateForm"
           form={form}
           onFinish={handleSubmit(modalOnOk)}
+          preserve={false}
         >
-          <Form.Item label="ID">
+          <Form.Item label="Section.1">
             <input
-              id="id"
-              name="id"
+              id="section1"
+              name="section1"
               type="text"
               autoComplete="on"
               className="form_input"
-              error={errors.id}
-              {...register('id', { required: true, minLength: 3 })}
+              error={errors.section1}
+              {...register('section1', { minLength: 5 })}
             />
-            {errors.id && <p className="form_p">This id field is required</p>}
-            {errors.id && errors.id.type === 'minLength' && (
-              <p className="form_p">ID must have at least 3 characters</p>
+            {errors.section1 && errors.section1.type === 'minLength' && (
+              <p className="form_p">
+                This field must have at least 5 characters
+              </p>
+            )}
+          </Form.Item>
+          <Form.Item label="Section.2">
+            <input
+              id="section2"
+              name="section2"
+              type="text"
+              autoComplete="on"
+              className="form_input"
+              error={errors.section2}
+              {...register('section2', { minLength: 5 })}
+            />
+            {errors.section2 && errors.section2.type === 'minLength' && (
+              <p className="form_p">
+                This field must have at least 5 characters
+              </p>
             )}
           </Form.Item>
           <Form.Item label="부품 이름">
@@ -87,7 +111,7 @@ function PartAddModal(props) {
               type="text"
               autoComplete="on"
               error={errors.name}
-              {...register('name', { required: true, maxLength: 15 })}
+              {...register('name', { required: true, maxLength: 50 })}
             />
             {errors.name && errors.name.type === 'required' && (
               <p className="form_p">This name field is required</p>
@@ -98,17 +122,48 @@ function PartAddModal(props) {
           </Form.Item>
           <Form.Item label="기본 수명">
             <input
-              id="life"
-              name="life"
+              id="defaultLifespan"
+              name="defaultLifespan"
               className="form_input"
               type="number"
               autoComplete="on"
-              error={errors.life}
-              {...register('life', { required: true })}
+              error={errors.defaultLifespan}
+              {...register('defaultLifespan', { required: true })}
             />
-            {errors.life && errors.life.type === 'required' && (
-              <p className="form_p">This life field is required</p>
-            )}
+            {errors.defaultLifespan &&
+              errors.defaultLifespan.type === 'required' && (
+                <p className="form_p">This field is required</p>
+              )}
+          </Form.Item>
+          <Form.Item label="예측 수명">
+            <input
+              id="expectLifespan"
+              name="expectLifespan"
+              className="form_input"
+              type="number"
+              autoComplete="on"
+              error={errors.expectLifespan}
+              {...register('expectLifespan', { required: true })}
+            />
+            {errors.expectLifespan &&
+              errors.expectLifespan.type === 'required' && (
+                <p className="form_p">This field is required</p>
+              )}
+          </Form.Item>
+          <Form.Item label="실수명">
+            <input
+              id="actualLifespan"
+              name="actualLifespan"
+              className="form_input"
+              type="number"
+              autoComplete="on"
+              error={errors.actualLifespan}
+              {...register('actualLifespan', { required: true })}
+            />
+            {errors.actualLifespan &&
+              errors.actualLifespan.type === 'required' && (
+                <p className="form_p">This field is required</p>
+              )}
           </Form.Item>
           <Form.Item label="가격(원)">
             <input
@@ -118,7 +173,7 @@ function PartAddModal(props) {
               type="text"
               autoComplete="on"
               error={errors.price}
-              {...register('price', { required: true, maxLength: 20 })}
+              {...register('price', { required: true, maxLength: 50 })}
             />
             {errors.price && errors.price.type === 'required' && (
               <p className="form_p">This price field is required</p>
@@ -134,12 +189,9 @@ function PartAddModal(props) {
               type="text"
               autoComplete="on"
               error={errors.desc}
-              {...register('desc', { required: true, maxLength: 20 })}
+              {...register('desc', { maxLength: 100 })}
               className="form_input"
             />
-            {errors.desc && errors.desc.type === 'required' && (
-              <p className="form_p">This desc field is required</p>
-            )}
             {errors.desc && errors.desc.type === 'maxLength' && (
               <p className="form_p">Your input exceed maximum input</p>
             )}

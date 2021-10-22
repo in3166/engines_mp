@@ -26,11 +26,6 @@ const columns = [
     },
     width: 120,
   },
-  // {
-  //   title: '필요 부품',
-  //   dataIndex: 'requiredParts',
-  //   width: 90,
-  // },
 ];
 
 export default columns;

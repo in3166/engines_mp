@@ -10,7 +10,7 @@ import {
   CHANGE_ROLE,
   UPDATE_USER,
 } from './types';
-import USER_SERVER from '../components/Config';
+import { USER_SERVER } from '../components/Config';
 
 export function registerUser(dataToSubmit) {
   const request = axios

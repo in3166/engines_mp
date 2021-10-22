@@ -19,7 +19,7 @@ function TableButtons(props) {
 
   const handleUpdateButton = () => {
     if (selectedRowKeys?.length !== 1) {
-      message.error('한 개의 요소만 선택하세요.');
+      message.error('한 개의 요소를 선택하세요.');
     } else {
       setselectedPart(selectedRowKeys[0]);
       setShowUpdateModal(true);

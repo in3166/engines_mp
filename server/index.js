@@ -38,6 +38,7 @@ app.use('/api/predict', require('./routes/predict'));
 app.use('/api/engines', require('./routes/engines'));
 app.use('/api/sites', require('./routes/sites'));
 app.use('/api/parts', require('./routes/parts'));
+app.use('/api/departments', require('./routes/departments'));
 
 
 //use this to show the image you have in node js server to client (react js)

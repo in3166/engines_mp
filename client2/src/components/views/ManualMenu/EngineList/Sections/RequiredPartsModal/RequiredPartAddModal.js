@@ -154,7 +154,8 @@ function RequiredPartAddModal(props) {
                             header={data2.name}
                             key={data2.id}
                           >
-                            <p>ID: {data2.id}</p>
+                            <p>Section.1: {data2.section1}</p>
+                            <p>Section.2: {data2.section2}</p>
                             <p>가격: {data2.price}</p>
                             <p>수명: {data2.defaultLifespan}</p>
                             <p>설명: {data2.desc}</p>

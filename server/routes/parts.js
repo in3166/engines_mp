@@ -4,8 +4,6 @@ const { Part } = require("../models/Part");
 const { Site } = require("../models/Site");
 const { Engine } = require("../models/Engine");
 
-
-
 router.post("/deletePart", (req, res) => {
   // Object ID로 Site, Engine에서 쓰였는지 찾기
   console.log("id: ", req.body.id);
@@ -124,9 +122,12 @@ router.post("/updatePart", (req, res) => {
       Part.findOneAndUpdate(
         { _id: req.body._id },
         {
-          id: req.body.id,
+          section1: req.body.section1,
+          section2: req.body.section2,
           name: req.body.name,
-          defaultLifespan: req.body.life,
+          defaultLifespan: req.body.defaultLifespan,
+          expectLifespan: req.body.expectLifespan,
+          actualLifespan: req.body.actualLifespan,
           price: req.body.price,
           desc: req.body.desc,
         },
@@ -143,16 +144,16 @@ router.post("/updatePart", (req, res) => {
 
 // 부품 목록 부품 추가
 router.post("/addPart", (req, res) => {
-  Part.findOne({ id: req.body.id }, (err, part) => {
-    if (err) {
-      return res.status(400).json({ success: false, err });
-    }
-    if (part) {
-      return res.json({
-        success: false,
-        message: "아이디가 이미 존재합니다.",
-      });
-    } else {
+  // Part.findOne({ id: req.body.id }, (err, part) => {
+  //   if (err) {
+  //     return res.status(400).json({ success: false, err });
+  //   }
+  //   if (part) {
+  //     return res.json({
+  //       success: false,
+  //       message: "아이디가 이미 존재합니다.",
+  //     });
+  //   } else {
       Part.findOne({ name: req.body.name }, (err, part) => {
         if (part) {
           return res.json({
@@ -173,8 +174,8 @@ router.post("/addPart", (req, res) => {
           });
         }
       });
-    }
-  });
+  //  }
+ // });
 });
 
 module.exports = router;

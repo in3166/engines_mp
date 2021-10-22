@@ -64,7 +64,7 @@ function EngineTable(props) {
       title: '필요 부품',
       dataIndex: 'requiredParts',
       key: '4',
-      width: '100',
+      width: 70,
       render: (text, record) => {
         // console.log('text', text);
         // console.log('record', record);
@@ -123,7 +123,6 @@ function EngineTable(props) {
   const columns2 = [...columns, ...columnButton];
 
   const rowSelection = {
-    /* eslint no-underscore-dangle: 0 */
     ...selectedRowKeys._id,
     onChange: (selectedRowKey, sel2) => {
       setselectedRowKeys(sel2);

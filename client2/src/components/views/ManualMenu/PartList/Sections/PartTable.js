@@ -62,7 +62,7 @@ function PartTable(props) {
       },
       width: 70,
       align: 'center',
-      responsive: ['sm'],
+      responsive: ['xl'],
     },
     {
       title: '삭제',
@@ -88,7 +88,7 @@ function PartTable(props) {
       },
       width: 70,
       align: 'center',
-      responsive: ['sm'],
+      responsive: ['xl'],
     },
   ];
 
@@ -113,6 +113,7 @@ function PartTable(props) {
         columns={columns2}
         dataSource={Parts}
         rowKey="_id"
+        showSorterTooltip={false}
       />
     </>
   );

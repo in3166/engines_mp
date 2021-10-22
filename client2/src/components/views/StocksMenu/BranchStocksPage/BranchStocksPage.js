@@ -1,27 +1,15 @@
 import React, { useState, useEffect } from 'react';
 // import { SearchOutlined } from '@ant-design/icons';
 import PropTypes from 'prop-types';
-import {
-  DeleteFilled,
-  EditOutlined,
-  PlusOutlined,
-  QuestionCircleOutlined,
-  ReloadOutlined,
-} from '@ant-design/icons';
-import {
-  Breadcrumb,
-  Tabs,
-  Space,
-  message,
-  Spin,
-  Button,
-  Popconfirm,
-} from 'antd';
+import { ReloadOutlined } from '@ant-design/icons';
+import { Breadcrumb, Tabs, message, Spin, Button } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { getAllSites } from '../../../../_actions/site_actions';
-import EnginePartList from './Sections/EnginePartList';
+// import EnginePartList from '../SitePartsListPage/Sections/EnginePartList';
+import BranchTabContent from './Sections/BranchTabContent';
 
+const { TabPane } = Tabs;
 function BranchStocksPage(props) {
   const { user } = props;
   const [Sites, setSites] = useState([]);
@@ -79,54 +67,14 @@ function BranchStocksPage(props) {
       >
         {Sites.length > 0 &&
           Sites.map((value, i) => {
+            if (value.name === '본사') {
+              return null;
+            }
             const key = `tabs${i}`;
             return (
               <TabPane tab={value.name} key={key}>
-                <div style={{ float: 'right' }}>
-                  <Space>
-                    <Button onClick={() => setshowAddConfirm(true)}>
-                      <PlusOutlined />
-                    </Button>
-                    <Button onClick>
-                      <EditOutlined />
-                    </Button>
-
-                    <PartAddModal
-                      showAddConfirm //= {showAddConfirm}
-                      setshowAddConfirm //= {setshowAddConfirm}
-                      Sites={Sites}
-                      reload={reload}
-                    />
-                    <PartUpdateModal
-                      showUpdateConfirm //= {showUpdateConfirm}
-                      setshowUpdateConfirm //= {setshowUpdateConfirm}
-                      Sites={Sites}
-                      reload={reload}
-                      selectedRowKey //= {selectedRowKey}
-                    />
-
-                    <Space size="middle">
-                      <Popconfirm
-                        placement="leftBottom"
-                        title="정말로 삭제하시겠습니까?"
-                        onConfirm={onDeleteConfirm}
-                        okText="Yes"
-                        cancelText="No"
-                        icon={
-                          <QuestionCircleOutlined style={{ color: 'red' }} />
-                        }
-                      >
-                        <Button>
-                          <DeleteFilled />
-                        </Button>
-                      </Popconfirm>
-                    </Space>
-                  </Space>
-                </div>
-                <br />
-                <br />
                 <Spin spinning={loading}>
-                  <EnginePartList site={value} parts={value.partStock} />
+                  <BranchTabContent Sites={value} Parts={value.partStock} />
                 </Spin>
               </TabPane>
             );

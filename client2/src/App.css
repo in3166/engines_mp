@@ -91,3 +91,7 @@ table tr td.ant-table-selection-column {
 .ant-modal-root {
   overflow: auto;
 }
+
+.ant-scrolling-effect {
+  overflow: inherit !important;
+}

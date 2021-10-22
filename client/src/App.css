@@ -95,3 +95,7 @@ table tr td.ant-table-selection-column {
 .predictCard .ant-card-body .ant-spin {
   min-height: 200px;
 }
+/* 모달 스크롤 숨김 방지 */
+.ant-scrolling-effect {
+  overflow: inherit !important;
+}

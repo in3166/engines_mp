@@ -2,7 +2,7 @@ import React from 'react';
 import { Modal, Select, Form, message } from 'antd';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
-import { changeRole } from '../../../../_actions/user_actions';
+import { changeRole } from '../../../../../_actions/user_actions';
 
 const { Option } = Select;
 

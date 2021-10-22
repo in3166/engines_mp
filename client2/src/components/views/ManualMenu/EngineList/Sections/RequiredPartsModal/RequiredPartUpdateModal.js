@@ -41,7 +41,6 @@ function RequiredPartUpdateModal(props) {
         message.error(`[Error]: ${err}`);
       })
       .finally(() => {
-        document.getElementById('number').value = '';
         getEngines();
         // setShowPartAdd(false);
       });
@@ -71,8 +70,11 @@ function RequiredPartUpdateModal(props) {
             onFinish={modalOnOk}
             preserve={false}
           >
-            <Form.Item label="부품 ID">
-              <Input type="text" value={selectedRowKeys[0].id} readOnly />
+            <Form.Item label="Section.1">
+              <Input type="text" value={selectedRowKeys[0].section1} readOnly />
+            </Form.Item>
+            <Form.Item label="Section.2">
+              <Input type="text" value={selectedRowKeys[0].section2} readOnly />
             </Form.Item>
             <Form.Item label="부품 이름">
               <Input type="text" value={selectedRowKeys[0].name} readOnly />

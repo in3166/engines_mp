@@ -111,7 +111,8 @@ function RequiredPartsModal(props) {
       <br />
       <br />
       <Table dataSource={newParts} rowSelection={rowSelection}>
-        <Column title="ID" dataIndex="id" key="id" />
+        <Column title="Section.1" dataIndex="section1" key="section1" />
+        <Column title="Section.1" dataIndex="section2" key="section2" />
         <Column title="이름" dataIndex="name" key="name" />
         <Column title="가격" dataIndex="price" key="price" />
         <Column title="설명" dataIndex="desc" key="desc" />

@@ -1,20 +1,26 @@
 const mongoose = require('mongoose');
 
 const partSchema = mongoose.Schema({
-    id: {
+    section1: {
         type: String,
-        unique: 1
+    },
+    section2: {
+        type: String,
     },
     name: {
         type: String,
-        maxlength: 50
+        maxlength: 50,
+        unique: 1
     },
     defaultLifespan: {
         type: Number,
     },
-    // recentReplace:{
-    //     type: Date
-    // },
+    actualLifespan: {
+        type: Number,
+    },
+    expectLifespan:{
+        type: Number,
+    },
     // futureReplace:{
     //     type: Date
     // },

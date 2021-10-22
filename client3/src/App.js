@@ -8,10 +8,11 @@ import Navbar from './components/views/NavBar/NavBar';
 import FooterComponent from './components/views/Footer/FooterComponent';
 // import UserPage from './components/views/UserPage/UserPage';
 import SideBar from './components/views/SideBar/SideBar';
-import UsersAuth from './components/views/UsersAuthPage/UsersAuthPage';
-import AddExpertPage from './components/views/AddExpertPage/AddExpertPage';
-import UsersAuth2 from './components/views/UsersAuthPage/UsersAuthPage2';
+import UsersAuth from './components/views/UserManage/UsersAuthPage/UsersAuthPage';
+import AddExpertPage from './components/views/ExpertManage/AddExpertPage/AddExpertPage';
 import NotFound from './components/views/NotFound/NotFound';
+import PositionManagePage from './components/views/UserManage/PositionMangePage/PositionManagePage';
+import DepartmentManagePage from './components/views/UserManage/DepartmentManagePage/DepartmentManagePage';
 import Auth from './hoc/auth';
 import CONFIG from './ipconfig.json';
 // const { Header, Content, Footer, Sider } = Layout;
@@ -31,11 +32,6 @@ function App() {
         <>
           <Route path="/login" render={() => redirectUrl('login')} />
           <Route path="/register" render={() => redirectUrl('register')} />
-          <Route
-            exact
-            path="/userManage"
-            component={Auth(UsersAuth2, true, true)}
-          />
           {location.pathname !== '/login' && location.pathname !== '/register' && (
             <Layout>
               <Navbar />
@@ -62,6 +58,14 @@ function App() {
                       <Route
                         path="/addExpert"
                         component={Auth(AddExpertPage, true)}
+                      />
+                      <Route
+                        path="/managePosition"
+                        component={Auth(PositionManagePage, true)}
+                      />
+                      <Route
+                        path="/manageDepartment"
+                        component={Auth(DepartmentManagePage, true)}
                       />
                       <Route path="/user" render={() => redirectUrl('user')} />
                       {/* <Route path="/user" component={Auth(UserPage, true)} /> */}

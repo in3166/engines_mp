@@ -1,3 +1,4 @@
 // SERVER ROUTES
 const USER_SERVER = '/api/users';
-export default USER_SERVER;
+const DEPARTMENT_SERVER = '/api/departments';
+export { USER_SERVER, DEPARTMENT_SERVER };
