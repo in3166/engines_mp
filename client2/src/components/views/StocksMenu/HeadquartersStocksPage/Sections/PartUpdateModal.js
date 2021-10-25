@@ -57,8 +57,19 @@ function PartUpdateModal(props) {
             onFinish={modalOnOk}
             preserve={false}
           >
-            <Form.Item label="부품 ID">
-              <Input type="text" value={selectedRowKey[0].part.id} readOnly />
+            <Form.Item label="Section.1">
+              <Input
+                type="text"
+                value={selectedRowKey[0].part.section1}
+                readOnly
+              />
+            </Form.Item>
+            <Form.Item label="Section.2">
+              <Input
+                type="text"
+                value={selectedRowKey[0].part.section2}
+                readOnly
+              />
             </Form.Item>
             <Form.Item label="부품 이름">
               <Input type="text" value={selectedRowKey[0].part.name} readOnly />

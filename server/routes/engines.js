@@ -97,7 +97,6 @@ router.post("/deleteEnginRequiredPart", async (req, res) => {
     );
   });
 
-
   await Promise.all(pullArrayPromises)
     .then(() => {
       return res.status(200).json({ success: true });
@@ -105,6 +104,89 @@ router.post("/deleteEnginRequiredPart", async (req, res) => {
     .catch((err) => {
       return res.status(400).json({ success: false, err });
     });
+});
+
+// 엔진 추가
+router.post("/addEngine", (req, res) => {
+  Engine.findOne({ id: req.body.id }, (err, engine) => {
+    if (err) {
+      return res.status(400).json({ success: false, err });
+    }
+    if (engine) {
+      return res.json({
+        success: false,
+        message: "아이디가 이미 존재합니다.",
+      });
+    } else {
+      Engine.findOne({ name: req.body.name }, (err, engine) => {
+        if (engine) {
+          return res.json({
+            success: false,
+            message: "이름이 이미 존재합니다.",
+          });
+        } else {
+          const engine = new Engine(req.body);
+          engine.save((err, engineInfo) => {
+            if (err) {
+              console.log("err2: ", err);
+              return res.status(400).json({ success: false, err });
+            }
+            return res.status(200).json({
+              success: true,
+              message: "엔진을 추가했습니다.",
+            });
+          });
+        }
+      });
+    }
+  });
+});
+
+// 엔진 정보 변경
+router.post("/updateEngine", (req, res) => {
+  Engine.findOne(
+    { id: req.body.id, _id: { $ne: req.body._id } },
+    (err, part) => {
+      if (err) {
+        return res.status(400).json({ success: false, err });
+      }
+      if (part) {
+        return res.json({
+          success: false,
+          message: "아이디가 이미 존재합니다.",
+        });
+      } else {
+        Engine.findOneAndUpdate(
+          { _id: req.body._id },
+          {
+            id: req.body.id,
+            name: req.body.name,
+            defaultLifespan: req.body.defaultLifespan,
+          },
+          (err, doc) => {
+            if (err) return res.status(400).json({ success: false, err });
+            return res.status(200).send({
+              success: true,
+            });
+          }
+        );
+      }
+    }
+  );
+});
+
+// 엔진 삭제
+router.post("/deleteEngines", async (req, res) => {
+  let engines = req.body.engines;
+  console.log(engines);
+  Engine.deleteMany({ _id: engines }).exec((err, engine) => {
+    if (err) {
+      return res.stauts(400).json({ success: false, err });
+    }
+    return res.status(200).send({
+      success: true,
+    });
+  });
 });
 
 module.exports = router;

@@ -14,8 +14,6 @@ import { useDispatch } from 'react-redux';
 import { getAllParts } from '../../../../../../_actions/part_actions';
 import { addEnginRequiredPart } from '../../../../../../_actions/engine_actions';
 
-const pageSize = 5;
-
 function RequiredPartAddModal(props) {
   const {
     ShowPartAdd,
@@ -34,6 +32,7 @@ function RequiredPartAddModal(props) {
   const [checkedList, setCheckedList] = useState([]);
   const [indeterminate, setIndeterminate] = useState(true);
   const [checkAll, setCheckAll] = useState(false);
+  const [pageSize, setPageSize] = useState(5);
 
   const dispatch = useDispatch();
   const { Panel } = Collapse;
@@ -93,15 +92,29 @@ function RequiredPartAddModal(props) {
         });
     }
   };
-
+  // 페이지네이션
   const handleChange = page => {
     setcurrent(page);
     setminIndex((page - 1) * pageSize);
     setmaxIndex(page * pageSize);
   };
 
+  // 페이지네이션
+  const sizeChagne = (cur, size) => {
+    setPageSize(size);
+    setcurrent(cur);
+    setminIndex((cur - 1) * size);
+  };
+
+  useEffect(() => {
+    console.log('checkedList', checkedList);
+    console.log('indeterminate', indeterminate);
+    setmaxIndex(current * pageSize);
+  }, [checkedList, current, indeterminate, pageSize, plainOptions]);
+
   // 체크 박스 선택 시
   const onChange = list => {
+    console.log('chkec onchange list: ', list);
     setCheckedList(list);
     setIndeterminate(!!list.length && list.length < plainOptions.length);
     setCheckAll(list.length === plainOptions.length);
@@ -147,12 +160,12 @@ function RequiredPartAddModal(props) {
                     index >= minIndex &&
                     index < maxIndex && (
                       /* eslint no-underscore-dangle: 0 */
-                      <Checkbox value={data2._id} key={data2.id}>
+                      <Checkbox value={data2._id} key={data2.name}>
                         <Collapse defaultActiveKey={['1']}>
                           <Panel
                             showArrow={false}
                             header={data2.name}
-                            key={data2.id}
+                            key={data2.name}
                           >
                             <p>Section.1: {data2.section1}</p>
                             <p>Section.2: {data2.section2}</p>
@@ -166,12 +179,16 @@ function RequiredPartAddModal(props) {
                 )}
               </Checkbox.Group>
               <Pagination
+                showQuickJumper
+                showSizeChanger
                 pageSize={pageSize}
                 current={current}
                 total={data.length}
                 onChange={handleChange}
+                onShowSizeChange={sizeChagne}
                 style={{ bottom: '0px', textAlign: 'center' }}
                 size="small"
+                pageSizeOptions={[5, 10, 20, 30, 50, 100]}
               />
             </Form.Item>
 

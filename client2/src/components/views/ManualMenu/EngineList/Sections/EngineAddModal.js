@@ -3,7 +3,7 @@ import { Modal, Form, message } from 'antd';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
-import { addPart } from '../../../../../_actions/part_actions';
+import { addEngine } from '../../../../../_actions/engine_actions';
 
 function EngineAddModal(props) {
   const { showAddConfirm, setshowAddConfirm, getEngines } = props;
@@ -22,11 +22,9 @@ function EngineAddModal(props) {
       id: part?.id,
       name: part?.name,
       defaultLifespan: part?.life,
-      price: part?.price,
-      desc: part?.desc,
     };
 
-    dispatch(addPart(body))
+    dispatch(addEngine(body))
       .then(res => {
         if (res.payload.success) {
           message.success('엔진이 추가되었습니다.');
@@ -42,8 +40,6 @@ function EngineAddModal(props) {
         document.getElementById('id').value = '';
         document.getElementById('name').value = '';
         document.getElementById('life').value = '';
-        document.getElementById('price').value = '';
-        document.getElementById('desc').value = '';
         setshowAddConfirm(false);
       });
   };
@@ -108,40 +104,6 @@ function EngineAddModal(props) {
             />
             {errors.life && errors.life.type === 'required' && (
               <p className="form_p">This life field is required</p>
-            )}
-          </Form.Item>
-          <Form.Item label="가격(원)">
-            <input
-              id="price"
-              name="price"
-              className="form_input"
-              type="text"
-              autoComplete="on"
-              error={errors.price}
-              {...register('price', { required: true, maxLength: 20 })}
-            />
-            {errors.price && errors.price.type === 'required' && (
-              <p className="form_p">This price field is required</p>
-            )}
-            {errors.price && errors.price.type === 'maxLength' && (
-              <p className="form_p">Your input exceed maximum input</p>
-            )}
-          </Form.Item>
-          <Form.Item label="설명">
-            <input
-              id="desc"
-              name="desc"
-              type="text"
-              autoComplete="on"
-              error={errors.desc}
-              {...register('desc', { required: true, maxLength: 20 })}
-              className="form_input"
-            />
-            {errors.desc && errors.desc.type === 'required' && (
-              <p className="form_p">This desc field is required</p>
-            )}
-            {errors.desc && errors.desc.type === 'maxLength' && (
-              <p className="form_p">Your input exceed maximum input</p>
             )}
           </Form.Item>
         </Form>

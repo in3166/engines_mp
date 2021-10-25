@@ -3,7 +3,7 @@ import { Modal, Form, message } from 'antd';
 import { useForm } from 'react-hook-form';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
-import { updatePart } from '../../../../../_actions/part_actions';
+import { updateEngine } from '../../../../../_actions/engine_actions';
 
 function EngineUpdateModal(props) {
   const {
@@ -13,7 +13,8 @@ function EngineUpdateModal(props) {
     getEngines,
   } = props;
   const dispatch = useDispatch();
-  const [part, setpart] = useState({});
+  const [Engine, setEngine] = useState({});
+
   const {
     register,
     formState: { errors },
@@ -23,25 +24,23 @@ function EngineUpdateModal(props) {
 
   const [form] = Form.useForm();
   useEffect(() => {
-    setpart(selectedEngine);
+    setEngine(selectedEngine);
     reset(selectedEngine); // 처음 설정 시 value가 안먹히는 문제 해결
     return () => {
-      setpart({});
+      setEngine({});
     };
   }, [reset, selectedEngine]);
 
-  const modalOnOk = partText => {
+  const modalOnOk = engine => {
     const body = {
       /* eslint no-underscore-dangle: 0 */
-      _id: part._id,
-      id: partText.id,
-      name: partText?.name,
-      life: partText?.life,
-      price: partText?.price,
-      desc: partText?.desc,
+      _id: Engine._id,
+      id: engine.id,
+      name: engine?.name,
+      defaultLifespan: engine?.defaultLifespan,
     };
 
-    dispatch(updatePart(body))
+    dispatch(updateEngine(body))
       .then(res => {
         if (res.payload.success) {
           message.success('성공');
@@ -73,7 +72,7 @@ function EngineUpdateModal(props) {
           name="userinfo-change"
           form={form}
           onFinish={handleSubmit(modalOnOk)}
-          key={part}
+          key={Engine}
           preserve={false}
         >
           <Form.Item label="ID">
@@ -84,7 +83,7 @@ function EngineUpdateModal(props) {
               autoComplete="on"
               className="form_input"
               error={errors.id}
-              defaultValue={part?.id}
+              defaultValue={Engine?.id}
               {...register('id', { required: true, minLength: 3 })}
             />
             {errors.id && <p className="form_p">This id field is required</p>}
@@ -100,7 +99,7 @@ function EngineUpdateModal(props) {
               type="text"
               autoComplete="on"
               error={errors.name}
-              defaultValue={part?.name}
+              defaultValue={Engine?.name}
               {...register('name', { required: true, maxLength: 15 })}
             />
             {errors.name && errors.name.type === 'required' && (
@@ -112,51 +111,18 @@ function EngineUpdateModal(props) {
           </Form.Item>
           <Form.Item label="기본 수명">
             <input
-              name="life"
+              name="defaultLifespan"
               className="form_input"
               type="number"
               autoComplete="on"
-              error={errors.life}
-              defaultValue={part?.defaultLifespan}
-              {...register('life', { required: true })}
+              error={errors.defaultLifespan}
+              defaultValue={Engine?.defaultLifespan}
+              {...register('defaultLifespan', { required: true })}
             />
-            {errors.life && errors.life.type === 'required' && (
-              <p className="form_p">This life field is required</p>
-            )}
-          </Form.Item>
-          <Form.Item label="가격(원)">
-            <input
-              name="price"
-              className="form_input"
-              type="text"
-              autoComplete="on"
-              error={errors.price}
-              defaultValue={part?.price}
-              {...register('price', { required: true, maxLength: 20 })}
-            />
-            {errors.price && errors.price.type === 'required' && (
-              <p className="form_p">This price field is required</p>
-            )}
-            {errors.price && errors.price.type === 'maxLength' && (
-              <p className="form_p">Your input exceed maximum input</p>
-            )}
-          </Form.Item>
-          <Form.Item label="설명">
-            <input
-              name="desc"
-              type="text"
-              autoComplete="on"
-              error={errors.desc}
-              defaultValue={part?.desc}
-              {...register('desc', { required: true, maxLength: 20 })}
-              className="form_input"
-            />
-            {errors.desc && errors.desc.type === 'required' && (
-              <p className="form_p">This desc field is required</p>
-            )}
-            {errors.desc && errors.desc.type === 'maxLength' && (
-              <p className="form_p">Your input exceed maximum input</p>
-            )}
+            {errors.defaultLifespan &&
+              errors.defaultLifespan.type === 'required' && (
+                <p className="form_p">This field is required</p>
+              )}
           </Form.Item>
         </Form>
       </Modal>

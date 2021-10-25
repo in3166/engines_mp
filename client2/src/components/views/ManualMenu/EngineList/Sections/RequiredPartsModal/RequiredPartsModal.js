@@ -120,6 +120,7 @@ function RequiredPartsModal(props) {
           title="필요 개수"
           dataIndex="requiredNumber"
           key="requiredNumber"
+          style={{ minWidth: '100px' }}
         />
       </Table>
     </Modal>

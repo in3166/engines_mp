@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Table, Button, Popconfirm, Space } from 'antd';
+import { Table, Button, Popconfirm, Space, message } from 'antd';
 import PropTypes from 'prop-types';
 import {
   SearchOutlined,
@@ -9,6 +9,8 @@ import {
 } from '@ant-design/icons';
 
 // import axios from 'axios';
+// import axios from 'axios';
+import axios from 'axios';
 import columns from '../data/columns';
 import RequiredPartsModal from './RequiredPartsModal/RequiredPartsModal';
 import TableButtons from '../../../../utils/TableButtons/TableButtons';
@@ -31,31 +33,42 @@ function EngineTable(props) {
   };
 
   // 개별 삭제 버튼
-  const deleteConfirm = () => {
-    // const body = {
-    //   id,
-    // };
-    // console.log('del: ', body);
-    // axios
-    //   .post('/api/engines/deleteEngines', body)
-    //   .then(res => {
-    //     if (res.data.success) {
-    //       message.success('엔진을 삭제하였습니다.');
-    //     } else {
-    //       message.error(
-    //         '엔진 삭제를 실패하였습니다. (다른 필드가 참조하고 있습니다.)',
-    //       );
-    //     }
-    //   })
-    //   .catch(err => {
-    //     message.error(`[Error]: ${err}`);
-    //   })
-    //   .finally(() => getEngines());
+  const deleteConfirm = id => {
+    if (selectedRowKeys.length === 0 && id.length === 0) {
+      message.error('엔진을 선택하세요.');
+    } else {
+      let body = {};
+      if (id.length > 0) {
+        body = {
+          engines: id[0],
+        };
+      } else {
+        const engines = selectedRowKeys.map(e => e._id);
+        body = {
+          engines,
+        };
+      }
+      console.log('del: ', body);
+
+      axios
+        .post('/api/engines/deleteEngines', body)
+        .then(res => {
+          if (res.data.success) {
+            message.success('엔진을 삭제하였습니다.');
+          } else {
+            message.error(res.data.message);
+          }
+        })
+        .catch(err => {
+          message.error(`[Error]: ${err}`);
+        })
+        .finally(() => getEngines());
+    }
   };
 
-  const updateEngineButton = part => {
+  const updateEngineButton = engine => {
     // 행에 있는 수정 버튼
-    setselectedEngine(...part);
+    setselectedEngine(...engine);
     setShowEngineUpdate(true);
   };
 
