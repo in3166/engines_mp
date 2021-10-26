@@ -8,10 +8,19 @@ import { Button, Popconfirm, Space } from 'antd';
 
 const columns = [
   {
-    title: 'ID',
-    dataIndex: ['part', 'id'],
+    title: 'Section.1',
+    dataIndex: ['part', 'section1'],
     sorter: {
-      compare: (a, b) => a.part.id.localeCompare(b.part.id),
+      compare: (a, b) => a.part.section1.localeCompare(b.part.section1),
+      multiple: 1,
+    },
+    width: 100,
+  },
+  {
+    title: 'Section.2',
+    dataIndex: ['part', 'section2'],
+    sorter: {
+      compare: (a, b) => a.part.section2.localeCompare(b.part.section2),
       multiple: 1,
     },
     width: 100,

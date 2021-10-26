@@ -1,10 +1,19 @@
 const partCol = [
   {
-    title: 'ID',
-    dataIndex: ['part', 'id'],
-    key: 'id',
+    title: 'Section.1',
+    dataIndex: ['part', 'section1'],
+    key: 'section1',
     sorter: {
-      compare: (a, b) => a.part.id.localeCompare(b.part.id),
+      compare: (a, b) => a.part.section1.localeCompare(b.part.section1),
+      multiple: 3,
+    },
+  },
+  {
+    title: 'Section.2',
+    dataIndex: ['part', 'section2'],
+    key: 'section2',
+    sorter: {
+      compare: (a, b) => a.part.section2.localeCompare(b.part.section2),
       multiple: 3,
     },
   },

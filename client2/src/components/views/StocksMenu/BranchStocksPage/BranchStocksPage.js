@@ -74,7 +74,11 @@ function BranchStocksPage(props) {
             return (
               <TabPane tab={value.name} key={key}>
                 <Spin spinning={loading}>
-                  <BranchTabContent Sites={value} Parts={value.partStock} />
+                  <BranchTabContent
+                    Sites={value}
+                    Parts={value.partStock}
+                    reload={reload}
+                  />
                 </Spin>
               </TabPane>
             );

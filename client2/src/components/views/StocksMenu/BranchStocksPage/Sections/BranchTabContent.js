@@ -11,41 +11,19 @@ import axios from 'axios';
 import SiteDescription from '../../../../utils/SiteDescription/SiteDescription';
 import columns from '../data/columns';
 // import PartAddModal from './Sections/PartAddModal';
-// import PartUpdateModal from './Sections/PartUpdateModal';
+import BranchAddPartModal from './BranchAddPartModal';
+import BranchUpdatePartModal from './BranchUpdatePartModal';
 import '../../formStyle.css';
 
 function BranchTabContent(props) {
   const [selectedRowKey, setselectedRowKeys] = useState([]);
-  //  const [showAddConfirm, setshowAddConfirm] = useState(false);
-  //  const [showUpdateConfirm, setshowUpdateConfirm] = useState(false);
+  const [showAddConfirm, setshowAddConfirm] = useState(false);
+  const [showUpdateConfirm, setshowUpdateConfirm] = useState(false);
   // const [value, setValue] = useState(1);
-  const { Sites, Parts } = props;
+  const { Sites, Parts, reload } = props;
   //  const [Sites, setSites] = useState({});
-  console.log(Sites);
-  console.log(Parts);
-  const onSelectChange = (selectedRowKeys, site) => {
-    setselectedRowKeys(site);
-  };
-
-  //   const reload = () => {
-  //     setLoading(true);
-  //     axios
-  //       .post('/api/sites/headParts')
-  //       .then(res => {
-  //         if (res.data.success) {
-  //           // console.log(res.data.sites);
-  //           setSites(...res.data.sites);
-  //         } else {
-  //           message.error(res.data.err);
-  //         }
-  //       })
-  //       .catch(err => {
-  //         message.error(err);
-  //       })
-  //       .finally(() => {
-  //         setLoading(false);
-  //       });
-  //   };
+  // console.log(Sites);
+  // console.log(Parts);
 
   // const onChange = e => {
   //   console.log('radio checked', e.target.value);
@@ -54,10 +32,12 @@ function BranchTabContent(props) {
 
   //   const useMountEffect = fun => useEffect(fun, []);
   //   useMountEffect(reload);
-
+  console.log('sele', selectedRowKey);
   const rowSelection = {
-    selectedRowKey,
-    onChange: onSelectChange,
+    ...selectedRowKey?.part?._id,
+    onChange: (selectedRowKeys, site) => {
+      setselectedRowKeys(site);
+    },
     selections: [
       Table.SELECTION_ALL,
       Table.SELECTION_NONE,
@@ -67,7 +47,7 @@ function BranchTabContent(props) {
 
   const onclickUpdate = () => {
     if (selectedRowKey.length === 1) {
-      // setshowUpdateConfirm(true);
+      setshowUpdateConfirm(true);
     } else {
       message.error('한 개의 부품을 선택하세요.');
     }
@@ -93,8 +73,8 @@ function BranchTabContent(props) {
             message.success('부품을 삭제하였습니다.');
           }
         })
-        .catch(err => message.error(err));
-      // .finally(reload());
+        .catch(err => message.error(err))
+        .finally(reload());
     }
   };
   return (
@@ -106,7 +86,7 @@ function BranchTabContent(props) {
 
       <div style={{ float: 'right' }}>
         <Space>
-          <Button onClick>
+          <Button onClick={() => setshowAddConfirm(true)}>
             <PlusOutlined />
           </Button>
 
@@ -114,20 +94,20 @@ function BranchTabContent(props) {
             <EditOutlined />
           </Button>
 
-          {/* <PartAddModal
+          <BranchAddPartModal
             showAddConfirm={showAddConfirm}
             setshowAddConfirm={setshowAddConfirm}
             Sites={Sites}
             reload={reload}
           />
 
-          <PartUpdateModal
+          <BranchUpdatePartModal
             showUpdateConfirm={showUpdateConfirm}
             setshowUpdateConfirm={setshowUpdateConfirm}
             Sites={Sites}
             reload={reload}
             selectedRowKey={selectedRowKey}
-          /> */}
+          />
 
           <Space size="middle">
             <Popconfirm
@@ -149,10 +129,11 @@ function BranchTabContent(props) {
       <br />
       <Spin spinning={false}>
         <Table
+          showSorterTooltip={false}
           rowSelection={rowSelection}
           columns={columns}
           dataSource={Parts}
-          rowKey={a => a.part.id}
+          rowKey={a => a.part.name}
         />
       </Spin>
     </div>
@@ -164,4 +145,5 @@ export default BranchTabContent;
 BranchTabContent.propTypes = {
   Sites: PropTypes.objectOf(PropTypes.any).isRequired,
   Parts: PropTypes.arrayOf(PropTypes.any).isRequired,
+  reload: PropTypes.func.isRequired,
 };

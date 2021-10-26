@@ -32,10 +32,6 @@ function HeadquartersStocksPage(props) {
   const [Sites, setSites] = useState({});
   const [loading, setLoading] = useState(false);
 
-  const onSelectChange = (selectedRowKeys, site) => {
-    setselectedRowKeys(site);
-  };
-
   const reload = () => {
     setLoading(true);
     axios
@@ -67,8 +63,10 @@ function HeadquartersStocksPage(props) {
   if (!user?.userData?.isAuth) return null;
 
   const rowSelection = {
-    selectedRowKey,
-    onChange: onSelectChange,
+    ...selectedRowKey._id,
+    onChange: (selectedRowKeys, site) => {
+      setselectedRowKeys(site);
+    },
     selections: [
       Table.SELECTION_ALL,
       Table.SELECTION_NONE,
@@ -165,10 +163,11 @@ function HeadquartersStocksPage(props) {
         <br />
         <Spin spinning={loading}>
           <Table
+            showSorterTooltip={false}
             rowSelection={rowSelection}
             columns={columns}
             dataSource={Sites.partStock}
-            rowKey={a => a.part.id}
+            rowKey={a => a.part.name}
           />
         </Spin>
       </div>

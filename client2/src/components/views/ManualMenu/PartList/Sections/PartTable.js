@@ -93,11 +93,11 @@ function PartTable(props) {
   ];
 
   const columns2 = [...columns, ...columnButton];
-
+  console.log(selectedRowKeys);
   const rowSelection = {
-    /* eslint no-underscore-dangle: 0 */
     ...selectedRowKeys._id,
     onChange: (selectedRowKey, sel2) => {
+      console.log(sel2);
       setselectedRowKeys(sel2);
     },
     selections: [

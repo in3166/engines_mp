@@ -13,7 +13,7 @@ import { useDispatch } from 'react-redux';
 import { getAllParts } from '../../../../../_actions/part_actions';
 import { addSitePart } from '../../../../../_actions/site_actions';
 
-function PartAddModal(props) {
+function BranchAddPartModal(props) {
   const { showAddConfirm, setshowAddConfirm, Sites, reload } = props;
 
   const [RadioValue, setRadioValue] = useState(0);
@@ -122,12 +122,12 @@ function PartAddModal(props) {
                 index >= minIndex &&
                 index < maxIndex && (
                   /* eslint no-underscore-dangle: 0 */
-                  <Radio value={data2._id} key={data2.id}>
-                    <Collapse defaultActiveKey={['1']}>
+                  <Radio value={data2._id} key={data2.name}>
+                    <Collapse defaultActiveKey={['1']} key={data2.name}>
                       <Panel
                         showArrow={false}
                         header={data2.name}
-                        key={data2.id}
+                        key={data2.name}
                       >
                         <p>Section.1: {data2.section1}</p>
                         <p>Section.2: {data2.section2}</p>
@@ -169,9 +169,9 @@ function PartAddModal(props) {
   );
 }
 
-export default PartAddModal;
+export default BranchAddPartModal;
 
-PartAddModal.propTypes = {
+BranchAddPartModal.propTypes = {
   showAddConfirm: PropTypes.bool.isRequired,
   setshowAddConfirm: PropTypes.func.isRequired,
   reload: PropTypes.func.isRequired,

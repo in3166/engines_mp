@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { updateSitePart } from '../../../../../_actions/site_actions';
 
-function PartUpdateModal(props) {
+function BranchUpdatePartModal(props) {
   const {
     showUpdateConfirm,
     setshowUpdateConfirm,
@@ -105,9 +105,9 @@ function PartUpdateModal(props) {
   );
 }
 
-export default PartUpdateModal;
+export default BranchUpdatePartModal;
 
-PartUpdateModal.propTypes = {
+BranchUpdatePartModal.propTypes = {
   showUpdateConfirm: PropTypes.bool.isRequired,
   setshowUpdateConfirm: PropTypes.func.isRequired,
   reload: PropTypes.func.isRequired,
