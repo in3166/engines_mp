@@ -55,7 +55,7 @@ function UserUpdateModal(props) {
     <div>
       <Modal
         title="회원 정보 수정"
-        style={{ top: 200 }}
+        style={{ top: 90 }}
         visible={showUpdateConfirm}
         onOk={form.submit}
         onCancel={() => setshowUpdateConfirm(false)}

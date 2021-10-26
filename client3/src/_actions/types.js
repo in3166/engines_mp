@@ -10,3 +10,6 @@ export const UPDATE_USER = 'update_user';
 
 // department
 export const GET_ALL_DEPARTMENTS = 'get_all_departments';
+
+// position
+export const GET_ALL_POSITIONS = 'get_all_positions';

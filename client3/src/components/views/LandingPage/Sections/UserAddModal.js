@@ -58,7 +58,7 @@ function UserAddModal(props) {
     <div>
       <Modal
         title="회원 추가"
-        style={{ top: 200 }}
+        style={{ top: 90 }}
         visible={showAddConfirm}
         onOk={form.submit}
         onCancel={() => setshowAddConfirm(false)}

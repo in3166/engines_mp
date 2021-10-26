@@ -126,10 +126,15 @@ function DepartmentManagePage(props) {
       <Breadcrumb style={{ margin: '16px 0' }}>
         <Breadcrumb.Item>Home</Breadcrumb.Item>
         <Breadcrumb.Item>사용자 관리</Breadcrumb.Item>
-        <Breadcrumb.Item>직급 관리</Breadcrumb.Item>
+        <Breadcrumb.Item>부서 관리</Breadcrumb.Item>
       </Breadcrumb>
       <Spin spinning={Loading}>
         <div style={{ backgroundColor: 'white', padding: 20 }}>
+          <div style={{ float: 'left', paddingLeft: '7px' }}>
+            <h3>
+              <strong>부서 목록</strong>
+            </h3>
+          </div>
           <div style={{ float: 'right' }}>
             <Button onClick={getDepartments}>
               <ReloadOutlined />

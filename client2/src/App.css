@@ -6,8 +6,8 @@ col {
   min-width: 0 !important;
 }
 
-.ant-table table table {
-  table-layout: fixed;
+.ant-table table {
+  table-layout: fixed !important;
   width: 100%;
 }
 

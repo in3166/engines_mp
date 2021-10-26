@@ -1,3 +1,6 @@
+import React from 'react';
+import { Tooltip } from 'antd';
+
 const columns = [
   {
     title: 'Section.1',
@@ -6,8 +9,9 @@ const columns = [
       compare: (a, b) => a.section1.localeCompare(b.section1),
       multiple: 1,
     },
-    width: 10,
+    width: 90,
     align: 'center',
+    responsive: ['lg'],
   },
   {
     title: 'Section.2',
@@ -16,8 +20,9 @@ const columns = [
       compare: (a, b) => a.section2.localeCompare(b.section2),
       multiple: 2,
     },
-    width: 10,
+    width: 90,
     align: 'center',
+    responsive: ['lg'],
   },
   {
     title: '이름',
@@ -26,7 +31,7 @@ const columns = [
       compare: (a, b) => a.name.localeCompare(b.name),
       multiple: 2,
     },
-    width: 200,
+    width: 160,
     align: 'center',
   },
   {
@@ -38,6 +43,7 @@ const columns = [
     },
     width: 80,
     align: 'center',
+    responsive: ['md'],
   },
   {
     title: '예측 수명',
@@ -68,6 +74,7 @@ const columns = [
     },
     width: 90,
     align: 'center',
+    responsive: ['md'],
   },
   {
     title: '설명',
@@ -78,6 +85,21 @@ const columns = [
     },
     responsive: ['xl'],
     align: 'center',
+    onCell: () => {
+      return {
+        style: {
+          whiteSpace: 'nowrap',
+          maxWidth: 150,
+        },
+      };
+    },
+    render: text => (
+      <Tooltip title={text}>
+        <div style={{ textOverflow: 'ellipsis', overflow: 'hidden' }}>
+          {text}
+        </div>
+      </Tooltip>
+    ),
   },
 ];
 

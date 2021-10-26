@@ -185,10 +185,10 @@ function RequiredPartAddModal(props) {
                 current={current}
                 total={data.length}
                 onChange={handleChange}
+                pageSizeOptions={['5', '10', '20', '50', '100']}
                 onShowSizeChange={sizeChagne}
                 style={{ bottom: '0px', textAlign: 'center' }}
                 size="small"
-                pageSizeOptions={[5, 10, 20, 30, 50, 100]}
               />
             </Form.Item>
 

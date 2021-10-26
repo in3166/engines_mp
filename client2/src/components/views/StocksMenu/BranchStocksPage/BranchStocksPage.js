@@ -53,7 +53,7 @@ function BranchStocksPage(props) {
       <Breadcrumb style={{ margin: '16px 0' }}>
         <Breadcrumb.Item>부품/자재 관리</Breadcrumb.Item>
         <Breadcrumb.Item>부품/자재 재고 관리</Breadcrumb.Item>
-        <Breadcrumb.Item>사이트별 목록 관리</Breadcrumb.Item>
+        <Breadcrumb.Item>지사 재고 관리</Breadcrumb.Item>
       </Breadcrumb>
       <Tabs
         defaultActiveKey="1"
