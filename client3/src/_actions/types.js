@@ -10,6 +10,12 @@ export const UPDATE_USER = 'update_user';
 
 // department
 export const GET_ALL_DEPARTMENTS = 'get_all_departments';
+export const ADD_DEPARTMENT = 'add_department';
+export const UPDATE_DEPARTMENT = 'update_department';
+export const DELETE_DEPARTMENT = 'update_department';
 
 // position
 export const GET_ALL_POSITIONS = 'get_all_positions';
+export const ADD_POSITION = 'add_position';
+export const UPDATE_POSITION = 'update_position';
+export const DELETE_POSITION = 'delete_position';

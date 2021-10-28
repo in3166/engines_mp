@@ -10,6 +10,7 @@ import {
 } from 'antd';
 import {
   DeleteFilled,
+  PlusOutlined,
   EditOutlined,
   QuestionCircleOutlined,
   ReloadOutlined,
@@ -19,6 +20,8 @@ import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import columns from './data/columns';
 import { getAllPositions } from '../../../../_actions/position_actions';
+import PositionAddModal from './Sections/PositionAddModal';
+import PositionUpdateModal from './Sections/PositionUpdateModal';
 
 function PositionManagePage(props) {
   const dispatch = useDispatch();
@@ -26,7 +29,9 @@ function PositionManagePage(props) {
   const [Positions, setPositions] = useState([]);
   const [selectedRowKeys, setselectedRowKeys] = useState([]);
   const [Loading, setLoading] = useState(false);
-
+  const [ShowAddModal, setShowAddModal] = useState(false);
+  const [ShowUpdateModal, setShowUpdateModal] = useState(false);
+  const [SelectedPosition, setSelectedPosition] = useState({});
   console.log(user);
   // console.log(Departments);
   console.log('selectedRowKeys; ', ...selectedRowKeys);
@@ -56,12 +61,13 @@ function PositionManagePage(props) {
   };
   useMountEffect(getPositions);
 
-  const onClickUpdate = depart => {
-    console.log('depart up: ', depart);
+  const onClickUpdate = position => {
+    setSelectedPosition(position);
+    setShowUpdateModal(true);
   };
 
-  const deleteConfirm = depart => {
-    console.log('depart del: ', depart);
+  const deleteConfirm = position => {
+    console.log('depart del: ', position);
   };
 
   const col2 = [
@@ -135,12 +141,39 @@ function PositionManagePage(props) {
             </h3>
           </div>
           <div style={{ float: 'right' }}>
-            <Button onClick={getPositions}>
-              <ReloadOutlined />
-            </Button>
-            <Button onClick>
-              <DeleteFilled />
-            </Button>
+            <Space>
+              <Button onClick={() => setShowAddModal(true)}>
+                <PlusOutlined />
+              </Button>
+              <Space size="middle">
+                <Popconfirm
+                  placement="leftBottom"
+                  title="정말로 삭제하시겠습니까?"
+                  onConfirm={() => deleteConfirm()}
+                  okText="Yes"
+                  cancelText="No"
+                  icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
+                >
+                  <Button>
+                    <DeleteFilled />
+                  </Button>
+                </Popconfirm>
+              </Space>
+              <Button onClick={getPositions}>
+                <ReloadOutlined />
+              </Button>
+            </Space>
+            <PositionAddModal
+              ShowAddModal={ShowAddModal}
+              setShowAddModal={setShowAddModal}
+              getPositions={getPositions}
+            />
+            <PositionUpdateModal
+              ShowUpdateModal={ShowUpdateModal}
+              setShowUpdateModal={setShowUpdateModal}
+              getPositions={getPositions}
+              Position={SelectedPosition}
+            />
             <br />
             <br />
           </div>

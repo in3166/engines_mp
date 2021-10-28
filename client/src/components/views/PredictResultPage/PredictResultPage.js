@@ -13,6 +13,7 @@ import {
   Card,
 } from 'antd';
 import { Line } from 'react-chartjs-2';
+import PropTypes from 'prop-types';
 import datas from './Sections/datas';
 
 const CheckboxGroup = Checkbox.Group;
@@ -64,7 +65,7 @@ const data = [
     english: 89,
   },
 ];
-function PredictResultPage() {
+function PredictResultPage(props) {
   const [checkedList, setCheckedList] = useState(defaultCheckedList);
   const [indeterminate, setIndeterminate] = useState(true);
   const [checkAll, setCheckAll] = useState(false);
@@ -72,7 +73,10 @@ function PredictResultPage() {
   const [Render, setRender] = useState(false);
   const [LineDatas, setLineDatas] = useState({});
   const [loading, setLoading] = useState(false);
-
+  const { user } = props;
+  if (!user?.userData?.isAuth) {
+    return null;
+  }
   const onSelectChange = selectedRowKeys => {
     // console.log('selectedRowKeys changed: ', selectedRowKeys);
     setselectedRowKeys(selectedRowKeys);
@@ -282,3 +286,7 @@ function PredictResultPage() {
 }
 
 export default PredictResultPage;
+
+PredictResultPage.propTypes = {
+  user: PropTypes.objectOf(PropTypes.object).isRequired,
+};

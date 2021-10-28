@@ -1,5 +1,10 @@
 import axios from 'axios';
-import { GET_ALL_DEPARTMENTS } from './types';
+import {
+  GET_ALL_DEPARTMENTS,
+  ADD_DEPARTMENT,
+  UPDATE_DEPARTMENT,
+} from './types';
+
 import { DEPARTMENT_SERVER } from '../components/Config';
 
 export function getAllDepartments() {
@@ -13,13 +18,24 @@ export function getAllDepartments() {
   };
 }
 
-export function getAllDepartments2(dataToSubmit) {
+export function addDepartment(dataToSubmit) {
   const request = axios
-    .post(`${DEPARTMENT_SERVER}/register`, dataToSubmit)
+    .post(`${DEPARTMENT_SERVER}/addDepartment`, dataToSubmit)
     .then(response => response.data);
 
   return {
-    type: GET_ALL_DEPARTMENTS,
+    type: ADD_DEPARTMENT,
+    payload: request,
+  };
+}
+
+export function updateDepartment(dataToSubmit) {
+  const request = axios
+    .post(`${DEPARTMENT_SERVER}/updateDepartment`, dataToSubmit)
+    .then(response => response.data);
+
+  return {
+    type: UPDATE_DEPARTMENT,
     payload: request,
   };
 }

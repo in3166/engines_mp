@@ -9,6 +9,7 @@ import {
   Breadcrumb,
 } from 'antd';
 import {
+  PlusOutlined,
   DeleteFilled,
   EditOutlined,
   QuestionCircleOutlined,
@@ -19,6 +20,8 @@ import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import columns from './data/columns';
 import { getAllDepartments } from '../../../../_actions/department_actions';
+import DepartmentAddModal from './Sections/DepartmentAddModal';
+import DepartmentUpdateModal from './Sections/DepartmentUpdateModal';
 
 function DepartmentManagePage(props) {
   const dispatch = useDispatch();
@@ -26,7 +29,9 @@ function DepartmentManagePage(props) {
   const [Departments, setDepartments] = useState([]);
   const [selectedRowKeys, setselectedRowKeys] = useState([]);
   const [Loading, setLoading] = useState(false);
-
+  const [ShowAddModal, setShowAddModal] = useState(false);
+  const [ShowUpdateModal, setShowUpdateModal] = useState(false);
+  const [SelectedDepartment, setSelectedDepartment] = useState({});
   console.log(user);
   // console.log(Departments);
   console.log('selectedRowKeys; ', ...selectedRowKeys);
@@ -58,6 +63,8 @@ function DepartmentManagePage(props) {
 
   const onClickUpdate = depart => {
     console.log('depart up: ', depart);
+    setSelectedDepartment(depart);
+    setShowUpdateModal(true);
   };
 
   const deleteConfirm = depart => {
@@ -136,12 +143,39 @@ function DepartmentManagePage(props) {
             </h3>
           </div>
           <div style={{ float: 'right' }}>
-            <Button onClick={getDepartments}>
-              <ReloadOutlined />
-            </Button>
-            <Button onClick>
-              <DeleteFilled />
-            </Button>
+            <Space>
+              <Button onClick={() => setShowAddModal(true)}>
+                <PlusOutlined />
+              </Button>
+              <Space size="middle">
+                <Popconfirm
+                  placement="leftBottom"
+                  title="정말로 삭제하시겠습니까?"
+                  onConfirm={() => deleteConfirm()}
+                  okText="Yes"
+                  cancelText="No"
+                  icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
+                >
+                  <Button>
+                    <DeleteFilled />
+                  </Button>
+                </Popconfirm>
+              </Space>
+              <Button onClick={getDepartments}>
+                <ReloadOutlined />
+              </Button>
+            </Space>
+            <DepartmentAddModal
+              getDepartments={getDepartments}
+              ShowAddModal={ShowAddModal}
+              setShowAddModal={setShowAddModal}
+            />
+            <DepartmentUpdateModal
+              getDepartments={getDepartments}
+              ShowUpdateModal={ShowUpdateModal}
+              setShowUpdateModal={setShowUpdateModal}
+              Department={SelectedDepartment}
+            />
             <br />
             <br />
           </div>

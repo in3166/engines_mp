@@ -11,7 +11,6 @@ import Navbar from './components/views/NavBar/NavBar';
 import FooterComponent from './components/views/Footer/FooterComponent';
 import UserPage from './components/views/UserPage/UserPage';
 import SideBar from './components/views/SideBar/SideBar';
-import UsersAuth from './components/views/UsersAuthPage/UsersAuthPage';
 import PredictResultPage from './components/views/PredictResultPage/PredictResultPage';
 import NotFound from './components/views/NotFound/NotFound';
 import PredictPage from './components/views/PredictPage/EngineerPredictPage';
@@ -57,10 +56,6 @@ function App() {
                         component={Auth(EnginePage, true)}
                       />
                       <Route path="/user" component={Auth(UserPage, true)} />
-                      <Route
-                        path="/usersAuth"
-                        component={Auth(UsersAuth, true, true)}
-                      />
                       <Route
                         path="/predictResult"
                         component={Auth(PredictResultPage, true)}
