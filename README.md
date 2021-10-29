@@ -65,6 +65,7 @@
 - `Added non-passive event listener to a scroll-blocking 'wheel' event.` 경고 발생
 
   - `https://unpkg.com/default-passive-events` 사용
+  - => ANTD 사용 중 오류 발생 -> 해제
 
 - vscode `listen EACCES: permission denied` (포트 사용 중)
   - net stop winnat

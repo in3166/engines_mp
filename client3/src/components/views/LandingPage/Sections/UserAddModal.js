@@ -1,19 +1,21 @@
 import React from 'react';
-import { Modal, Form, message } from 'antd';
+import { Modal, Form, message, Input, Select } from 'antd';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
-import { useForm } from 'react-hook-form';
 import { registerUser } from '../../../../_actions/user_actions';
-import './formStyle.css';
+// import './formStyle.css';
+
+const { Option } = Select;
 
 function UserAddModal(props) {
-  const { showAddConfirm, setshowAddConfirm, getAllUsers } = props;
-  const dispatch = useDispatch();
   const {
-    register,
-    formState: { errors },
-    handleSubmit,
-  } = useForm();
+    showAddConfirm,
+    setshowAddConfirm,
+    getAllUsers,
+    Departments,
+    Positions,
+  } = props;
+  const dispatch = useDispatch();
 
   const [form] = Form.useForm();
 
@@ -27,7 +29,7 @@ function UserAddModal(props) {
       position: user?.position,
       role: user?.role,
     };
-
+    console.log('body: ', body);
     dispatch(registerUser(body))
       .then(res => {
         if (res.payload.success) {
@@ -41,13 +43,13 @@ function UserAddModal(props) {
         message.error(`[Error]: ${err}`);
       })
       .finally(() => {
-        document.getElementById('id').value = '';
-        document.getElementById('password').value = '';
-        document.getElementById('name').value = '';
-        document.getElementById('email').value = '';
-        document.getElementById('position').value = '';
-        document.getElementById('department').value = '';
-        document.getElementById('role').value = '';
+        // document.getElementById('id').value = '';
+        // document.getElementById('password').value = '';
+        // document.getElementById('name').value = '';
+        // document.getElementById('email').value = '';
+        // document.getElementById('position').value = '';
+        // document.getElementById('department').value = '';
+        // document.getElementById('role').value = '';
         setshowAddConfirm(false);
       });
 
@@ -62,130 +64,147 @@ function UserAddModal(props) {
         visible={showAddConfirm}
         onOk={form.submit}
         onCancel={() => setshowAddConfirm(false)}
+        destroyOnClose
       >
         <Form
           {...{ labelCol: { span: 6 }, wrapperCol: { span: 14 } }}
           name="userinfo-change"
           id="updateForm"
           form={form}
-          onFinish={handleSubmit(modalOnOk)}
+          onFinish={modalOnOk}
+          preserve={false}
         >
-          <Form.Item label="ID">
-            <input
+          <Form.Item
+            label="ID"
+            name="id"
+            rules={[
+              {
+                required: true,
+                message: 'This id field is required',
+              },
+              {
+                type: 'string',
+                min: 5,
+                message: 'ID must have at least 5 characters',
+              },
+            ]}
+          >
+            <Input
               id="id"
               name="id"
               type="text"
               autoComplete="on"
               className="form_input"
-              error={errors.id}
-              {...register('id', { required: true, minLength: 5 })}
             />
-            {errors.id && errors.id.type === 'required' && (
-              <p className="form_p">This id field is required</p>
-            )}
-            {errors.id && errors.id.type === 'minLength' && (
-              <p className="form_p">ID must have at least 5 characters</p>
-            )}
           </Form.Item>
-          <Form.Item label="Password">
-            <input
+          <Form.Item
+            label="Password"
+            name="password"
+            rules={[
+              {
+                required: true,
+                message: 'This password field is required',
+              },
+              {
+                type: 'string',
+                min: 7,
+                message: 'The password must have at least 5 characters',
+              },
+            ]}
+          >
+            <Input
               id="password"
               name="password"
               type="password"
               autoComplete="new-password"
               className="form_input"
-              error={errors.password}
-              {...register('password', { required: true, minLength: 7 })}
             />
-            {errors.password && errors.password.type === 'required' && (
-              <p className="form_p">This password field is required</p>
-            )}
-            {errors.password && errors.password.type === 'minLength' && (
-              <p className="form_p">assword must have at least 7 characters</p>
-            )}
           </Form.Item>
-          <Form.Item label="이름">
-            <input
+          <Form.Item
+            label="이름"
+            name="name"
+            rules={[
+              {
+                required: true,
+                message: 'This name field is required',
+              },
+              {
+                type: 'string',
+                min: 5,
+                message: 'Your input exceed maximum input',
+              },
+            ]}
+          >
+            <Input
               id="name"
               name="name"
               className="form_input"
               type="text"
               autoComplete="on"
-              error={errors.name}
-              {...register('name', { required: true, maxLength: 15 })}
             />
-            {errors.name && errors.name.type === 'required' && (
-              <p className="form_p">This name field is required</p>
-            )}
-            {errors.name && errors.name.type === 'maxLength' && (
-              <p className="form_p">Your input exceed maximum input</p>
-            )}
           </Form.Item>
-          <Form.Item label="Email">
-            <input
+          <Form.Item
+            label="Email"
+            name="email"
+            rules={[
+              {
+                required: true,
+                message: 'This email field is required',
+              },
+              {
+                type: 'email',
+                message: 'Your input is wrong.',
+              },
+            ]}
+          >
+            <Input
               id="email"
               name="email"
               className="form_input"
               type="text"
               autoComplete="on"
-              error={errors.email}
-              {...register('email', { required: true, pattern: /^\S+@\S+$/i })}
             />
-            {errors.email && errors.email.type === 'required' && (
-              <p className="form_p">This email field is required</p>
-            )}
-            {errors.email && errors.email.type === 'pattern' && (
-              <p className="form_p">Your input is wrong.</p>
-            )}
           </Form.Item>
-          <Form.Item label="부서">
-            <input
-              id="department"
-              name="department"
-              className="form_input"
-              type="text"
-              autoComplete="on"
-              error={errors.department}
-              {...register('department', { required: true, maxLength: 20 })}
-            />
-            {errors.department && errors.department.type === 'required' && (
-              <p className="form_p">This department field is required</p>
-            )}
-            {errors.department && errors.department.type === 'maxLength' && (
-              <p className="form_p">Your input exceed maximum input</p>
-            )}
+          <Form.Item
+            label="부서"
+            name="department"
+            rules={[
+              { required: true, message: 'This department field is required' },
+            ]}
+          >
+            <Select name="department" id="department" className="form_select">
+              {Departments.map(v => (
+                <Option value={v._id} key={v._id}>
+                  {v.name}
+                </Option>
+              ))}
+            </Select>
           </Form.Item>
-          <Form.Item label="직급">
-            <input
-              id="position"
-              name="position"
-              type="text"
-              autoComplete="on"
-              error={errors.position}
-              {...register('position', { required: true, maxLength: 10 })}
-              className="form_input"
-            />
-            {errors.position && errors.position.type === 'required' && (
-              <p className="form_p">This position field is required</p>
-            )}
-            {errors.position && errors.position.type === 'maxLength' && (
-              <p className="form_p">Your input exceed maximum input</p>
-            )}
+          <Form.Item
+            label="직급"
+            name="position"
+            rules={[
+              { required: true, message: 'This position field is required' },
+            ]}
+          >
+            <Select name="position" id="position" className="form_select">
+              {Positions.map(v => (
+                <Option value={v._id} key={v._id}>
+                  {v.name}
+                </Option>
+              ))}
+            </Select>
           </Form.Item>
-          <Form.Item label="권한">
-            <select
-              name="role"
-              id="role"
-              className="form_select"
-              {...register('role', { required: true })}
-            >
-              <option value={0}>일반 사용자</option>
-              <option value={2}>전문가</option>
-              <option value={3}>엔지니어</option>
-            </select>
-            {errors.role && errors.role.type === 'required' && (
-              <p className="form_p">This role field is required</p>
-            )}
+          <Form.Item
+            label="권한"
+            name="role"
+            rules={[{ required: true, message: 'This role field is required' }]}
+          >
+            <Select name="role" id="role" className="form_select">
+              <Option value={0}>일반 사용자</Option>
+              <Option value={2}>전문가</Option>
+              <Option value={3}>엔지니어</Option>
+            </Select>
           </Form.Item>
         </Form>
       </Modal>
@@ -197,6 +216,8 @@ UserAddModal.propTypes = {
   getAllUsers: PropTypes.func.isRequired,
   showAddConfirm: PropTypes.bool.isRequired,
   setshowAddConfirm: PropTypes.func.isRequired,
+  Departments: PropTypes.arrayOf(PropTypes.any).isRequired,
+  Positions: PropTypes.arrayOf(PropTypes.any).isRequired,
 };
 
 export default UserAddModal;

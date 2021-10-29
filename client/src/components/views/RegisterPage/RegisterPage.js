@@ -1,9 +1,10 @@
 // import axios from 'axios';
-import React, { useRef } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 // import axios from 'axios';
 import { message } from 'antd';
 import { Link, useHistory } from 'react-router-dom';
+import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { registerUser } from '../../../_actions/user_actions';
 import './Form.css';
@@ -11,6 +12,8 @@ import './Form.css';
 function RegisterPage() {
   const dispatch = useDispatch();
   const history = useHistory();
+  const [Departments, setDepartments] = useState([]);
+  const [Positions, setPositions] = useState([]);
   const {
     register,
     watch,
@@ -19,6 +22,23 @@ function RegisterPage() {
   } = useForm();
   const password = useRef();
   password.current = watch('password');
+
+  const getAllDepartments = () => {
+    axios.get('/api/departments/getAllDepartments').then(res => {
+      setDepartments(res.data.departments);
+    });
+  };
+
+  const getAllPositions = () => {
+    axios.get('/api/positions/getAllPositions').then(res => {
+      setPositions(res.data.positions);
+    });
+  };
+
+  useEffect(() => {
+    getAllDepartments();
+    getAllPositions();
+  }, []);
 
   const onSubmit = data => {
     console.log(data);
@@ -138,12 +158,20 @@ function RegisterPage() {
       )}
 
       <p className="form_label">Department</p>
-      <input
-        className="form_input"
+      <select
+        className="form_input form_select"
         name="department"
         autoComplete="on"
-        {...register('department', { required: true, maxLength: 20 })}
-      />
+        {...register('department', { required: true })}
+      >
+        <option>-</option>
+        {Departments.map(v => (
+          <option value={v._id} key={v._id}>
+            {v.name}
+          </option>
+        ))}
+      </select>
+
       {errors.department && errors.department.type === 'required' && (
         <p className="form_p">This department field is required</p>
       )}
@@ -152,12 +180,19 @@ function RegisterPage() {
       )}
 
       <p className="form_label">Position</p>
-      <input
-        className="form_input"
+      <select
+        className="form_input form_select"
         name="position"
         autoComplete="on"
-        {...register('position', { required: true, maxLength: 10 })}
-      />
+        {...register('position', { required: true })}
+      >
+        <option>-</option>
+        {Positions.map(v => (
+          <option value={v._id} key={v._id}>
+            {v.name}
+          </option>
+        ))}
+      </select>
       {errors.position && errors.position.type === 'required' && (
         <p className="form_p">This position field is required</p>
       )}

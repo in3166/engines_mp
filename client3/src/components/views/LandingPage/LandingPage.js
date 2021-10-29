@@ -14,28 +14,30 @@ function LandingPage() {
   const user = useSelector(state => state.user);
   // const dispatch = useDispatch();
   const [getUsers, setGetUsers] = useState([]);
+  const [Departments, setDepartments] = useState([]);
+  const [Positions, setPositions] = useState([]);
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [selectedUsers, setSelectedUsers] = useState([]);
   const [showDeleteConfirm, setshowDeleteConfirm] = useState(false);
   const [showUpdateConfirm, setshowUpdateConfirm] = useState(false);
   const [showAddConfirm, setshowAddConfirm] = useState(false);
-  // const [PredictMessage, setPredictMessage] = useState({})
 
   const getAllUsers = () => {
     const tempUser = [];
 
     axios.get('/api/users/getAllUsers').then(res => {
-      for (let i = 0; i < res.data.users.length; i += 1) {
+      for (let i = 0; i < res.data?.users?.length; i += 1) {
         const trole = getRole(res.data.users[i].role);
 
         if (res.data.users[i].role !== 1) {
           const data = {
             key: i.toString(),
+            _id: `${res.data.users[i]._id}`,
             id: `${res.data.users[i].id}`,
             name: `${res.data.users[i].name}`,
             email: `${res.data.users[i].email}`,
-            department: `${res.data.users[i].department}`,
-            position: `${res.data.users[i].position}`,
+            department: `${res.data.users[i].department?.name}`,
+            position: `${res.data.users[i].position?.name}`,
             role: trole,
           };
           tempUser.push(data);
@@ -45,8 +47,24 @@ function LandingPage() {
     });
   };
 
+  const getAllDepartments = () => {
+    axios.get('/api/departments/getAllDepartments').then(res => {
+      setDepartments(res.data.departments);
+    });
+  };
+
+  const getAllPositions = () => {
+    axios.get('/api/positions/getAllPositions').then(res => {
+      setPositions(res.data.positions);
+    });
+  };
+
   useEffect(() => {
-    if (user?.userData?.isAdmin) getAllUsers();
+    if (user?.userData?.isAdmin) {
+      getAllUsers();
+      getAllDepartments();
+      getAllPositions();
+    }
   }, [user]);
 
   const onSelectChange = (record, selected) => {
@@ -70,10 +88,10 @@ function LandingPage() {
     } else if (selectedUsers.length === 1) {
       setshowUpdateConfirm(true);
     } else {
-      message.error('사용자 한 명만 선택하세요.');
+      message.error('사용자 한 명을 선택하세요.');
     }
   };
-  console.log(user?.userData);
+
   return (
     <>
       <Breadcrumb style={{ margin: '16px 0' }}>
@@ -106,11 +124,15 @@ function LandingPage() {
               setshowUpdateConfirm={setshowUpdateConfirm}
               getAllUsers={getAllUsers}
               selectedUsers={selectedUsers}
+              Departments={Departments}
+              Positions={Positions}
             />
             <UserAddModal
               showAddConfirm={showAddConfirm}
               setshowAddConfirm={setshowAddConfirm}
               getAllUsers={getAllUsers}
+              Departments={Departments}
+              Positions={Positions}
             />
             <br />
             <br />

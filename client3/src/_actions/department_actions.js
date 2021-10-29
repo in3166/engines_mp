@@ -10,7 +10,7 @@ import { DEPARTMENT_SERVER } from '../components/Config';
 
 export function getAllDepartments() {
   const request = axios
-    .post(`${DEPARTMENT_SERVER}/getAllDepartments`)
+    .get(`${DEPARTMENT_SERVER}/getAllDepartments`)
     .then(response => response.data);
 
   return {

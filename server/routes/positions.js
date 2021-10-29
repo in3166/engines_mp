@@ -4,7 +4,7 @@ const { Position } = require("../models/Position");
 const { User } = require("../models/User");
 
 // 전문가 권한 유저 목록 가져오기
-router.post("/getAllPositions", (req, res) => {
+router.get("/getAllPositions", (req, res) => {
   Position.find().exec((err, positions) => {
     if (err) {
       return res.status(400).json({ success: false, err });

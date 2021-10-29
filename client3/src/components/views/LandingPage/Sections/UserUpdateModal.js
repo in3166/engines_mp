@@ -1,38 +1,45 @@
 import React from 'react';
-import { Modal, Form, message } from 'antd';
+import { Modal, Form, Select, Input, message } from 'antd';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
-import { useForm } from 'react-hook-form';
 import { updateUser } from '../../../../_actions/user_actions';
 import getRole from './getRole';
-import './formStyle.css';
 
+const { Option } = Select;
 function UserUpdateModal(props) {
   const {
     showUpdateConfirm,
     setshowUpdateConfirm,
     getAllUsers,
     selectedUsers,
+    Departments,
+    Positions,
   } = props;
   const dispatch = useDispatch();
-  const {
-    register,
-    formState: { errors },
-    handleSubmit,
-  } = useForm();
 
   // 수정 모달 OK 버튼 - redux
   const modalOnOk = user => {
+    console.log('user?.: ', selectedUsers);
+
+    const department = Departments.find(v => {
+      return v.name === user?.department;
+    });
+
+    const position = Positions.find(v => {
+      return v.name === user?.position;
+    });
+
     const body = {
+      _id: selectedUsers[0]?._id,
       id: selectedUsers[0]?.id,
       newid: user?.id,
       name: user?.name,
       email: user?.email,
-      department: user?.department,
-      position: user?.position,
+      department: department._id,
+      position: position._id,
       role: user?.role,
     };
-    console.log(body);
+    console.log('body: ', body);
     dispatch(updateUser(body))
       .then(res => {
         if (res.payload.success) {
@@ -59,113 +66,128 @@ function UserUpdateModal(props) {
         visible={showUpdateConfirm}
         onOk={form.submit}
         onCancel={() => setshowUpdateConfirm(false)}
+        destroyOnClose
       >
         <Form
           {...{ labelCol: { span: 6 }, wrapperCol: { span: 14 } }}
           name="userinfo-change"
           form={form}
-          onFinish={handleSubmit(modalOnOk)}
+          onFinish={modalOnOk}
+          preserve={false}
         >
-          <Form.Item label="ID">
-            <input
+          <Form.Item
+            label="ID"
+            name="id"
+            initialValue={selectedUsers[0]?.id}
+            rules={[
+              {
+                required: true,
+                message: 'This id field is required',
+              },
+              {
+                type: 'string',
+                min: 5,
+                message: 'ID must have at least 5 characters',
+              },
+            ]}
+          >
+            <Input
               id="id"
               name="id"
               type="text"
               autoComplete="on"
               className="form_input"
-              error={errors.id}
-              defaultValue={selectedUsers[0]?.id}
-              {...register('id', { required: true, minLength: 5 })}
             />
-            {errors.id && <p className="form_p">This id field is required</p>}
-            {errors.id && errors.id.type === 'minLength' && (
-              <p className="form_p">ID must have at least 5 characters</p>
-            )}
           </Form.Item>
-          <Form.Item label="이름">
-            <input
+          <Form.Item
+            label="이름"
+            name="name"
+            initialValue={selectedUsers[0]?.name}
+            rules={[
+              {
+                required: true,
+                message: 'This name field is required',
+              },
+              {
+                type: 'string',
+                min: 5,
+                message: 'Your input exceed maximum input',
+              },
+            ]}
+          >
+            <Input
               id="name"
               name="name"
               className="form_input"
               type="text"
               autoComplete="on"
-              error={errors.name}
-              defaultValue={selectedUsers[0]?.name}
-              {...register('name', { required: true, maxLength: 15 })}
             />
-            {errors.name && errors.name.type === 'required' && (
-              <p className="form_p">This name field is required</p>
-            )}
-            {errors.name && errors.name.type === 'maxLength' && (
-              <p className="form_p">Your input exceed maximum input</p>
-            )}
           </Form.Item>
-          <Form.Item label="Email">
-            <input
+          <Form.Item
+            label="Email"
+            name="email"
+            initialValue={selectedUsers[0]?.email}
+            rules={[
+              {
+                required: true,
+                message: 'This email field is required',
+              },
+              {
+                type: 'email',
+                message: 'Your input is wrong.',
+              },
+            ]}
+          >
+            <Input
               name="email"
               className="form_input"
               type="email"
               autoComplete="on"
-              error={errors.email}
-              defaultValue={selectedUsers[0]?.email}
-              {...register('email', { required: true, pattern: /^\S+@\S+$/i })}
             />
-            {errors.email && errors.email.type === 'required' && (
-              <p className="form_p">This email field is required</p>
-            )}
-            {errors.department && errors.email.type === 'pattern' && (
-              <p className="form_p">Your input is wrong.</p>
-            )}
           </Form.Item>
-          <Form.Item label="부서">
-            <input
-              name="department"
-              className="form_input"
-              type="text"
-              autoComplete="on"
-              error={errors.department}
-              defaultValue={selectedUsers[0]?.department}
-              {...register('department', { required: true, maxLength: 20 })}
-            />
-            {errors.department && errors.department.type === 'required' && (
-              <p className="form_p">This department field is required</p>
-            )}
-            {errors.department && errors.department.type === 'maxLength' && (
-              <p className="form_p">Your input exceed maximum input</p>
-            )}
+          <Form.Item
+            label="부서"
+            name="department"
+            initialValue={selectedUsers[0]?.department}
+            rules={[
+              { required: true, message: 'This department field is required' },
+            ]}
+          >
+            <Select name="department" id="department" className="form_select">
+              {Departments.map(v => (
+                <Option value={v.name} key={v._id}>
+                  {v.name}
+                </Option>
+              ))}
+            </Select>
           </Form.Item>
-          <Form.Item label="직급">
-            <input
-              name="position"
-              type="text"
-              autoComplete="on"
-              error={errors.position}
-              defaultValue={selectedUsers[0]?.position}
-              {...register('position', { required: true, maxLength: 20 })}
-              className="form_input"
-            />
-            {errors.position && errors.position.type === 'required' && (
-              <p className="form_p">This position field is required</p>
-            )}
-            {errors.position && errors.position.type === 'maxLength' && (
-              <p className="form_p">Your input exceed maximum input</p>
-            )}
+          <Form.Item
+            label="직급"
+            name="position"
+            initialValue={selectedUsers[0]?.position}
+            rules={[
+              { required: true, message: 'This position field is required' },
+            ]}
+          >
+            <Select name="position" id="position" className="form_select">
+              {Positions.map(v => (
+                <Option value={v.name} key={v._id}>
+                  {v.name}
+                </Option>
+              ))}
+            </Select>
           </Form.Item>
-          <Form.Item label="권한">
-            <select
-              name="role"
-              id="role"
-              defaultValue={getRole(selectedUsers[0]?.role)}
-              className="form_select"
-              {...register('role', { required: true })}
-            >
-              <option value={0}>일반 사용자</option>
-              <option value={2}>전문가</option>
-              <option value={3}>엔지니어</option>
-            </select>
-            {errors.role && errors.role.type === 'required' && (
-              <p className="form_p">This role field is required</p>
-            )}
+          <Form.Item
+            label="권한"
+            name="role"
+            initialValue={getRole(selectedUsers[0]?.role)}
+            rules={[{ required: true, message: 'This role field is required' }]}
+          >
+            <Select name="role" id="role" className="form_select">
+              <Option value={0}>일반 사용자</Option>
+              <Option value={2}>전문가</Option>
+              <Option value={3}>엔지니어</Option>
+            </Select>
           </Form.Item>
         </Form>
       </Modal>
@@ -178,6 +200,8 @@ UserUpdateModal.propTypes = {
   getAllUsers: PropTypes.func.isRequired,
   showUpdateConfirm: PropTypes.bool.isRequired,
   setshowUpdateConfirm: PropTypes.func.isRequired,
+  Departments: PropTypes.arrayOf(PropTypes.any).isRequired,
+  Positions: PropTypes.arrayOf(PropTypes.any).isRequired,
 };
 
 export default UserUpdateModal;

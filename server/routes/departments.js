@@ -4,7 +4,7 @@ const { Department } = require("../models/Department");
 const { User } = require("../models/User");
 
 // 전문가 권한 유저 목록 가져오기
-router.post("/getAllDepartments", (req, res) => {
+router.get("/getAllDepartments", (req, res) => {
   Department.find().exec((err, departments) => {
     if (err) {
       return res.status(400).json({ success: false, err });

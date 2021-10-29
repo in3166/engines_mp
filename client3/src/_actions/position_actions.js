@@ -9,7 +9,7 @@ import { POSITION_SERVER } from '../components/Config';
 
 export function getAllPositions() {
   const request = axios
-    .post(`${POSITION_SERVER}/getAllPositions`)
+    .get(`${POSITION_SERVER}/getAllPositions`)
     .then(response => response.data);
 
   return {
