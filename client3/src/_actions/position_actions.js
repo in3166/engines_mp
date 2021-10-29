@@ -1,5 +1,10 @@
 import axios from 'axios';
-import { GET_ALL_POSITIONS, ADD_POSITION, UPDATE_POSITION } from './types';
+import {
+  GET_ALL_POSITIONS,
+  ADD_POSITION,
+  UPDATE_POSITION,
+  DELETE_POSITION,
+} from './types';
 import { POSITION_SERVER } from '../components/Config';
 
 export function getAllPositions() {
@@ -31,6 +36,17 @@ export function updatePosition(dataToSubmit) {
 
   return {
     type: UPDATE_POSITION,
+    payload: request,
+  };
+}
+
+export function deletePosition(dataToSubmit) {
+  const request = axios
+    .post(`${POSITION_SERVER}/deletePosition`, dataToSubmit)
+    .then(response => response.data);
+
+  return {
+    type: DELETE_POSITION,
     payload: request,
   };
 }

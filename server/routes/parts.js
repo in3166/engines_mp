@@ -4,46 +4,6 @@ const { Part } = require("../models/Part");
 const { Site } = require("../models/Site");
 const { Engine } = require("../models/Engine");
 
-router.post("/deletePart", (req, res) => {
-  // Object ID로 Site, Engine에서 쓰였는지 찾기
-  console.log("id: ", req.body.id);
-
-  Site.find({ partStock: { $elemMatch: { part: req.body.id } } }).exec(
-    (err, parts) => {
-      if (err) {
-        return res.json({ success: false, err });
-      }
-      console.log(parts);
-      if (Number(parts.length)) {
-        return res.json({
-          success: false,
-          message: "사이트의 재고 필드에 해당 부품이 존재합니다.",
-        });
-      } else {
-        Engine.find({
-          requiredParts: { $elemMatch: { part: req.body.id } },
-        }).exec((err, parts) => {
-          if (err) {
-            return res.json({ success: false, err });
-          }
-          console.log(parts);
-          if (Number(parts.length)) {
-            return res.json({
-              success: false,
-              message: "엔진의 필요 부품 필드에 해당 부품이 존재합니다.",
-            });
-          } else {
-            Part.deleteOne({ _id: req.body.id }, (err, part) => {
-              if (err) return res.json({ success: false, err });
-              return res.json({ success: true });
-            });
-          }
-        });
-      }
-    }
-  );
-});
-
 // 부품 목록 - 부품 삭제
 router.post("/deleteParts", async (req, res) => {
   // Object ID로 Site, Engine에서 쓰였는지 찾기

@@ -19,7 +19,10 @@ import {
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import columns from './data/columns';
-import { getAllPositions } from '../../../../_actions/position_actions';
+import {
+  getAllPositions,
+  deletePosition,
+} from '../../../../_actions/position_actions';
 import PositionAddModal from './Sections/PositionAddModal';
 import PositionUpdateModal from './Sections/PositionUpdateModal';
 
@@ -68,6 +71,53 @@ function PositionManagePage(props) {
 
   const deleteConfirm = position => {
     console.log('depart del: ', position);
+    let body;
+    if (position) {
+      body = {
+        _id: position,
+      };
+    } else {
+      const selID = selectedRowKeys.map(v => v._id);
+      body = {
+        _id: selID,
+      };
+    }
+    console.log('body: ', body);
+    dispatch(deletePosition(body))
+      .then(res => {
+        const oktem = [];
+        const failtem = [];
+
+        if (res.payload.success) {
+          res.payload.ok.forEach(v => {
+            Positions.forEach(e => {
+              if (e._id === v) oktem.push(e.id);
+            });
+          });
+
+          message.success('직급을 삭제했습니다.');
+          message.success(`[성공]: ${oktem}`);
+
+          if (res.payload.fail.length !== 0) {
+            res.payload.fail.forEach(v => {
+              Positions.forEach(e => {
+                if (e._id === v) failtem.push(e.name);
+              });
+            });
+
+            message.warning('사용자 필드가 참조하고 있습니다.');
+            message.warning(`[실패]: ${failtem}`);
+          }
+        } else {
+          message.error('직급 삭제 실패: 사용자 필드가 참조하고 있습니다.');
+        }
+      })
+      .catch(err => {
+        message.error(`[Error]: `, err);
+      })
+      .finally(() => {
+        getPositions();
+      });
   };
 
   const col2 = [
@@ -75,10 +125,10 @@ function PositionManagePage(props) {
       title: '수정',
       dataIndex: 'update',
       key: '4',
-      render: (r, departUp) => {
+      render: (r, position) => {
         return (
           <Space size="middle">
-            <Button onClick={() => onClickUpdate(departUp)}>
+            <Button onClick={() => onClickUpdate(position)}>
               <EditOutlined />
             </Button>
           </Space>
@@ -90,13 +140,13 @@ function PositionManagePage(props) {
     {
       title: '삭제',
       key: '5',
-      render: (r, departDel) => {
+      render: (r, position) => {
         return (
           <Space size="middle">
             <Popconfirm
               placement="leftBottom"
               title="정말로 삭제하시겠습니까?"
-              onConfirm={() => deleteConfirm(departDel)}
+              onConfirm={() => deleteConfirm([position._id])}
               okText="Yes"
               cancelText="No"
               icon={<QuestionCircleOutlined style={{ color: 'red' }} />}

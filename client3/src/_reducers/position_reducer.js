@@ -2,6 +2,7 @@ import {
   GET_ALL_POSITIONS,
   ADD_POSITION,
   UPDATE_POSITION,
+  DELETE_POSITION,
 } from '../_actions/types';
 
 export default function doo(state = {}, action) {
@@ -11,6 +12,8 @@ export default function doo(state = {}, action) {
     case ADD_POSITION:
       return { ...state };
     case UPDATE_POSITION:
+      return { ...state };
+    case DELETE_POSITION:
       return { ...state };
     default:
       return state;

@@ -3,6 +3,7 @@ import {
   GET_ALL_DEPARTMENTS,
   ADD_DEPARTMENT,
   UPDATE_DEPARTMENT,
+  DELETE_DEPARTMENT,
 } from './types';
 
 import { DEPARTMENT_SERVER } from '../components/Config';
@@ -36,6 +37,17 @@ export function updateDepartment(dataToSubmit) {
 
   return {
     type: UPDATE_DEPARTMENT,
+    payload: request,
+  };
+}
+
+export function deleteDepartment(dataToSubmit) {
+  const request = axios
+    .post(`${DEPARTMENT_SERVER}/deleteDepartment`, dataToSubmit)
+    .then(response => response.data);
+
+  return {
+    type: DELETE_DEPARTMENT,
     payload: request,
   };
 }

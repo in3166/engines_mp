@@ -4,10 +4,19 @@
   "description": "Prediction",
   "main": "index.js",
   "scripts": {
-    "node": "node ./server/index.js",
+    "node": "nodemon ./server/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "concurrently \"npm run node\" \"npm run start --prefix client\" \"npm run start --prefix client2\" \"npm run start --prefix client3\"",
-    "dev2": "concurrently \"npm run node\" \"npm run start --prefix client2\""
+    "dev2": "concurrently \"npm run node\" \"npm run start --prefix client2\"",
+    "nodemon": "concurrently \"npm run node\" \"npm run start --prefix client\" \"npm run start --prefix client2\" \"npm run start --prefix client3\"",
+    "screen": "screen"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "client/*",
+      "client2/*",
+      "client3/*"
+    ]
   },
   "repository": {
     "type": "git",
@@ -31,5 +40,9 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.12.6",
     "react-icons": "^4.2.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.14",
+    "screen": "^0.2.10"
   }
 }

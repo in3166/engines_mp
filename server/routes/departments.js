@@ -1,23 +1,19 @@
 const express = require("express");
 const router = express.Router();
 const { Department } = require("../models/Department");
-const { Part } = require("../models/Part");
-const { Site } = require("../models/Site");
-
-const async = require("async");
+const { User } = require("../models/User");
 
 // 전문가 권한 유저 목록 가져오기
 router.post("/getAllDepartments", (req, res) => {
-  Department.find()
-    .exec((err, departments) => {
-      if (err) {
-        return res.status(400).json({ success: false, err });
-      }
-      return res.status(200).send({
-        success: true,
-        departments: departments,
-      });
+  Department.find().exec((err, departments) => {
+    if (err) {
+      return res.status(400).json({ success: false, err });
+    }
+    return res.status(200).send({
+      success: true,
+      departments: departments,
     });
+  });
 });
 
 // 부서 추가
@@ -52,10 +48,9 @@ router.post("/addDepartment", (req, res) => {
           });
         }
       });
-   }
- });
+    }
+  });
 });
-
 
 // 부서 변경
 router.post("/updateDepartment", (req, res) => {
@@ -89,5 +84,49 @@ router.post("/updateDepartment", (req, res) => {
     }
   );
 });
+
+// 부서 삭제
+router.post("/deleteDepartment", async (req, res) => {
+  let reqid = req.body._id;
+
+  let { ok, fail, err } = await findQ(reqid);
+  console.log("OK: ", ok);
+  if (err) return res.status(400).json(err);
+  else if (fail.length == reqid.length)
+    return res.status(200).json({ success: false, fail });
+  return res.status(200).json({ success: true, ok, fail });
+});
+
+async function findQ(reqid) {
+  let fail = [];
+  let ok = [];
+
+  const findPromise = reqid.map(async (id) => {
+    const existUser = await User.find({
+      department: id,
+    });
+
+    // console.log("cSite: ", cSite);
+    // console.log("cEngine: ", cEngine);
+    if (existUser.length === 0) {
+      ok.push(id);
+      await Department.deleteOne({ _id: id });
+    } else {
+      fail.push(id);
+    }
+  });
+
+  //console.log("findPromise: ", findPromise);
+  // findPromise:  [ Promise { <pending> }, Promise { <pending> } ]
+
+  // 여기서 await 하지 않으면 바로 넘어감.
+  await Promise.all(findPromise)
+    .then(() => {})
+    .catch((err) => {
+      console.log(err);
+      return { undefined, undefined, err };
+    });
+  return { ok, fail, undefined };
+}
 
 module.exports = router;

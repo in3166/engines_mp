@@ -19,7 +19,10 @@ import {
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import columns from './data/columns';
-import { getAllDepartments } from '../../../../_actions/department_actions';
+import {
+  getAllDepartments,
+  deleteDepartment,
+} from '../../../../_actions/department_actions';
 import DepartmentAddModal from './Sections/DepartmentAddModal';
 import DepartmentUpdateModal from './Sections/DepartmentUpdateModal';
 
@@ -69,6 +72,52 @@ function DepartmentManagePage(props) {
 
   const deleteConfirm = depart => {
     console.log('depart del: ', depart);
+    let body;
+    if (depart) {
+      body = {
+        _id: depart,
+      };
+    } else {
+      const selID = selectedRowKeys.map(v => v._id);
+      body = {
+        _id: selID,
+      };
+    }
+    console.log('body: ', body);
+    dispatch(deleteDepartment(body))
+      .then(res => {
+        const oktem = [];
+        const failtem = [];
+
+        if (res.payload.success) {
+          res.payload.ok.forEach(v => {
+            Departments.forEach(e => {
+              if (e._id === v) oktem.push(e.id);
+            });
+          });
+          message.success('부서를 삭제했습니다.');
+          message.success(`[성공]: ${oktem}`);
+          console.log(res.payload.ok);
+          if (res.payload.fail.length !== 0) {
+            res.payload.fail.forEach(v => {
+              Departments.forEach(e => {
+                if (e._id === v) failtem.push(e.name);
+              });
+            });
+
+            message.warning('사용자 필드가 참조하고 있습니다.');
+            message.warning(`[실패]: ${failtem}`);
+          }
+        } else {
+          message.error('부서 삭제 실패: 사용자 필드가 참조하고 있습니다.');
+        }
+      })
+      .catch(err => {
+        message.error(`[Error]: `, err);
+      })
+      .finally(() => {
+        getDepartments();
+      });
   };
 
   const col2 = [
@@ -97,7 +146,7 @@ function DepartmentManagePage(props) {
             <Popconfirm
               placement="leftBottom"
               title="정말로 삭제하시겠습니까?"
-              onConfirm={() => deleteConfirm(departDel)}
+              onConfirm={() => deleteConfirm([departDel._id])}
               okText="Yes"
               cancelText="No"
               icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
