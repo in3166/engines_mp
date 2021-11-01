@@ -112,15 +112,14 @@ function LandingPage() {
             <Button onClick={() => onClickUpdate()}>
               <EditOutlined />
             </Button>
-            {showDeleteConfirm && (
-              <DeleteModal
-                setshowDeleteConfirm={setshowDeleteConfirm}
-                showDeleteConfirm={showDeleteConfirm}
-                selectedUsers={selectedUsers}
-                getAllUsers={getAllUsers}
-                setSelectedRowKeys={setSelectedRowKeys}
-              />
-            )}
+            <DeleteModal
+              setshowDeleteConfirm={setshowDeleteConfirm}
+              showDeleteConfirm={showDeleteConfirm}
+              selectedUsers={selectedUsers}
+              getAllUsers={getAllUsers}
+              setSelectedRowKeys={setSelectedRowKeys}
+            />
+
             {showUpdateConfirm && (
               <UserUpdateModal
                 showUpdateConfirm={showUpdateConfirm}

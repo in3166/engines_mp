@@ -4,7 +4,7 @@ import { SITE_SERVER } from '../components/Config';
 
 export function getAllSites() {
   const request = axios
-    .post(`${SITE_SERVER}/getAllSites`)
+    .get(`${SITE_SERVER}/getAllSites`)
     .then(response => response.data);
 
   return {

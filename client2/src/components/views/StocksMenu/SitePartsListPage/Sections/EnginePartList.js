@@ -6,7 +6,6 @@ import partCol from './coulmns';
 
 function EngineList(props) {
   const { site, parts } = props;
-  // console.log(parts);
   return (
     <>
       <SiteDescription site={site} />
@@ -17,7 +16,7 @@ function EngineList(props) {
         size="middle"
         columns={partCol}
         dataSource={parts}
-        rowKey={a => a?.part?.id}
+        rowKey={a => a?.part?.name}
       />
     </>
   );

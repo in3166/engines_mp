@@ -122,12 +122,12 @@ function PartAddModal(props) {
                 index >= minIndex &&
                 index < maxIndex && (
                   /* eslint no-underscore-dangle: 0 */
-                  <Radio value={data2._id} key={data2.id}>
+                  <Radio value={data2._id} key={data2.name}>
                     <Collapse defaultActiveKey={['1']}>
                       <Panel
                         showArrow={false}
                         header={data2.name}
-                        key={data2.id}
+                        key={data2.name}
                       >
                         <p>Section.1: {data2.section1}</p>
                         <p>Section.2: {data2.section2}</p>

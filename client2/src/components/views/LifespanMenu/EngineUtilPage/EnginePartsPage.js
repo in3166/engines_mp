@@ -30,7 +30,7 @@ function EnginePartsPage(props) {
         }
       })
       .catch(err => {
-        message.error(err);
+        message.error(`[Error]: ${err}`);
       })
       .finally(() => {
         setLoading(false);
