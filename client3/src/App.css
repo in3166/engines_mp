@@ -70,7 +70,7 @@ p {
 /* table 체크박스 */
 table tr th.ant-table-selection-column,
 table tr td.ant-table-selection-column {
-  padding-right: 15px !important;
+  padding-right: 10px !important;
 }
 
 .ant-popover {

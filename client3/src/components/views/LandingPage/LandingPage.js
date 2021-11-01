@@ -112,28 +112,34 @@ function LandingPage() {
             <Button onClick={() => onClickUpdate()}>
               <EditOutlined />
             </Button>
-            <DeleteModal
-              setshowDeleteConfirm={setshowDeleteConfirm}
-              showDeleteConfirm={showDeleteConfirm}
-              selectedUsers={selectedUsers}
-              getAllUsers={getAllUsers}
-              setSelectedRowKeys={setSelectedRowKeys}
-            />
-            <UserUpdateModal
-              showUpdateConfirm={showUpdateConfirm}
-              setshowUpdateConfirm={setshowUpdateConfirm}
-              getAllUsers={getAllUsers}
-              selectedUsers={selectedUsers}
-              Departments={Departments}
-              Positions={Positions}
-            />
-            <UserAddModal
-              showAddConfirm={showAddConfirm}
-              setshowAddConfirm={setshowAddConfirm}
-              getAllUsers={getAllUsers}
-              Departments={Departments}
-              Positions={Positions}
-            />
+            {showDeleteConfirm && (
+              <DeleteModal
+                setshowDeleteConfirm={setshowDeleteConfirm}
+                showDeleteConfirm={showDeleteConfirm}
+                selectedUsers={selectedUsers}
+                getAllUsers={getAllUsers}
+                setSelectedRowKeys={setSelectedRowKeys}
+              />
+            )}
+            {showUpdateConfirm && (
+              <UserUpdateModal
+                showUpdateConfirm={showUpdateConfirm}
+                setshowUpdateConfirm={setshowUpdateConfirm}
+                getAllUsers={getAllUsers}
+                selectedUsers={selectedUsers}
+                Departments={Departments}
+                Positions={Positions}
+              />
+            )}
+            {showAddConfirm && (
+              <UserAddModal
+                showAddConfirm={showAddConfirm}
+                setshowAddConfirm={setshowAddConfirm}
+                getAllUsers={getAllUsers}
+                Departments={Departments}
+                Positions={Positions}
+              />
+            )}
             <br />
             <br />
           </div>

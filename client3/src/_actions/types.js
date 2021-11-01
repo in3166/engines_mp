@@ -19,3 +19,9 @@ export const GET_ALL_POSITIONS = 'get_all_positions';
 export const ADD_POSITION = 'add_position';
 export const UPDATE_POSITION = 'update_position';
 export const DELETE_POSITION = 'delete_position';
+
+// site
+export const GET_ALL_SITES = 'get_all_sites';
+export const ADD_SITE = 'add_site';
+export const UPDATE_SITE = 'update_site';
+export const DELETE_SITE = 'delete_site';

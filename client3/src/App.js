@@ -13,6 +13,7 @@ import AddExpertPage from './components/views/ExpertManage/AddExpertPage/AddExpe
 import NotFound from './components/views/NotFound/NotFound';
 import PositionManagePage from './components/views/UserManage/PositionMangePage/PositionManagePage';
 import DepartmentManagePage from './components/views/UserManage/DepartmentManagePage/DepartmentManagePage';
+import SiteManagePage from './components/views/SiteManage/SiteMangePage/SiteManagePage';
 import Auth from './hoc/auth';
 import CONFIG from './ipconfig.json';
 // const { Header, Content, Footer, Sider } = Layout;
@@ -72,6 +73,10 @@ function App() {
                       <Route
                         path="/usersAuth"
                         component={Auth(UsersAuth, true, true)}
+                      />
+                      <Route
+                        path="/siteManagePage"
+                        component={Auth(SiteManagePage, true, true)}
                       />
                       <Route component={NotFound} />
                     </Switch>

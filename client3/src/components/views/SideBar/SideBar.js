@@ -65,7 +65,9 @@ function SideBar() {
               </Menu.Item>
             </SubMenu>
             <SubMenu key="sub5" icon={<BankOutlined />} title="사이트 관리">
-              <Menu.Item key="16">사이트 관리</Menu.Item>
+              <Menu.Item key="/siteManagePage">
+                <Link to="/siteManagePage">사이트 관리</Link>
+              </Menu.Item>
               <Menu.Item key="17">사이트별 엔진</Menu.Item>
             </SubMenu>
           </>
