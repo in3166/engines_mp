@@ -40,8 +40,8 @@ function EngineList(props) {
 
   useMountEffect(getEngines);
 
-  if (!user?.userData?.isAuth) return null;
-
+  // if (!user?.userData?.isAuth) return null;
+  console.log(user);
   return (
     <>
       <Breadcrumb style={{ margin: '16px 0' }}>

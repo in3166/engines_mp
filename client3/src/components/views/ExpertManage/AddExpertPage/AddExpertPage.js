@@ -45,7 +45,8 @@ function AddExpertPage(props) {
   };
 
   useEffect(() => {
-    if (user?.userData?.isAdmin) getAllUsers();
+    // if (user?.userData?.isAdmin)
+    getAllUsers();
     return () => setLoading(false);
   }, [user]);
   // 모든 사용자 불러오기

@@ -60,11 +60,11 @@ function LandingPage() {
   };
 
   useEffect(() => {
-    if (user?.userData?.isAdmin) {
-      getAllUsers();
-      getAllDepartments();
-      getAllPositions();
-    }
+    //  if (user?.userData?.isAdmin) {
+    getAllUsers();
+    getAllDepartments();
+    getAllPositions();
+    // }
   }, [user]);
 
   const onSelectChange = (record, selected) => {
@@ -98,65 +98,65 @@ function LandingPage() {
         <Breadcrumb.Item>Home</Breadcrumb.Item>
         <Breadcrumb.Item>DashBoard</Breadcrumb.Item>
       </Breadcrumb>
-      {user?.userData?.role === 1 && (
-        <div style={{ background: 'white', padding: 20 }}>
-          <div style={{ float: 'left' }}>
-            <h3>
-              <strong style={{ padding: '10px' }}>모든 사용자</strong>
-            </h3>
-          </div>
-          <div style={{ float: 'right' }}>
-            <Button onClick={() => setshowAddConfirm(true)}>
-              <PlusOutlined />
-            </Button>
-            <Button onClick={() => onClickUpdate()}>
-              <EditOutlined />
-            </Button>
-            <DeleteModal
-              setshowDeleteConfirm={setshowDeleteConfirm}
-              showDeleteConfirm={showDeleteConfirm}
-              selectedUsers={selectedUsers}
-              getAllUsers={getAllUsers}
-              setSelectedRowKeys={setSelectedRowKeys}
-            />
-
-            {showUpdateConfirm && (
-              <UserUpdateModal
-                showUpdateConfirm={showUpdateConfirm}
-                setshowUpdateConfirm={setshowUpdateConfirm}
-                getAllUsers={getAllUsers}
-                selectedUsers={selectedUsers}
-                Departments={Departments}
-                Positions={Positions}
-              />
-            )}
-            {showAddConfirm && (
-              <UserAddModal
-                showAddConfirm={showAddConfirm}
-                setshowAddConfirm={setshowAddConfirm}
-                getAllUsers={getAllUsers}
-                Departments={Departments}
-                Positions={Positions}
-              />
-            )}
-            <br />
-            <br />
-          </div>
-
-          <Table
-            style={{ overflow: 'auto' }}
-            rowSelection={rowSelection}
-            columns={columns}
-            dataSource={getUsers}
-            bordered
-            tableLayout="auto"
-            scroll
-          />
+      {/*  {user?.userData?.role === 1 && ( */}
+      <div style={{ background: 'white', padding: 20 }}>
+        <div style={{ float: 'left' }}>
+          <h3>
+            <strong style={{ padding: '10px' }}>모든 사용자</strong>
+          </h3>
         </div>
-      )}
-      {user?.userData !== undefined && user?.userData?.isAuth === false && (
-        <div>You are not admin.</div>
-      )}
+        <div style={{ float: 'right' }}>
+          <Button onClick={() => setshowAddConfirm(true)}>
+            <PlusOutlined />
+          </Button>
+          <Button onClick={() => onClickUpdate()}>
+            <EditOutlined />
+          </Button>
+          <DeleteModal
+            setshowDeleteConfirm={setshowDeleteConfirm}
+            showDeleteConfirm={showDeleteConfirm}
+            selectedUsers={selectedUsers}
+            getAllUsers={getAllUsers}
+            setSelectedRowKeys={setSelectedRowKeys}
+          />
+
+          {showUpdateConfirm && (
+            <UserUpdateModal
+              showUpdateConfirm={showUpdateConfirm}
+              setshowUpdateConfirm={setshowUpdateConfirm}
+              getAllUsers={getAllUsers}
+              selectedUsers={selectedUsers}
+              Departments={Departments}
+              Positions={Positions}
+            />
+          )}
+          {showAddConfirm && (
+            <UserAddModal
+              showAddConfirm={showAddConfirm}
+              setshowAddConfirm={setshowAddConfirm}
+              getAllUsers={getAllUsers}
+              Departments={Departments}
+              Positions={Positions}
+            />
+          )}
+          <br />
+          <br />
+        </div>
+
+        <Table
+          style={{ overflow: 'auto' }}
+          rowSelection={rowSelection}
+          columns={columns}
+          dataSource={getUsers}
+          bordered
+          tableLayout="auto"
+          scroll
+        />
+      </div>
+      {/* )}
+       {user?.userData !== undefined && user?.userData?.isAuth === false && (
+         <div>You are not admin.</div>
+       )} */}
     </>
   );
 }

@@ -22,9 +22,9 @@ import EngineTable from './Sections/EngineTable';
 function EnginePage(props) {
   const { user } = props;
 
-  if (!user?.userData?.isAuth) {
-    return null;
-  }
+  // if (!user?.userData?.isAuth) {
+  //   return null;
+  // }
 
   // id 열에 검색버튼
 

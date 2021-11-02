@@ -60,8 +60,8 @@ function HeadquartersStocksPage(props) {
   const useMountEffect = fun => useEffect(fun, []);
   useMountEffect(reload);
 
-  if (!user?.userData?.isAuth) return null;
-
+  // if (!user?.userData?.isAuth) return null;
+  console.log(user);
   const rowSelection = {
     ...selectedRowKey._id,
     onChange: (selectedRowKeys, site) => {

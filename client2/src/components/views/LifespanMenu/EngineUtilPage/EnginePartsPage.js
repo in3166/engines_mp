@@ -11,6 +11,7 @@ const { TabPane } = Tabs;
 
 function EnginePartsPage(props) {
   const { user } = props;
+  console.log(user);
   const [Sites, setSites] = useState([]);
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
@@ -50,7 +51,7 @@ function EnginePartsPage(props) {
   };
   useMountEffect(getSites);
 
-  if (!user?.userData?.isAuth) return null;
+  // if (!user?.userData?.isAuth) return null;
 
   return (
     <div style={{ width: '100%' }}>

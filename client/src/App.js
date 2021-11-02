@@ -19,19 +19,19 @@ function App() {
     <div>
       <Switch>
         <>
-          <Route path="/login" component={Auth(LoginPage, false)} />
-          <Route path="/register" component={Auth(RegisterPage, false)} />
+          <Route path="/login" component={Auth(LoginPage, null)} />
+          <Route path="/register" component={Auth(RegisterPage, null)} />
           {location.pathname !== '/login' && location.pathname !== '/register' && (
             <ContentLayout>
               <Switch>
                 <Route exact path="/" component={Auth(LandingPage, null)} />
-                <Route path="/engine/1" component={Auth(EnginePage, true)} />
-                <Route path="/user" component={Auth(UserPage, true)} />
+                <Route path="/engine/1" component={Auth(EnginePage, null)} />
+                <Route path="/user" component={Auth(UserPage, null)} />
                 <Route
                   path="/predictResult"
-                  component={Auth(PredictResultPage, true)}
+                  component={Auth(PredictResultPage, null)}
                 />
-                <Route path="/predict" component={Auth(PredictPage, true)} />
+                <Route path="/predict" component={Auth(PredictPage, null)} />
                 <Route component={NotFound} />
               </Switch>
             </ContentLayout>

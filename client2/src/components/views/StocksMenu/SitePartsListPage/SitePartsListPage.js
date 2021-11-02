@@ -44,8 +44,8 @@ function SitePartsListPage(props) {
   const useMountEffect = fun => useEffect(fun, []);
   useMountEffect(getSites);
 
-  if (!user?.userData?.isAuth) return null;
-
+  // if (!user?.userData?.isAuth) return null;
+  console.log(user);
   return (
     <>
       <Breadcrumb style={{ margin: '16px 0' }}>

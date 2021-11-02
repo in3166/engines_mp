@@ -35,27 +35,27 @@ function App() {
                 <Route exact path="/" component={Auth(LandingPage, null)} />
                 <Route
                   path="/engineParts"
-                  component={Auth(EnginePartsPage, true)}
+                  component={Auth(EnginePartsPage, null)}
                 />
-                <Route path="/lifeCode" component={Auth(LifeCodePage, true)} />
+                <Route path="/lifeCode" component={Auth(LifeCodePage, null)} />
                 <Route
                   path="/enginePartsList"
-                  component={Auth(EnginePartsListPage, true)}
+                  component={Auth(EnginePartsListPage, null)}
                 />
                 <Route
                   path="/sitePartsList"
-                  component={Auth(SitePartsListPage, true)}
+                  component={Auth(SitePartsListPage, null)}
                 />
                 <Route
                   path="/headquartersStocks"
-                  component={Auth(HeadquartersStocksPage, true)}
+                  component={Auth(HeadquartersStocksPage, null)}
                 />
                 <Route
                   path="/branchStocks"
-                  component={Auth(BranchStocksPage, true)}
+                  component={Auth(BranchStocksPage, null)}
                 />
-                <Route path="/engineList" component={Auth(EngineList, true)} />
-                <Route path="/partList" component={Auth(PartList, true)} />
+                <Route path="/engineList" component={Auth(EngineList, null)} />
+                <Route path="/partList" component={Auth(PartList, null)} />
                 <Route path="/user" render={() => redirectUrl('user')} />
                 <Route component={NotFound} />
               </Switch>

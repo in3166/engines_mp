@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Profiler } from 'react';
 import './App.css';
 import { Switch, Route, withRouter, useLocation } from 'react-router-dom';
 import LandingPage from './components/views/LandingPage/LandingPage';
@@ -19,43 +19,65 @@ function App() {
     // maybe can add spinner while loading
     return null;
   };
+  function onRenderCallback(
+    id,
+    phase, // mount | update
+    actualDuration, // 렌더링 시간
+    baseDuration, // 전체 서브트리를 렌더링하는데 걸린 시간
+    startTime, // 렌더링을 시작한 시간
+    commitTime, // 업데이트요청한 시간
+    interactions, // trace set
+  ) {
+    if (phase === 'mount') {
+      console.log('id: ', id);
+      console.log('phase: ', phase);
+      console.log('actualDuration: ', actualDuration);
+      console.log('baseDuration: ', baseDuration);
+      console.log('startTime: ', startTime);
+      console.log('commitTime: ', commitTime);
+      console.log('interactions: ', interactions);
+    }
+  }
 
   return (
     <div>
       <Switch>
         <>
-          <Route path="/login" render={() => redirectUrl('login')} />
-          <Route path="/register" render={() => redirectUrl('register')} />
-          {location.pathname !== '/login' && location.pathname !== '/register' && (
-            <ContentLayout>
-              <Switch>
-                <Route exact path="/" component={Auth(LandingPage, null)} />
-                <Route
-                  path="/addExpert"
-                  component={Auth(AddExpertPage, true)}
-                />
-                <Route
-                  path="/managePosition"
-                  component={Auth(PositionManagePage, true)}
-                />
-                <Route
-                  path="/manageDepartment"
-                  component={Auth(DepartmentManagePage, true)}
-                />
-                <Route path="/user" render={() => redirectUrl('user')} />
-                {/* <Route path="/user" component={Auth(UserPage, true)} /> */}
-                <Route
-                  path="/usersAuth"
-                  component={Auth(UsersAuth, true, true)}
-                />
-                <Route
-                  path="/siteManagePage"
-                  component={Auth(SiteManagePage, true, true)}
-                />
-                <Route component={NotFound} />
-              </Switch>
-            </ContentLayout>
-          )}
+          <Profiler id="Render" onRender={onRenderCallback}>
+            <Route path="/login" render={() => redirectUrl('login')} />
+            <Route path="/register" render={() => redirectUrl('register')} />
+            {location.pathname !== '/login' &&
+              location.pathname !== '/register' && (
+                <ContentLayout>
+                  <Switch>
+                    <Route exact path="/" component={Auth(LandingPage, null)} />
+                    <Route
+                      path="/addExpert"
+                      component={Auth(AddExpertPage, null)}
+                    />
+                    <Route
+                      path="/managePosition"
+                      component={Auth(PositionManagePage, null)}
+                    />
+                    <Route
+                      path="/manageDepartment"
+                      component={Auth(DepartmentManagePage, null)}
+                    />
+                    <Route path="/user" render={() => redirectUrl('user')} />
+                    {/* <Route path="/user" component={Auth(UserPage, true)} /> */}
+                    <Route
+                      path="/usersAuth"
+                      component={Auth(UsersAuth, null)} // true, true
+                    />
+                    <Route
+                      path="/siteManagePage"
+                      component={Auth(SiteManagePage, null)} // true,true
+                    />
+                    <Route component={NotFound} />
+                  </Switch>
+                </ContentLayout>
+              )}
+          </Profiler>
         </>
       </Switch>
     </div>

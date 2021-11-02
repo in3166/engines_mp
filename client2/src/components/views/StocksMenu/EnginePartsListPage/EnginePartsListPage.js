@@ -83,8 +83,8 @@ function EnginePartsListPage(props) {
     },
   ];
 
-  if (!user?.userData?.isAuth) return null;
-
+  // if (!user?.userData?.isAuth) return null;
+  console.log(user);
   const rowSelection = {
     selectedRowKey,
     onChange: onSelectChange,

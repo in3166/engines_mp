@@ -38,6 +38,7 @@ function UsersRolePage(props) {
     setLoading(true);
 
     axios.get('/api/users/getAllUsers').then(res => {
+      console.log(res.data.users);
       for (let i = 0; i < res.data.users.length; i += 1) {
         let role = '';
 
@@ -52,7 +53,7 @@ function UsersRolePage(props) {
             name: res.data.users[i].name,
             email: res.data.users[i].email,
             department: res.data.users[i].department,
-            position: res.data.users[i].position,
+            position: res.data.users[i].position.name,
             role,
           };
           tempUser.push(data);
@@ -67,9 +68,9 @@ function UsersRolePage(props) {
   };
 
   useEffect(() => {
-    if (user?.userData?.isAdmin) {
-      getAllUsers();
-    }
+    // if (user?.userData?.isAdmin) {
+    getAllUsers();
+    // }
     return () => setLoading(false); // cleanup function 메모리 누수 방지
   }, [user]);
 

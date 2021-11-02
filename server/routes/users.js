@@ -13,7 +13,8 @@ router.get("/auth", auth, (req, res) => {
   res.status(200).json({
     _id: req.user._id, // middleware에서 들어감 req.user
     id: req.user.id,
-    isAdmin: req.user.role === 0 ? false : true,
+    //isAdmin: req.user.role === 0 ? false : true,
+    isAdmin: true,
     isAuth: true,
     email: req.user.email,
     name: req.user.name,
@@ -112,7 +113,7 @@ router.get("/getAllUsers", (req, res) => {
       if (err) {
         console.log("err: ", err);
         return res.json({ success: false, err });
-    }
+      }
 
       return res.status(200).send({
         success: true,
@@ -175,36 +176,39 @@ router.post("/changeUser", (req, res) => {
 
 // 사용자 페이지 대시보드 유저정보 변경
 router.post("/updateUser", (req, res) => {
-  User.findOne({ id: req.body.newid, _id: { $ne: req.body._id }  } , (err, user) => {
-    if (err) {
-      console.log("err1: ", err);
-      return res.json({ success: false, message: err });
+  User.findOne(
+    { id: req.body.newid, _id: { $ne: req.body._id } },
+    (err, user) => {
+      if (err) {
+        console.log("err1: ", err);
+        return res.json({ success: false, message: err });
+      }
+      if (user) {
+        return res.json({
+          success: false,
+          message: "아이디가 이미 존재합니다.",
+        });
+      } else {
+        User.findOneAndUpdate(
+          { id: req.body.id },
+          {
+            id: req.body.newid,
+            email: req.body.email,
+            name: req.body.name,
+            department: req.body.department,
+            position: req.body.position,
+            role: req.body.role,
+          },
+          (err, doc) => {
+            if (err) return res.json({ success: false, err });
+            return res.status(200).send({
+              success: true,
+            });
+          }
+        );
+      }
     }
-    if (user) {
-      return res.json({
-        success: false,
-        message: "아이디가 이미 존재합니다.",
-      });
-    } else {
-      User.findOneAndUpdate(
-        { id: req.body.id },
-        {
-          id: req.body.newid,
-          email: req.body.email,
-          name: req.body.name,
-          department: req.body.department,
-          position: req.body.position,
-          role: req.body.role,
-        },
-        (err, doc) => {
-          if (err) return res.json({ success: false, err });
-          return res.status(200).send({
-            success: true,
-          });
-        }
-      );
-    }
-  });
+  );
 });
 
 router.post("/changePassword", (req, res) => {
