@@ -6,7 +6,7 @@ const { Site } = require("../models/Site");
 const async = require("async");
 
 // 전문가 권한 유저 목록 가져오기
-router.post("/getAllEngines", (req, res) => {
+router.get("/getAllEngines", (req, res) => {
   Engine.find()
     .populate("requiredParts.part")
     .populate("maintenanceHistory.parts.part")
@@ -190,3 +190,54 @@ router.post("/deleteEngines", async (req, res) => {
 });
 
 module.exports = router;
+
+// 부품 목록 - 부품 삭제
+router.post("/deleteParts", async (req, res) => {
+  // Object ID로 Site, Engine에서 쓰였는지 찾기
+  console.log("id: ", req.body.id);
+
+  let reqid = req.body.id;
+
+  let { ok, fail, err } = await findQ(reqid);
+
+  if (err) return res.status(400).json(err);
+  else if (fail.length == reqid.length)
+    return res.status(200).json({ success: false, fail });
+  return res.status(200).json({ success: true, ok, fail });
+});
+
+async function findQ(reqid) {
+  let fail = [];
+  let ok = [];
+
+  const findPromise = reqid.map(async (id) => {
+    const cSite = await Site.find({
+      partStock: { $elemMatch: { part: id } },
+    });
+    const cEngine = await Engine.find({
+      requiredParts: { $elemMatch: { part: id } },
+    });
+
+    // console.log("cSite: ", cSite);
+    // console.log("cEngine: ", cEngine);
+    if (cSite.length === 0 && cEngine.length === 0) {
+      ok.push(id);
+      await Part.deleteOne({ _id: id });
+    } else {
+      fail.push(id);
+    }
+  });
+
+  //console.log("findPromise: ", findPromise);
+  // findPromise:  [ Promise { <pending> }, Promise { <pending> } ]
+
+  // 여기서 await 하지 않으면 바로 넘어감.
+  await Promise.all(findPromise)
+    .then((res) => {})
+    .catch((err) => {
+      console.log(err);
+      return { undefined, undefined, err };
+    });
+
+  return { ok, fail, undefined };
+}

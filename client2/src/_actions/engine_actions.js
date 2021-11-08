@@ -12,7 +12,7 @@ import { ENGINE_SERVER } from '../components/Config';
 
 export function getAllEngines() {
   const request = axios
-    .post(`${ENGINE_SERVER}/getAllEngines`)
+    .get(`${ENGINE_SERVER}/getAllEngines`)
     .then(response => response.data);
 
   return {

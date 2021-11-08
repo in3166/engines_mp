@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Profiler } from 'react';
 // import {useSelector} from 'react-redux'
 import { Transfer, Button, message, Breadcrumb, Spin } from 'antd';
 import axios from 'axios';
@@ -11,6 +11,7 @@ function AddExpertPage(props) {
   const [targetKeys, settargetKeys] = useState([]);
   const [loading, setLoading] = useState(false);
   const { user } = props;
+  console.log(userList);
   // const [selectedKeys, setselectedKeys] = useState([]);
 
   const getAllUsers = () => {
@@ -46,8 +47,21 @@ function AddExpertPage(props) {
 
   useEffect(() => {
     // if (user?.userData?.isAdmin)
+
     getAllUsers();
-    return () => setLoading(false);
+    performance.mark('target_page_mounted');
+    return () => {
+      // performance.measure(
+      //   'reactRouterPerf',
+      //   'initialize_page_change',
+      //   'target_page_mounted',
+      // );
+      // console.log('addexpert: ', performance.getEntriesByType('measure'));
+      // Finally, clean up the entries.
+      performance.clearMarks();
+      performance.clearMeasures();
+      setLoading(false);
+    };
   }, [user]);
   // 모든 사용자 불러오기
 
@@ -97,34 +111,58 @@ function AddExpertPage(props) {
   );
 
   return (
-    <>
-      <Breadcrumb style={{ margin: '16px 0' }}>
-        <Breadcrumb.Item>Home</Breadcrumb.Item>
-        <Breadcrumb.Item>전문가 관리</Breadcrumb.Item>
-        <Breadcrumb.Item>전문가 등록</Breadcrumb.Item>
-      </Breadcrumb>
-      <div style={{ backgroundColor: 'white', padding: 20 }}>
-        <Spin spinning={loading}>
-          <Transfer
-            locale={{ itemUnit: '명', itemsUnit: '명' }}
-            dataSource={userList}
-            titles={['일반 사용자', '전문가']}
-            showSearch
-            listStyle={{
-              width: '100%',
-              height: 400,
-            }}
-            operations={['추가', '제거']}
-            targetKeys={targetKeys}
-            // selectedKeys={selectedKeys}
-            // onSelectChange={handleSelectChange}
-            onChange={handleChange}
-            render={item => `${item.id}`}
-            footer={renderFooter}
-          />
-        </Spin>
-      </div>
-    </>
+    <Profiler
+      id="add"
+      onRender={(
+        id,
+        phase,
+        actualDuration,
+        baseDuration,
+        startTime,
+        commitTime,
+      ) => {
+        // we can log it to a database or render it out as a chart
+        if (phase === 'mount')
+          console.log({
+            id,
+            phase,
+            actualDuration,
+            baseDuration,
+            startTime,
+            commitTime,
+          });
+      }}
+      // onRender={() => performance.mark('initialize_page_change')}
+    >
+      <>
+        <Breadcrumb style={{ margin: '16px 0' }}>
+          <Breadcrumb.Item>Home</Breadcrumb.Item>
+          <Breadcrumb.Item>전문가 관리</Breadcrumb.Item>
+          <Breadcrumb.Item>전문가 등록</Breadcrumb.Item>
+        </Breadcrumb>
+        <div style={{ backgroundColor: 'white', padding: 20 }}>
+          <Spin spinning={loading}>
+            <Transfer
+              locale={{ itemUnit: '명', itemsUnit: '명' }}
+              dataSource={userList}
+              titles={['일반 사용자', '전문가']}
+              showSearch
+              listStyle={{
+                width: '100%',
+                height: 400,
+              }}
+              operations={['추가', '제거']}
+              targetKeys={targetKeys}
+              // selectedKeys={selectedKeys}
+              // onSelectChange={handleSelectChange}
+              onChange={handleChange}
+              render={item => `${item.id}`}
+              footer={renderFooter}
+            />
+          </Spin>
+        </div>
+      </>
+    </Profiler>
   );
 }
 

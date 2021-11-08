@@ -109,12 +109,12 @@ router.get("/getAllUsers", (req, res) => {
   User.find({ id: { $ne: "admin" } })
     .populate({ path: "department", model: "Department" })
     .populate({ path: "position", model: "Position" })
+    .populate({ path: "site", model: "Site" })
     .exec((err, users) => {
       if (err) {
         console.log("err: ", err);
         return res.json({ success: false, err });
       }
-
       return res.status(200).send({
         success: true,
         users: users,
@@ -195,6 +195,7 @@ router.post("/updateUser", (req, res) => {
             id: req.body.newid,
             email: req.body.email,
             name: req.body.name,
+            site: req.body.site,
             department: req.body.department,
             position: req.body.position,
             role: req.body.role,

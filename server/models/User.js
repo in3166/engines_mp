@@ -36,6 +36,10 @@ const userSchema = mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "Position",
     },
+    site: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Site",
+    },
     token: {
       type: String,
     },

@@ -67,19 +67,34 @@ function SiteManagePage(props) {
     setShowUpdateModal(true);
   };
 
-  const deleteConfirm = position => {
-    console.log('depart del: ', position);
+  const deleteConfirm = site => {
+    console.log('depart del: ', site);
     let body;
-    if (position) {
+    if (site) {
+      if (site[0] === '본사') {
+        message.warning('본사는 삭제할 수 없습니다.');
+        return;
+      }
       body = {
-        _id: position,
+        _id: site,
       };
     } else {
-      const selID = selectedRowKeys.map(v => v._id);
+      const selID = selectedRowKeys
+        .filter(v => {
+          if (v.name === '본사') {
+            message.warning('본사는 삭제할 수 없습니다.');
+            return false;
+          }
+          return true;
+        })
+        .map(v => {
+          return v._id;
+        });
       body = {
         _id: selID,
       };
     }
+
     console.log('body: ', body);
     dispatch(deleteSite(body))
       .then(res => {
@@ -93,7 +108,7 @@ function SiteManagePage(props) {
             });
           });
 
-          message.success('직급을 삭제했습니다.');
+          message.success('사이트를 삭제했습니다.');
           message.success(`[성공]: ${oktem}`);
 
           if (res.payload.fail.length !== 0) {
@@ -107,7 +122,7 @@ function SiteManagePage(props) {
             message.warning(`[실패]: ${failtem}`);
           }
         } else {
-          message.error('직급 삭제 실패: 사용자 필드가 참조하고 있습니다.');
+          message.error('사이트 삭제 실패: 사용자 필드가 참조하고 있습니다.');
         }
       })
       .catch(err => {
@@ -123,10 +138,10 @@ function SiteManagePage(props) {
       title: '수정',
       dataIndex: 'update',
       key: '4',
-      render: (r, position) => {
+      render: (r, site) => {
         return (
           <Space size="middle">
-            <Button onClick={() => onClickUpdate(position)}>
+            <Button onClick={() => onClickUpdate(site)}>
               <EditOutlined />
             </Button>
           </Space>
@@ -138,13 +153,18 @@ function SiteManagePage(props) {
     {
       title: '삭제',
       key: '5',
-      render: (r, position) => {
+      render: (r, site) => {
+        let id = site._id;
+        if (site.name === '본사') {
+          id = '본사';
+        }
+
         return (
           <Space size="middle">
             <Popconfirm
               placement="leftBottom"
               title="정말로 삭제하시겠습니까?"
-              onConfirm={() => deleteConfirm([position._id])}
+              onConfirm={() => deleteConfirm([id])}
               okText="Yes"
               cancelText="No"
               icon={<QuestionCircleOutlined style={{ color: 'red' }} />}

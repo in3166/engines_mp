@@ -18,7 +18,7 @@ import ContentLayout from './components/utils/ContentLayout/ContentLayout';
 function App() {
   const location = useLocation();
   const redirectUrl = url => {
-    window.location.href = `${CONFIG.IP}:3000/${url}`;
+    window.location.href = `${CONFIG.IP}:13000/${url}`;
     // maybe can add spinner while loading
     return null;
   };

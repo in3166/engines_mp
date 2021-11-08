@@ -13,6 +13,7 @@ function UserAddModal(props) {
     setshowAddConfirm,
     getAllUsers,
     Departments,
+    Sites,
     Positions,
   } = props;
   const dispatch = useDispatch();
@@ -166,6 +167,19 @@ function UserAddModal(props) {
             />
           </Form.Item>
           <Form.Item
+            label="사이트"
+            name="site"
+            rules={[{ required: true, message: 'This site field is required' }]}
+          >
+            <Select name="site" id="site" className="form_select">
+              {Sites.map(v => (
+                <Option value={v._id} key={v._id}>
+                  {v.name}
+                </Option>
+              ))}
+            </Select>
+          </Form.Item>
+          <Form.Item
             label="부서"
             name="department"
             rules={[
@@ -218,6 +232,7 @@ UserAddModal.propTypes = {
   setshowAddConfirm: PropTypes.func.isRequired,
   Departments: PropTypes.arrayOf(PropTypes.any).isRequired,
   Positions: PropTypes.arrayOf(PropTypes.any).isRequired,
+  Sites: PropTypes.arrayOf(PropTypes.any).isRequired,
 };
 
 export default UserAddModal;

@@ -14,9 +14,11 @@ function UserUpdateModal(props) {
     selectedUsers,
     Departments,
     Positions,
+    Sites,
   } = props;
   const dispatch = useDispatch();
 
+  console.log('SITE?.: ', Sites);
   // 수정 모달 OK 버튼 - redux
   const modalOnOk = user => {
     console.log('user?.: ', selectedUsers);
@@ -29,12 +31,17 @@ function UserUpdateModal(props) {
       return v.name === user?.position;
     });
 
+    const site = Sites.find(v => {
+      return v.name === user?.site;
+    });
+
     const body = {
       _id: selectedUsers[0]?._id,
       id: selectedUsers[0]?.id,
       newid: user?.id,
       name: user?.name,
       email: user?.email,
+      site: site._id,
       department: department._id,
       position: position._id,
       role: user?.role,
@@ -146,6 +153,20 @@ function UserUpdateModal(props) {
             />
           </Form.Item>
           <Form.Item
+            label="사이트"
+            name="site"
+            initialValue={selectedUsers[0]?.site}
+            rules={[{ required: true, message: 'This site field is required' }]}
+          >
+            <Select name="site" id="site" className="form_select">
+              {Sites.map(v => (
+                <Option value={v.name} key={v._id}>
+                  {v.name}
+                </Option>
+              ))}
+            </Select>
+          </Form.Item>
+          <Form.Item
             label="부서"
             name="department"
             initialValue={selectedUsers[0]?.department}
@@ -202,6 +223,7 @@ UserUpdateModal.propTypes = {
   setshowUpdateConfirm: PropTypes.func.isRequired,
   Departments: PropTypes.arrayOf(PropTypes.any).isRequired,
   Positions: PropTypes.arrayOf(PropTypes.any).isRequired,
+  Sites: PropTypes.arrayOf(PropTypes.any).isRequired,
 };
 
 export default UserUpdateModal;

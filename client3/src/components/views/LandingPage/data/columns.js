@@ -32,6 +32,17 @@ const columns = [
     responsive: ['xl'],
   },
   {
+    title: '사이트',
+    dataIndex: 'site',
+    sorter: {
+      compare: (a, b) => a.depart.localeCompare(b.depart),
+      multiple: 3,
+    },
+    width: 70,
+    align: 'center',
+    responsive: ['lg'],
+  },
+  {
     title: '부서',
     dataIndex: 'department',
     sorter: {

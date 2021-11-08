@@ -49,7 +49,12 @@ function SideBar() {
         <>
           <SubMenu key="sub3" icon={<TeamOutlined />} title="전문가 관리">
             <Menu.Item key="/addExpert">
-              <Link to="/addExpert">전문가 등록</Link>
+              <Link
+                to="/addExpert"
+                onClick={() => performance.mark('initialize_page_change')}
+              >
+                전문가 등록
+              </Link>
             </Menu.Item>
             <Menu.Item key="11">전문가 그룹</Menu.Item>
             <Menu.Item key="12">권한 관리</Menu.Item>
@@ -69,7 +74,9 @@ function SideBar() {
             <Menu.Item key="/siteManagePage">
               <Link to="/siteManagePage">사이트 관리</Link>
             </Menu.Item>
-            <Menu.Item key="17">사이트별 엔진</Menu.Item>
+            <Menu.Item key="/siteEnginePage">
+              <Link to="/siteEnginePage">사이트별 엔진</Link>
+            </Menu.Item>
           </SubMenu>
         </>
         {/* )} */}

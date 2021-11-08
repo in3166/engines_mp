@@ -1,0 +1,27 @@
+#updateForm .input_num {
+    width: 98%;
+}
+
+#updateForm .ant-collapse > .ant-collapse-item > .ant-collapse-header {
+    width: 100%;
+    padding: 5px 5px;
+    padding-left: 10px;
+}
+
+#updateForm .ant-checkbox-wrapper {
+    width: 100%;
+    align-items: flex-start;
+    margin-left: 8px;
+}
+#updateForm .ant-checkbox {
+    margin-top: 5px;
+}
+
+#updateForm .ant-checkbox-group {
+    width: 100%;
+}
+
+#updateForm .ant-checkbox-wrapper > span:nth-child(2) {
+    width: 100%;
+    margin-bottom: 5px;
+}

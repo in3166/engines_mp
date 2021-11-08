@@ -12,12 +12,12 @@ function LeftMenu(props) {
   return (
     <Menu mode={mode}>
       <Menu.Item key="engine">
-        <a href={`${CONFIG.IP}:3001`} target="_blank" rel="noreferrer">
+        <a href={`${CONFIG.IP}:13001`} target="_blank" rel="noreferrer">
           부품/자재 관리
         </a>
       </Menu.Item>
       <Menu.Item key="user">
-        <a href={`${CONFIG.IP}:3002`} target="_blank" rel="noreferrer">
+        <a href={`${CONFIG.IP}:13002`} target="_blank" rel="noreferrer">
           사용자/사이트 관리
         </a>
       </Menu.Item>

@@ -33,7 +33,7 @@ const columns = [
   },
   {
     title: '부서',
-    dataIndex: 'department',
+    dataIndex: ['department', 'name'],
     sorter: {
       compare: (a, b) => a.depart.localeCompare(b.depart),
       multiple: 3,

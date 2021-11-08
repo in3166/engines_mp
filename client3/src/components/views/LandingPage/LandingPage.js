@@ -16,6 +16,7 @@ function LandingPage() {
   const [getUsers, setGetUsers] = useState([]);
   const [Departments, setDepartments] = useState([]);
   const [Positions, setPositions] = useState([]);
+  const [Sites, setSites] = useState([]);
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [selectedUsers, setSelectedUsers] = useState([]);
   const [showDeleteConfirm, setshowDeleteConfirm] = useState(false);
@@ -36,8 +37,17 @@ function LandingPage() {
             id: `${res.data.users[i].id}`,
             name: `${res.data.users[i].name}`,
             email: `${res.data.users[i].email}`,
-            department: `${res.data.users[i].department?.name}`,
-            position: `${res.data.users[i].position?.name}`,
+            site: `${
+              res.data.users[i].site ? res.data.users[i].site.name : '-'
+            }`,
+            department: `${
+              res.data.users[i].department
+                ? res.data.users[i].department.name
+                : '-'
+            }`,
+            position: `${
+              res.data.users[i].position ? res.data.users[i].position.name : '-'
+            }`,
             role: trole,
           };
           tempUser.push(data);
@@ -59,11 +69,18 @@ function LandingPage() {
     });
   };
 
+  const getAllSites = () => {
+    axios.get('/api/sites/getAllSites').then(res => {
+      setSites(res.data.sites);
+    });
+  };
+
   useEffect(() => {
     //  if (user?.userData?.isAdmin) {
     getAllUsers();
     getAllDepartments();
     getAllPositions();
+    getAllSites();
     // }
   }, [user]);
 
@@ -128,6 +145,7 @@ function LandingPage() {
               selectedUsers={selectedUsers}
               Departments={Departments}
               Positions={Positions}
+              Sites={Sites}
             />
           )}
           {showAddConfirm && (
@@ -137,6 +155,7 @@ function LandingPage() {
               getAllUsers={getAllUsers}
               Departments={Departments}
               Positions={Positions}
+              Sites={Sites}
             />
           )}
           <br />

@@ -71,7 +71,21 @@ function UsersRolePage(props) {
     // if (user?.userData?.isAdmin) {
     getAllUsers();
     // }
-    return () => setLoading(false); // cleanup function 메모리 누수 방지
+    return () => {
+      setLoading(false);
+      performance.mark('target_page_mounted');
+      // performance.measure(
+      //   'reactRouterPerf',
+      //   'initialize_page_change',
+      //   'target_page_mounted',
+      // );
+      // // Pull out all of the measurements.
+      // console.log('userauth: ', performance.getEntriesByType('measure'));
+
+      // Finally, clean up the entries.
+      performance.clearMarks();
+      performance.clearMeasures();
+    };
   }, [user]);
 
   // 개별 삭제 버튼

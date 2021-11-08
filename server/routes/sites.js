@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { Site } = require("../models/Site");
+const { User } = require("../models/User");
 
 const async = require("async");
 
@@ -167,7 +168,7 @@ router.post("/addSite", (req, res) => {
   });
 });
 
-// 직급 변경
+// 사이트 변경
 router.post("/updateSite", (req, res) => {
   Site.findOne(
     { id: req.body.id, _id: { $ne: req.body._id } },
@@ -200,7 +201,7 @@ router.post("/updateSite", (req, res) => {
   );
 });
 
-// 직급 삭제
+// 사이트 삭제
 router.post("/deleteSite", async (req, res) => {
   // Object ID로 Site, Engine에서 쓰였는지 찾기
   console.log("id: ", req.body._id);

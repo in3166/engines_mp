@@ -14,6 +14,7 @@ function RegisterPage() {
   const history = useHistory();
   const [Departments, setDepartments] = useState([]);
   const [Positions, setPositions] = useState([]);
+  const [Sites, setSites] = useState([]);
   const {
     register,
     watch,
@@ -35,9 +36,16 @@ function RegisterPage() {
     });
   };
 
+  const getAllSites = () => {
+    axios.get('/api/sites/getAllSites').then(res => {
+      setSites(res.data.sites);
+    });
+  };
+
   useEffect(() => {
     getAllDepartments();
     getAllPositions();
+    getAllSites();
   }, []);
 
   const onSubmit = data => {
@@ -157,6 +165,21 @@ function RegisterPage() {
         <p className="form_p">Your input exceed maximum input</p>
       )}
 
+      <p className="form_label">Site</p>
+      <select
+        className="form_input form_select"
+        name="site"
+        autoComplete="on"
+        {...register('site', { required: true })}
+      >
+        <option>-</option>
+        {Sites.map(v => (
+          <option value={v._id} key={v._id}>
+            {v.name}
+          </option>
+        ))}
+      </select>
+
       <p className="form_label">Department</p>
       <select
         className="form_input form_select"
@@ -172,12 +195,12 @@ function RegisterPage() {
         ))}
       </select>
 
-      {errors.department && errors.department.type === 'required' && (
+      {/* {errors.department && errors.department.type === 'required' && (
         <p className="form_p">This department field is required</p>
       )}
       {errors.department && errors.department.type === 'maxLength' && (
         <p className="form_p">Your input exceed maximum input</p>
-      )}
+      )} */}
 
       <p className="form_label">Position</p>
       <select
@@ -193,12 +216,6 @@ function RegisterPage() {
           </option>
         ))}
       </select>
-      {errors.position && errors.position.type === 'required' && (
-        <p className="form_p">This position field is required</p>
-      )}
-      {errors.name && errors.name.type === 'maxLength' && (
-        <p className="form_p">Your input exceed maximum input</p>
-      )}
 
       {/* {errors.exampleRequired && <p>This field is required</p>} */}
       <input type="submit" className="form_input" value="등록" />
