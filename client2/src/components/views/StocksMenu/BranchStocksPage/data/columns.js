@@ -59,8 +59,9 @@ const columns = [
       multiple: 4,
     },
     showSorterTooltip: false,
-    width: 80,
+    width: 100,
     responsive: ['sm'],
+    render: value => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ','),
   },
   {
     title: '가격',
@@ -70,8 +71,9 @@ const columns = [
       multiple: 5,
     },
     showSorterTooltip: false,
-    width: 80,
+    width: 100,
     responsive: ['sm'],
+    render: value => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ','),
   },
   {
     title: '설명',

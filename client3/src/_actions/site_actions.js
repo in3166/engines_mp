@@ -1,5 +1,12 @@
 import axios from 'axios';
-import { GET_ALL_SITES, ADD_SITE, UPDATE_SITE, DELETE_SITE } from './types';
+import {
+  GET_ALL_SITES,
+  ADD_SITE,
+  UPDATE_SITE,
+  DELETE_SITE,
+  DELETE_SITE_ENGINES,
+  ADD_SITE_ENGINE,
+} from './types';
 import { SITE_SERVER } from '../components/Config';
 
 export function getAllSites() {
@@ -42,6 +49,28 @@ export function deleteSite(dataToSubmit) {
 
   return {
     type: DELETE_SITE,
+    payload: request,
+  };
+}
+
+export function addSiteEngine(dataToSubmit) {
+  const request = axios
+    .post(`${SITE_SERVER}/addSiteEngine`, dataToSubmit)
+    .then(response => response.data);
+
+  return {
+    type: ADD_SITE_ENGINE,
+    payload: request,
+  };
+}
+
+export function deleteSiteEngines(dataToSubmit) {
+  const request = axios
+    .post(`${SITE_SERVER}/deleteSiteEngines`, dataToSubmit)
+    .then(response => response.data);
+
+  return {
+    type: DELETE_SITE_ENGINES,
     payload: request,
   };
 }

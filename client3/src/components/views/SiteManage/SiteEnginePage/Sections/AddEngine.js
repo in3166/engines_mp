@@ -1,22 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import {
-  Modal,
-  Form,
-  Checkbox,
-  InputNumber,
-  Divider,
-  Collapse,
-  message,
-  Pagination,
-} from 'antd';
+import { Modal, Form, Collapse, message, Pagination, Input, Radio } from 'antd';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import './AddEngine.css';
+import { useDispatch } from 'react-redux';
+import { addSiteEngine } from '../../../../../_actions/site_actions';
 
 const { Panel } = Collapse;
 
 function AddEngine(props) {
-  const { ShowAddEngine, setShowAddEngine } = props;
+  const { ShowAddEngine, setShowAddEngine, site, getSites } = props;
 
   const [Engines, setEngines] = useState([]);
   const [current, setcurrent] = useState(1);
@@ -25,16 +18,12 @@ function AddEngine(props) {
   const [plainOptions, setplainOptions] = useState(0);
 
   // check box value
-  const [checkedList, setCheckedList] = useState([]);
+  const [RadioValue, setRadioValue] = useState(0);
   const [indeterminate, setIndeterminate] = useState(true);
-  const [checkAll, setCheckAll] = useState(false);
   const [pageSize, setPageSize] = useState(5);
 
   const [form] = Form.useForm();
-  console.log('Engines: ', Engines);
-  console.log('pageSize: ', pageSize);
-  console.log('plainOptions: ', plainOptions);
-
+  const dispatch = useDispatch();
   // 모든 엔진 목록
   const getEngines = () => {
     axios
@@ -60,32 +49,32 @@ function AddEngine(props) {
   useMountEffect(getEngines);
 
   // 수정 모달 OK 버튼 - redux
-  const modalOnOk = part => {
-    if (!checkedList.length) {
+  const modalOnOk = engine => {
+    if (!RadioValue.length) {
       message.error('부품을 선택하세요.');
     } else {
       const body = {
-        partId: checkedList,
-        number: part?.number,
-        // engine: EngineInfo._id,
+        engineId: RadioValue,
+        id: engine?.id,
+        site: site._id,
       };
       console.log('body: ', body);
-      //   dispatch(addEnginRequiredPart(body))
-      //     .then(res => {
-      //       if (res.payload.success) {
-      //         message.success('필요 부품이 추가되었습니다.');
-      //       } else {
-      //         message.error(res.payload.message);
-      //       }
-      //     })
-      //     .catch(err => {
-      //       message.error(`[Error]: ${err}`);
-      //     })
-      //     .finally(() => {
-      //       document.getElementById('number').value = '';
-      //       // getEngines();
-      //       setShowAddEngine(false);
-      //     });
+
+      dispatch(addSiteEngine(body))
+        .then(res => {
+          if (res.payload.success) {
+            message.success('엔진이 추가되었습니다.');
+          } else {
+            message.error(res.payload.message);
+          }
+        })
+        .catch(err => {
+          message.error(`[Error]: ${err}`);
+        })
+        .finally(() => {
+          getSites();
+          setShowAddEngine(false);
+        });
     }
   };
   // 페이지네이션
@@ -103,34 +92,24 @@ function AddEngine(props) {
   };
 
   useEffect(() => {
-    console.log('checkedList', checkedList);
-    console.log('indeterminate', indeterminate);
     setmaxIndex(current * pageSize);
-    console.log('current', current, pageSize);
-  }, [checkedList, current, indeterminate, pageSize]);
+  }, [RadioValue, current, indeterminate, pageSize]);
 
   // 체크 박스 선택 시
-  const onChange = list => {
-    console.log('chkec onchange list: ', list);
-    setCheckedList(list);
-    setIndeterminate(!!list.length && list.length < plainOptions.length);
-    setCheckAll(list.length === plainOptions.length);
-  };
-
-  const onCheckAllChange = e => {
-    setCheckedList(e.target.checked ? plainOptions : []);
-    setIndeterminate(false);
-    setCheckAll(e.target.checked);
+  const onChange = e => {
+    setRadioValue(e.target.value);
+    setIndeterminate(!!e.length && e.length < plainOptions.length);
   };
 
   return (
     <Modal
-      title="구성 부품 추가"
+      title="엔진 추가"
       width="80%"
       visible={ShowAddEngine}
       onOk={form.submit}
       onCancel={() => setShowAddEngine(false)}
       style={{ top: 170 }}
+      destroyOnClose
     >
       <Form
         {...{ labelCol: { span: 6 }, wrapperCol: { span: 14 } }}
@@ -141,16 +120,8 @@ function AddEngine(props) {
         preserve={false}
       >
         <Form.Item label="부품">
-          <Checkbox
-            indeterminate={indeterminate}
-            onChange={onCheckAllChange}
-            checked={checkAll}
-          >
-            Check all
-          </Checkbox>
-          <Divider />
-          <Checkbox.Group
-            value={checkedList}
+          <Radio.Group
+            value={RadioValue}
             onChange={onChange}
             className={['ant-checkbox-group']}
           >
@@ -159,7 +130,7 @@ function AddEngine(props) {
                 index >= minIndex &&
                 index < maxIndex && (
                   /* eslint no-underscore-dangle: 0 */
-                  <Checkbox value={data._id} key={data.name}>
+                  <Radio value={data._id} key={data.name}>
                     <Collapse defaultActiveKey={['1']}>
                       <Panel
                         showArrow={false}
@@ -170,10 +141,10 @@ function AddEngine(props) {
                         <p>기본 수명: {data?.defaultLifespan}</p>
                       </Panel>
                     </Collapse>
-                  </Checkbox>
+                  </Radio>
                 ),
             )}
-          </Checkbox.Group>
+          </Radio.Group>
           <Pagination
             showQuickJumper
             showSizeChanger
@@ -189,16 +160,18 @@ function AddEngine(props) {
         </Form.Item>
 
         <Form.Item
-          name="number"
-          label="수량"
-          rules={[{ required: true, message: 'Please input this field!' }]}
+          name="id"
+          label="ID"
+          rules={[
+            { required: true, message: 'Please input this field!' },
+            {
+              type: 'string',
+              min: 5,
+              message: 'Please input at least 5 characters.',
+            },
+          ]}
         >
-          <InputNumber
-            name="number"
-            id="number"
-            type="number"
-            className="input_num"
-          />
+          <Input name="id" id="id" type="text" className="input_num" />
         </Form.Item>
       </Form>
     </Modal>
@@ -208,6 +181,8 @@ function AddEngine(props) {
 AddEngine.propTypes = {
   ShowAddEngine: PropTypes.bool.isRequired,
   setShowAddEngine: PropTypes.func.isRequired,
+  getSites: PropTypes.func.isRequired,
+  site: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 export default AddEngine;

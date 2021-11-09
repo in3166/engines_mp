@@ -9,7 +9,7 @@ const async = require("async");
 router.get("/getAllSites", (req, res) => {
   Site.find()
     .populate({
-      path: "engines",
+      path: "engines.engine",
       populate: {
         path: "requiredParts.part",
         model: "Part",
@@ -115,21 +115,20 @@ router.post("/deleteSitePart", async (req, res) => {
   const promises = parts.map(async (part) => {
     await Site.findOneAndUpdate(
       {
-        id: req.body.id
+        id: req.body.id,
       },
-      { $pull: {partStock: { part : part }} }
+      { $pull: { partStock: { part: part } } }
     );
   });
 
   await Promise.all(promises)
-    .then((re) => { 
-      return res.status(200).json({ success: true })
+    .then((re) => {
+      return res.status(200).json({ success: true });
     })
     .catch((err) => {
       return res.status(400).json(err);
     });
 });
-
 
 // 사용자/사이트 관리 페이지
 // 사이트 추가
@@ -170,35 +169,32 @@ router.post("/addSite", (req, res) => {
 
 // 사이트 변경
 router.post("/updateSite", (req, res) => {
-  Site.findOne(
-    { id: req.body.id, _id: { $ne: req.body._id } },
-    (err, part) => {
-      if (err) {
-        return res.status(400).json({ success: false, err });
-      }
-      if (part) {
-        return res.json({
-          success: false,
-          message: "아이디가 이미 존재합니다.",
-        });
-      } else {
-        Site.findOneAndUpdate(
-          { _id: req.body._id },
-          {
-            id: req.body.id,
-            name: req.body.name,
-            desc: req.body.desc,
-          },
-          (err, doc) => {
-            if (err) return res.status(400).json({ success: false, err });
-            return res.status(200).send({
-              success: true,
-            });
-          }
-        );
-      }
+  Site.findOne({ id: req.body.id, _id: { $ne: req.body._id } }, (err, part) => {
+    if (err) {
+      return res.status(400).json({ success: false, err });
     }
-  );
+    if (part) {
+      return res.json({
+        success: false,
+        message: "아이디가 이미 존재합니다.",
+      });
+    } else {
+      Site.findOneAndUpdate(
+        { _id: req.body._id },
+        {
+          id: req.body.id,
+          name: req.body.name,
+          desc: req.body.desc,
+        },
+        (err, doc) => {
+          if (err) return res.status(400).json({ success: false, err });
+          return res.status(200).send({
+            success: true,
+          });
+        }
+      );
+    }
+  });
 });
 
 // 사이트 삭제
@@ -222,10 +218,10 @@ async function findQ(reqid) {
 
   const findPromise = reqid.map(async (id) => {
     const existUser = await User.find({
-      site:  id ,
+      site: id,
     });
 
-    if (existUser.length === 0 ) {
+    if (existUser.length === 0) {
       ok.push(id);
       await Site.deleteOne({ _id: id });
     } else {
@@ -246,5 +242,51 @@ async function findQ(reqid) {
 
   return { ok, fail, undefined };
 }
+
+// 사이트별 엔진 추가
+router.post("/addSiteEngine", async (req, res) => {
+  // Object ID로 Site, Engine에서 쓰였는지 찾기
+  console.log("id: ", req.body.id);
+  console.log("engineid: ", req.body.engineId);
+
+  Site.findOneAndUpdate(
+    { _id: req.body.site },
+    {
+      $push: { engines: { id: req.body.id, engine: req.body.engineId } },
+    },
+    (err, site) => {
+      if (err) {
+        return res.status(400).json({ success: false, err });
+      }
+      return res.status(200).json({
+        success: true,
+        message: "엔진을 사이트에 추가했습니다.",
+      });
+    }
+  );
+});
+
+// 사이트별 엔진 삭제
+router.post("/deleteSiteEngines", async (req, res) => {
+  // Object ID로 Site, Engine에서 쓰였는지 찾기
+  console.log("site: ", req.body.site);
+  console.log("engines: ", req.body.engines);
+  const engines = req.body.engines;
+
+  const pullArrayPromises = engines.map(async (engine) => {
+    await Site.findOneAndUpdate(
+      { _id: req.body.site },
+      { $pull: { engines: { id: engine } } }
+    );
+  });
+
+  await Promise.all(pullArrayPromises)
+    .then(() => {
+      return res.status(200).json({ success: true });
+    })
+    .catch((err) => {
+      return res.status(400).json({ success: false, err });
+    });
+});
 
 module.exports = router;

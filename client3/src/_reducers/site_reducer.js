@@ -3,6 +3,8 @@ import {
   ADD_SITE,
   UPDATE_SITE,
   DELETE_SITE,
+  DELETE_SITE_ENGINES,
+  ADD_SITE_ENGINE,
 } from '../_actions/types';
 
 export default function doo(state = {}, action) {
@@ -14,6 +16,10 @@ export default function doo(state = {}, action) {
     case UPDATE_SITE:
       return { ...state };
     case DELETE_SITE:
+      return { ...state };
+    case ADD_SITE_ENGINE:
+      return { ...state };
+    case DELETE_SITE_ENGINES:
       return { ...state };
     default:
       return state;

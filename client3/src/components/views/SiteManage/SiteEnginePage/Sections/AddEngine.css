@@ -8,20 +8,20 @@
     padding-left: 10px;
 }
 
-#updateForm .ant-checkbox-wrapper {
+#updateForm .ant-radio-wrapper {
     width: 100%;
     align-items: flex-start;
     margin-left: 8px;
 }
-#updateForm .ant-checkbox {
+#updateForm .ant-radio {
     margin-top: 5px;
 }
 
-#updateForm .ant-checkbox-group {
+#updateForm .ant-radio-group {
     width: 100%;
 }
 
-#updateForm .ant-checkbox-wrapper > span:nth-child(2) {
+#updateForm .ant-radio-wrapper > span:nth-child(2) {
     width: 100%;
     margin-bottom: 5px;
 }

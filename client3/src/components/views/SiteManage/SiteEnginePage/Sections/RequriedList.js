@@ -5,7 +5,7 @@ import reqCol from '../data/reqCol';
 
 const RequriedList = props => {
   const { engines, ShowRequiredParts, setShowRequiredParts } = props;
-  console.log('eachEngines', engines);
+  // console.log('eachEngines', engines);
 
   return (
     <Modal
@@ -17,7 +17,12 @@ const RequriedList = props => {
       destroyOnClose
       width="80%"
     >
-      <Table dataSource={engines} size="middle" columns={reqCol} rowKey="id" />
+      <Table
+        dataSource={engines}
+        size="middle"
+        columns={reqCol}
+        rowKey={v => v.part.name}
+      />
     </Modal>
   );
 };

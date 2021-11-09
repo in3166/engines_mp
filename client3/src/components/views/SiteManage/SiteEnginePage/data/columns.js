@@ -11,8 +11,19 @@ const columns = [
     align: 'center',
   },
   {
-    title: '이름',
-    dataIndex: 'name',
+    title: '엔진 ID',
+    dataIndex: ['engine', 'id'],
+    key: '1',
+    sorter: {
+      compare: (a, b) => a.id.localeCompare(b.id),
+      multiple: 1,
+    },
+    width: 50,
+    align: 'center',
+  },
+  {
+    title: '엔진 이름',
+    dataIndex: ['engine', 'name'],
     key: '2',
     sorter: {
       compare: (a, b) => a.name.localeCompare(b.name),
@@ -24,7 +35,7 @@ const columns = [
   },
   {
     title: '기본 수명',
-    dataIndex: 'defaultLifespan',
+    dataIndex: ['engine', 'defaultLifespan'],
     key: '3',
     sorter: {
       compare: (a, b) => a.defaultLifsspan.localeCompare(b.defaultLifsspan),

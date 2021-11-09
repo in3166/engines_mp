@@ -80,6 +80,7 @@ function EnginePartsListPage(props) {
         multiple: 4,
       },
       width: 200,
+      render: value => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ','),
     },
   ];
 

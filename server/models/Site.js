@@ -18,7 +18,13 @@ const siteSchema = mongoose.Schema(
     phone: {
       type: String,
     },
-    engines: [{ type: mongoose.Schema.Types.ObjectId, ref: "Engine" }],
+    engines: [
+      {
+        _id: false,
+        id: { type: String },
+        engine: { type: mongoose.Schema.Types.ObjectId, ref: "Engine" },
+      },
+    ],
     partStock: [
       {
         _id: false,

@@ -41,9 +41,10 @@ const columns = [
       compare: (a, b) => a.defaultLifespan - b.defaultLifespan,
       multiple: 4,
     },
-    width: 80,
+    width: 120,
     align: 'center',
     responsive: ['md'],
+    render: value => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ','),
   },
   {
     title: '예측 수명',
@@ -52,8 +53,9 @@ const columns = [
       compare: (a, b) => a.expectLifespan - b.expectLifespan,
       multiple: 4,
     },
-    width: 80,
+    width: 120,
     align: 'center',
+    render: value => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ','),
   },
   {
     title: '실수명',
@@ -62,8 +64,9 @@ const columns = [
       compare: (a, b) => a.actualLifespan - b.actualLifespan,
       multiple: 5,
     },
-    width: 80,
+    width: 100,
     align: 'center',
+    render: value => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ','),
   },
   {
     title: '가격',
@@ -75,6 +78,7 @@ const columns = [
     width: 90,
     align: 'center',
     responsive: ['md'],
+    render: value => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ','),
   },
   {
     title: '설명',

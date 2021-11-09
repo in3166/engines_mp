@@ -34,6 +34,7 @@ const partCol = [
       compare: (a, b) => a.part.price - b.part.price,
       multiple: 5,
     },
+    render: value => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ','),
   },
   {
     title: '설명',
@@ -52,6 +53,7 @@ const partCol = [
       compare: (a, b) => a.part.defaultLifespan - b.part.defaultLifespan,
       multiple: 5,
     },
+    render: value => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ','),
   },
   {
     title: '재고',
@@ -61,6 +63,7 @@ const partCol = [
       compare: (a, b) => a.stock - b.stock,
       multiple: 5,
     },
+    render: value => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ','),
   },
 ];
 

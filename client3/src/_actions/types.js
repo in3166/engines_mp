@@ -25,3 +25,5 @@ export const GET_ALL_SITES = 'get_all_sites';
 export const ADD_SITE = 'add_site';
 export const UPDATE_SITE = 'update_site';
 export const DELETE_SITE = 'delete_site';
+export const ADD_SITE_ENGINE = 'add_site_engine';
+export const DELETE_SITE_ENGINES = 'delete_site_engines';

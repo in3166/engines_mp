@@ -25,6 +25,7 @@ const engineCol = [
       multiple: 5,
     },
     width: 100,
+    render: value => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ','),
   },
   {
     title: '최근 수리 날짜',
@@ -74,6 +75,7 @@ const partCol = [
       compare: (a, b) => a.part.price - b.part.price,
       multiple: 5,
     },
+    render: value => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ','),
   },
   {
     title: '설명',
@@ -93,6 +95,7 @@ const partCol = [
       compare: (a, b) => a.part.defaultLifespan - b.part.defaultLifespan,
       multiple: 5,
     },
+    render: value => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ','),
   },
   {
     title: '필요 수량',
@@ -102,6 +105,7 @@ const partCol = [
       compare: (a, b) => a.requiredNumber - b.requiredNumber,
       multiple: 5,
     },
+    render: value => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ','),
   },
 ];
 

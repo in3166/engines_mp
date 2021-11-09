@@ -12,7 +12,7 @@ function SiteInfo(props) {
         <Descriptions.Item label="Number">{site.phone}</Descriptions.Item>
       </Descriptions>
       <Divider plain>
-        <strong>Part</strong>
+        <strong>Engines</strong>
       </Divider>
     </>
   );
