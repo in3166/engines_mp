@@ -8,7 +8,7 @@ import EnginePage from './components/views/EnginePage/EnginePage';
 import UserPage from './components/views/UserPage/UserPage';
 import PredictResultPage from './components/views/PredictResultPage/PredictResultPage';
 import NotFound from './components/views/NotFound/NotFound';
-import PredictPage from './components/views/PredictPage/EngineerPredictPage';
+import EngineerPredictPage from './components/views/PredictPage/EngineerPredictPage';
 import Auth from './hoc/auth';
 import ContentLayout from './components/utils/ContentLayout/ContentLayout';
 
@@ -31,7 +31,10 @@ function App() {
                   path="/predictResult"
                   component={Auth(PredictResultPage, null)}
                 />
-                <Route path="/predict" component={Auth(PredictPage, null)} />
+                <Route
+                  path="/engineerPredict"
+                  component={Auth(EngineerPredictPage, null)}
+                />
                 <Route component={NotFound} />
               </Switch>
             </ContentLayout>

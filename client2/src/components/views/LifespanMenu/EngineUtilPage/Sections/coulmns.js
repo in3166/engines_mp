@@ -9,8 +9,17 @@ const engineCol = [
     width: 100,
   },
   {
-    title: '이름',
-    dataIndex: 'name',
+    title: '엔진 ID',
+    dataIndex: ['engine', 'id'],
+    sorter: {
+      compare: (a, b) => a.id.localeCompare(b.id),
+      multiple: 1,
+    },
+    width: 100,
+  },
+  {
+    title: '엔진 이름',
+    dataIndex: ['engine', 'name'],
     sorter: {
       compare: (a, b) => a.name.localeCompare(b.name),
       multiple: 2,
@@ -19,7 +28,7 @@ const engineCol = [
   },
   {
     title: '예상 수명',
-    dataIndex: 'defaultLifespan',
+    dataIndex: ['engine', 'defaultLifespan'],
     sorter: {
       compare: (a, b) => a.defaultLifespan - b.defaultLifespan,
       multiple: 5,
@@ -29,7 +38,7 @@ const engineCol = [
   },
   {
     title: '최근 수리 날짜',
-    dataIndex: 'recentRepairDate',
+    dataIndex: ['engine', 'recentRepairDate'],
     sorter: {
       compare: (a, b) => a.recentRepairDate.localeCompare(b.recentRepairDate),
       multiple: 3,

@@ -60,8 +60,8 @@ function SideBar() {
           <Menu.Item key="/predictResult">
             <Link to="/predictResult">기계 분석</Link>
           </Menu.Item>
-          <Menu.Item key="/predict">
-            <Link to="/predict">엔지니어 분석</Link>
+          <Menu.Item key="/engineerPredict">
+            <Link to="/engineerPredict">엔지니어 분석</Link>
           </Menu.Item>
           <Menu.Item key="8">전문가 분석</Menu.Item>
           <Menu.Item key="9">통합 분석</Menu.Item>

@@ -24,8 +24,6 @@ const plainOptions = [
   'Apple',
   'Pear',
   'Orange',
-  '1',
-  '2',
   '123123123123',
   '414123',
   '151233',
@@ -82,9 +80,10 @@ function EngineerPredictPage(props) {
   const [loading, setLoading] = useState(false);
 
   const { user } = props;
-  if (!user?.userData?.isAuth) {
-    return null;
-  }
+  console.log(user);
+  // if (!user?.userData?.isAuth) {
+  //   return null;
+  // }
   const onSelectChange = selectedRowKeys => {
     // console.log('selectedRowKeys changed: ', selectedRowKeys);
     setselectedRowKeys(selectedRowKeys);

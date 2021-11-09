@@ -6,13 +6,15 @@ import SiteDescription from '../../../../utils/SiteDescription/SiteDescription';
 
 function EngineList(props) {
   const { site, engine } = props;
+  console.log('site: ', site);
+  console.log('engine: ', engine);
 
   const expandedRowRender = record => {
     return (
       <Table
         size="small"
         columns={partCol}
-        dataSource={record.requiredParts}
+        dataSource={record.engine.requiredParts}
         rowKey={a => a.part.id}
         bordered
       />
@@ -30,7 +32,7 @@ function EngineList(props) {
         columns={engineCol}
         dataSource={engine}
         expandable={{ expandedRowRender }}
-        rowKey="name"
+        rowKey="id"
       />
     </>
   );
