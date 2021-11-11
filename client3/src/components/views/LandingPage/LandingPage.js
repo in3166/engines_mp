@@ -8,7 +8,6 @@ import columns from './data/columns';
 import DeleteModal from './Sections/DeleteModal';
 import UserUpdateModal from './Sections/UserUpdateModal';
 import UserAddModal from './Sections/UserAddModal';
-import getRole from './Sections/getRole';
 
 function LandingPage() {
   const user = useSelector(state => state.user);
@@ -28,8 +27,7 @@ function LandingPage() {
 
     axios.get('/api/users/getAllUsers').then(res => {
       for (let i = 0; i < res.data?.users?.length; i += 1) {
-        const trole = getRole(res.data.users[i].role);
-
+        console.log(res.data.users[i].role);
         if (res.data.users[i].role !== 1) {
           const data = {
             key: i.toString(),
@@ -48,7 +46,7 @@ function LandingPage() {
             position: `${
               res.data.users[i].position ? res.data.users[i].position.name : '-'
             }`,
-            role: trole,
+            role: res.data.users[i].role.name,
           };
           tempUser.push(data);
         }

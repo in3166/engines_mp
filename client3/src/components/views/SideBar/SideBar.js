@@ -43,7 +43,7 @@ function SideBar() {
         theme="dark"
       >
         <Menu.Item key="/" icon={<DashboardOutlined />}>
-          <Link to="/">DashBoard</Link>
+          <Link to="/">사용자 목록</Link>
         </Menu.Item>
         {/* {user?.userData?.role === 1 && ( */}
         <>
@@ -56,8 +56,12 @@ function SideBar() {
                 전문가 등록
               </Link>
             </Menu.Item>
-            <Menu.Item key="11">전문가 그룹</Menu.Item>
-            <Menu.Item key="12">권한 관리</Menu.Item>
+            <Menu.Item key="/expertGroup">
+              <Link to="/expertGroup">전문가 그룹</Link>
+            </Menu.Item>
+            <Menu.Item key="/expertAuth">
+              <Link to="/expertAuth">권한 관리</Link>
+            </Menu.Item>
           </SubMenu>
           <SubMenu key="sub4" icon={<IdcardOutlined />} title="사용자 관리">
             <Menu.Item key="/usersAuth">

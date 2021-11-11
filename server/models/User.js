@@ -24,13 +24,13 @@ const userSchema = mongoose.Schema(
       minlength: 7,
     },
     role: {
-      type: Number,
-      default: 0,
+      id: { type: Number, default: 0 },
+      name: { type: String, default: '일반 사용자' },
       // 0: 일반 사용자, 1: 관리자, 2: 전문가, 3: 엔지니어
     },
     department: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Department",
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Department",
     },
     position: {
       type: mongoose.Schema.Types.ObjectId,

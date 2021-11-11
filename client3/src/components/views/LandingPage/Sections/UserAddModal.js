@@ -216,7 +216,6 @@ function UserAddModal(props) {
           >
             <Select name="role" id="role" className="form_select">
               <Option value={0}>일반 사용자</Option>
-              <Option value={2}>전문가</Option>
               <Option value={3}>엔지니어</Option>
             </Select>
           </Form.Item>

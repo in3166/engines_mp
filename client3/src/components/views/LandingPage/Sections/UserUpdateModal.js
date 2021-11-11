@@ -3,7 +3,6 @@ import { Modal, Form, Select, Input, message } from 'antd';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { updateUser } from '../../../../_actions/user_actions';
-import getRole from './getRole';
 
 const { Option } = Select;
 function UserUpdateModal(props) {
@@ -18,7 +17,7 @@ function UserUpdateModal(props) {
   } = props;
   const dispatch = useDispatch();
 
-  console.log('SITE?.: ', Sites);
+  console.log('selectedUsers[0]?.role?.: ', selectedUsers[0]?.role);
   // 수정 모달 OK 버튼 - redux
   const modalOnOk = user => {
     console.log('user?.: ', selectedUsers);
@@ -34,7 +33,20 @@ function UserUpdateModal(props) {
     const site = Sites.find(v => {
       return v.name === user?.site;
     });
-
+    let role = '';
+    switch (user.role) {
+      case '일반 사용자':
+        role = { id: 0, name: user.role };
+        break;
+      // case '전문가':
+      //   role = { id: 2, name: user.role };
+      //   break;
+      case '엔지니어':
+        role = { id: 3, name: user.role };
+        break;
+      default:
+        break;
+    }
     const body = {
       _id: selectedUsers[0]?._id,
       id: selectedUsers[0]?.id,
@@ -44,7 +56,7 @@ function UserUpdateModal(props) {
       site: site._id,
       department: department._id,
       position: position._id,
-      role: user?.role,
+      role,
     };
     console.log('body: ', body);
     dispatch(updateUser(body))
@@ -201,13 +213,12 @@ function UserUpdateModal(props) {
           <Form.Item
             label="권한"
             name="role"
-            initialValue={getRole(selectedUsers[0]?.role)}
+            initialValue={selectedUsers[0]?.role}
             rules={[{ required: true, message: 'This role field is required' }]}
           >
             <Select name="role" id="role" className="form_select">
-              <Option value={0}>일반 사용자</Option>
-              <Option value={2}>전문가</Option>
-              <Option value={3}>엔지니어</Option>
+              <Option value="일반 사용자">일반 사용자</Option>
+              <Option value="엔지니어">엔지니어</Option>
             </Select>
           </Form.Item>
         </Form>

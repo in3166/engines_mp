@@ -17,30 +17,24 @@ function UpdateModal(props) {
   const dispatch = useDispatch();
   // 수정 모달 OK 버튼 - redux
   const modalOnOk = () => {
-    let newRole = modalData.role;
-    // modalData.role === '일반 사용자'
-    //   ? 0
-    //   : modalData.role === '전문가'
-    //   ? 2
-    //   : 3;
-    switch (newRole) {
+    let role = '';
+    switch (modalData.role) {
       case '일반 사용자':
-        newRole = 0;
+        role = { id: 0, name: modalData.role };
         break;
-      case '전문가':
-        newRole = 2;
-        break;
+      // case '전문가':
+      //   role = { id: 2, name: modalData.role };
+      //   break;
       case '엔지니어':
-        newRole = 3;
+        role = { id: 3, name: modalData.role };
         break;
       default:
-        newRole = 0;
         break;
     }
 
     const body = {
       id: modalData.id,
-      role: newRole,
+      role,
     };
 
     // console.log(body);
@@ -90,7 +84,6 @@ function UpdateModal(props) {
               onChange={value => handleRoleChange(value)}
             >
               <Option value="일반 사용자">일반 사용자</Option>
-              <Option value="전문가">전문가</Option>
               <Option value="엔지니어">엔지니어</Option>
             </Select>
           </Form.Item>

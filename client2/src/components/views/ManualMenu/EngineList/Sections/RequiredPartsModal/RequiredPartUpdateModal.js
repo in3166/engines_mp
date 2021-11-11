@@ -88,7 +88,7 @@ function RequiredPartUpdateModal(props) {
 
             <Form.Item
               name="number"
-              label="재고"
+              label="수량"
               rules={[{ required: true, message: 'Please input this field!' }]}
             >
               <InputNumber

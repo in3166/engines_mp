@@ -93,14 +93,13 @@ function BranchTabContent(props) {
           <Button onClick={onclickUpdate}>
             <EditOutlined />
           </Button>
-          {showAddConfirm && (
-            <BranchAddPartModal
-              showAddConfirm={showAddConfirm}
-              setshowAddConfirm={setshowAddConfirm}
-              Sites={Sites}
-              reload={reload}
-            />
-          )}
+
+          <BranchAddPartModal
+            showAddConfirm={showAddConfirm}
+            setshowAddConfirm={setshowAddConfirm}
+            Sites={Sites}
+            reload={reload}
+          />
 
           {showUpdateConfirm && (
             <BranchUpdatePartModal

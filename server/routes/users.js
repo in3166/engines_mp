@@ -18,7 +18,7 @@ router.get("/auth", auth, (req, res) => {
     isAuth: true,
     email: req.user.email,
     name: req.user.name,
-    role: req.user.role,
+    role: req.user.role.id,
     department: req.user.department,
     position: req.user.position,
   });
@@ -126,6 +126,7 @@ router.get("/getAllUsers", (req, res) => {
 router.post("/changeExpertRole", (req, res) => {
   let direction = req.body.direction;
   let users = req.body.users;
+  let role = req.body.role;
   // console.log(direction)
   // console.log(users)
   // 전문가에서 제거
@@ -141,7 +142,7 @@ router.post("/changeExpertRole", (req, res) => {
       //console.log(user)
       User.updateMany(
         { id: user.id },
-        { role: user.chosen === 0 ? 2 : 0 },
+        { role: direction === 'right' ? role : { id: 0, name: '일반 사용자' } },
         { new: false },
         cb
       );

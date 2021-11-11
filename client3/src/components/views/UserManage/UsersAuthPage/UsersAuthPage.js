@@ -40,13 +40,7 @@ function UsersRolePage(props) {
     axios.get('/api/users/getAllUsers').then(res => {
       console.log(res.data.users);
       for (let i = 0; i < res.data.users.length; i += 1) {
-        let role = '';
-
         if (res.data.users[i].role !== 1) {
-          if (res.data.users[i].role === 0) role = '일반 사용자';
-          else if (res.data.users[i].role === 2) role = '전문가';
-          else if (res.data.users[i].role === 3) role = '엔지니어';
-
           const data = {
             key: i.toString(),
             id: `${res.data.users[i].id}`,
@@ -54,7 +48,7 @@ function UsersRolePage(props) {
             email: res.data.users[i].email,
             department: res.data.users[i].department,
             position: res.data.users[i].position.name,
-            role,
+            role: res.data.users[i].role.name,
           };
           tempUser.push(data);
         }

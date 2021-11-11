@@ -4,6 +4,9 @@ import { Switch, Route, withRouter, useLocation } from 'react-router-dom';
 import LandingPage from './components/views/LandingPage/LandingPage';
 import UsersAuth from './components/views/UserManage/UsersAuthPage/UsersAuthPage';
 import AddExpertPage from './components/views/ExpertManage/AddExpertPage/AddExpertPage';
+import ExpertGroup from './components/views/ExpertManage/ExpertGroup/ExpertGroup';
+import ExpertAuth from './components/views/ExpertManage/ExpertAuthPage/ExpertAuth';
+
 import NotFound from './components/views/NotFound/NotFound';
 import PositionManagePage from './components/views/UserManage/PositionMangePage/PositionManagePage';
 import DepartmentManagePage from './components/views/UserManage/DepartmentManagePage/DepartmentManagePage';
@@ -75,13 +78,23 @@ function App() {
               <Switch>
                 <Route exact path="/" component={Auth(LandingPage, null)} />
                 <Route
-                  path="/managePosition"
-                  component={Auth(PositionManagePage, null)}
-                />
-                <Route
                   // render={() => performance.mark('initialize_page_change')}
                   path="/addExpert"
                   component={Auth(AddExpertPage, null)}
+                />
+                <Route
+                  // render={() => performance.mark('initialize_page_change')}
+                  path="/expertGroup"
+                  component={Auth(ExpertGroup, null)}
+                />
+                <Route
+                  // render={() => performance.mark('initialize_page_change')}
+                  path="/expertAuth"
+                  component={Auth(ExpertAuth, null)}
+                />
+                <Route
+                  path="/managePosition"
+                  component={Auth(PositionManagePage, null)}
                 />
                 <Route
                   path="/manageDepartment"

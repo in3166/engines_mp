@@ -27,3 +27,9 @@ export const UPDATE_SITE = 'update_site';
 export const DELETE_SITE = 'delete_site';
 export const ADD_SITE_ENGINE = 'add_site_engine';
 export const DELETE_SITE_ENGINES = 'delete_site_engines';
+
+// Expert
+export const GET_ALL_EXPERTS = 'get_all_experts';
+export const ADD_EXPERT = 'add_expert';
+export const UPDATE_EXPERT = 'update_expert';
+export const DELETE_EXPERT = 'delete_expert';

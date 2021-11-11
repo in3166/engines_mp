@@ -125,14 +125,13 @@ function HeadquartersStocksPage(props) {
             <Button onClick={() => setshowAddConfirm(true)}>
               <PlusOutlined />
             </Button>
-            {showAddConfirm && (
-              <PartAddModal
-                showAddConfirm={showAddConfirm}
-                setshowAddConfirm={setshowAddConfirm}
-                Sites={Sites}
-                reload={reload}
-              />
-            )}
+
+            <PartAddModal
+              showAddConfirm={showAddConfirm}
+              setshowAddConfirm={setshowAddConfirm}
+              Sites={Sites}
+              reload={reload}
+            />
 
             <Button onClick={onclickUpdate}>
               <EditOutlined />

@@ -35,7 +35,6 @@ router.post("/addEnginRequiredPart", async (req, res) => {
 
   await Promise.all(findPromise)
     .then((re) => {
-      console.log("Res: ", re);
       return res.status(200).json({ success: true });
     })
     .catch((err) => {
