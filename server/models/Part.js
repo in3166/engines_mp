@@ -14,12 +14,19 @@ const partSchema = mongoose.Schema({
     },
     defaultLifespan: {
         type: Number,
+        default:0,
     },
     actualLifespan: {
         type: Number,
+        default:0,
     },
     expectLifespan:{
         type: Number,
+        default:0,
+    },
+    maintenancePeriod:{
+        type: Number,
+        default:0,
     },
     // futureReplace:{
     //     type: Date

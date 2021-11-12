@@ -116,7 +116,7 @@ function AddExpertPage(props) {
                 ExpertsGroup.map((value, i) => {
                   const key = `tabs${i}`;
                   return (
-                    <TabPane tab={value.id} key={key}>
+                    <TabPane tab={value.name} key={key}>
                       <ExpertTransfer
                         key={key}
                         userList={userList}

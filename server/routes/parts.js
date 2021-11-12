@@ -55,7 +55,7 @@ async function findQ(reqid) {
   return { ok, fail, undefined };
 }
 
-router.post("/getAllParts", (req, res) => {
+router.get("/getAllParts", (req, res) => {
   Part.find().exec((err, parts) => {
     if (err) {
       return res.json({ success: false, err });
@@ -69,37 +69,44 @@ router.post("/getAllParts", (req, res) => {
 
 // 부품 정보 변경
 router.post("/updatePart", (req, res) => {
-  Part.findOne({ id: req.body.id, _id: { $ne: req.body._id } }, (err, part) => {
-    if (err) {
-      return res.status(400).json({ success: false, err });
-    }
-    if (part) {
-      return res.json({
-        success: false,
-        message: "아이디가 이미 존재합니다.",
-      });
-    } else {
+  // console.log("req.body._id: ", req.body._id)
+  // Part.findOne({ _id: req.body._id }, (err, part) => {
+  //   console.log("part: ",part)
+  //   if (err) {
+  //     console.log("err1: ", err);
+  //     return res.status(400).json({ success: false, err });
+  //   }
+  //   if (part) {
+  //     return res.json({
+  //       success: false,
+  //       message: "아이디가 이미 존재합니다.",
+  //     });
+  //   } else {
       Part.findOneAndUpdate(
         { _id: req.body._id },
         {
-          section1: req.body.section1,
-          section2: req.body.section2,
-          name: req.body.name,
+          section1: req.body?.section1,
+          section2: req.body?.section2,
+          name: req.body?.name,
           defaultLifespan: req.body.defaultLifespan,
           expectLifespan: req.body.expectLifespan,
           actualLifespan: req.body.actualLifespan,
+          maintenancePeriod: req.body?.maintenancePeriod,
           price: req.body.price,
           desc: req.body.desc,
         },
+        {new:true,omitUndefined:true},
         (err, doc) => {
+          console.log("err2: ", err);
+          console.log("doc: ", doc);
           if (err) return res.status(400).json({ success: false, err });
           return res.status(200).send({
             success: true,
           });
         }
       );
-    }
-  });
+    //}
+  //});
 });
 
 // 부품 목록 부품 추가
@@ -114,28 +121,28 @@ router.post("/addPart", (req, res) => {
   //       message: "아이디가 이미 존재합니다.",
   //     });
   //   } else {
-      Part.findOne({ name: req.body.name }, (err, part) => {
-        if (part) {
-          return res.json({
-            success: false,
-            message: "부품이 이미 존재합니다.",
-          });
-        } else {
-          const part = new Part(req.body);
-          part.save((err, partInfo) => {
-            if (err) {
-              console.log("err2: ", err);
-              return res.status(400).json({ success: false, err });
-            }
-            return res.status(200).json({
-              success: true,
-              message: "부품을 추가했습니다.",
-            });
-          });
-        }
+  Part.findOne({ name: req.body.name }, (err, part) => {
+    if (part) {
+      return res.json({
+        success: false,
+        message: "부품이 이미 존재합니다.",
       });
+    } else {
+      const part = new Part(req.body);
+      part.save((err, partInfo) => {
+        if (err) {
+          console.log("err2: ", err);
+          return res.status(400).json({ success: false, err });
+        }
+        return res.status(200).json({
+          success: true,
+          message: "부품을 추가했습니다.",
+        });
+      });
+    }
+  });
   //  }
- // });
+  // });
 });
 
 module.exports = router;

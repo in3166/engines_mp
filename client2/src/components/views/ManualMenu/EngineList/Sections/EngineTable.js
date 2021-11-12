@@ -176,6 +176,8 @@ function EngineTable(props) {
         columns={columns2}
         dataSource={Engines}
         rowKey="_id"
+        style={{ overflow: 'auto' }}
+        scroll
       />
 
       {ShowPartsModal && (

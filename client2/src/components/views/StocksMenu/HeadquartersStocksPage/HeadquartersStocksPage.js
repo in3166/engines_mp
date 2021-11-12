@@ -171,6 +171,8 @@ function HeadquartersStocksPage(props) {
             columns={columns}
             dataSource={Sites.partStock}
             rowKey={a => a.part.name}
+            style={{ overflow: 'auto' }}
+            scroll
           />
         </Spin>
       </div>

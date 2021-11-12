@@ -10,7 +10,7 @@ import { PART_SERVER } from '../components/Config';
 
 export function getAllParts(dataToSubmit) {
   const request = axios
-    .post(`${PART_SERVER}/getAllParts`, dataToSubmit)
+    .get(`${PART_SERVER}/getAllParts`, dataToSubmit)
     .then(response => response.data);
 
   return {

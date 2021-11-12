@@ -15,6 +15,13 @@ router.get("/getAllSites", (req, res) => {
         model: "Part",
       },
     })
+    .populate({
+      path: "engines.repairHistory",
+      populate: {
+        path: "part",
+        model: "Part",
+      },
+    })
     .populate("partStock.part")
     .exec((err, sites) => {
       if (err) {
@@ -71,6 +78,7 @@ router.post("/addSitePart", (req, res) => {
           {
             $push: { partStock: { part: req.body.id, stock: req.body.stock } },
           },
+          {new:true,omitUndefined:true},
           (err, site) => {
             if (err) {
               return res.status(400).json({ success: false, err });
@@ -117,7 +125,8 @@ router.post("/deleteSitePart", async (req, res) => {
       {
         id: req.body.id,
       },
-      { $pull: { partStock: { part: part } } }
+      { $pull: { partStock: { part: part } } },
+      {new:true,omitUndefined:true},
     );
   });
 

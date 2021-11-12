@@ -57,11 +57,11 @@ router.post("/updateExpert", (req, res) => {
   console.log(req.body)
   Expert.findOne(
     { id: req.body.id, _id: { $ne: req.body._id } },
-    (err, part) => {
+    (err, engine) => {
       if (err) {
         return res.status(400).json({ success: false, err });
       }
-      if (part) {
+      if (engine) {
         return res.json({
           success: false,
           message: "아이디가 이미 존재합니다.",
@@ -75,6 +75,7 @@ router.post("/updateExpert", (req, res) => {
             desc: req.body.desc,
             role: req.body.role
           },
+          {new:true,omitUndefined:true},
           (err, doc) => {
             if (err) return res.status(400).json({ success: false, err });
             return res.status(200).send({
@@ -87,7 +88,7 @@ router.post("/updateExpert", (req, res) => {
   );
 });
 
-// 직급 삭제
+// 전문가 그룹 삭제
 router.post("/deleteExpert", async (req, res) => {
   // Object ID로 Site, Engine에서 쓰였는지 찾기
   console.log("ex name: ", req.body.name);

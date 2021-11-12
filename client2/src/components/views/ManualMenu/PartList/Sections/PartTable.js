@@ -114,6 +114,8 @@ function PartTable(props) {
         dataSource={Parts}
         rowKey="_id"
         showSorterTooltip={false}
+        style={{ overflow: 'auto' }}
+        scroll
       />
     </>
   );

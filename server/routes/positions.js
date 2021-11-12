@@ -73,6 +73,7 @@ router.post("/updatePosition", (req, res) => {
             name: req.body.name,
             desc: req.body.desc,
           },
+          {new:true,omitUndefined:true},
           (err, doc) => {
             if (err) return res.status(400).json({ success: false, err });
             return res.status(200).send({

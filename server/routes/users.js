@@ -166,6 +166,7 @@ router.post("/changeUser", (req, res) => {
       department: req.body.department,
       position: req.body.position,
     },
+    {new:true,omitUndefined:true},
     (err, doc) => {
       if (err) return res.json({ success: false, err });
       return res.status(200).send({
@@ -201,6 +202,7 @@ router.post("/updateUser", (req, res) => {
             position: req.body.position,
             role: req.body.role,
           },
+          {new:true,omitUndefined:true},
           (err, doc) => {
             if (err) return res.json({ success: false, err });
             return res.status(200).send({

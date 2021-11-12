@@ -136,6 +136,8 @@ function BranchTabContent(props) {
           columns={columns}
           dataSource={Parts}
           rowKey={a => a.part.name}
+          style={{ overflow: 'auto' }}
+          scroll
         />
       </Spin>
     </div>

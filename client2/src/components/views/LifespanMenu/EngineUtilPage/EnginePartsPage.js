@@ -1,31 +1,28 @@
 import React, { useState, useEffect } from 'react';
-import { Breadcrumb, Tabs, message, Button, Spin } from 'antd';
+import { Breadcrumb, Button, message, Spin } from 'antd';
 import { ReloadOutlined } from '@ant-design/icons';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import EngineList from './Sections/EngineList';
-import { getAllSites } from '../../../../_actions/site_actions';
+import { getAllEngines } from '../../../../_actions/engine_actions';
 import './Sections/antdTable.css';
-
-const { TabPane } = Tabs;
 
 function EnginePartsPage(props) {
   const { user } = props;
   console.log(user);
-  const [Sites, setSites] = useState([]);
+  const [Engines, setEngines] = useState([]);
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
-  const site = useSelector(state => state.site.sites);
-
-  // console.log('site: ', site?.sites);
-  // console.log(site.sites);
+  const engine = useSelector(state => state?.engine?.engines);
+  // console.log('site: ', site?.Engines);
+  // console.log(site.Engines);
 
   const reload = () => {
     setLoading(true);
-    dispatch(getAllSites())
+    dispatch(getAllEngines())
       .then(res => {
         if (res.payload.success) {
-          setSites(res.payload.sites);
+          setEngines(res.payload.engines);
         } else {
           message.error(res.payload.err);
         }
@@ -38,9 +35,9 @@ function EnginePartsPage(props) {
       });
   };
 
-  const getSites = () => {
-    if (site?.sites) {
-      setSites(site.sites);
+  const getEngines = () => {
+    if (engine?.engines) {
+      setEngines(engine.engines);
     } else {
       reload();
     }
@@ -49,7 +46,7 @@ function EnginePartsPage(props) {
   const useMountEffect = fun => {
     useEffect(fun, []);
   };
-  useMountEffect(getSites);
+  useMountEffect(getEngines);
 
   // if (!user?.userData?.isAuth) return null;
 
@@ -60,28 +57,21 @@ function EnginePartsPage(props) {
         <Breadcrumb.Item>수명 데이터 관리</Breadcrumb.Item>
         <Breadcrumb.Item>엔진별 부품 목록</Breadcrumb.Item>
       </Breadcrumb>
-      <Tabs
-        defaultActiveKey="1"
-        size="large"
-        style={{ background: 'white', padding: '0 20px 10px 20px' }}
-        tabBarExtraContent={
+      <div style={{ padding: 20, backgroundColor: 'white' }}>
+        <div style={{ float: 'left' }}>
+          <h3>Engines</h3>
+        </div>
+        <div style={{ float: 'right' }}>
           <Button onClick={reload}>
             <ReloadOutlined />
           </Button>
-        }
-      >
-        {Sites.length > 0 &&
-          Sites.map((value, i) => {
-            const key = `tabs${i}`;
-            return (
-              <TabPane tab={value.name} key={key}>
-                <Spin spinning={loading}>
-                  <EngineList site={value} engine={value.engines} />
-                </Spin>
-              </TabPane>
-            );
-          })}
-      </Tabs>
+        </div>
+        <br />
+        <br />
+        <Spin spinning={loading}>
+          <EngineList engine={Engines} />
+        </Spin>
+      </div>
     </div>
   );
 }

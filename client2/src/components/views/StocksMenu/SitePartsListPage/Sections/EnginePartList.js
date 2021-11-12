@@ -17,6 +17,8 @@ function EngineList(props) {
         columns={partCol}
         dataSource={parts}
         rowKey={a => a?.part?.name}
+        style={{ overflow: 'auto' }}
+        scroll
       />
     </>
   );
