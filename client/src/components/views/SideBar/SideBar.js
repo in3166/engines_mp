@@ -76,7 +76,6 @@ function SideBar() {
             console.log(v);
             return (
               <Menu.Item key="/site/1">
-                
                 <Link to="/site/1">Stie-1</Link>
               </Menu.Item>
             );

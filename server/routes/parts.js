@@ -82,30 +82,30 @@ router.post("/updatePart", (req, res) => {
   //       message: "아이디가 이미 존재합니다.",
   //     });
   //   } else {
-      Part.findOneAndUpdate(
-        { _id: req.body._id },
-        {
-          section1: req.body?.section1,
-          section2: req.body?.section2,
-          name: req.body?.name,
-          defaultLifespan: req.body.defaultLifespan,
-          expectLifespan: req.body.expectLifespan,
-          actualLifespan: req.body.actualLifespan,
-          maintenancePeriod: req.body?.maintenancePeriod,
-          price: req.body.price,
-          desc: req.body.desc,
-        },
-        {new:true,omitUndefined:true},
-        (err, doc) => {
-          console.log("err2: ", err);
-          console.log("doc: ", doc);
-          if (err) return res.status(400).json({ success: false, err });
-          return res.status(200).send({
-            success: true,
-          });
-        }
-      );
-    //}
+  Part.findOneAndUpdate(
+    { _id: req.body._id },
+    {
+      section1: req.body?.section1,
+      section2: req.body?.section2,
+      name: req.body?.name,
+      defaultLifespan: req.body.defaultLifespan,
+      expectLifespan: req.body.expectLifespan,
+      actualLifespan: req.body.actualLifespan,
+      maintenancePeriod: req.body?.maintenancePeriod,
+      price: req.body.price,
+      desc: req.body.desc,
+    },
+    { new: true, omitUndefined: true },
+    (err, doc) => {
+      console.log("err2: ", err);
+      console.log("doc: ", doc);
+      if (err) return res.status(400).json({ success: false, err });
+      return res.status(200).send({
+        success: true,
+      });
+    }
+  );
+  //}
   //});
 });
 
