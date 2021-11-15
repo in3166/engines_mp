@@ -6,9 +6,11 @@ import LoginPage from './components/views/LoginPage/LoginPage';
 import RegisterPage from './components/views/RegisterPage/RegisterPage';
 import EnginePage from './components/views/SitesEngines/EnginePage';
 import UserPage from './components/views/UserPage/UserPage';
-import PredictResultPage from './components/views/PredictResultPage/PredictResultPage';
+import MachinePredictPage from './components/views/PredictResultPage/MachinePredictPage/MachinePredictPage';
+import EngineerPredictPage from './components/views/PredictResultPage/EngineerPredictPage/EngineerPredictPage';
+import ExpertPredictPage from './components/views/PredictResultPage/ExpertPredictPage/ExpertPredictPage';
+import SynthesisPredictPage from './components/views/PredictResultPage/SynthesisPredictPage/SynthesisPredictPage';
 import NotFound from './components/views/NotFound/NotFound';
-import EngineerPredictPage from './components/views/PredictPage/EngineerPredictPage';
 import Auth from './hoc/auth';
 import ContentLayout from './components/utils/ContentLayout/ContentLayout';
 
@@ -30,12 +32,20 @@ function App() {
 
                 <Route path="/user" component={Auth(UserPage, null)} />
                 <Route
-                  path="/predictResult"
-                  component={Auth(PredictResultPage, null)}
+                  path="/machinePredict"
+                  component={Auth(MachinePredictPage, null)}
                 />
                 <Route
                   path="/engineerPredict"
                   component={Auth(EngineerPredictPage, null)}
+                />
+                <Route
+                  path="/expertPredict"
+                  component={Auth(ExpertPredictPage, null)}
+                />
+                <Route
+                  path="/synthesisPredict"
+                  component={Auth(SynthesisPredictPage, null)}
                 />
                 <Route component={NotFound} />
               </Switch>

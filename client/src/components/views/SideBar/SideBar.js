@@ -34,10 +34,7 @@ function SideBar() {
     getAllSites();
   }, []);
 
-  // console.log('Sites: ', Sites);
-
-  const href2 = window.location.href.split('/');
-  const href = href2[3];
+  const href = window.location.pathname;
 
   const onCollapse = Collapsed => {
     setCollapsed(Collapsed);
@@ -55,10 +52,10 @@ function SideBar() {
     >
       <Menu
         mode="inline"
-        defaultSelectedKeys={[`/${href}`]}
-        selectedKeys={[`/${href}`]}
+        defaultSelectedKeys={[`${href}`]}
+        selectedKeys={[`${href}`]}
         style={{ height: '100%', borderRight: 0 }}
-        defaultOpenKeys={['sub1', 'sub2']}
+        defaultOpenKeys={['sub5', 'sub2']}
       >
         <Menu.Item key="/" icon={<DashboardOutlined />}>
           <Link to="/">DashBoard</Link>
@@ -72,24 +69,25 @@ function SideBar() {
           <Menu.Item key="5">Engine-4</Menu.Item>
         </SubMenu> */}
         <SubMenu key="sub5" icon={<SettingFilled />} title="Sites">
-          {Sites?.map(v => {
-            console.log(v);
-            return (
-              <Menu.Item key={`/site/${v.id}`}>
-                <Link to={`/site/${v.id}`}>{v.name}</Link>
-              </Menu.Item>
-            );
-          })}
+          {Sites?.map(v => (
+            <Menu.Item key={`/site/${v.id}`}>
+              <Link to={`/site/${v.id}`}>{v.name}</Link>
+            </Menu.Item>
+          ))}
         </SubMenu>
         <SubMenu key="sub2" icon={<LaptopOutlined />} title="예측 결과 분석">
-          <Menu.Item key="/predictResult">
-            <Link to="/predictResult">기계 분석</Link>
+          <Menu.Item key="/machinePredict">
+            <Link to="/machinePredict">기계 분석</Link>
           </Menu.Item>
           <Menu.Item key="/engineerPredict">
             <Link to="/engineerPredict">엔지니어 분석</Link>
           </Menu.Item>
-          <Menu.Item key="8">전문가 분석</Menu.Item>
-          <Menu.Item key="9">통합 분석</Menu.Item>
+          <Menu.Item key="/expertPredict">
+            <Link to="/expertPredict">전문가 분석</Link>
+          </Menu.Item>
+          <Menu.Item key="/synthesisPredict">
+            <Link to="/synthesisPredict">통합 분석</Link>
+          </Menu.Item>
         </SubMenu>
         {/* <SubMenu key="sub5" icon={<HddOutlined />} title="부품/자재 관리">
           <Menu.Item key="16">

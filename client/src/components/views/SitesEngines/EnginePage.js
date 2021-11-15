@@ -48,12 +48,36 @@ function EnginePage(props) {
       setLoading(false);
     }, 300);
   };
-  console.log('Site: ', Site);
 
   const useMountEffect = fun => {
     useEffect(fun, []);
   };
   useMountEffect(getSite);
+  const randData = () => {
+    const rand = [];
+    const max = 95;
+    const min = 15;
+    for (let i = 0; i < 20; i += 1) {
+      const randomNum = Math.random() * (max - min + 1) + min;
+      const randomNumFloor = Math.floor(randomNum);
+      rand.push(randomNumFloor);
+    }
+
+    const d1 = {
+      labels: ['', '', '', '', '', '', '', '', '', '', ''],
+      datasets: [
+        {
+          label: 'Dataset',
+          fill: true,
+          backgroundColor: 'rgba(75,192,192,0.2)',
+          borderColor: 'rgba(75,192,192,1)',
+        },
+      ],
+    };
+
+    d1.datasets[0].data = rand;
+    setLineData(d1);
+  };
 
   return (
     <div style={{ width: '100%', flex: '1 1 0', minWidth: '0' }}>
@@ -67,6 +91,7 @@ function EnginePage(props) {
               <ReloadOutlined onClick={getSite} />
             </Button>
           }
+          onChange={randData}
         >
           {Site?.engines?.length > 0 &&
             Site.engines.map(v => (
