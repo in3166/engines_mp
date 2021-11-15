@@ -131,6 +131,11 @@
     - 프로젝트별 IP 변수 추가
 
       - ./src/ipconfig.json 파일로 통합
+      ```json
+      {
+        "IP": "http://ip"
+      }
+      ```
 
     - App.js
     - Navbar/

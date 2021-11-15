@@ -5,7 +5,7 @@ module.exports = function (app) {
   app.use(
     '/api',
     createProxyMiddleware({
-      target: `${CONFIG.IP}:5000`,
+      target: `${CONFIG.IP}:13004`,
       changeOrigin: true,
     }),
   );

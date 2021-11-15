@@ -85,13 +85,13 @@ router.post("/updatePart", (req, res) => {
   Part.findOneAndUpdate(
     { _id: req.body._id },
     {
-      section1: req.body?.section1,
-      section2: req.body?.section2,
-      name: req.body?.name,
+      section1: req.body.section1,
+      section2: req.body.section2,
+      name: req.body.name,
       defaultLifespan: req.body.defaultLifespan,
       expectLifespan: req.body.expectLifespan,
       actualLifespan: req.body.actualLifespan,
-      maintenancePeriod: req.body?.maintenancePeriod,
+      maintenancePeriod: req.body.maintenancePeriod,
       price: req.body.price,
       desc: req.body.desc,
     },

@@ -34,7 +34,7 @@ function SideBar() {
     getAllSites();
   }, []);
 
-  console.log('Sites: ', Sites);
+  // console.log('Sites: ', Sites);
 
   const href2 = window.location.href.split('/');
   const href = href2[3];
@@ -63,20 +63,20 @@ function SideBar() {
         <Menu.Item key="/" icon={<DashboardOutlined />}>
           <Link to="/">DashBoard</Link>
         </Menu.Item>
-        <SubMenu key="sub1" icon={<SettingFilled />} title="Engines">
+        {/* <SubMenu key="sub1" icon={<SettingFilled />} title="Engines">
           <Menu.Item key="/engine/1">
             <Link to="/engine/1">Engine-1</Link>
           </Menu.Item>
           <Menu.Item key="3">Engine-2</Menu.Item>
           <Menu.Item key="4">Engine-3</Menu.Item>
           <Menu.Item key="5">Engine-4</Menu.Item>
-        </SubMenu>
+        </SubMenu> */}
         <SubMenu key="sub5" icon={<SettingFilled />} title="Sites">
           {Sites?.map(v => {
             console.log(v);
             return (
-              <Menu.Item key="/site/1">
-                <Link to="/site/1">Stie-1</Link>
+              <Menu.Item key={`/site/${v.id}`}>
+                <Link to={`/site/${v.id}`}>{v.name}</Link>
               </Menu.Item>
             );
           })}
