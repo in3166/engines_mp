@@ -1,24 +1,25 @@
 import React, { useState } from 'react';
 import {
   Table,
-  Space,
   Button,
-  message,
-  Popconfirm,
   Spin,
   Breadcrumb,
+  Space,
+  Popconfirm,
+  message,
 } from 'antd';
-import {
-  DeleteFilled,
-  EditOutlined,
-  QuestionCircleOutlined,
-} from '@ant-design/icons';
-import axios from 'axios';
 // import { useDispatch } from 'react-redux';
 // import PropTypes from 'prop-types';
 // import { deleteUsers } from '../../../_actions/user_actions';
+import {
+  DeleteFilled,
+  EditOutlined,
+  PlusOutlined,
+  QuestionCircleOutlined,
+} from '@ant-design/icons';
 import UpdateModal from './Sections/UpdateModal';
-import { datas2 } from './Sections/datas';
+import { datas2 } from './datas/datas';
+import columns from './datas/coulmns';
 
 function LifeCodePage() {
   // const { user } = props;
@@ -70,19 +71,19 @@ function LifeCodePage() {
   //   }, [user]);
 
   // 개별 삭제 버튼
-  const deleteConfirm = userDel => {
-    const body = {
-      id: userDel.id,
-    };
+  // const deleteConfirm = userDel => {
+  //   const body = {
+  //     id: userDel.id,
+  //   };
 
-    axios.post('/api/users/deleteUser', body).then(res => {
-      if (res.data.success) {
-        message.success('회원 탈퇴를 완료하였습니다.');
-      } else {
-        message.error('회원 탈퇴를 실패하였습니다.', res.data.err);
-      }
-    });
-  };
+  //   axios.post('/api/users/deleteUser', body).then(res => {
+  //     if (res.data.success) {
+  //       message.success('회원 탈퇴를 완료하였습니다.');
+  //     } else {
+  //       message.error('회원 탈퇴를 실패하였습니다.', res.data.err);
+  //     }
+  //   });
+  // };
 
   // 수정 버튼 modal 열기
   const onClickUpdate = data => {
@@ -90,13 +91,6 @@ function LifeCodePage() {
     console.log(data);
     setModalData(tempData);
     setModalVisible(true);
-  };
-
-  // 수정 모달 권한 변경
-  const handleRoleChange = value => {
-    // modalData.role = value; set으로 하지않으면 rerender가 안됨
-    // selected = value;
-    setModalData(prev => ({ ...prev, role: value }));
   };
 
   //   // 회원 탈퇴 버튼
@@ -124,106 +118,12 @@ function LifeCodePage() {
   //       });
   //   };
 
-  const columns = [
-    {
-      title: 'ID',
-      dataIndex: 'id',
-      sorter: {
-        compare: (a, b) => a.id.localeCompare(b.id),
-        multiple: 1,
-      },
-      width: 100,
-      minWidth: 10,
-      align: 'center',
-    },
-    {
-      title: '이름',
-      dataIndex: 'name',
-      sorter: {
-        compare: (a, b) => a.name.localeCompare(b.name),
-        multiple: 2,
-      },
-      width: 160,
-      minWidth: 10,
-      align: 'center',
-      responsive: ['sm'],
-    },
-    {
-      title: '설명',
-      dataIndex: 'desc',
-      sorter: {
-        compare: (a, b) => a.desc.localeCompare(b.desc),
-        multiple: 3,
-      },
-      width: 240,
-      minWidth: 10,
-      align: 'center',
-      responsive: ['md'],
-    },
-    {
-      title: '예상 수명',
-      dataIndex: 'lifespan',
-      sorter: {
-        compare: (a, b) => a - b,
-        multiple: 3,
-      },
-      width: 110,
-      minWidth: 10,
-      align: 'center',
-    },
-    {
-      title: '수정',
-      dataIndex: 'update',
-      key: 'action',
-      render: (r, userUp) => {
-        return (
-          <Space size="middle">
-            <Button onClick={() => onClickUpdate(userUp)}>
-              <EditOutlined />
-            </Button>
-          </Space>
-        );
-      },
-      width: 70,
-      minWidth: 10,
-      align: 'center',
-    },
-    {
-      title: '삭제',
-      key: 'action',
-      render: (r, userDel) => {
-        return (
-          <Space size="middle">
-            <Popconfirm
-              placement="leftBottom"
-              title="정말로 삭제하시겠습니까?"
-              onConfirm={() => deleteConfirm(userDel)}
-              okText="Yes"
-              cancelText="No"
-              icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
-            >
-              <Button>
-                <DeleteFilled />
-              </Button>
-            </Popconfirm>
-          </Space>
-        );
-      },
-      width: 70,
-      minWidth: 10,
-      align: 'center',
-      responsive: ['sm'],
-    },
-  ];
-
-  const onSelectChange = record => {
-    setSelectedRowKeys(record);
-    // setSelectedUsers(selected);
-  };
-
   const rowSelection = {
-    selectedRowKeys,
-    onChange: onSelectChange,
+    ...selectedRowKeys.id,
+    onChange: (a, record) => {
+      setSelectedRowKeys(record);
+      // setSelectedUsers(selected);
+    },
     selections: [
       Table.SELECTION_ALL,
       Table.SELECTION_NONE,
@@ -239,28 +139,57 @@ function LifeCodePage() {
         <Breadcrumb.Item>사용 연한 기초 관리</Breadcrumb.Item>
       </Breadcrumb>
       <Spin spinning={loading}>
-        <div style={{ float: 'right' }}>
-          <Button onClick={onClickUpdate}>추가</Button>
-          <Button onClick>삭제</Button>
-          <Button onClick>새로고침</Button>
-          <br />
-          <br />
-        </div>
+        <div style={{ padding: 20, backgroundColor: 'white' }}>
+          <div style={{ float: 'left' }}>
+            <h3>
+              <strong>사용 연한 기초</strong>
+            </h3>
+          </div>
+          <div style={{ float: 'right' }}>
+            <Space>
+              <Button onClick={onClickUpdate}>
+                <PlusOutlined />
+              </Button>
+              <Button onClick={onClickUpdate}>
+                <EditOutlined />
+              </Button>
+              <Space size="middle">
+                <Popconfirm
+                  placement="leftBottom"
+                  title="정말로 삭제하시겠습니까?"
+                  onConfirm={() => {
+                    message.success('삭제 완료');
+                  }}
+                  okText="Yes"
+                  cancelText="No"
+                  icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
+                >
+                  <Button>
+                    <DeleteFilled />
+                  </Button>
+                </Popconfirm>
+              </Space>
+            </Space>
+            <br />
+            <br />
+          </div>
 
-        <Table
-          style={{ overflow: 'auto' }}
-          rowSelection={rowSelection}
-          columns={columns}
-          dataSource={datas2}
-          bordered
-          tableLayout="auto"
-          scroll
-        />
+          <Table
+            style={{ overflow: 'auto' }}
+            rowSelection={rowSelection}
+            columns={columns}
+            dataSource={datas2}
+            bordered
+            tableLayout="auto"
+            scroll
+          />
+        </div>
       </Spin>
 
       <UpdateModal
         modalData={modalData}
-        handleRoleChange={handleRoleChange}
+        selectedRowKeys={selectedRowKeys}
+        setselectedRowKeys={setSelectedRowKeys}
         modalVisible={modalVisible}
         setModalVisible={setModalVisible}
       />

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Layout, Menu } from 'antd';
 import {
@@ -12,6 +12,7 @@ import {
   // IdcardOutlined,
 } from '@ant-design/icons';
 // import { useSelector } from 'react-redux';
+import axios from 'axios';
 import useWindowDimensions from '../../utils/WindowSize/useWindowDimensions';
 
 const { SubMenu } = Menu;
@@ -21,6 +22,20 @@ function SideBar() {
   const [Collapse, setCollapsed] = useState(false);
   const { width } = useWindowDimensions(Collapse);
   // const user = useSelector(state => state.user);
+  const [Sites, setSites] = useState([]);
+
+  const getAllSites = () => {
+    axios.get('/api/sites/getAllSites').then(res => {
+      setSites(res.data.sites);
+    });
+  };
+
+  useEffect(() => {
+    getAllSites();
+  }, []);
+
+  console.log('Sites: ', Sites);
+
   const href2 = window.location.href.split('/');
   const href = href2[3];
 
@@ -55,6 +70,17 @@ function SideBar() {
           <Menu.Item key="3">Engine-2</Menu.Item>
           <Menu.Item key="4">Engine-3</Menu.Item>
           <Menu.Item key="5">Engine-4</Menu.Item>
+        </SubMenu>
+        <SubMenu key="sub5" icon={<SettingFilled />} title="Sites">
+          {Sites?.map(v => {
+            console.log(v);
+            return (
+              <Menu.Item key="/site/1">
+                
+                <Link to="/site/1">Stie-1</Link>
+              </Menu.Item>
+            );
+          })}
         </SubMenu>
         <SubMenu key="sub2" icon={<LaptopOutlined />} title="예측 결과 분석">
           <Menu.Item key="/predictResult">

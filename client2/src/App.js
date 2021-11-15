@@ -4,10 +4,13 @@ import { Switch, Route, withRouter, useLocation } from 'react-router-dom';
 // import LandingPage from './components/views/LandingPage/LandingPage';
 import EnginePartsPage from './components/views/LifespanMenu/EngineUtilPage/EnginePartsPage';
 import LifeCodePage from './components/views/LifespanMenu/LifeCodePage/LifeCodePage';
+import PeriodFeedback from './components/views/LifespanMenu/PeriodFeedback/PeriodFeedback';
+
 import SitePartsListPage from './components/views/StocksMenu/SitePartsListPage/SitePartsListPage';
 import EnginePartsListPage from './components/views/StocksMenu/EnginePartsListPage/EnginePartsListPage';
 import HeadquartersStocksPage from './components/views/StocksMenu/HeadquartersStocksPage/HeadquartersStocksPage';
 import BranchStocksPage from './components/views/StocksMenu/BranchStocksPage/BranchStocksPage';
+import OrderParts from './components/views/StocksMenu/OrderPage/OrderParts';
 
 import PartMaintenancePeriod from './components/views/MaintenanceMenu/PartMaintenancePeriod/PartMaintenancePeriod';
 import PartReplacePeriod from './components/views/MaintenanceMenu/PartReplacePeriod/PartReplacePeriod';
@@ -55,6 +58,10 @@ function App() {
                 />
                 <Route path="/lifeCode" component={Auth(LifeCodePage, null)} />
                 <Route
+                  path="/periodFeedback"
+                  component={Auth(PeriodFeedback, null)}
+                />
+                <Route
                   path="/enginePartsList"
                   component={Auth(EnginePartsListPage, null)}
                 />
@@ -70,6 +77,7 @@ function App() {
                   path="/branchStocks"
                   component={Auth(BranchStocksPage, null)}
                 />
+                <Route path="/orderParts" component={Auth(OrderParts, null)} />
 
                 <Route
                   path="/partsMaintenanace"

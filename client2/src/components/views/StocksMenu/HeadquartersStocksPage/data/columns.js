@@ -1,10 +1,6 @@
 import React from 'react';
-import {
-  //   DeleteFilled,
-  QuestionCircleOutlined,
-  SendOutlined,
-} from '@ant-design/icons';
-import { Button, Popconfirm, Space, Tooltip } from 'antd';
+
+import { Tooltip } from 'antd';
 
 const columns = [
   {
@@ -83,30 +79,6 @@ const columns = [
     width: 100,
     responsive: ['sm'],
     render: value => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ','),
-  },
-  {
-    title: '주문',
-    key: 'action',
-    render: () => {
-      return (
-        <Space size="middle">
-          <Popconfirm
-            placement="leftBottom"
-            title="정말로 삭제하시겠습니까?"
-            onConfirm
-            okText="Yes"
-            cancelText="No"
-            icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
-          >
-            <Button>
-              <SendOutlined />
-            </Button>
-          </Popconfirm>
-        </Space>
-      );
-    },
-    width: 70,
-    align: 'center',
   },
 ];
 

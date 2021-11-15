@@ -54,8 +54,8 @@ function SideBar() {
           <Menu.Item key="/lifeCode">
             <Link to="/lifeCode">사용 연한 기초 관리</Link>
           </Menu.Item>
-          <Menu.Item key="/utilList">
-            <Link to="/utilList">실 사용 연한 피드백</Link>
+          <Menu.Item key="/periodFeedback">
+            <Link to="/periodFeedback">실 사용 연한 피드백</Link>
           </Menu.Item>
         </SubMenu>
         <SubMenu
