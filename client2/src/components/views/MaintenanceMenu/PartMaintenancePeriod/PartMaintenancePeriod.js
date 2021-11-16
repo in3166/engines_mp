@@ -58,8 +58,8 @@ function PartMaintenancePeriod(props) {
     <>
       <Breadcrumb style={{ margin: '16px 0' }}>
         <Breadcrumb.Item>부품/자재 관리</Breadcrumb.Item>
-        <Breadcrumb.Item>엔진 정비 메뉴얼</Breadcrumb.Item>
-        <Breadcrumb.Item>부품 목록</Breadcrumb.Item>
+        <Breadcrumb.Item>엔진 정비 주기 관리</Breadcrumb.Item>
+        <Breadcrumb.Item>부품 별 정비 주기</Breadcrumb.Item>
       </Breadcrumb>
       <div style={{ padding: 20, backgroundColor: 'white' }}>
         <div style={{ float: 'left' }}>

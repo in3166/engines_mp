@@ -23,7 +23,13 @@ const siteSchema = mongoose.Schema(
         _id: false,
         id: { type: String },
         engine: { type: mongoose.Schema.Types.ObjectId, ref: "Engine" },
-        repairHistory: [{date:{type: Date}, status: {type: String}, part: { type: mongoose.Schema.Types.ObjectId, ref: "Part" }}],
+        repairHistory: [
+          {
+            date: { type: Date },
+            status: { type: String },
+            part: { type: mongoose.Schema.Types.ObjectId, ref: "Part" },
+          },
+        ],
       },
     ],
     partStock: [

@@ -2,50 +2,81 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Modal, Form, Input, Select, DatePicker } from 'antd';
 import moment from 'moment';
+import axios from 'axios';
 
 const AddRepairList = props => {
-  const { SelectedRepair, setShowAddModal, ShowAddModal } = props;
-  console.log(SelectedRepair);
+  const { SelectedRepair, setShowAddModal, ShowAddModal, reload } = props;
+  const [form] = Form.useForm();
+
+  console.log('se: ', SelectedRepair);
+
+  const modalOnOk = input => {
+    console.log(new Date(input.date));
+    const body = {
+      id: SelectedRepair.id,
+      part: input.part,
+      status: input.status,
+      date: new Date(input.date),
+    };
+    console.log(body);
+    axios
+      .post('/api/sites/addSiteEngineMaintenance', body)
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => console.log(`${err}`))
+      .finally(() => {
+        setShowAddModal(false);
+        reload();
+      });
+  };
+
   return (
     <Modal
       title="수정 이력 추가"
       style={{ top: 200 }}
       visible={ShowAddModal}
       destroyOnClose
-      // onOk={form.submit}
+      onOk={form.submit}
       onCancel={() => setShowAddModal(false)}
     >
       <Form
         {...{ labelCol: { span: 6 }, wrapperCol: { span: 14 } }}
         name="userinfo-change"
         id="updateForm"
-        // form={form}
-        // onFinish={handleSubmit(modalOnOk)}
+        form={form}
+        onFinish={modalOnOk}
         preserve={false}
       >
-        <Form.Item label="엔진 이름">
-          <Input type="text" value={SelectedRepair?.engine?.name} readOnly />
+        <Form.Item
+          label="엔진 이름"
+          name="engine"
+          initialValue={SelectedRepair?.engine?.name}
+        >
+          <Input type="text" id="engine" name="engine" readOnly />
         </Form.Item>
-        <Form.Item label="부품">
-          <Select>
+        <Form.Item label="부품" name="part">
+          <Select id="part" name="part">
             {SelectedRepair?.engine?.requiredParts.map(v => (
-              <Select.Option value={v.part._id}>{v.part.name}</Select.Option>
+              <Select.Option value={v.part._id} key={v.part._id}>
+                {v.part.name}
+              </Select.Option>
             ))}
           </Select>
         </Form.Item>
-        <Form.Item label="상태">
-          <Select>
+        <Form.Item label="상태" name="status">
+          <Select id="status" name="status">
             <Select.Option value="정비">정비</Select.Option>
             <Select.Option value="교체">교체</Select.Option>
           </Select>
         </Form.Item>
-        <Form.Item label="날짜">
+        <Form.Item label="날짜" name="date">
           <DatePicker
-            onChange
-            onOk
-            showTime={{ format: 'HH:mm:ss' }}
+            id="date"
+            name="date"
+            showTime={{ defaultValue: moment('00:00:00', 'HH:mm:ss') }}
             format="YYYY-MM-DD HH:mm:ss"
-            defaultValue={moment('2015/01/01', 'YYYY-MM-DD HH:mm:ss')}
+            // defaultValue={moment('2015/01/01', 'YYYY-MM-DD HH:mm:ss')}
           />
         </Form.Item>
       </Form>
@@ -56,6 +87,7 @@ const AddRepairList = props => {
 AddRepairList.propTypes = {
   SelectedRepair: PropTypes.objectOf(PropTypes.any).isRequired,
   setShowAddModal: PropTypes.func.isRequired,
+  reload: PropTypes.func.isRequired,
   ShowAddModal: PropTypes.bool.isRequired,
 };
 

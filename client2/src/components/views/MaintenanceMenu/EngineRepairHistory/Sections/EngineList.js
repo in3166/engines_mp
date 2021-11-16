@@ -3,7 +3,6 @@ import { Table, Divider, Button, Space, message, Popconfirm } from 'antd';
 import PropTypes from 'prop-types';
 import {
   DeleteFilled,
-  EditOutlined,
   PlusOutlined,
   QuestionCircleOutlined,
 } from '@ant-design/icons';
@@ -13,20 +12,21 @@ import repairCol from '../data/repairCol';
 import SiteDescription from '../../../../utils/SiteDescription/SiteDescription';
 import UpdateRepairList from './UpdateRepairList';
 import AddRepairList from './AddRepairList';
+import DateFormat from '../../../../utils/DateFormatFunc/DateFormat';
 
 function EngineList(props) {
-  const { site, engine } = props;
+  const { site, engine, reload } = props;
   const [ShowUpdateModal, setShowUpdateModal] = useState(false);
   const [ShowAddModal, setShowAddModal] = useState(false);
   const [SelectedRepair, setSelectedRepair] = useState({});
   console.log('site: ', site);
   console.log('engine: ', engine);
 
-  const repairUpdateHandler = part => {
-    console.log(part);
-    setSelectedRepair(part);
-    setShowUpdateModal(true);
-  };
+  // const repairUpdateHandler = part => {
+  //   console.log(part);
+  //   setSelectedRepair(part);
+  //   setShowUpdateModal(true);
+  // };
 
   const repairAddHandler = v => {
     console.log('add: ', v);
@@ -36,24 +36,23 @@ function EngineList(props) {
 
   const deleteConfirm = id => {
     const body = {
-      id: [id],
+      site: site._id,
+      id,
     };
 
     axios
-      .post('/api/parts/deleteParts', body)
+      .post('/api/sites/deleteSiteEngineMaintenance', body)
       .then(res => {
         if (res.data.success) {
-          message.success('부품을 삭제하였습니다.');
+          message.success('정비 이력을 삭제하였습니다.');
         } else {
-          message.error(
-            '부품 삭제를 실패하였습니다. (다른 필드가 참조하고 있습니다.)',
-          );
+          message.error('정비 이력 삭제를 실패하였습니다.');
         }
       })
       .catch(err => {
         message.error(`[Error]: ${err}`);
-      });
-    // .finally(() => getParts());
+      })
+      .finally(() => reload());
   };
 
   const columnButton2 = [
@@ -76,22 +75,22 @@ function EngineList(props) {
   ];
 
   const columnButton = [
-    {
-      title: '수정',
-      key: 'action',
-      render: v => {
-        return (
-          <Space size="middle">
-            <Button onClick={() => repairUpdateHandler(v)}>
-              <EditOutlined />
-            </Button>
-          </Space>
-        );
-      },
-      width: 70,
-      align: 'center',
-      responsive: ['sm'],
-    },
+    // {
+    //   title: '수정',
+    //   key: 'action',
+    //   render: v => {
+    //     return (
+    //       <Space size="middle">
+    //         <Button onClick={() => repairUpdateHandler(v)}>
+    //           <EditOutlined />
+    //         </Button>
+    //       </Space>
+    //     );
+    //   },
+    //   width: 70,
+    //   align: 'center',
+    //   responsive: ['sm'],
+    // },
     {
       title: '삭제',
       key: 'action',
@@ -122,14 +121,24 @@ function EngineList(props) {
 
   const renderPartCol = [...repairCol, ...columnButton];
   const enginesCol = [...engineCol, ...columnButton2];
-
+  let check = true;
   const expandedRowRender = record => {
-    console.log(record, 'record');
+    let date = record.repairHistory;
+
+    if (check) {
+      date = date.map(v => {
+        const temp = v;
+        temp.date = DateFormat(new Date(v.date));
+        return temp;
+      });
+      check = false;
+    }
+
     return (
       <Table
         size="small"
         columns={renderPartCol}
-        dataSource={record.repairHistory}
+        dataSource={date}
         rowKey={a => a.part.id}
         bordered
       />
@@ -156,6 +165,7 @@ function EngineList(props) {
         ShowAddModal={ShowAddModal}
         setShowAddModal={setShowAddModal}
         SelectedRepair={SelectedRepair}
+        reload={reload}
       />
       <UpdateRepairList
         SelectedRepair={SelectedRepair}
@@ -171,4 +181,5 @@ export default EngineList;
 EngineList.propTypes = {
   site: PropTypes.objectOf(PropTypes.any).isRequired,
   engine: PropTypes.arrayOf(PropTypes.object).isRequired,
+  reload: PropTypes.func.isRequired,
 };

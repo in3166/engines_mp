@@ -6,22 +6,54 @@ import React from 'react';
 // import SideBar from '../SideBar/SideBar';
 
 import { Doughnut, Line } from 'react-chartjs-2';
-import { Layout, Breadcrumb, Row, Col, Progress } from 'antd';
+import { Layout, Breadcrumb, Row, Col, Progress, Collapse } from 'antd';
 // import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/icons';
 
 // const { SubMenu } = Menu;
 const { Content } = Layout;
-
-const data = {
-  labels: ['Red', 'Green', 'Yellow'],
-  datasets: [
-    {
-      data: [300, 50, 100],
-      backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
-      hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
-    },
-  ],
-};
+const { Panel } = Collapse;
+const data = [
+  {
+    labels: ['경고', '정상', '주의'],
+    datasets: [
+      {
+        data: [300, 50, 100],
+        backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
+        hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
+      },
+    ],
+  },
+  {
+    labels: ['경고', '정상', '주의'],
+    datasets: [
+      {
+        data: [30, 270, 90],
+        backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
+        hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
+      },
+    ],
+  },
+  {
+    labels: ['경고', '정상', '주의'],
+    datasets: [
+      {
+        data: [15, 250, 190],
+        backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
+        hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
+      },
+    ],
+  },
+  {
+    labels: ['경고', '정상', '주의'],
+    datasets: [
+      {
+        data: [150, 100, 250],
+        backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
+        hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
+      },
+    ],
+  },
+];
 
 const chartData = {
   labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
@@ -186,31 +218,93 @@ function LandingPage() {
             </div>
           </Col>
 
-          <Col xl={12} lg={12} md={12} xs={23}>
-            <div className="chart">
-              <h2>Engine1</h2>
-              <Doughnut data={data} />
-            </div>
-          </Col>
+          <Col lg={24} xs={24}>
+            <Collapse defaultActiveKey={['1']}>
+              <Panel header="본사" key="1">
+                <Row gutter={[16, 16]}>
+                  <Col xl={6} lg={12} md={23} xs={23}>
+                    <div className="chart">
+                      <h2>Engine1</h2>
+                      <Doughnut data={data[0]} />
+                    </div>
+                  </Col>
+                  <Col xl={6} lg={12} md={23} xs={23}>
+                    <div className="chart">
+                      <h2>Engine2</h2>
+                      <Doughnut data={data[1]} />
+                    </div>
+                  </Col>
+                  <Col xl={6} lg={12} md={23} xs={23}>
+                    <div className="chart">
+                      <h2>Engine3</h2>
+                      <Doughnut data={data[2]} />
+                    </div>
+                  </Col>
 
-          <Col xl={12} lg={12} md={12} xs={23}>
-            <div className="chart">
-              <h2>Engine2</h2>
-              <Doughnut data={data} />
-            </div>
-          </Col>
-          <Col xl={12} lg={12} md={12} xs={23}>
-            <div className="chart">
-              <h2>Engine3</h2>
-              <Doughnut data={data} />
-            </div>
-          </Col>
+                  <Col xl={6} lg={12} md={23} xs={23}>
+                    <div className="chart">
+                      <h2>Engine4</h2>
+                      <Doughnut data={data[3]} />
+                    </div>
+                  </Col>
+                </Row>
+              </Panel>
 
-          <Col xl={12} lg={12} md={12} xs={23}>
-            <div className="chart">
-              <h2>Engine4</h2>
-              <Doughnut data={data} />
-            </div>
+              <Panel header="site2" key="2">
+                <Row gutter={[16, 16]}>
+                  <Col xl={6} lg={12} md={23} xs={23}>
+                    <div className="chart">
+                      <h2>Engine1</h2>
+                      <Doughnut data={data[2]} />
+                    </div>
+                  </Col>
+                  <Col xl={6} lg={12} md={23} xs={23}>
+                    <div className="chart">
+                      <h2>Engine2</h2>
+                      <Doughnut data={data[1]} />
+                    </div>
+                  </Col>
+                  <Col xl={6} lg={12} md={23} xs={23}>
+                    <div className="chart">
+                      <h2>Engine3</h2>
+                      <Doughnut data={data[0]} />
+                    </div>
+                  </Col>
+                </Row>
+              </Panel>
+              <Panel header="site3" key="3">
+                <Row gutter={[16, 16]}>
+                  <Col xl={6} lg={12} md={23} xs={23}>
+                    <div className="chart">
+                      <h2>Engine1</h2>
+                      <Doughnut data={data[3]} />
+                    </div>
+                  </Col>
+                  <Col xl={6} lg={12} md={23} xs={23}>
+                    <div className="chart">
+                      <h2>Engine2</h2>
+                      <Doughnut data={data[0]} />
+                    </div>
+                  </Col>
+                </Row>
+              </Panel>
+              <Panel header="s44" key="4">
+                <Row gutter={[16, 16]}>
+                  <Col xl={6} lg={12} md={23} xs={23}>
+                    <div className="chart">
+                      <h2>Engine1</h2>
+                      <Doughnut data={data[1]} />
+                    </div>
+                  </Col>
+                  <Col xl={6} lg={12} md={23} xs={23}>
+                    <div className="chart">
+                      <h2>Engine2</h2>
+                      <Doughnut data={data[2]} />
+                    </div>
+                  </Col>
+                </Row>
+              </Panel>
+            </Collapse>
           </Col>
         </Row>
       </Content>

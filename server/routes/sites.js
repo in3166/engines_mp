@@ -78,7 +78,7 @@ router.post("/addSitePart", (req, res) => {
           {
             $push: { partStock: { part: req.body.id, stock: req.body.stock } },
           },
-          {new:true,omitUndefined:true},
+          { new: true, omitUndefined: true },
           (err, site) => {
             if (err) {
               return res.status(400).json({ success: false, err });
@@ -126,7 +126,7 @@ router.post("/deleteSitePart", async (req, res) => {
         id: req.body.id,
       },
       { $pull: { partStock: { part: part } } },
-      {new:true,omitUndefined:true},
+      { new: true, omitUndefined: true }
     );
   });
 
@@ -270,6 +270,59 @@ router.post("/addSiteEngine", async (req, res) => {
       return res.status(200).json({
         success: true,
         message: "엔진을 사이트에 추가했습니다.",
+      });
+    }
+  );
+});
+
+// 사이트별 엔진 정비/교체 이력 추가
+router.post("/addSiteEngineMaintenance", async (req, res) => {
+  // Object ID로 Site, Engine에서 쓰였는지 찾기
+  console.log("id: ", req.body.id);
+
+  Site.findOneAndUpdate(
+    { engines: { $elemMatch: { id: req.body.id } } },
+    {
+      $push: {
+        "engines.$.repairHistory": {
+          status: req.body.status,
+          part: req.body.part,
+          date: req.body.date,
+        },
+      },
+    },
+    (err, site) => {
+      if (err) {
+        return res.status(400).json({ success: false, err });
+      }
+      return res.status(200).json({
+        success: true,
+        message: "정비 이력을 추가했습니다.",
+      });
+    }
+  );
+});
+
+// 사이트별 엔진 정비/교체 이력 삭제
+router.post("/deleteSiteEngineMaintenance", async (req, res) => {
+  // Object ID로 Site, Engine에서 쓰였는지 찾기
+  Site.findOneAndUpdate(
+    { _id: req.body.site, "engines.repairHistory._id": req.body.id },
+    {
+      $pull: {
+        "engines.$.repairHistory": {
+          _id: req.body.id,
+        },
+      },
+    },
+    (err, site) => {
+      console.log("err: ", err);
+      if (err) {
+        return res.status(400).json({ success: false, err });
+      }
+      return res.status(200).json({
+        success: true,
+        message: "정비 이력을 추가했습니다.",
       });
     }
   );

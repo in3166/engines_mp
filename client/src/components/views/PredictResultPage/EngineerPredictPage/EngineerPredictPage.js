@@ -19,15 +19,9 @@ import datas2 from './data/datas2';
 import columns from './data/columns';
 import { getAllSites } from '../../../../_actions/site_actions';
 import PredictModal from './Sections/PredictModal';
+import randomRgba from '../../../utils/genRgba/randomRgba';
 
 const { TabPane } = Tabs;
-
-function randomRgba() {
-  const o = Math.round;
-  const r = Math.random;
-  const s = 255;
-  return `rgba(${o(r() * s)},${o(r() * s)},${o(r() * s)},${r().toFixed(1)})`;
-}
 
 function EngineerPredictPage() {
   const dispatch = useDispatch();

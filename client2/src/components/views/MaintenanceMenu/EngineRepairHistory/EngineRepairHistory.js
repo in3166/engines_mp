@@ -57,8 +57,8 @@ function EnginePartsPage(props) {
     <div style={{ width: '100%' }}>
       <Breadcrumb style={{ margin: '16px 0' }}>
         <Breadcrumb.Item>부품/자재 관리</Breadcrumb.Item>
-        <Breadcrumb.Item>수명 데이터 관리</Breadcrumb.Item>
-        <Breadcrumb.Item>엔진별 부품 목록</Breadcrumb.Item>
+        <Breadcrumb.Item>엔진 정비 주기 관리</Breadcrumb.Item>
+        <Breadcrumb.Item>정비 및 교체 이력</Breadcrumb.Item>
       </Breadcrumb>
       <Tabs
         defaultActiveKey="1"
@@ -76,7 +76,11 @@ function EnginePartsPage(props) {
             return (
               <TabPane tab={value.name} key={key}>
                 <Spin spinning={loading}>
-                  <EngineList site={value} engine={value.engines} />
+                  <EngineList
+                    site={value}
+                    engine={value.engines}
+                    reload={reload}
+                  />
                 </Spin>
               </TabPane>
             );
