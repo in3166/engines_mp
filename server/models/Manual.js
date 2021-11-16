@@ -16,6 +16,9 @@ const manualSchema = mongoose.Schema({
     engine:{
         type: mongoose.Schema.Types.ObjectId, ref: 'Engine'
     },
+    part:{
+        type: mongoose.Schema.Types.ObjectId, ref: 'Part'
+    },
 }, { timestamps: true })
 
 const Manual = mongoose.model('Manual', manualSchema);

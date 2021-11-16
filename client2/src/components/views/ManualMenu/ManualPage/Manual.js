@@ -1,13 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { Breadcrumb, message, Spin, Space } from 'antd';
+import { Breadcrumb, message, Spin, Space, Button, Popconfirm } from 'antd';
 import PropTypes from 'prop-types';
 // import { DeleteFilled, PlusOutlined, EditOutlined } from '@ant-design/icons';
 import { useDispatch } from 'react-redux';
+import {
+  DeleteFilled,
+  EditOutlined,
+  PlusOutlined,
+  QuestionCircleOutlined,
+} from '@ant-design/icons';
+import axios from 'axios';
 import ManualTable from './Sections/ManualTable';
-import ManualDeleteModal from './Sections/ManualDeleteModal';
 import ManualUpdateModal from './Sections/ManualUpdateModal';
 import ManualAddModal from './Sections/ManualAddModal';
-import TableButtons from '../../../utils/TableButtons/TableButtons';
 import { getAllManuals } from '../../../../_actions/manual_actions';
 
 function Manual(props) {
@@ -16,7 +21,6 @@ function Manual(props) {
   const [Manuals, setManuals] = useState([]);
   const [selectedRowKeys, setselectedRowKeys] = useState([]);
   const [selectedManual, setselectedManual] = useState({});
-  const [showDeleteConfirm, setshowDeleteConfirm] = useState(false);
   const [showUpdateConfirm, setshowUpdateConfirm] = useState(false);
   const [showAddConfirm, setshowAddConfirm] = useState(false);
   const [loading, setloading] = useState(false);
@@ -51,20 +55,34 @@ function Manual(props) {
 
   useMountEffect(getManuals);
 
-  const deleteManualsButton = () => {
-    if (selectedRowKeys.length === 0) {
-      message.error('부품을 선택하세요.');
-    } else {
-      setshowDeleteConfirm(true);
-    }
-  };
-
   // 행에 있는 수정 버튼
   const updateManualsButton = manual => {
-    setselectedManual(...manual);
+    setselectedManual(manual);
     setshowUpdateConfirm(true);
   };
+  const deleteManualsButton = manual => {
+    let tmep = manual;
+    if (manual.length > 0 && typeof manual[0] !== 'string') {
+      tmep = tmep.map(v => v._id);
+    }
+    const body = {
+      manual: tmep,
+    };
 
+    axios
+      .post('/api/manuals/deleteManuals', body)
+      .then(res => {
+        if (res.data.success) {
+          message.success('매뉴얼을 삭제하였습니다.');
+        } else {
+          message.error('매뉴얼 삭제를 실패하였습니다.');
+        }
+      })
+      .catch(err => {
+        message.error(`[Error]: ${err}`);
+      })
+      .finally(() => getManuals());
+  };
   // if (!user?.userData?.isAuth) return null;
   console.log(user);
   return (
@@ -72,34 +90,47 @@ function Manual(props) {
       <Breadcrumb style={{ margin: '16px 0' }}>
         <Breadcrumb.Item>부품/자재 관리</Breadcrumb.Item>
         <Breadcrumb.Item>엔진 정비 메뉴얼</Breadcrumb.Item>
-        <Breadcrumb.Item>메뉴얼 입력/수정</Breadcrumb.Item>
+        <Breadcrumb.Item>매뉴얼 입력/수정</Breadcrumb.Item>
       </Breadcrumb>
       <div style={{ padding: 20, backgroundColor: 'white' }}>
         <div style={{ float: 'left' }}>
           <h3>
-            <strong>메뉴얼 목록</strong>
+            <strong>매뉴얼 목록</strong>
           </h3>
         </div>
         <div style={{ float: 'right' }}>
-          <Space>
+          {/* <Space>
             <TableButtons
               setShowAddModal={setshowAddConfirm}
               setShowUpdateModal={setshowUpdateConfirm}
               deleteConfirm={deleteManualsButton}
               selectedRowKeys={selectedRowKeys}
               setselectedPart={setselectedManual}
-            />
+            /> */}
 
-            {/* <Button onClick={() => setshowAddConfirm(true)}>
+          <Space>
+            <Button onClick={() => setshowAddConfirm(true)}>
               <PlusOutlined />
             </Button>
-            <Button onClick={() => updateManualsButton(Manuals)}>
+            <Button onClick={() => updateManualsButton(selectedRowKeys[0])}>
               <EditOutlined />
             </Button>
-            <Button onClick={deleteManualsButton}>
-              <DeleteFilled />
-            </Button> */}
+            <Space size="middle">
+              <Popconfirm
+                placement="leftBottom"
+                title="정말로 삭제하시겠습니까?"
+                onConfirm={() => deleteManualsButton(selectedRowKeys)}
+                okText="Yes"
+                cancelText="No"
+                icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
+              >
+                <Button>
+                  <DeleteFilled />
+                </Button>
+              </Popconfirm>
+            </Space>
           </Space>
+
           <ManualAddModal
             showAddConfirm={showAddConfirm}
             setshowAddConfirm={setshowAddConfirm}
@@ -113,13 +144,6 @@ function Manual(props) {
               getManuals={getManuals}
             />
           )}
-          <ManualDeleteModal
-            showDeleteConfirm={showDeleteConfirm}
-            setshowDeleteConfirm={setshowDeleteConfirm}
-            selectedRowKeys={selectedRowKeys}
-            setselectedRowKeys={setselectedRowKeys}
-            getManuals={getManuals}
-          />
         </div>
         <br />
         <br />
@@ -131,6 +155,7 @@ function Manual(props) {
             setselectedRowKeys={setselectedRowKeys}
             getManuals={getManuals}
             updateManualsButton={updateManualsButton}
+            deleteManualsButton={deleteManualsButton}
           />
         </Spin>
       </div>

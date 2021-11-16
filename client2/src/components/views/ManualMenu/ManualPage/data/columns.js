@@ -9,7 +9,7 @@ const columns = [
       compare: (a, b) => a.section2.localeCompare(b.section2),
       multiple: 2,
     },
-    width: 90,
+    width: 60,
     align: 'center',
     responsive: ['md'],
   },
@@ -24,13 +24,23 @@ const columns = [
     align: 'center',
   },
   {
-    title: '엔진/부품',
-    dataIndex: 'target',
+    title: '엔진',
+    dataIndex: ['engine', 'name'],
     sorter: {
-      compare: (a, b) => a.target.localeCompare(b.target),
+      compare: (a, b) => a.engine.name.localeCompare(b.engine.name),
       multiple: 2,
     },
-    width: 120,
+    width: 110,
+    align: 'center',
+  },
+  {
+    title: '부품',
+    dataIndex: ['part', 'name'],
+    sorter: {
+      compare: (a, b) => a.part.name.localeCompare(b.part.name),
+      multiple: 2,
+    },
+    width: 110,
     align: 'center',
   },
   {
@@ -41,6 +51,7 @@ const columns = [
       multiple: 3,
     },
     responsive: ['sm'],
+    width: 230,
     align: 'center',
     onCell: () => {
       return {

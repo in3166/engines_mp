@@ -1,30 +1,46 @@
-import React from 'react';
-import { Modal, Form, message } from 'antd';
+import React, { useEffect, useState } from 'react';
+import { Modal, Form, message, Select, Input } from 'antd';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
-import { useForm } from 'react-hook-form';
+import axios from 'axios';
 import { addManual } from '../../../../../_actions/manual_actions';
 
 function ManualAddModal(props) {
   const { showAddConfirm, setshowAddConfirm, getManuals } = props;
-
+  const [Parts, setParts] = useState([]);
+  const [Engines, setEngines] = useState([]);
   const dispatch = useDispatch();
 
-  const {
-    register,
-    formState: { errors },
-    handleSubmit,
-    reset,
-  } = useForm();
-
   const [form] = Form.useForm();
+
+  const getParts = () => {
+    axios.get('/api/parts/getAllParts').then(res => {
+      console.log(res.data.parts);
+      setParts(res.data.parts);
+    });
+  };
+
+  const getEngines = () => {
+    axios.get('/api/engines/getAllEngines').then(res => {
+      console.log(res.data.engines);
+      setEngines(res.data.engines);
+    });
+  };
+
+  useEffect(() => {
+    getParts();
+    getEngines();
+  }, []);
+
   const modalOnOk = manual => {
     const body = {
       id: manual?.id,
       name: manual?.name,
       desc: manual?.desc,
+      part: manual?.part,
+      engine: manual?.engine,
     };
-
+    console.log(body);
     dispatch(addManual(body))
       .then(res => {
         if (res.payload.success) {
@@ -38,13 +54,7 @@ function ManualAddModal(props) {
         message.error(`[Error]: ${err}`);
       })
       .finally(() => {
-        // document.getElementById('id').value = '';
-        // document.getElementById('name').value = '';
-        // document.getElementById('life').value = '';
-        // document.getElementById('price').value = '';
-        // document.getElementById('desc').value = '';
         setshowAddConfirm(false);
-        reset();
       });
   };
 
@@ -55,7 +65,9 @@ function ManualAddModal(props) {
         style={{ top: 50 }}
         visible={showAddConfirm}
         onOk={form.submit}
-        onCancel={() => setshowAddConfirm(false)}
+        onCancel={() => {
+          setshowAddConfirm(false);
+        }}
         destroyOnClose
       >
         <Form
@@ -63,55 +75,55 @@ function ManualAddModal(props) {
           name="userinfo-change"
           id="updateForm"
           form={form}
-          onFinish={handleSubmit(modalOnOk)}
+          onFinish={modalOnOk}
           preserve={false}
         >
-          <Form.Item label="ID">
-            <input
+          <Form.Item label="ID" name="id">
+            <Input
               id="id"
               name="id"
               type="text"
               autoComplete="on"
-              className="form_input"
-              error={errors.id}
-              {...register('id', { minLength: 3 })}
+              rules={[{ required: true, message: '아이디를 입력하세요.' }]}
             />
-            {errors.id && errors.id.type === 'minLength' && (
-              <p className="form_p">
-                This field must have at least 3 characters
-              </p>
-            )}
           </Form.Item>
-          <Form.Item label="이름">
-            <input
+          <Form.Item label="이름" name="name">
+            <Input
               id="name"
               name="name"
-              className="form_input"
               type="text"
               autoComplete="on"
-              error={errors.name}
-              {...register('name', { required: true, maxLength: 50 })}
+              rules={[{ required: true, message: '이름을 입력하세요.' }]}
             />
-            {errors.name && errors.name.type === 'required' && (
-              <p className="form_p">This name field is required</p>
-            )}
-            {errors.name && errors.name.type === 'maxLength' && (
-              <p className="form_p">Your input exceed maximum input</p>
-            )}
           </Form.Item>
-          <Form.Item label="설명">
-            <input
+          <Form.Item label="엔진" name="engine">
+            <Select name="engine" id="engine">
+              <Select.Option>-</Select.Option>
+              {Engines?.map(data => (
+                <Select.Option value={data._id} key={data.name}>
+                  {data.name}
+                </Select.Option>
+              ))}
+            </Select>
+          </Form.Item>
+          <Form.Item label="부품" name="part">
+            <Select id="part" name="part">
+              <Select.Option>-</Select.Option>
+              {Parts?.map(data => (
+                <Select.Option value={data._id} key={data.name}>
+                  {data.name}
+                </Select.Option>
+              ))}
+            </Select>
+          </Form.Item>
+          <Form.Item label="설명" name="desc">
+            <Input
               id="desc"
               name="desc"
               type="text"
               autoComplete="on"
-              error={errors.desc}
-              {...register('desc', { maxLength: 100 })}
-              className="form_input"
+              rules={[{ required: true, message: '이름을 입력하세요.' }]}
             />
-            {errors.desc && errors.desc.type === 'maxLength' && (
-              <p className="form_p">Your input exceed maximum input</p>
-            )}
           </Form.Item>
         </Form>
       </Modal>

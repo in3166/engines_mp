@@ -1,5 +1,5 @@
 import React from 'react';
-import { Table, Button, Popconfirm, Space, message } from 'antd';
+import { Table, Button, Popconfirm, Space } from 'antd';
 import PropTypes from 'prop-types';
 // import {
 //   DeleteFilled,
@@ -13,7 +13,6 @@ import {
   QuestionCircleOutlined,
   EditOutlined,
 } from '@ant-design/icons';
-import axios from 'axios';
 import columns from '../data/columns';
 
 function ManualTable(props) {
@@ -22,30 +21,9 @@ function ManualTable(props) {
     setselectedRowKeys,
     selectedRowKeys,
     updateManualsButton,
-    getManuals,
-  } = props;
-  // 개별 삭제 버튼
-  const deleteConfirm = id => {
-    const body = {
-      id: [id],
-    };
 
-    axios
-      .post('/api/manuals/deleteManuals', body)
-      .then(res => {
-        if (res.data.success) {
-          message.success('부품을 삭제하였습니다.');
-        } else {
-          message.error(
-            '부품 삭제를 실패하였습니다. (다른 필드가 참조하고 있습니다.)',
-          );
-        }
-      })
-      .catch(err => {
-        message.error(`[Error]: ${err}`);
-      })
-      .finally(() => getManuals());
-  };
+    deleteManualsButton,
+  } = props;
 
   const columnButton = [
     {
@@ -54,7 +32,7 @@ function ManualTable(props) {
       render: manual => {
         return (
           <Space size="middle">
-            <Button onClick={() => updateManualsButton([manual], true)}>
+            <Button onClick={() => updateManualsButton(manual)}>
               <EditOutlined />
             </Button>
           </Space>
@@ -62,7 +40,7 @@ function ManualTable(props) {
       },
       width: 70,
       align: 'center',
-      responsive: ['md'],
+      responsive: ['lg'],
     },
     {
       title: '삭제',
@@ -74,7 +52,7 @@ function ManualTable(props) {
             <Popconfirm
               placement="leftBottom"
               title="정말로 삭제하시겠습니까?"
-              onConfirm={() => deleteConfirm(manual._id)}
+              onConfirm={() => deleteManualsButton([manual._id])}
               okText="Yes"
               cancelText="No"
               icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
@@ -88,7 +66,7 @@ function ManualTable(props) {
       },
       width: 70,
       align: 'center',
-      responsive: ['md'],
+      responsive: ['lg'],
     },
   ];
 
@@ -127,6 +105,6 @@ ManualTable.propTypes = {
   Manuals: PropTypes.arrayOf(PropTypes.object).isRequired,
   selectedRowKeys: PropTypes.arrayOf(PropTypes.any).isRequired,
   setselectedRowKeys: PropTypes.func.isRequired,
-  getManuals: PropTypes.func.isRequired,
+  deleteManualsButton: PropTypes.func.isRequired,
   updateManualsButton: PropTypes.func.isRequired,
 };

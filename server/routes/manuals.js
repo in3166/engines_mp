@@ -5,15 +5,18 @@ const { User } = require("../models/User");
 
 // 전문가 권한 유저 목록 가져오기
 router.get("/getAllManuals", (req, res) => {
-  Manual.find().exec((err, manuals) => {
-    if (err) {
-      return res.status(400).json({ success: false, err });
-    }
-    return res.status(200).send({
-      success: true,
-      manuals: manuals,
+  Manual.find()
+  .populate("part")
+    .populate("engine")
+    .exec((err, manuals) => {
+      if (err) {
+        return res.status(400).json({ success: false, err });
+      }
+      return res.status(200).send({
+        success: true,
+        manuals: manuals,
+      });
     });
-  });
 });
 
 // 직급 추가
@@ -32,7 +35,7 @@ router.post("/addManual", (req, res) => {
         if (part) {
           return res.json({
             success: false,
-            message: "부서가 이미 존재합니다.",
+            message: "매뉴얼이 이미 존재합니다.",
           });
         } else {
           const manual = new Manual(req.body);
@@ -43,7 +46,7 @@ router.post("/addManual", (req, res) => {
             }
             return res.status(200).json({
               success: true,
-              message: "부서를 추가했습니다.",
+              message: "매뉴얼을 추가했습니다.",
             });
           });
         }
@@ -72,8 +75,10 @@ router.post("/updateManual", (req, res) => {
             id: req.body.id,
             name: req.body.name,
             desc: req.body.desc,
+            engine: req.body.engine,
+            part: req.body.part,
           },
-          {new:true,omitUndefined:true},
+          { new: true, omitUndefined: true },
           (err, doc) => {
             if (err) return res.status(400).json({ success: false, err });
             return res.status(200).send({
@@ -107,10 +112,10 @@ async function findQ(reqid) {
 
   const findPromise = reqid.map(async (id) => {
     const existUser = await User.find({
-      manual:  id ,
+      manual: id,
     });
 
-    if (existUser.length === 0 ) {
+    if (existUser.length === 0) {
       ok.push(id);
       await Manual.deleteOne({ _id: id });
     } else {
@@ -131,5 +136,13 @@ async function findQ(reqid) {
 
   return { ok, fail, undefined };
 }
+
+router.post("/deleteManuals", (req, res) => {
+  Manual.deleteMany({ _id: { $in: req.body.manual } }, (err, manual) => {
+    console.log(manual)
+    if (err) return res.status(400).json({ success: false, err });
+    return res.json({ success: true });
+  });
+});
 
 module.exports = router;

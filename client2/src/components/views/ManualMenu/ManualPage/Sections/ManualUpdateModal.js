@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Modal, Form, message } from 'antd';
-import { useForm } from 'react-hook-form';
+import { Modal, Form, message, Select, Input } from 'antd';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
+import axios from 'axios';
 import { updateManual } from '../../../../../_actions/manual_actions';
 
 function ManualUpdateModal(props) {
@@ -14,21 +14,33 @@ function ManualUpdateModal(props) {
   } = props;
   const dispatch = useDispatch();
   const [manual, setmanual] = useState({});
-  const {
-    register,
-    formState: { errors },
-    handleSubmit,
-    reset,
-  } = useForm();
+  const [Engines, setEngines] = useState([]);
+  const [Parts, setParts] = useState([]);
 
   const [form] = Form.useForm();
+
+  const getParts = () => {
+    axios.get('/api/parts/getAllParts').then(res => {
+      console.log(res.data.parts);
+      setParts(res.data.parts);
+    });
+  };
+
+  const getEngines = () => {
+    axios.get('/api/engines/getAllEngines').then(res => {
+      console.log(res.data.engines);
+      setEngines(res.data.engines);
+    });
+  };
+
   useEffect(() => {
+    getParts();
+    getEngines();
     setmanual(selectedManual);
-    reset(selectedManual); // 처음 설정 시 value가 안먹히는 문제 해결
     return () => {
       setmanual({});
     };
-  }, [reset, selectedManual]);
+  }, [selectedManual]);
 
   const modalOnOk = manualText => {
     const body = {
@@ -37,15 +49,17 @@ function ManualUpdateModal(props) {
       id: manualText.id,
       name: manualText?.name,
       desc: manualText?.desc,
+      part: manualText?.part,
+      engine: manualText?.engine,
     };
     console.log('body: ', body);
 
     dispatch(updateManual(body))
       .then(res => {
         if (res.payload.success) {
-          message.success('성공');
+          message.success('매뉴얼을 수정하였습니다.');
         } else {
-          message.error('실패: ', res.payload.message);
+          message.error('매뉴얼 수정을 실패하였습니다.: ', res.payload.message);
         }
       })
       .catch(err => {
@@ -60,7 +74,7 @@ function ManualUpdateModal(props) {
   return (
     <div>
       <Modal
-        title="부품 정보 수정"
+        title="매뉴얼 정보 수정"
         style={{ top: 50 }}
         visible={showUpdateConfirm}
         destroyOnClose
@@ -71,58 +85,76 @@ function ManualUpdateModal(props) {
           {...{ labelCol: { span: 6 }, wrapperCol: { span: 14 } }}
           name="userinfo-change"
           form={form}
-          onFinish={handleSubmit(modalOnOk)}
+          onFinish={modalOnOk}
           key={manual}
           preserve={false}
         >
-          <Form.Item label="ID">
-            <input
+          <Form.Item label="ID" name="id" initialValue={selectedManual.id}>
+            <Input
               id="id"
               name="id"
               type="text"
               autoComplete="on"
-              className="form_input"
-              error={errors.id}
-              defaultValue={manual?.id}
-              {...register('id', { minLength: 3 })}
+              rules={[{ required: true, message: '아이디를 입력하세요.' }]}
             />
-            {errors.id && errors.id.type === 'minLength' && (
-              <p className="form_p">
-                This field must have at least 3 characters
-              </p>
-            )}
           </Form.Item>
-          <Form.Item label="이름">
-            <input
+          <Form.Item
+            label="이름"
+            name="name"
+            initialValue={selectedManual.name}
+          >
+            <Input
               id="name"
               name="name"
-              className="form_input"
               type="text"
               autoComplete="on"
-              error={errors.name}
-              defaultValue={manual?.name}
-              {...register('name', { required: true, maxLength: 50 })}
+              rules={[{ required: true, message: '이름을 입력하세요.' }]}
             />
-            {errors.name && errors.name.type === 'required' && (
-              <p className="form_p">This name field is required</p>
-            )}
-            {errors.name && errors.name.type === 'maxLength' && (
-              <p className="form_p">Your input exceed maximum input</p>
-            )}
           </Form.Item>
-          <Form.Item label="설명">
-            <input
+          <Form.Item
+            label="엔진"
+            name="engine"
+            initialValue={selectedManual?.engine?._id}
+          >
+            <Select id="engine" name="engine">
+              <Select.Option>-</Select.Option>
+              {Engines?.map(data => (
+                <Select.Option value={data._id} key={data.name}>
+                  {data.name}
+                </Select.Option>
+              ))}
+            </Select>
+          </Form.Item>
+          <Form.Item
+            label="부품"
+            name="part"
+            initialValue={selectedManual?.part?._id}
+          >
+            <Select
+              id="part"
+              name="part"
+              defaultValue={selectedManual?.part?._id}
+            >
+              <Select.Option>-</Select.Option>
+              {Parts?.map(data => (
+                <Select.Option value={data._id} key={data.name}>
+                  {data.name}
+                </Select.Option>
+              ))}
+            </Select>
+          </Form.Item>
+          <Form.Item
+            label="설명"
+            name="desc"
+            initialValue={selectedManual.desc}
+          >
+            <Input
+              id="desc"
               name="desc"
               type="text"
               autoComplete="on"
-              error={errors.desc}
-              defaultValue={manual?.desc}
-              {...register('desc', { maxLength: 100 })}
-              className="form_input"
+              rules={[{ required: true, message: '이름을 입력하세요.' }]}
             />
-            {errors.desc && errors.desc.type === 'maxLength' && (
-              <p className="form_p">Your input exceed maximum input</p>
-            )}
           </Form.Item>
         </Form>
       </Modal>

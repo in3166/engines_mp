@@ -1,24 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Modal, Form, Input, Select, DatePicker } from 'antd';
-import moment from 'moment';
 import axios from 'axios';
+import moment from 'moment';
 
 const AddRepairList = props => {
   const { SelectedRepair, setShowAddModal, ShowAddModal, reload } = props;
   const [form] = Form.useForm();
 
-  console.log('se: ', SelectedRepair);
-
   const modalOnOk = input => {
-    console.log(new Date(input.date));
     const body = {
       id: SelectedRepair.id,
       part: input.part,
       status: input.status,
-      date: new Date(input.date),
+      date: input.date.format('YYYY-MM-DD HH:mm:ss'),
     };
-    console.log(body);
+
     axios
       .post('/api/sites/addSiteEngineMaintenance', body)
       .then(res => {

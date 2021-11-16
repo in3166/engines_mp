@@ -1,3 +1,4 @@
+
 const express = require("express");
 const router = express.Router();
 const { Site } = require("../models/Site");
@@ -96,10 +97,6 @@ router.post("/addSitePart", (req, res) => {
 
 // 사이트 재고 수정
 router.post("/updateSitePart", (req, res) => {
-  console.log(req.body.site);
-  console.log(req.body.stock);
-  console.log(req.body.id);
-
   Site.findOneAndUpdate(
     {
       id: req.body.site,
@@ -255,8 +252,6 @@ async function findQ(reqid) {
 // 사이트별 엔진 추가
 router.post("/addSiteEngine", async (req, res) => {
   // Object ID로 Site, Engine에서 쓰였는지 찾기
-  console.log("id: ", req.body.id);
-  console.log("engineid: ", req.body.engineId);
 
   Site.findOneAndUpdate(
     { _id: req.body.site },

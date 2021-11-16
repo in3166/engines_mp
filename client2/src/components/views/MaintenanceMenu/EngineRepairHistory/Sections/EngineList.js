@@ -12,7 +12,6 @@ import repairCol from '../data/repairCol';
 import SiteDescription from '../../../../utils/SiteDescription/SiteDescription';
 import UpdateRepairList from './UpdateRepairList';
 import AddRepairList from './AddRepairList';
-import DateFormat from '../../../../utils/DateFormatFunc/DateFormat';
 
 function EngineList(props) {
   const { site, engine, reload } = props;
@@ -121,18 +120,9 @@ function EngineList(props) {
 
   const renderPartCol = [...repairCol, ...columnButton];
   const enginesCol = [...engineCol, ...columnButton2];
-  let check = true;
+  //  let check = true;
   const expandedRowRender = record => {
-    let date = record.repairHistory;
-
-    if (check) {
-      date = date.map(v => {
-        const temp = v;
-        temp.date = DateFormat(new Date(v.date));
-        return temp;
-      });
-      check = false;
-    }
+    const date = record.repairHistory;
 
     return (
       <Table

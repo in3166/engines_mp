@@ -61,6 +61,11 @@ function ManualSearchModule(props) {
       return;
     }
     const searched = Manuals.filter(v => {
+      if (SelectValue.length === 2)
+        return (
+          v[`${SelectValue[0]}`] &&
+          v[`${SelectValue[0]}`][`${SelectValue[1]}`]?.includes(text)
+        );
       return v[`${SelectValue}`]?.includes(text);
     });
     setSearchedManuals(searched);
@@ -97,7 +102,8 @@ function ManualSearchModule(props) {
             >
               <Select.Option value="id">ID</Select.Option>
               <Select.Option value="name">name</Select.Option>
-              <Select.Option value="target">엔진/부품</Select.Option>
+              <Select.Option value={['engine', 'name']}>엔진</Select.Option>
+              <Select.Option value={['part', 'name']}>부품</Select.Option>
               <Select.Option value="desc">설명</Select.Option>
             </Select>
           }

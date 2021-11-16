@@ -25,7 +25,7 @@ const siteSchema = mongoose.Schema(
         engine: { type: mongoose.Schema.Types.ObjectId, ref: "Engine" },
         repairHistory: [
           {
-            date: { type: Date },
+            date: { type: String },
             status: { type: String },
             part: { type: mongoose.Schema.Types.ObjectId, ref: "Part" },
           },

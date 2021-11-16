@@ -86,9 +86,6 @@ router.post("/deleteEnginRequiredPart", async (req, res) => {
   let partID = req.body.partID;
   let engine = req.body.engine;
 
-  console.log(partID);
-  console.log(engine);
-
   const pullArrayPromises = partID.map(async (part) => {
     await Engine.findOneAndUpdate(
       { _id: engine, "requiredParts.part": part },
@@ -177,7 +174,7 @@ router.post("/updateEngine", (req, res) => {
 // 엔진 삭제
 router.post("/deleteEngines", async (req, res) => {
   let engines = req.body.engines;
-  console.log(engines);
+
   Engine.deleteMany({ _id: engines }).exec((err, engine) => {
     if (err) {
       return res.stauts(400).json({ success: false, err });
