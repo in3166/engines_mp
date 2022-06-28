@@ -28,9 +28,6 @@ const partSchema = mongoose.Schema({
         type: Number,
         default:0,
     },
-    // futureReplace:{
-    //     type: Date
-    // },
     price:{
         type: Number
     },

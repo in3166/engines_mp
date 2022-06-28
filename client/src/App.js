@@ -1,6 +1,8 @@
 import React from 'react';
-import './App.css';
 import { Switch, Route, withRouter, useLocation } from 'react-router-dom';
+
+import './App.css';
+import Auth from './hoc/auth';
 import LandingPage from './components/views/LandingPage/LandingPage';
 import LoginPage from './components/views/LoginPage/LoginPage';
 import RegisterPage from './components/views/RegisterPage/RegisterPage';
@@ -11,7 +13,6 @@ import EngineerPredictPage from './components/views/PredictResultPage/EngineerPr
 import ExpertPredictPage from './components/views/PredictResultPage/ExpertPredictPage/ExpertPredictPage';
 import SynthesisPredictPage from './components/views/PredictResultPage/SynthesisPredictPage/SynthesisPredictPage';
 import NotFound from './components/views/NotFound/NotFound';
-import Auth from './hoc/auth';
 import ContentLayout from './components/utils/ContentLayout/ContentLayout';
 
 function App() {
@@ -27,9 +28,7 @@ function App() {
             <ContentLayout>
               <Switch>
                 <Route exact path="/" component={Auth(LandingPage, null)} />
-                {/* <Route path="/engine/1" component={Auth(EnginePage, null)} /> */}
                 <Route path="/site/:id" component={Auth(EnginePage, null)} />
-
                 <Route path="/user" component={Auth(UserPage, null)} />
                 <Route
                   path="/machinePredict"

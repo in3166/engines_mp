@@ -17,29 +17,8 @@ const engineSchema = mongoose.Schema(
       },
     ],
     defaultLifespan: {
-      // 교체시기
       type: Number,
     },
-    //   recentRepairDate: { // 최근 수리 날짜
-    //     type: Date,
-    //   },
-    //   futureCheck: { // 예상
-    //     type: Date,
-    //   },
-    //   maintenanceHistory:[
-    //     {
-    //       parts: [{
-    //         part: { type: mongoose.Schema.Types.ObjectId, ref: "Part" },
-    //         repairNumber: { type: Number },
-    //       }],
-    //       date:{
-    //         type: Date,
-    //       },
-    //       site:{
-    //         type: { type: mongoose.Schema.Types.ObjectId, ref: "Site" },
-    //       }
-    //     }
-    //   ]
   },
   { timestamps: true }
 );

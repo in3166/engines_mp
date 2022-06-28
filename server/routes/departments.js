@@ -106,8 +106,6 @@ async function findQ(reqid) {
       department: id,
     });
 
-    // console.log("cSite: ", cSite);
-    // console.log("cEngine: ", cEngine);
     if (existUser.length === 0) {
       ok.push(id);
       await Department.deleteOne({ _id: id });
@@ -115,9 +113,6 @@ async function findQ(reqid) {
       fail.push(id);
     }
   });
-
-  //console.log("findPromise: ", findPromise);
-  // findPromise:  [ Promise { <pending> }, Promise { <pending> } ]
 
   // 여기서 await 하지 않으면 바로 넘어감.
   await Promise.all(findPromise)

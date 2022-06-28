@@ -5,15 +5,11 @@ const bcrypt = require("bcrypt");
 const { auth } = require("../middleware/auth");
 const async = require("async");
 
-//=================================
-//             User
-//=================================
 // 페이지 이동 시 마다 인증된 사람인지 토큰 인증된 사람이면 사용자 정보를 다시 넣어줌
 router.get("/auth", auth, (req, res) => {
   res.status(200).json({
-    _id: req.user._id, // middleware에서 들어감 req.user
+    _id: req.user._id,
     id: req.user.id,
-    //isAdmin: req.user.role === 0 ? false : true,
     isAdmin: true,
     isAuth: true,
     email: req.user.email,
@@ -127,11 +123,9 @@ router.post("/changeExpertRole", (req, res) => {
   let direction = req.body.direction;
   let users = req.body.users;
   let role = req.body.role;
-  // console.log(direction)
-  // console.log(users)
+
   // 전문가에서 제거
   //if(direction === 'left'){
-
   // async.map 은 each와 유사하나, coll의 결과를 마지막 callback에 resutls로 관리
   // async.each(coll, iteratee, [callback])
   //   async.each는 coll에 있는 데이터를 순서에 상관없이 병렬적으로 모두 iteratee로 호출하고, 모두 종료되면 callback 날리는 형태
@@ -139,7 +133,6 @@ router.post("/changeExpertRole", (req, res) => {
   async.eachSeries(
     users,
     (user, cb) => {
-      //console.log(user)
       User.updateMany(
         { id: user.id },
         { role: direction === 'right' ? role : { id: 0, name: '일반 사용자' } },

@@ -16,17 +16,16 @@ export default function foo(SpecificComponent, option, adminRoute = null) {
           if (option) {
             history.push('/login');
           }
-          // Loggined in Status
+          // Loggined in
         } else if (adminRoute && !res.payload.isAdmin) {
-          // supposed to be Admin page, but not admin person wants to go inside
           history.push('/');
         } else if (option === false) {
-          // Logged in Status, but Try to go into log in page
+          // Logged in, login page
           history.push('/');
         }
       });
     }, [dispatch, history]);
-    // ... Prop spreading is forbidden: rule 삭제 후 수정
+    // forbidden: rule 삭제 후 수정
     return <SpecificComponent {...props} user={user} />;
   }
 

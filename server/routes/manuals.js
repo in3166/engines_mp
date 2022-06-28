@@ -123,10 +123,6 @@ async function findQ(reqid) {
     }
   });
 
-  //console.log("findPromise: ", findPromise);
-  // findPromise:  [ Promise { <pending> }, Promise { <pending> } ]
-
-  // 여기서 await 하지 않으면 바로 넘어감.
   await Promise.all(findPromise)
     .then()
     .catch((err) => {

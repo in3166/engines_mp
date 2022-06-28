@@ -31,8 +31,6 @@ async function findQ(reqid) {
       requiredParts: { $elemMatch: { part: id } },
     });
 
-    // console.log("cSite: ", cSite);
-    // console.log("cEngine: ", cEngine);
     if (cSite.length === 0 && cEngine.length === 0) {
       ok.push(id);
       await Part.deleteOne({ _id: id });
@@ -41,10 +39,6 @@ async function findQ(reqid) {
     }
   });
 
-  //console.log("findPromise: ", findPromise);
-  // findPromise:  [ Promise { <pending> }, Promise { <pending> } ]
-
-  // 여기서 await 하지 않으면 바로 넘어감.
   await Promise.all(findPromise)
     .then((res) => {})
     .catch((err) => {
@@ -69,19 +63,6 @@ router.get("/getAllParts", (req, res) => {
 
 // 부품 정보 변경
 router.post("/updatePart", (req, res) => {
-  // console.log("req.body._id: ", req.body._id)
-  // Part.findOne({ _id: req.body._id }, (err, part) => {
-  //   console.log("part: ",part)
-  //   if (err) {
-  //     console.log("err1: ", err);
-  //     return res.status(400).json({ success: false, err });
-  //   }
-  //   if (part) {
-  //     return res.json({
-  //       success: false,
-  //       message: "아이디가 이미 존재합니다.",
-  //     });
-  //   } else {
   Part.findOneAndUpdate(
     { _id: req.body._id },
     {
@@ -105,22 +86,10 @@ router.post("/updatePart", (req, res) => {
       });
     }
   );
-  //}
-  //});
 });
 
 // 부품 목록 부품 추가
 router.post("/addPart", (req, res) => {
-  // Part.findOne({ id: req.body.id }, (err, part) => {
-  //   if (err) {
-  //     return res.status(400).json({ success: false, err });
-  //   }
-  //   if (part) {
-  //     return res.json({
-  //       success: false,
-  //       message: "아이디가 이미 존재합니다.",
-  //     });
-  //   } else {
   Part.findOne({ name: req.body.name }, (err, part) => {
     if (part) {
       return res.json({
@@ -141,8 +110,6 @@ router.post("/addPart", (req, res) => {
       });
     }
   });
-  //  }
-  // });
 });
 
 module.exports = router;

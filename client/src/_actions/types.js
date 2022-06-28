@@ -7,5 +7,4 @@ export const LOGOUT_USER = 'logout_user';
 export const DELETE_USERS = 'delete_users';
 export const CHANGE_ROLE = 'change_role';
 export const GET_ENGINES = 'get_engines';
-
 export const GET_SITES = 'get_sites';
