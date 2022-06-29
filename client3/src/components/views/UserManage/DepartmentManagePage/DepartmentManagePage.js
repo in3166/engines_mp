@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import {
   Table,
   Space,
@@ -15,9 +16,7 @@ import {
   QuestionCircleOutlined,
   ReloadOutlined,
 } from '@ant-design/icons';
-// import axios from 'axios';
-import { useDispatch } from 'react-redux';
-import PropTypes from 'prop-types';
+
 import columns from './data/columns';
 import {
   getAllDepartments,
@@ -26,18 +25,14 @@ import {
 import DepartmentAddModal from './Sections/DepartmentAddModal';
 import DepartmentUpdateModal from './Sections/DepartmentUpdateModal';
 
-function DepartmentManagePage(props) {
+function DepartmentManagePage() {
   const dispatch = useDispatch();
-  const { user } = props;
   const [Departments, setDepartments] = useState([]);
   const [selectedRowKeys, setselectedRowKeys] = useState([]);
   const [Loading, setLoading] = useState(false);
   const [ShowAddModal, setShowAddModal] = useState(false);
   const [ShowUpdateModal, setShowUpdateModal] = useState(false);
   const [SelectedDepartment, setSelectedDepartment] = useState({});
-  console.log(user);
-  // console.log(Departments);
-  console.log('selectedRowKeys; ', ...selectedRowKeys);
 
   const getDepartments = () => {
     setLoading(true);
@@ -65,13 +60,11 @@ function DepartmentManagePage(props) {
   useMountEffect(getDepartments);
 
   const onClickUpdate = depart => {
-    console.log('depart up: ', depart);
     setSelectedDepartment(depart);
     setShowUpdateModal(true);
   };
 
   const deleteConfirm = depart => {
-    console.log('depart del: ', depart);
     let body;
     if (depart) {
       body = {
@@ -83,7 +76,6 @@ function DepartmentManagePage(props) {
         _id: selID,
       };
     }
-    console.log('body: ', body);
     dispatch(deleteDepartment(body))
       .then(res => {
         const oktem = [];
@@ -97,7 +89,6 @@ function DepartmentManagePage(props) {
           });
           message.success('부서를 삭제했습니다.');
           message.success(`[성공]: ${oktem}`);
-          console.log(res.payload.ok);
           if (res.payload.fail.length !== 0) {
             res.payload.fail.forEach(v => {
               Departments.forEach(e => {
@@ -239,20 +230,8 @@ function DepartmentManagePage(props) {
           />
         </div>
       </Spin>
-
-      {/* <UpdateModal
-          modalData={modalData}
-          getAllUsers={getAllUsers}
-          handleRoleChange={handleRoleChange}
-          modalVisible={modalVisible}
-          setModalVisible={setModalVisible}
-        /> */}
     </>
   );
 }
 
 export default DepartmentManagePage;
-
-DepartmentManagePage.propTypes = {
-  user: PropTypes.objectOf(PropTypes.object).isRequired,
-};

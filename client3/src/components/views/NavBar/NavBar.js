@@ -6,23 +6,12 @@ import RightMenu from './Sections/RightMenu';
 import LeftMenu from './Sections/LeftMenu';
 import './Sections/Navbar.css';
 
-// import { Link } from 'react-router-dom';
-// const { Header } = Layout;
-
 function NavBar() {
   const [, setVisible] = useState(false);
 
   const showDrawer = () => {
     setVisible(true);
   };
-
-  // const onClose = () => {
-  //     setVisible(false)
-  // };
-
-  // const setMenu = () => {
-  //     setVisible(false)
-  // };
 
   return (
     <nav className="menu" style={{ zIndex: 5, width: '100%', border: 0 }}>

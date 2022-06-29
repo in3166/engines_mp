@@ -3,12 +3,11 @@ import PropTypes from 'prop-types';
 import { Modal, Form, Input } from 'antd';
 
 const UpdateSiteEngine = props => {
-  const { id, setShowUpdateSiteEngine, ShowUpdateSiteEngine, getSites } = props;
+  const { setShowUpdateSiteEngine, ShowUpdateSiteEngine, getSites } = props;
 
   const [form] = Form.useForm();
 
   const modalOnOk = () => {
-    console.log(id);
     getSites();
   };
 
@@ -50,7 +49,6 @@ const UpdateSiteEngine = props => {
 };
 
 UpdateSiteEngine.propTypes = {
-  id: PropTypes.string.isRequired,
   setShowUpdateSiteEngine: PropTypes.func.isRequired,
   getSites: PropTypes.func.isRequired,
   ShowUpdateSiteEngine: PropTypes.bool.isRequired,

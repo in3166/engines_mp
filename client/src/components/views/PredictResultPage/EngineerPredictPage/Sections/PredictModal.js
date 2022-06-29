@@ -7,8 +7,6 @@ const PredictModal = props => {
   const [form] = Form.useForm();
 
   const modalOnOk = () => {
-    console.log(site);
-    console.log(part);
     message.success('성공');
     setShowModal(false);
   };

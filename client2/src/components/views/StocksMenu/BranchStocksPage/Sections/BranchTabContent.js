@@ -8,9 +8,9 @@ import {
   QuestionCircleOutlined,
 } from '@ant-design/icons';
 import axios from 'axios';
-import SiteDescription from '../../../../utils/SiteDescription/SiteDescription';
+
 import columns from '../data/columns';
-// import PartAddModal from './Sections/PartAddModal';
+import SiteDescription from '../../../../utils/SiteDescription/SiteDescription';
 import BranchAddPartModal from './BranchAddPartModal';
 import BranchUpdatePartModal from './BranchUpdatePartModal';
 import '../../formStyle.css';
@@ -19,20 +19,8 @@ function BranchTabContent(props) {
   const [selectedRowKey, setselectedRowKeys] = useState([]);
   const [showAddConfirm, setshowAddConfirm] = useState(false);
   const [showUpdateConfirm, setshowUpdateConfirm] = useState(false);
-  // const [value, setValue] = useState(1);
   const { Sites, Parts, reload } = props;
-  //  const [Sites, setSites] = useState({});
-  // console.log(Sites);
-  // console.log(Parts);
 
-  // const onChange = e => {
-  //   console.log('radio checked', e.target.value);
-  //   setValue(e.target.value);
-  // };
-
-  //   const useMountEffect = fun => useEffect(fun, []);
-  //   useMountEffect(reload);
-  console.log('sele', selectedRowKey);
   const rowSelection = {
     ...selectedRowKey?.part?._id,
     onChange: (selectedRowKeys, site) => {

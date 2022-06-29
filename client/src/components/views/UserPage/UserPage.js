@@ -13,7 +13,6 @@ import {
 import axios from 'axios';
 import PasswordChange from './Sections/PasswordChange';
 import UserInfo from './Sections/UserInfo';
-// import {useSelector} from 'react-redux'
 
 const { Content } = Layout;
 const { TabPane } = Tabs;
@@ -24,10 +23,8 @@ const layout = {
 };
 
 function UserPage(props) {
-  const { user } = props; // 구조 분해 할당 체크
+  const { user } = props;
 
-  // const user = useSelector(state => state.user.userData);
-  // console.log('userselect', user)
   const [passwordCheck, setpasswordCheck] = useState(false);
 
   if (user.userData == null) {

@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Breadcrumb, Tabs, message, Spin, Button } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import PropTypes from 'prop-types';
 import { ReloadOutlined } from '@ant-design/icons';
 import { getAllSites } from '../../../../_actions/site_actions';
 import EnginePartList from './Sections/EnginePartList';
 
 const { TabPane } = Tabs;
 
-function SitePartsListPage(props) {
-  const { user } = props;
+function SitePartsListPage() {
   const [Sites, setSites] = useState([]);
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
@@ -44,8 +42,6 @@ function SitePartsListPage(props) {
   const useMountEffect = fun => useEffect(fun, []);
   useMountEffect(getSites);
 
-  // if (!user?.userData?.isAuth) return null;
-  console.log(user);
   return (
     <>
       <Breadcrumb style={{ margin: '16px 0' }}>
@@ -78,9 +74,5 @@ function SitePartsListPage(props) {
     </>
   );
 }
-
-SitePartsListPage.propTypes = {
-  user: PropTypes.objectOf(PropTypes.object).isRequired,
-};
 
 export default SitePartsListPage;

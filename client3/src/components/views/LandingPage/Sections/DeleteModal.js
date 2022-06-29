@@ -33,7 +33,6 @@ function DeleteModal(props) {
   };
 
   const deleteOk = () => {
-    // redux post
     dispatch(deleteUsers(body))
       .then(res => {
         if (res.payload.success) {

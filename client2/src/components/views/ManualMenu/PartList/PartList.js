@@ -1,18 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Breadcrumb, message, Spin, Space } from 'antd';
-import PropTypes from 'prop-types';
-// import { DeleteFilled, PlusOutlined, EditOutlined } from '@ant-design/icons';
 import { useDispatch } from 'react-redux';
+
 import { getAllParts } from '../../../../_actions/part_actions';
+import TableButtons from '../../../utils/TableButtons/TableButtons';
 import PartTable from './Sections/PartTable';
 import PartDeleteModal from './Sections/PartDeleteModal';
 import PartUpdateModal from './Sections/PartUpdateModal';
 import PartAddModal from './Sections/PartAddModal';
-import TableButtons from '../../../utils/TableButtons/TableButtons';
 
-function PartList(props) {
-  const { user } = props;
-
+function PartList() {
   const [Parts, setParts] = useState([]);
   const [selectedRowKeys, setselectedRowKeys] = useState([]);
   const [selectedPart, setselectedPart] = useState({});
@@ -22,17 +19,13 @@ function PartList(props) {
   const [loading, setloading] = useState(false);
   const dispatch = useDispatch();
 
-  // console.log(Parts);
-
   const getParts = () => {
     setloading(true);
     dispatch(getAllParts())
       .then(res => {
-        // console.log('res: ', res);
         if (res.payload.success) {
           setselectedRowKeys([]);
           setParts(res.payload.parts);
-          // console.log('set parts: ', res.payload.parts);
         } else {
           message.error(res.payload.err);
         }
@@ -65,8 +58,6 @@ function PartList(props) {
     setshowUpdateConfirm(true);
   };
 
-  // if (!user?.userData?.isAuth) return null;
-  console.log(user);
   return (
     <>
       <Breadcrumb style={{ margin: '16px 0' }}>
@@ -89,16 +80,6 @@ function PartList(props) {
               selectedRowKeys={selectedRowKeys}
               setselectedPart={setselectedPart}
             />
-
-            {/* <Button onClick={() => setshowAddConfirm(true)}>
-              <PlusOutlined />
-            </Button>
-            <Button onClick={() => updatePartsButton(Parts)}>
-              <EditOutlined />
-            </Button>
-            <Button onClick={deletePartsButton}>
-              <DeleteFilled />
-            </Button> */}
           </Space>
           <PartAddModal
             showAddConfirm={showAddConfirm}
@@ -139,7 +120,3 @@ function PartList(props) {
 }
 
 export default PartList;
-
-PartList.propTypes = {
-  user: PropTypes.objectOf(PropTypes.object).isRequired,
-};

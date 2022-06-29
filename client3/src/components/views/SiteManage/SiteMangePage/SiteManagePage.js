@@ -15,27 +15,21 @@ import {
   QuestionCircleOutlined,
   ReloadOutlined,
 } from '@ant-design/icons';
-
 import { useDispatch } from 'react-redux';
-import PropTypes from 'prop-types';
+
 import columns from './data/columns';
 import { getAllSites, deleteSite } from '../../../../_actions/site_actions';
 import SiteAddModal from './Sections/SiteAddModal';
 import SiteUpdateModal from './Sections/SiteUpdateModal';
 
-function SiteManagePage(props) {
+function SiteManagePage() {
   const dispatch = useDispatch();
-  const { user } = props;
   const [Sites, setSites] = useState([]);
   const [selectedRowKeys, setselectedRowKeys] = useState([]);
   const [Loading, setLoading] = useState(false);
   const [ShowAddModal, setShowAddModal] = useState(false);
   const [ShowUpdateModal, setShowUpdateModal] = useState(false);
   const [SelectedSite, setSelectedSite] = useState({});
-  console.log(user);
-  console.log(Sites);
-  // console.log(Departments);
-  console.log('selectedRowKeys; ', ...selectedRowKeys);
 
   const getSites = () => {
     setLoading(true);
@@ -68,7 +62,6 @@ function SiteManagePage(props) {
   };
 
   const deleteConfirm = site => {
-    console.log('depart del: ', site);
     let body;
     if (site) {
       if (site[0] === '본사') {
@@ -95,7 +88,6 @@ function SiteManagePage(props) {
       };
     }
 
-    console.log('body: ', body);
     dispatch(deleteSite(body))
       .then(res => {
         const oktem = [];
@@ -252,7 +244,6 @@ function SiteManagePage(props) {
             columns={col}
             dataSource={Sites}
             bordered
-            // tableLayout="auto"
             scroll
             rowKey="_id"
           />
@@ -263,7 +254,3 @@ function SiteManagePage(props) {
 }
 
 export default SiteManagePage;
-
-SiteManagePage.propTypes = {
-  user: PropTypes.objectOf(PropTypes.object).isRequired,
-};

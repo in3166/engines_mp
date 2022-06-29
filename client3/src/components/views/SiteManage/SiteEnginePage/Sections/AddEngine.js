@@ -17,7 +17,6 @@ function AddEngine(props) {
   const [maxIndex, setmaxIndex] = useState(0);
   const [plainOptions, setplainOptions] = useState(0);
 
-  // check box value
   const [RadioValue, setRadioValue] = useState(0);
   const [indeterminate, setIndeterminate] = useState(true);
   const [pageSize, setPageSize] = useState(5);
@@ -58,7 +57,6 @@ function AddEngine(props) {
         id: engine?.id,
         site: site._id,
       };
-      console.log('body: ', body);
 
       dispatch(addSiteEngine(body))
         .then(res => {

@@ -1,12 +1,6 @@
 import React from 'react';
 import { Table, Button, Popconfirm, Space } from 'antd';
 import PropTypes from 'prop-types';
-// import {
-//   DeleteFilled,
-//   PlusOutlined,
-//   EditOutlined,
-//   QuestionCircleOutlined,
-// } from '@ant-design/icons';
 
 import {
   DeleteFilled,
@@ -71,11 +65,9 @@ function ManualTable(props) {
   ];
 
   const columns2 = [...columns, ...columnButton];
-  console.log(selectedRowKeys);
   const rowSelection = {
     ...selectedRowKeys._id,
     onChange: (selectedRowKey, sel2) => {
-      console.log(sel2);
       setselectedRowKeys(sel2);
     },
     selections: [

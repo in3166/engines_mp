@@ -1,8 +1,6 @@
 import React from 'react';
 import { Modal, Input, Form, message } from 'antd';
-// import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
-// import { changeRole } from '../../../../../_actions/user_actions';
 
 function UpdateModal(props) {
   const {
@@ -12,30 +10,12 @@ function UpdateModal(props) {
     selectedRowKeys,
     setselectedRowKeys,
   } = props;
+
   const [form] = Form.useForm();
-  // const dispatch = useDispatch();
-  // 수정 모달 OK 버튼 - redux
+
   const modalOnOk = () => {
     console.log(modalData);
     message.success('성공');
-    // const body = {
-    //   id: modalData.id,
-    // };
-
-    // console.log(body);
-
-    // dispatch(changeRole(body))
-    //   .then(res => {
-    //     if (res.payload.success) {
-    //       message.success('권한이 수정되었습니다.');
-    //       getAllUsers();
-    //     } else {
-    //       message.error('권한 수정을 실패하였습니다.');
-    //     }
-    //   })
-    //   .catch(err => {
-    //     message.error(`[Error]: ${err}`);
-    //   });
 
     setModalVisible(false);
     setselectedRowKeys([]);

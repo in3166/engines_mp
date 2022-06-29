@@ -7,6 +7,7 @@ import {
   QuestionCircleOutlined,
 } from '@ant-design/icons';
 import axios from 'axios';
+
 import { engineCol } from '../data/coulmns';
 import repairCol from '../data/repairCol';
 import SiteDescription from '../../../../utils/SiteDescription/SiteDescription';
@@ -18,17 +19,8 @@ function EngineList(props) {
   const [ShowUpdateModal, setShowUpdateModal] = useState(false);
   const [ShowAddModal, setShowAddModal] = useState(false);
   const [SelectedRepair, setSelectedRepair] = useState({});
-  console.log('site: ', site);
-  console.log('engine: ', engine);
-
-  // const repairUpdateHandler = part => {
-  //   console.log(part);
-  //   setSelectedRepair(part);
-  //   setShowUpdateModal(true);
-  // };
 
   const repairAddHandler = v => {
-    console.log('add: ', v);
     setSelectedRepair(v);
     setShowAddModal(true);
   };
@@ -74,27 +66,10 @@ function EngineList(props) {
   ];
 
   const columnButton = [
-    // {
-    //   title: '수정',
-    //   key: 'action',
-    //   render: v => {
-    //     return (
-    //       <Space size="middle">
-    //         <Button onClick={() => repairUpdateHandler(v)}>
-    //           <EditOutlined />
-    //         </Button>
-    //       </Space>
-    //     );
-    //   },
-    //   width: 70,
-    //   align: 'center',
-    //   responsive: ['sm'],
-    // },
     {
       title: '삭제',
       key: 'action',
       render: part => {
-        /* eslint no-underscore-dangle: 0 */
         return (
           <Space size="middle">
             <Popconfirm
@@ -120,7 +95,7 @@ function EngineList(props) {
 
   const renderPartCol = [...repairCol, ...columnButton];
   const enginesCol = [...engineCol, ...columnButton2];
-  //  let check = true;
+
   const expandedRowRender = record => {
     const date = record.repairHistory;
 

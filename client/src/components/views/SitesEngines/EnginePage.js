@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Breadcrumb, Button, Tabs, Spin } from 'antd';
-
-import { ReloadOutlined } from '@ant-design/icons';
+import { useDispatch, useSelector } from 'react-redux';
 import { Line } from 'react-chartjs-2';
 import PropTypes from 'prop-types';
+import { ReloadOutlined } from '@ant-design/icons';
 
-import { useDispatch, useSelector } from 'react-redux';
 import datas from './Data/datas';
-
 import EngineTable from './Sections/EngineTable';
 import { getAllSites } from '../../../_actions/site_actions';
 
@@ -21,13 +19,9 @@ function EnginePage(props) {
   const [LineData, setLineData] = useState(datas.chartData);
   const sitesEngines = useSelector(state => state.site);
 
-  // if (!user?.userData?.isAuth) {
-  //   return null;
-  // }
   const getSite = () => {
     setLoading(true);
     const selectorSites = sitesEngines?.sitesEngine?.sites;
-    console.log('state: ', selectorSites);
 
     if (selectorSites?.length > 0) {
       const site = selectorSites.filter(v => {

@@ -1,15 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Breadcrumb, message, Spin, Space } from 'antd';
-import PropTypes from 'prop-types';
-// import { DeleteFilled, PlusOutlined, EditOutlined } from '@ant-design/icons';
+import { Breadcrumb, message, Spin } from 'antd';
 import { useDispatch } from 'react-redux';
+
 import { getAllParts } from '../../../../_actions/part_actions';
 import PartTable from './Sections/PartTable';
 import PartUpdateModal from './Sections/PartUpdateModal';
 
-function PartMaintenancePeriod(props) {
-  const { user } = props;
-
+function PartMaintenancePeriod() {
   const [Parts, setParts] = useState([]);
   const [selectedRowKeys, setselectedRowKeys] = useState([]);
   const [selectedPart, setselectedPart] = useState({});
@@ -17,17 +14,13 @@ function PartMaintenancePeriod(props) {
   const [loading, setloading] = useState(false);
   const dispatch = useDispatch();
 
-  // console.log(Parts);
-
   const getParts = () => {
     setloading(true);
     dispatch(getAllParts())
       .then(res => {
-        // console.log('res: ', res);
         if (res.payload.success) {
           setselectedRowKeys([]);
           setParts(res.payload.parts);
-          // console.log('set parts: ', res.payload.parts);
         } else {
           message.error(res.payload.err);
         }
@@ -52,8 +45,6 @@ function PartMaintenancePeriod(props) {
     setshowUpdateConfirm(true);
   };
 
-  // if (!user?.userData?.isAuth) return null;
-  console.log(user);
   return (
     <>
       <Breadcrumb style={{ margin: '16px 0' }}>
@@ -68,11 +59,6 @@ function PartMaintenancePeriod(props) {
           </h3>
         </div>
         <div style={{ float: 'right' }}>
-          <Space>
-            {/* <Button onClick={() => updatePartsButton(Parts)}>
-              <EditOutlined />
-            </Button> */}
-          </Space>
           {selectedPart && (
             <PartUpdateModal
               showUpdateConfirm={showUpdateConfirm}
@@ -100,7 +86,3 @@ function PartMaintenancePeriod(props) {
 }
 
 export default PartMaintenancePeriod;
-
-PartMaintenancePeriod.propTypes = {
-  user: PropTypes.objectOf(PropTypes.object).isRequired,
-};

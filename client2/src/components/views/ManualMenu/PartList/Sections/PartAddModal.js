@@ -18,6 +18,7 @@ function PartAddModal(props) {
   } = useForm();
 
   const [form] = Form.useForm();
+
   const modalOnOk = part => {
     const body = {
       section1: part?.section1,
@@ -43,11 +44,6 @@ function PartAddModal(props) {
         message.error(`[Error]: ${err}`);
       })
       .finally(() => {
-        // document.getElementById('id').value = '';
-        // document.getElementById('name').value = '';
-        // document.getElementById('life').value = '';
-        // document.getElementById('price').value = '';
-        // document.getElementById('desc').value = '';
         setshowAddConfirm(false);
         reset();
       });

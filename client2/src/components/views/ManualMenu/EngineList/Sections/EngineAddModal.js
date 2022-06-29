@@ -17,6 +17,7 @@ function EngineAddModal(props) {
   } = useForm();
 
   const [form] = Form.useForm();
+
   const modalOnOk = part => {
     const body = {
       id: part?.id,
@@ -37,6 +38,7 @@ function EngineAddModal(props) {
         message.error(`[Error]: ${err}`);
       })
       .finally(() => {
+        // state로 변경
         document.getElementById('id').value = '';
         document.getElementById('name').value = '';
         document.getElementById('life').value = '';

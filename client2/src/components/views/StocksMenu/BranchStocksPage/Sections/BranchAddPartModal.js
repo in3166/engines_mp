@@ -77,8 +77,6 @@ function BranchAddPartModal(props) {
         reload();
         setshowAddConfirm(false);
       });
-
-    // form.resetFields();
   };
 
   // 페이지네이션

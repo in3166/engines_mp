@@ -21,9 +21,6 @@ function EngineList(props) {
 
   return (
     <>
-      {/* <Divider plain>
-        <strong>Engine</strong>
-      </Divider> */}
       <Table
         size="middle"
         columns={engineCol}

@@ -4,16 +4,7 @@ import PropTypes from 'prop-types';
 
 function FeedbackModal(props) {
   const { ShowFeedbackModal, setShowFeedbackModal, part } = props;
-  //   const [part, setpart] = useState({});
-  //   console.log(part);
   const [form] = Form.useForm();
-
-  //   useEffect(() => {
-  //     setpart(selectedPart);
-  //     return () => {
-  //       setpart({});
-  //     };
-  //   }, [selectedPart]);
 
   const modalOnOk = () => {
     message.success('피드백을 추가했습니다.');
@@ -113,7 +104,6 @@ export default FeedbackModal;
 FeedbackModal.propTypes = {
   ShowFeedbackModal: PropTypes.bool.isRequired,
   setShowFeedbackModal: PropTypes.func.isRequired,
-  // selectedPart: PropTypes.objectOf(PropTypes.any).isRequired,
   getParts: PropTypes.func.isRequired,
   part: PropTypes.objectOf(PropTypes.any).isRequired,
 };

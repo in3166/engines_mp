@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-
+import { useDispatch } from 'react-redux';
+import { Line } from 'react-chartjs-2';
 import {
   Breadcrumb,
   Button,
@@ -11,11 +12,9 @@ import {
   Card,
   Select,
 } from 'antd';
-import { Line } from 'react-chartjs-2';
-// import PropTypes from 'prop-types';
 import { SendOutlined } from '@ant-design/icons';
-import { useDispatch } from 'react-redux';
-import datas2 from './data/datas2';
+
+import datas from './data/datas';
 import columns from './data/columns';
 import { getAllSites } from '../../../../_actions/site_actions';
 import PredictModal from './Sections/PredictModal';
@@ -33,16 +32,9 @@ function EngineerPredictPage() {
   const [ThisSite, setThisSite] = useState({});
   const [ShowModal, setShowModal] = useState(false);
   const [ThisPart, setThisPart] = useState({});
-  // const { user } = props;
-  // if (!user?.userData?.isAuth) {
-  //   return null;
-  // }
-
-  // console.log('Sites: ', Sites);
-  // console.log('ThisSite: ', ThisSite);
 
   const getAllSite = () => {
-    setLineDatas(datas2.chartData);
+    setLineDatas(datas.chartData);
     dispatch(getAllSites()).then(res => {
       setSites(res.payload.sites);
       setThisSite(res.payload.sites[0]);
@@ -57,7 +49,6 @@ function EngineerPredictPage() {
   const updatePartsButton = part => {
     setShowModal(true);
     setThisPart(part);
-    console.log(part);
   };
   const newCol = [
     {
@@ -75,26 +66,8 @@ function EngineerPredictPage() {
       responsive: ['sm'],
     },
   ];
+
   const col = [...columns, ...newCol];
-  // const flaskReq = () => {
-  //   setLoading(true);
-  //   axios
-  //     .get('/api/predict/engine1')
-  //     .then(res => {
-  //       if (res.data.success) {
-  //         const { a, date, x } = res.data.data;
-  //         const dataLine = datas(date, x, a);
-  //         renderLine(dataLine);
-  //         message.success('Success!');
-  //       } else {
-  //         // setLoading(false);
-  //         message.error('결과를 가져오지 못했습니다.');
-  //       }
-  //     })
-  //     .finally(() => {
-  //       setLoading(false);
-  //     });
-  // };
 
   const renderLine = dataLine => {
     setLineDatas(dataLine);
@@ -235,8 +208,8 @@ function EngineerPredictPage() {
                           <div style={{ minHeight: 300 }}>
                             <Line
                               data={LineDatas}
-                              legend={datas2?.legend}
-                              options={datas2?.options}
+                              legend={datas?.legend}
+                              options={datas?.options}
                             />
                           </div>
                         )}
@@ -278,7 +251,3 @@ function EngineerPredictPage() {
 }
 
 export default EngineerPredictPage;
-
-// PredictResultPage.propTypes = {
-//   user: PropTypes.objectOf(PropTypes.object).isRequired,
-// };

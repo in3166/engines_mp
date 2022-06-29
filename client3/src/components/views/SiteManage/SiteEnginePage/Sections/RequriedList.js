@@ -5,7 +5,6 @@ import reqCol from '../data/reqCol';
 
 const RequriedList = props => {
   const { engines, ShowRequiredParts, setShowRequiredParts } = props;
-  // console.log('eachEngines', engines);
 
   return (
     <Modal

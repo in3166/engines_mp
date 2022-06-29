@@ -1,13 +1,10 @@
 import React, { useState } from 'react';
 import { Button, Menu, Dropdown } from 'antd';
-
 import { AlignRightOutlined } from '@ant-design/icons';
+
 import RightMenu from './Sections/RightMenu';
 import LeftMenu from './Sections/LeftMenu';
 import './Sections/Navbar.css';
-
-// import { Link } from 'react-router-dom';
-// const { Header } = Layout;
 
 function NavBar() {
   const [, setVisible] = useState(false);
@@ -15,14 +12,6 @@ function NavBar() {
   const showDrawer = () => {
     setVisible(true);
   };
-
-  // const onClose = () => {
-  //     setVisible(false)
-  // };
-
-  // const setMenu = () => {
-  //     setVisible(false)
-  // };
 
   return (
     <nav className="menu" style={{ zIndex: 5, width: '100%' }}>

@@ -8,82 +8,22 @@ import {
   Popconfirm,
   message,
 } from 'antd';
-// import { useDispatch } from 'react-redux';
-// import PropTypes from 'prop-types';
-// import { deleteUsers } from '../../../_actions/user_actions';
 import {
   DeleteFilled,
   EditOutlined,
   PlusOutlined,
   QuestionCircleOutlined,
 } from '@ant-design/icons';
+
 import UpdateModal from './Sections/UpdateModal';
 import { datas2 } from './datas/datas';
 import columns from './datas/coulmns';
 
 function LifeCodePage() {
-  // const { user } = props;
-  // const [users] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [modalData, setModalData] = useState({});
   const [loading] = useState(false);
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
-  // const [selectedUsers, setSelectedUsers] = useState([]);
-
-  // const dispatch = useDispatch();
-
-  //   const getAllUtils = () => {
-  //     const tempUser = [];
-  //     setLoading(true);
-
-  //     axios.get('/api/users/getAllUsers').then(res => {
-  //       for (let i = 0; i < res.data.users.length; i += 1) {
-  //         let role = '';
-
-  //         if (res.data.users[i].role !== 1) {
-  //           if (res.data.users[i].role === 0) role = '일반 사용자';
-  //           else if (res.data.users[i].role === 2) role = '전문가';
-  //           else if (res.data.users[i].role === 3) role = '엔지니어';
-
-  //           const data = {
-  //             key: i.toString(),
-  //             id: `${res.data.users[i].id}`,
-  //             name: res.data.users[i].name,
-  //             email: res.data.users[i].email,
-  //             role,
-  //           };
-  //           tempUser.push(data);
-  //         }
-  //       }
-
-  //       setUsers(tempUser);
-  //     });
-  //     setTimeout(() => {
-  //       setLoading(false);
-  //     }, 500);
-  //   };
-
-  //   useEffect(() => {
-  //     if (user?.userData?.isAdmin) {
-  //       getAllUtils();
-  //     }
-  //     return () => setLoading(false); // cleanup function 메모리 누수 방지
-  //   }, [user]);
-
-  // 개별 삭제 버튼
-  // const deleteConfirm = userDel => {
-  //   const body = {
-  //     id: userDel.id,
-  //   };
-
-  //   axios.post('/api/users/deleteUser', body).then(res => {
-  //     if (res.data.success) {
-  //       message.success('회원 탈퇴를 완료하였습니다.');
-  //     } else {
-  //       message.error('회원 탈퇴를 실패하였습니다.', res.data.err);
-  //     }
-  //   });
-  // };
 
   // 수정 버튼 modal 열기
   const onClickUpdate = data => {
@@ -93,36 +33,10 @@ function LifeCodePage() {
     setModalVisible(true);
   };
 
-  //   // 회원 탈퇴 버튼
-  //   const deleteUsersButton = () => {
-  //     const body = {
-  //       id: [],
-  //     };
-  //     selectedUsers.forEach(userSel => {
-  //       body.id.push(userSel.id);
-  //     });
-
-  //     // redux post
-  //     dispatch(deleteUsers(body))
-  //       .then(res => {
-  //         if (res.payload.success) {
-  //           message.success('회원 탈퇴를 완료하였습니다.');
-  //           setSelectedRowKeys([]);
-  //           getAllUsers();
-  //         } else {
-  //           message.error('회원 탈퇴를 실패하였습니다. ', res.payload.err);
-  //         }
-  //       })
-  //       .catch(err => {
-  //         message.error(`[Error]: ${err}`);
-  //       });
-  //   };
-
   const rowSelection = {
     ...selectedRowKeys.id,
     onChange: (a, record) => {
       setSelectedRowKeys(record);
-      // setSelectedUsers(selected);
     },
     selections: [
       Table.SELECTION_ALL,
@@ -196,9 +110,5 @@ function LifeCodePage() {
     </>
   );
 }
-
-// LifeCodePage.propTypes = {
-//   user: PropTypes.objectOf(PropTypes.object).isRequired,
-// };
 
 export default LifeCodePage;

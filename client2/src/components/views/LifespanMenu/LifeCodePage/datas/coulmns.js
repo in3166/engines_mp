@@ -1,11 +1,3 @@
-// import React from 'react';
-// import { Space, Button, Popconfirm } from 'antd';
-// import {
-//   DeleteFilled,
-//   EditOutlined,
-//   QuestionCircleOutlined,
-// } from '@ant-design/icons';
-
 const columns = [
   {
     title: 'ID',
@@ -53,50 +45,6 @@ const columns = [
     minWidth: 10,
     align: 'center',
   },
-  // {
-  //   title: '수정',
-  //   dataIndex: 'update',
-  //   key: 'action',
-  //   render: () => {
-  //     // onClick={() => onClickUpdate(userUp)}>
-  //     return (
-  //       <Space size="middle">
-  //         <Button>
-  //           <EditOutlined />
-  //         </Button>
-  //       </Space>
-  //     );
-  //   },
-  //   width: 70,
-  //   minWidth: 10,
-  //   align: 'center',
-  // },
-  // {
-  //   title: '삭제',
-  //   key: 'action',
-  //   render: () => {
-  //     return (
-  //       <Space size="middle">
-  //         <Popconfirm
-  //           placement="leftBottom"
-  //           title="정말로 삭제하시겠습니까?"
-  //           //  onConfirm={() => deleteConfirm(userDel)}
-  //           okText="Yes"
-  //           cancelText="No"
-  //           icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
-  //         >
-  //           <Button>
-  //             <DeleteFilled />
-  //           </Button>
-  //         </Popconfirm>
-  //       </Space>
-  //     );
-  //   },
-  //   width: 70,
-  //   minWidth: 10,
-  //   align: 'center',
-  //   responsive: ['sm'],
-  // },
 ];
 
 export default columns;

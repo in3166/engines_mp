@@ -17,14 +17,13 @@ const ExpertTransfer = props => {
       const data = {
         key: i.toString() + ExpertGroup.name,
         id: `${userList[i].id}`,
-        // description: `description of content${i + 1}`,
         role: userList[i].role,
       };
       // 전문가의 경우 타겟 오른쪽 박스
       if (data.role.name === ExpertGroup.name) {
         targetKeys2.push(data.key);
       }
-      // console.log(data);
+
       // 일반 사용자나 전문가일 경우 list에 넣기
       if (
         (data.role.id === 2 && data.role.name === ExpertGroup.name) ||
@@ -45,9 +44,6 @@ const ExpertTransfer = props => {
   useMountEffect(tellExperts);
 
   const handleChange = (targetKey, direction, movekey) => {
-    // console.log('direction:', direction, ' / movekey: ',movekey)
-    // console.log('targetKey:', targetKey)
-
     const body = {
       users: ExpertsList.filter(userfilter => {
         return movekey.find(o => o === userfilter.key);
@@ -55,7 +51,7 @@ const ExpertTransfer = props => {
       direction,
       role: { id: ExpertGroup.role, name: ExpertGroup.name },
     };
-    // console.log(body);
+
     axios
       .post('/api/users/changeExpertRole', body)
       .then(res => {
@@ -93,8 +89,6 @@ const ExpertTransfer = props => {
         }}
         operations={['추가', '제거']}
         targetKeys={targetKeys}
-        // selectedKeys={selectedKeys}
-        // onSelectChange={handleSelectChange}
         onChange={handleChange}
         render={item => `${item.id}`}
         footer={renderFooter}

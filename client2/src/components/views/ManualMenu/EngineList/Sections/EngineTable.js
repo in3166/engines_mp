@@ -7,10 +7,8 @@ import {
   QuestionCircleOutlined,
   EditOutlined,
 } from '@ant-design/icons';
-
-// import axios from 'axios';
-// import axios from 'axios';
 import axios from 'axios';
+
 import columns from '../data/columns';
 import RequiredPartsModal from './RequiredPartsModal/RequiredPartsModal';
 import TableButtons from '../../../../utils/TableButtons/TableButtons';
@@ -48,7 +46,6 @@ function EngineTable(props) {
           engines,
         };
       }
-      console.log('del: ', body);
 
       axios
         .post('/api/engines/deleteEngines', body)
@@ -79,9 +76,6 @@ function EngineTable(props) {
       key: '4',
       width: 70,
       render: (text, record) => {
-        // console.log('text', text);
-        // console.log('record', record);
-        // console.log('index', index);
         return (
           <Button onClick={() => handlerPartsShow(record)}>
             <SearchOutlined />

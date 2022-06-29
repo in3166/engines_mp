@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Breadcrumb, message, Spin, Space } from 'antd';
-import PropTypes from 'prop-types';
+import { Breadcrumb, message, Spin } from 'antd';
 import { useDispatch } from 'react-redux';
 import { getAllParts } from '../../../../_actions/part_actions';
 import PartTable from './Sections/PartTable';
 import PartUpdateModal from './Sections/PartUpdateModal';
 
-function PartReplacePeriod(props) {
-  const { user } = props;
-
+function PartReplacePeriod() {
   const [Parts, setParts] = useState([]);
   const [selectedRowKeys, setselectedRowKeys] = useState([]);
   const [selectedPart, setselectedPart] = useState({});
@@ -16,17 +13,13 @@ function PartReplacePeriod(props) {
   const [loading, setloading] = useState(false);
   const dispatch = useDispatch();
 
-  // console.log(Parts);
-
   const getParts = () => {
     setloading(true);
     dispatch(getAllParts())
       .then(res => {
-        // console.log('res: ', res);
         if (res.payload.success) {
           setselectedRowKeys([]);
           setParts(res.payload.parts);
-          // console.log('set parts: ', res.payload.parts);
         } else {
           message.error(res.payload.err);
         }
@@ -51,8 +44,6 @@ function PartReplacePeriod(props) {
     setshowUpdateConfirm(true);
   };
 
-  // if (!user?.userData?.isAuth) return null;
-  console.log(user);
   return (
     <>
       <Breadcrumb style={{ margin: '16px 0' }}>
@@ -67,11 +58,6 @@ function PartReplacePeriod(props) {
           </h3>
         </div>
         <div style={{ float: 'right' }}>
-          <Space>
-            {/* <Button onClick={() => updatePartsButton(Parts)}>
-              <EditOutlined />
-            </Button> */}
-          </Space>
           {selectedPart && (
             <PartUpdateModal
               showUpdateConfirm={showUpdateConfirm}
@@ -81,7 +67,6 @@ function PartReplacePeriod(props) {
             />
           )}
         </div>
-        <br />
         <br />
 
         <Spin spinning={loading}>
@@ -99,7 +84,3 @@ function PartReplacePeriod(props) {
 }
 
 export default PartReplacePeriod;
-
-PartReplacePeriod.propTypes = {
-  user: PropTypes.objectOf(PropTypes.object).isRequired,
-};

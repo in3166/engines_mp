@@ -39,7 +39,6 @@ function PartUpdateModal(props) {
       price: partText?.price,
       desc: partText?.desc,
     };
-    console.log('body: ', body);
 
     dispatch(updatePart(body))
       .then(res => {

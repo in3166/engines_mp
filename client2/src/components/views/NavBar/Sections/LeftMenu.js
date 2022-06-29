@@ -2,9 +2,7 @@ import React from 'react';
 import { Menu } from 'antd';
 import PropTypes from 'prop-types';
 import CONFIG from '../../../../ipconfig.json';
-// const CONFIG = {
-//   IP: 'http://localhost',
-// };
+
 function LeftMenu(props) {
   const { mode } = props;
 

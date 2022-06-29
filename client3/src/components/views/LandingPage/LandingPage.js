@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-// import { useSelector } from 'react-redux';
 import { Breadcrumb, Table, Button, message } from 'antd';
 import axios from 'axios';
 import { PlusOutlined, EditOutlined } from '@ant-design/icons';
 import { useSelector } from 'react-redux';
+
 import columns from './data/columns';
 import DeleteModal from './Sections/DeleteModal';
 import UserUpdateModal from './Sections/UserUpdateModal';
@@ -11,7 +11,6 @@ import UserAddModal from './Sections/UserAddModal';
 
 function LandingPage() {
   const user = useSelector(state => state.user);
-  // const dispatch = useDispatch();
   const [getUsers, setGetUsers] = useState([]);
   const [Departments, setDepartments] = useState([]);
   const [Positions, setPositions] = useState([]);
@@ -27,7 +26,6 @@ function LandingPage() {
 
     axios.get('/api/users/getAllUsers').then(res => {
       for (let i = 0; i < res.data?.users?.length; i += 1) {
-        console.log(res.data.users[i].role);
         if (res.data.users[i].role !== 1) {
           const data = {
             key: i.toString(),
@@ -74,12 +72,10 @@ function LandingPage() {
   };
 
   useEffect(() => {
-    //  if (user?.userData?.isAdmin) {
     getAllUsers();
     getAllDepartments();
     getAllPositions();
     getAllSites();
-    // }
   }, [user]);
 
   const onSelectChange = (record, selected) => {
@@ -113,7 +109,6 @@ function LandingPage() {
         <Breadcrumb.Item>Home</Breadcrumb.Item>
         <Breadcrumb.Item>DashBoard</Breadcrumb.Item>
       </Breadcrumb>
-      {/*  {user?.userData?.role === 1 && ( */}
       <div style={{ background: 'white', padding: 20 }}>
         <div style={{ float: 'left' }}>
           <h3>
@@ -170,10 +165,6 @@ function LandingPage() {
           scroll
         />
       </div>
-      {/* )}
-       {user?.userData !== undefined && user?.userData?.isAuth === false && (
-         <div>You are not admin.</div>
-       )} */}
     </>
   );
 }

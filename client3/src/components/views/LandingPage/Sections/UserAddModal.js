@@ -30,7 +30,6 @@ function UserAddModal(props) {
       position: user?.position,
       role: user?.role,
     };
-    console.log('body: ', body);
     dispatch(registerUser(body))
       .then(res => {
         if (res.payload.success) {
@@ -44,17 +43,8 @@ function UserAddModal(props) {
         message.error(`[Error]: ${err}`);
       })
       .finally(() => {
-        // document.getElementById('id').value = '';
-        // document.getElementById('password').value = '';
-        // document.getElementById('name').value = '';
-        // document.getElementById('email').value = '';
-        // document.getElementById('position').value = '';
-        // document.getElementById('department').value = '';
-        // document.getElementById('role').value = '';
         setshowAddConfirm(false);
       });
-
-    // form.resetFields();
   };
 
   return (

@@ -27,16 +27,6 @@ const engineCol = [
     width: 100,
     render: value => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ','),
   },
-  // {
-  //   title: '최근 수리 날짜',
-  //   dataIndex: ['engine', 'recentRepairDate'],
-  //   sorter: {
-  //     compare: (a, b) => a.recentRepairDate.localeCompare(b.recentRepairDate),
-  //     multiple: 3,
-  //   },
-  //   width: 200,
-  //   responsive: ['lg'],
-  // },
 ];
 
 const partCol = [

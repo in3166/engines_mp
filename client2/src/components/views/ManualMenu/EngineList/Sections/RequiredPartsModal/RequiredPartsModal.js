@@ -1,11 +1,6 @@
 import React, { useState } from 'react';
 import { Modal, Table, Button, message } from 'antd';
 import PropTypes from 'prop-types';
-// import {
-//   PlusOutlined,
-//   DeleteFilled,
-//   QuestionCircleOutlined,
-// } from '@ant-design/icons';
 import { useDispatch } from 'react-redux';
 import TableButtons from '../../../../../utils/TableButtons/TableButtons';
 import PartAddModal from './RequiredPartAddModal';

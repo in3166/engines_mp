@@ -1,11 +1,10 @@
-// import axios from 'axios';
 import React, { useRef, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-// import axios from 'axios';
 import { message } from 'antd';
 import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
+
 import { registerUser } from '../../../_actions/user_actions';
 import './Form.css';
 
@@ -21,6 +20,7 @@ function RegisterPage() {
     formState: { errors },
     handleSubmit,
   } = useForm();
+
   const password = useRef();
   password.current = watch('password');
 
@@ -63,19 +63,7 @@ function RegisterPage() {
       .catch(err => {
         message.error(`[Error]: ${err}`);
       });
-
-    // axios.post('/api/users/register', data)
-    // .then((res) => {
-    //     if(res.data.success){
-    //         props.history.push("/login");
-    //     }else{
-    //         alert(res.data.err)
-    //     }
-    //     //console.log(res.data.id, res.data.userId, res.data.loginSuccess, res.data.message)
-    // })
-  }; // your form submit function which will invoke after successful validation
-
-  // console.log(watch("email")); // you can watch individual input by pass the name of the input
+  };
 
   return (
     <form className="form" onSubmit={handleSubmit(onSubmit)}>
@@ -195,13 +183,6 @@ function RegisterPage() {
         ))}
       </select>
 
-      {/* {errors.department && errors.department.type === 'required' && (
-        <p className="form_p">This department field is required</p>
-      )}
-      {errors.department && errors.department.type === 'maxLength' && (
-        <p className="form_p">Your input exceed maximum input</p>
-      )} */}
-
       <p className="form_label">Position</p>
       <select
         className="form_input form_select"
@@ -217,7 +198,6 @@ function RegisterPage() {
         ))}
       </select>
 
-      {/* {errors.exampleRequired && <p>This field is required</p>} */}
       <input type="submit" className="form_input" value="등록" />
       <div className="back">
         <Link to="/login">취소</Link>

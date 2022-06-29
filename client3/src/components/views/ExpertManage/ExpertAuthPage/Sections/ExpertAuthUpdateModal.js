@@ -18,6 +18,7 @@ function ExpertAuthUpdateModal(props) {
       desc: expert.desc,
       role: expert.role,
     };
+
     dispatch(updateExpert(body))
       .then(res => {
         if (res.payload.success) {

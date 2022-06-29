@@ -26,9 +26,6 @@ function RequiredPartUpdateModal(props) {
       engine: EngineInfo._id,
     };
 
-    console.log('EngineInfo:', EngineInfo);
-    console.log(body);
-
     dispatch(updateEnginRequiredPart(body))
       .then(res => {
         if (res.payload.success) {
@@ -42,12 +39,10 @@ function RequiredPartUpdateModal(props) {
       })
       .finally(() => {
         getEngines();
-        // setShowPartAdd(false);
       });
 
     getEngines();
     setShowPartsModal(false);
-    // form.resetFields();
   };
 
   return (

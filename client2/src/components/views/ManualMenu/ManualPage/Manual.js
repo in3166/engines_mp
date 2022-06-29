@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Breadcrumb, message, Spin, Space, Button, Popconfirm } from 'antd';
-import PropTypes from 'prop-types';
-// import { DeleteFilled, PlusOutlined, EditOutlined } from '@ant-design/icons';
 import { useDispatch } from 'react-redux';
 import {
   DeleteFilled,
@@ -15,9 +13,7 @@ import ManualUpdateModal from './Sections/ManualUpdateModal';
 import ManualAddModal from './Sections/ManualAddModal';
 import { getAllManuals } from '../../../../_actions/manual_actions';
 
-function Manual(props) {
-  const { user } = props;
-
+function Manual() {
   const [Manuals, setManuals] = useState([]);
   const [selectedRowKeys, setselectedRowKeys] = useState([]);
   const [selectedManual, setselectedManual] = useState({});
@@ -26,17 +22,13 @@ function Manual(props) {
   const [loading, setloading] = useState(false);
   const dispatch = useDispatch();
 
-  // console.log(Manuals);
-
   const getManuals = () => {
     setloading(true);
     dispatch(getAllManuals())
       .then(res => {
-        // console.log('res: ', res);
         if (res.payload.success) {
           setselectedRowKeys([]);
           setManuals(res.payload.manuals);
-          // console.log('set manuals: ', res.payload.manuals);
         } else {
           message.error(res.payload.err);
         }
@@ -83,8 +75,6 @@ function Manual(props) {
       })
       .finally(() => getManuals());
   };
-  // if (!user?.userData?.isAuth) return null;
-  console.log(user);
   return (
     <>
       <Breadcrumb style={{ margin: '16px 0' }}>
@@ -99,15 +89,6 @@ function Manual(props) {
           </h3>
         </div>
         <div style={{ float: 'right' }}>
-          {/* <Space>
-            <TableButtons
-              setShowAddModal={setshowAddConfirm}
-              setShowUpdateModal={setshowUpdateConfirm}
-              deleteConfirm={deleteManualsButton}
-              selectedRowKeys={selectedRowKeys}
-              setselectedPart={setselectedManual}
-            /> */}
-
           <Space>
             <Button onClick={() => setshowAddConfirm(true)}>
               <PlusOutlined />
@@ -164,7 +145,3 @@ function Manual(props) {
 }
 
 export default Manual;
-
-Manual.propTypes = {
-  user: PropTypes.objectOf(PropTypes.object).isRequired,
-};

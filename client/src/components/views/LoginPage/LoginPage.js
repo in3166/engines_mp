@@ -1,11 +1,11 @@
 import React, { useRef } from 'react';
-import { useForm } from 'react-hook-form';
-import { Link, useHistory } from 'react-router-dom';
-// import axios from 'axios';
-import '../RegisterPage/Form.css';
-import { message } from 'antd';
 import { useDispatch } from 'react-redux';
+import { Link, useHistory } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import { message } from 'antd';
+
 import { loginUser } from '../../../_actions/user_actions';
+import '../RegisterPage/Form.css';
 
 function LoginPage() {
   const dispatch = useDispatch();
@@ -25,12 +25,6 @@ function LoginPage() {
       .then(res => {
         if (res.payload.loginSuccess) {
           window.localStorage.setItem('userId', res.payload.userId);
-          // remember me
-          // if (rememberMe === true) {
-          //   window.localStorage.setItem('rememberMe', values.id);
-          // } else {
-          //   localStorage.removeItem('rememberMe');
-          // }
           history.push('/');
         } else {
           message.error(res.payload.message);
@@ -41,8 +35,6 @@ function LoginPage() {
       });
   };
 
-  // console.log(watch("email")); // you can watch individual input by pass the name of the input
-
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="form">
       <div className="login_logo">
@@ -51,8 +43,6 @@ function LoginPage() {
         </a>
       </div>
 
-      <br />
-      <br />
       <br />
 
       <p className="form_label">ID</p>
@@ -81,7 +71,6 @@ function LoginPage() {
         <p className="form_p">Password must have at least 8 characters</p>
       )}
 
-      {/* {errors.exampleRequired && <p>This field is required</p>} */}
       <input
         className="form_input"
         type="submit"

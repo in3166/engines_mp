@@ -38,7 +38,6 @@ function UsersRolePage(props) {
     setLoading(true);
 
     axios.get('/api/users/getAllUsers').then(res => {
-      console.log(res.data.users);
       for (let i = 0; i < res.data.users.length; i += 1) {
         if (res.data.users[i].role !== 1) {
           const data = {
@@ -62,21 +61,10 @@ function UsersRolePage(props) {
   };
 
   useEffect(() => {
-    // if (user?.userData?.isAdmin) {
     getAllUsers();
-    // }
     return () => {
       setLoading(false);
       performance.mark('target_page_mounted');
-      // performance.measure(
-      //   'reactRouterPerf',
-      //   'initialize_page_change',
-      //   'target_page_mounted',
-      // );
-      // // Pull out all of the measurements.
-      // console.log('userauth: ', performance.getEntriesByType('measure'));
-
-      // Finally, clean up the entries.
       performance.clearMarks();
       performance.clearMeasures();
     };
@@ -107,8 +95,6 @@ function UsersRolePage(props) {
 
   // 수정 모달 권한 변경
   const handleRoleChange = value => {
-    // modalData.role = value; set으로 하지않으면 rerender가 안됨
-    // selected = value;
     setModalData(prev => ({ ...prev, role: value }));
   };
 
@@ -124,7 +110,6 @@ function UsersRolePage(props) {
     if (body.id.length === 0) {
       message.error('사용자를 선택하세요.');
     } else {
-      // redux post
       dispatch(deleteUsers(body))
         .then(res => {
           if (res.payload.success) {

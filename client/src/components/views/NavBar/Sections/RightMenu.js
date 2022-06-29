@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
 import { Menu, message, Popover } from 'antd';
 import axios from 'axios';
@@ -6,7 +5,6 @@ import { withRouter, Link, useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 
-// import { UserOutlined } from '@ant-design/icons';
 import { FaUserCircle } from 'react-icons/fa';
 import { USER_SERVER } from '../../../Config';
 
@@ -21,7 +19,6 @@ function RightMenu(props) {
     </div>
   );
 
-  // console.log(user)
   const logoutHandler = () => {
     axios.get(`${USER_SERVER}/logout`).then(response => {
       if (response.status === 200) {
@@ -59,6 +56,7 @@ function RightMenu(props) {
         </Popover>
       </Menu.Item>
       <Menu.Item key="logout" style={{ marginLeft: 0 }}>
+        {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
         <a
           tabIndex="0"
           role="button"

@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
 import { Layout, Breadcrumb, Table, Button, Tabs } from 'antd';
-// import { SearchOutlined } from '@ant-design/icons';
-import PropTypes from 'prop-types';
 
-// const { SubMenu } = Menu;
 const { Content } = Layout;
 const { TabPane } = Tabs;
 const data = [
@@ -37,11 +34,9 @@ const data = [
   },
 ];
 
-function EnginePartsListPage(props) {
+function EnginePartsListPage() {
   const [selectedRowKey, setselectedRowKeys] = useState([]);
-  const { user } = props;
   const onSelectChange = selectedRowKeys => {
-    // console.log('selectedRowKeys changed: ', selectedRowKeys);
     setselectedRowKeys(selectedRowKeys);
   };
 
@@ -84,8 +79,6 @@ function EnginePartsListPage(props) {
     },
   ];
 
-  // if (!user?.userData?.isAuth) return null;
-  console.log(user);
   const rowSelection = {
     selectedRowKey,
     onChange: onSelectChange,
@@ -141,9 +134,5 @@ function EnginePartsListPage(props) {
     </div>
   );
 }
-
-EnginePartsListPage.propTypes = {
-  user: PropTypes.objectOf(PropTypes.object).isRequired,
-};
 
 export default EnginePartsListPage;

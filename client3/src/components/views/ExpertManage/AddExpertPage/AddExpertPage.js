@@ -1,5 +1,4 @@
 import React, { useState, useEffect, Profiler } from 'react';
-// import {useSelector} from 'react-redux'
 import { Button, Breadcrumb, Spin, Tabs } from 'antd';
 import axios from 'axios';
 import { ReloadOutlined } from '@ant-design/icons';
@@ -15,11 +14,6 @@ function AddExpertPage(props) {
   const [loading, setLoading] = useState(false);
   const { user } = props;
 
-  // console.log('userList: ', userList);
-  // console.log('ExpertsGroup', ExpertsGroup);
-  // console.log('targetKeys', targetKeys);
-
-  // const [selectedKeys, setselectedKeys] = useState([]);
   const getExpertGroups = () => {
     axios.get('/api/experts/getAllExperts').then(res => {
       if (res.data.success) {
@@ -40,59 +34,15 @@ function AddExpertPage(props) {
   };
 
   useEffect(() => {
-    // if (user?.userData?.isAdmin)
     getExpertGroups();
     getAllUsers();
-    // performance.mark('target_page_mounted');
     return () => {
-      // performance.measure(
-      //   'reactRouterPerf',
-      //   'initialize_page_change',
-      //   'target_page_mounted',
-      // );
-      // console.log('addexpert: ', performance.getEntriesByType('measure'));
-      // Finally, clean up the entries.
-      // performance.clearMarks();
-      // performance.clearMeasures();
       setLoading(false);
     };
   }, [user]);
-  // 모든 사용자 불러오기
-
-  //  const handleSelectChange = (sourceSelectedKeys, targetSelectedKeys) => {
-  //     console.log('selectedKeys: ',selectedKeys)
-  //     console.log('sourceSelectedKeys: ',sourceSelectedKeys)
-  //     console.log('targetSelectedKeys: ',targetSelectedKeys)
-  //     setselectedKeys(
-  //         [...sourceSelectedKeys, ...targetSelectedKeys]
-  //     );
-  //     console.log('after selectedKeys: ',selectedKeys)
-  //   };
 
   return (
-    <Profiler
-      id="add"
-      onRender={(
-        id,
-        phase,
-        actualDuration,
-        baseDuration,
-        startTime,
-        commitTime,
-      ) => {
-        // we can log it to a database or render it out as a chart
-        if (phase === 'mount')
-          console.log({
-            id,
-            phase,
-            actualDuration,
-            baseDuration,
-            startTime,
-            commitTime,
-          });
-      }}
-      // onRender={() => performance.mark('initialize_page_change')}
-    >
+    <Profiler id="add">
       <>
         <Breadcrumb style={{ margin: '16px 0' }}>
           <Breadcrumb.Item>Home</Breadcrumb.Item>

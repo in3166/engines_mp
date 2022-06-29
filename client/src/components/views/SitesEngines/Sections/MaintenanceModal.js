@@ -6,26 +6,6 @@ const { Column, ColumnGroup } = Table;
 function MaintenanceModal(props) {
   const { ShowMaintenanceModal, setShowMaintenanceModal, MaintenanceInfo } =
     props;
-  console.log('MaintenanceInfo: ', MaintenanceInfo);
-  // const newParts = PartsInfo.map((a, i) => {
-  //   const temp = a.part;
-  //   temp.requiredNumber = a.requiredNumber;
-  //   temp.key = i;
-
-  //   return a.part;
-  // });
-  // const data = [
-  //   {
-  //     siteId: 's123',
-  //     siteName: 'site1',
-  //     address: 'korea 1-1',
-  //     partId: 'p1',
-  //     partName: 'part1',
-  //     price: 300,
-  //     repairNum: 3,
-  //     date: '2020-01-02',
-  //   },
-  // ];
 
   return (
     <Modal

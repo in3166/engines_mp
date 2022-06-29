@@ -7,8 +7,7 @@ import {
   IdcardOutlined,
   BankOutlined,
 } from '@ant-design/icons';
-import { useSelector } from 'react-redux';
-import useWindowDimensions from '../../utils/WindowSize/useWindowDimensions';
+import useWindowDimensions from '../../../hooks/useWindowDimensions';
 
 const { SubMenu } = Menu;
 const { Sider } = Layout;
@@ -16,8 +15,6 @@ const { Sider } = Layout;
 function SideBar() {
   const [Collapse, setCollapsed] = useState(false);
   const { width } = useWindowDimensions(Collapse);
-  const user = useSelector(state => state.user);
-  console.log(user);
   const href2 = window.location.href.split('/');
   const href = href2[3];
 
@@ -45,7 +42,6 @@ function SideBar() {
         <Menu.Item key="/" icon={<DashboardOutlined />}>
           <Link to="/">사용자 목록</Link>
         </Menu.Item>
-        {/* {user?.userData?.role === 1 && ( */}
         <>
           <SubMenu key="sub3" icon={<TeamOutlined />} title="전문가 관리">
             <Menu.Item key="/addExpert">
@@ -83,7 +79,6 @@ function SideBar() {
             </Menu.Item>
           </SubMenu>
         </>
-        {/* )} */}
       </Menu>
     </Sider>
   );

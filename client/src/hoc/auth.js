@@ -16,16 +16,13 @@ export default function foo(SpecificComponent, option, adminRoute = null) {
           if (option) {
             history.push('/login');
           }
-          // Loggined in
         } else if (adminRoute && !res.payload.isAdmin) {
           history.push('/');
         } else if (option === false) {
-          // Logged in, login page
           history.push('/');
         }
       });
     }, [dispatch, history]);
-    // forbidden: rule 삭제 후 수정
     return <SpecificComponent {...props} user={user} />;
   }
 

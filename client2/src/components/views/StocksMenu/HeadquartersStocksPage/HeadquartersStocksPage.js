@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import {
   Breadcrumb,
   Table,
@@ -9,26 +10,24 @@ import {
   Popconfirm,
   Space,
 } from 'antd';
-import PropTypes from 'prop-types';
 import {
   PlusOutlined,
   EditOutlined,
   DeleteFilled,
   QuestionCircleOutlined,
 } from '@ant-design/icons';
-import axios from 'axios';
+
 import SiteDescription from '../../../utils/SiteDescription/SiteDescription';
 import columns from './data/columns';
 import PartAddModal from './Sections/PartAddModal';
 import PartUpdateModal from './Sections/PartUpdateModal';
 import '../formStyle.css';
 
-function HeadquartersStocksPage(props) {
+function HeadquartersStocksPage() {
   const [selectedRowKey, setselectedRowKeys] = useState([]);
   const [showAddConfirm, setshowAddConfirm] = useState(false);
   const [showUpdateConfirm, setshowUpdateConfirm] = useState(false);
-  // const [value, setValue] = useState(1);
-  const { user } = props;
+
   const [Sites, setSites] = useState({});
   const [loading, setLoading] = useState(false);
 
@@ -38,7 +37,6 @@ function HeadquartersStocksPage(props) {
       .post('/api/sites/headParts')
       .then(res => {
         if (res.data.success) {
-          // console.log(res.data.sites);
           setSites(...res.data.sites);
         } else {
           message.error(res.data.err);
@@ -52,16 +50,8 @@ function HeadquartersStocksPage(props) {
       });
   };
 
-  // const onChange = e => {
-  //   console.log('radio checked', e.target.value);
-  //   setValue(e.target.value);
-  // };
-
   const useMountEffect = fun => useEffect(fun, []);
   useMountEffect(reload);
-
-  // if (!user?.userData?.isAuth) return null;
-  console.log(user);
   const rowSelection = {
     ...selectedRowKey._id,
     onChange: (selectedRowKeys, site) => {
@@ -179,9 +169,5 @@ function HeadquartersStocksPage(props) {
     </>
   );
 }
-
-HeadquartersStocksPage.propTypes = {
-  user: PropTypes.objectOf(PropTypes.object).isRequired,
-};
 
 export default HeadquartersStocksPage;

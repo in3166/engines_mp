@@ -4,16 +4,7 @@ import PropTypes from 'prop-types';
 
 function FeedbackModal(props) {
   const { ShowOrderModal, setShowOrderModal, part } = props;
-  //   const [part, setpart] = useState({});
-  //   console.log(part);
   const [form] = Form.useForm();
-
-  //   useEffect(() => {
-  //     setpart(selectedPart);
-  //     return () => {
-  //       setpart({});
-  //     };
-  //   }, [selectedPart]);
 
   const modalOnOk = () => {
     message.success('주문을 완료했습니다.');
@@ -111,7 +102,6 @@ export default FeedbackModal;
 FeedbackModal.propTypes = {
   ShowOrderModal: PropTypes.bool.isRequired,
   setShowOrderModal: PropTypes.func.isRequired,
-  // selectedPart: PropTypes.objectOf(PropTypes.any).isRequired,
   getParts: PropTypes.func.isRequired,
   part: PropTypes.objectOf(PropTypes.any).isRequired,
 };

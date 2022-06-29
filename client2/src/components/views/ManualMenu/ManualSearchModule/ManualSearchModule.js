@@ -1,18 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Breadcrumb, message, Spin, Space, Button, Select } from 'antd';
-import PropTypes from 'prop-types';
-// import { DeleteFilled, PlusOutlined, EditOutlined } from '@ant-design/icons';
 import { useDispatch } from 'react-redux';
 import { ReloadOutlined } from '@ant-design/icons';
 import Search from 'antd/lib/input/Search';
 import ManualTable from './Sections/ManualTable';
-// import TableButtons from '../../../utils/TableButtons/TableButtons';
 import { getAllManuals } from '../../../../_actions/manual_actions';
-import DateFormat from '../../../utils/DateFormatFunc/DateFormat';
+import DateFormat from '../../../utils/getDateFormat';
 
-function ManualSearchModule(props) {
-  const { user } = props;
-
+function ManualSearchModule() {
   const [Manuals, setManuals] = useState([]);
   const [SearchedManuals, setSearchedManuals] = useState([]);
   const [selectedRowKeys, setselectedRowKeys] = useState([]);
@@ -24,7 +19,6 @@ function ManualSearchModule(props) {
     setloading(true);
     dispatch(getAllManuals())
       .then(res => {
-        // console.log('res: ', res);
         if (res.payload.success) {
           setselectedRowKeys([]);
           res.payload.manuals.map(v => {
@@ -52,8 +46,6 @@ function ManualSearchModule(props) {
   };
 
   useMountEffect(getManuals);
-  // if (!user?.userData?.isAuth) return null;
-  console.log(user);
 
   const onSearchHandler = text => {
     if (text === '') {
@@ -129,7 +121,3 @@ function ManualSearchModule(props) {
 }
 
 export default ManualSearchModule;
-
-ManualSearchModule.propTypes = {
-  user: PropTypes.objectOf(PropTypes.object).isRequired,
-};

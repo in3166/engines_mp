@@ -3,13 +3,8 @@ import { Button, message, Spin, Breadcrumb, Tabs } from 'antd';
 import { ReloadOutlined } from '@ant-design/icons';
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
-import {
-  getAllSites,
-  // deleteSiteEngines,
-} from '../../../../_actions/site_actions';
 
-// import RequriedList from './Sections/RequriedList';
-// import AddEngine from './Sections/AddEngine';
+import { getAllSites } from '../../../../_actions/site_actions';
 import SiteInfo from './Sections/SiteInfo';
 import SiteEngineList from './Sections/SiteEngineList';
 
@@ -22,7 +17,6 @@ function SiteEngine() {
 
   const dispatch = useDispatch();
 
-  console.log('site', Sites);
   console.log('engine', Engines);
 
   const getEngines = () => {
@@ -82,15 +76,7 @@ function SiteEngine() {
                 return (
                   <TabPane tab={value.name} key={key}>
                     <SiteInfo site={value} />
-                    <SiteEngineList
-                      // ShowAddEngine={ShowAddEngine}
-                      // setShowAddEngine={setShowAddEngine}
-                      // ShowRequiredParts={ShowRequiredParts}
-                      // RequiredPartsInfo={RequiredPartsInfo}
-                      // setShowRequiredParts={setShowRequiredParts}
-                      site={value}
-                      getSites={getSites}
-                    />
+                    <SiteEngineList site={value} getSites={getSites} />
                   </TabPane>
                 );
               })}

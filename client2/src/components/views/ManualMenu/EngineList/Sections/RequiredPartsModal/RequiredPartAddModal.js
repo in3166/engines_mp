@@ -107,14 +107,11 @@ function RequiredPartAddModal(props) {
   };
 
   useEffect(() => {
-    console.log('checkedList', checkedList);
-    console.log('indeterminate', indeterminate);
     setmaxIndex(current * pageSize);
   }, [checkedList, current, indeterminate, pageSize, plainOptions]);
 
   // 체크 박스 선택 시
   const onChange = list => {
-    console.log('chkec onchange list: ', list);
     setCheckedList(list);
     setIndeterminate(!!list.length && list.length < plainOptions.length);
     setCheckAll(list.length === plainOptions.length);

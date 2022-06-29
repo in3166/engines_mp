@@ -11,7 +11,6 @@ const UpdateRepairList = props => {
       style={{ top: 200 }}
       visible={ShowUpdateModal}
       destroyOnClose
-      // onOk={form.submit}
       onCancel={() => setShowUpdateModal(false)}
     >
       {3}

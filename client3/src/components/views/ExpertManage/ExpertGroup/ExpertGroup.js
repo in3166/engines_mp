@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import {
   Table,
   Space,
@@ -15,9 +16,7 @@ import {
   QuestionCircleOutlined,
   ReloadOutlined,
 } from '@ant-design/icons';
-// import axios from 'axios';
-import { useDispatch } from 'react-redux';
-import PropTypes from 'prop-types';
+
 import columns from './data/columns';
 import {
   getAllExperts,
@@ -26,18 +25,14 @@ import {
 import ExpertGroupAddModal from './Sections/ExpertGroupAddModal';
 import ExpertGroupUpdateModal from './Sections/ExpertGroupUpdateModal';
 
-function ExpertGroup(props) {
+function ExpertGroup() {
   const dispatch = useDispatch();
-  const { user } = props;
   const [Experts, setExperts] = useState([]);
   const [selectedRowKeys, setselectedRowKeys] = useState([]);
   const [Loading, setLoading] = useState(false);
   const [ShowAddModal, setShowAddModal] = useState(false);
   const [ShowUpdateModal, setShowUpdateModal] = useState(false);
   const [SelectedExpert, setSelectedExpert] = useState({});
-  console.log(user);
-  // console.log(Experts);
-  console.log('selectedRowKeys; ', ...selectedRowKeys);
 
   const getExperts = () => {
     setLoading(true);
@@ -65,13 +60,11 @@ function ExpertGroup(props) {
   useMountEffect(getExperts);
 
   const onClickUpdate = expertGroup => {
-    console.log('expertGroup up: ', expertGroup);
     setSelectedExpert(expertGroup);
     setShowUpdateModal(true);
   };
 
   const deleteConfirm = expertGroup => {
-    console.log('expertGroup del: ', expertGroup);
     let body;
     if (expertGroup) {
       body = {
@@ -83,13 +76,12 @@ function ExpertGroup(props) {
         name,
       };
     }
-    console.log('body: ', body);
+
     dispatch(deleteExpert(body))
       .then(res => {
         if (res.payload.success) {
           message.success('전문가 그룹을 삭제했습니다.');
           message.success(`[성공]: ${res.payload.ok}`);
-          console.log('성공: ', res.payload.ok);
           if (res.payload.fail.length !== 0) {
             message.warning('사용자 필드가 참조하고 있습니다.');
             message.warning(`[실패]: ${res.payload.fail}`);
@@ -232,7 +224,3 @@ function ExpertGroup(props) {
 }
 
 export default ExpertGroup;
-
-ExpertGroup.propTypes = {
-  user: PropTypes.objectOf(PropTypes.object).isRequired,
-};

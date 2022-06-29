@@ -2,17 +2,11 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Layout, Menu } from 'antd';
 import {
-  // TeamOutlined,
-  // LaptopOutlined,
   NotificationOutlined,
-  // SettingFilled,
   ProfileOutlined,
   HddOutlined,
-  // DashboardOutlined,
-  // IdcardOutlined,
 } from '@ant-design/icons';
-// import { useSelector } from 'react-redux';
-import useWindowDimensions from '../../utils/WindowSize/useWindowDimensions';
+import useWindowDimensions from '../../../hooks/useWindowDimensions';
 
 const { SubMenu } = Menu;
 const { Sider } = Layout;
@@ -20,7 +14,6 @@ const { Sider } = Layout;
 function SideBar() {
   const [Collapse, setCollapsed] = useState(false);
   const { width } = useWindowDimensions(Collapse);
-  // const user = useSelector(state => state.user);
   const href2 = window.location.href.split('/');
   const href = href2[3];
   const onCollapse = Collapsed => {
@@ -44,9 +37,6 @@ function SideBar() {
         defaultOpenKeys={['sub1', 'sub2', 'sub3']}
         style={{ height: '100%', borderRight: 0 }}
       >
-        {/* <Menu.Item key="/" icon={<DashboardOutlined />}>
-          <Link to="/">Dashboard</Link>
-        </Menu.Item> */}
         <SubMenu key="sub1" icon={<HddOutlined />} title="수명 데이터 관리">
           <Menu.Item key="/engineParts">
             <Link to="/engineParts">엔진별 부품 목록</Link>
@@ -63,9 +53,6 @@ function SideBar() {
           icon={<HddOutlined />}
           title={<span title="부품/자재 재고 관리">부품/자재 재고 관리</span>}
         >
-          {/* <Menu.Item key="4">
-            <Link to="/enginePartsList">엔진별 목록 관리</Link>
-          </Menu.Item> */}
           <Menu.Item key="/sitePartsList">
             <Link to="/sitePartsList">사이트별 재고 목록</Link>
           </Menu.Item>
@@ -108,12 +95,6 @@ function SideBar() {
           <Menu.Item key="/manual">
             <Link to="/manual">메뉴얼 입력/수정</Link>
           </Menu.Item>
-          {/* <Menu.Item
-            key="23"
-            title="엔진 정비 시 필요 부품/자재/공구 목록 관리"
-          >
-            엔진 정비 시 필요 부품/자재/공구 목록 관리
-          </Menu.Item> */}
           <Menu.Item key="/manualUpdateList">
             <Link to="/manualUpdateList">메뉴얼 수정 이력</Link>
           </Menu.Item>

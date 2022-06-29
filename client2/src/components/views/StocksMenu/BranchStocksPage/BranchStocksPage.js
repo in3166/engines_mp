@@ -1,17 +1,13 @@
 import React, { useState, useEffect } from 'react';
-// import { SearchOutlined } from '@ant-design/icons';
-import PropTypes from 'prop-types';
 import { ReloadOutlined } from '@ant-design/icons';
 import { Breadcrumb, Tabs, message, Spin, Button } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { getAllSites } from '../../../../_actions/site_actions';
-// import EnginePartList from '../SitePartsListPage/Sections/EnginePartList';
 import BranchTabContent from './Sections/BranchTabContent';
 
 const { TabPane } = Tabs;
-function BranchStocksPage(props) {
-  const { user } = props;
+function BranchStocksPage() {
   const [Sites, setSites] = useState([]);
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
@@ -46,8 +42,6 @@ function BranchStocksPage(props) {
   const useMountEffect = fun => useEffect(fun, []);
   useMountEffect(getSites);
 
-  // if (!user?.userData?.isAuth) return null;
-  console.log(user);
   return (
     <>
       <Breadcrumb style={{ margin: '16px 0' }}>
@@ -87,9 +81,5 @@ function BranchStocksPage(props) {
     </>
   );
 }
-
-BranchStocksPage.propTypes = {
-  user: PropTypes.objectOf(PropTypes.object).isRequired,
-};
 
 export default BranchStocksPage;

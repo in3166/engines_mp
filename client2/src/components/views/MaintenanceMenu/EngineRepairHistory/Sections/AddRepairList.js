@@ -73,7 +73,6 @@ const AddRepairList = props => {
             name="date"
             showTime={{ defaultValue: moment('00:00:00', 'HH:mm:ss') }}
             format="YYYY-MM-DD HH:mm:ss"
-            // defaultValue={moment('2015/01/01', 'YYYY-MM-DD HH:mm:ss')}
           />
         </Form.Item>
       </Form>

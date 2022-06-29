@@ -1,19 +1,13 @@
 import React from 'react';
 import { Table, Button, Popconfirm, Space, message } from 'antd';
 import PropTypes from 'prop-types';
-// import {
-//   DeleteFilled,
-//   PlusOutlined,
-//   EditOutlined,
-//   QuestionCircleOutlined,
-// } from '@ant-design/icons';
-
+import axios from 'axios';
 import {
   DeleteFilled,
   QuestionCircleOutlined,
   EditOutlined,
 } from '@ant-design/icons';
-import axios from 'axios';
+
 import columns from '../data/columns';
 
 function PartTable(props) {
@@ -93,11 +87,10 @@ function PartTable(props) {
   ];
 
   const columns2 = [...columns, ...columnButton];
-  console.log(selectedRowKeys);
+
   const rowSelection = {
     ...selectedRowKeys._id,
     onChange: (selectedRowKey, sel2) => {
-      console.log(sel2);
       setselectedRowKeys(sel2);
     },
     selections: [

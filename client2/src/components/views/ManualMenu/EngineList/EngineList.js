@@ -1,14 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Breadcrumb, message, Spin } from 'antd';
-import PropTypes from 'prop-types';
-// import { DeleteFilled, PlusOutlined, EditOutlined } from '@ant-design/icons';
 import { useDispatch } from 'react-redux';
 import { getAllEngines } from '../../../../_actions/engine_actions';
 import EngineTable from './Sections/EngineTable';
 
-function EngineList(props) {
-  const { user } = props;
-
+function EngineList() {
   const [Engines, setEngines] = useState([]);
   const [selectedRowKeys, setselectedRowKeys] = useState([]);
 
@@ -40,8 +36,6 @@ function EngineList(props) {
 
   useMountEffect(getEngines);
 
-  // if (!user?.userData?.isAuth) return null;
-  console.log(user);
   return (
     <>
       <Breadcrumb style={{ margin: '16px 0' }}>
@@ -70,7 +64,3 @@ function EngineList(props) {
 }
 
 export default EngineList;
-
-EngineList.propTypes = {
-  user: PropTypes.objectOf(PropTypes.object).isRequired,
-};

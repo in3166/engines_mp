@@ -21,14 +21,12 @@ function ManualUpdateModal(props) {
 
   const getParts = () => {
     axios.get('/api/parts/getAllParts').then(res => {
-      console.log(res.data.parts);
       setParts(res.data.parts);
     });
   };
 
   const getEngines = () => {
     axios.get('/api/engines/getAllEngines').then(res => {
-      console.log(res.data.engines);
       setEngines(res.data.engines);
     });
   };
@@ -52,7 +50,6 @@ function ManualUpdateModal(props) {
       part: manualText?.part,
       engine: manualText?.engine,
     };
-    console.log('body: ', body);
 
     dispatch(updateManual(body))
       .then(res => {

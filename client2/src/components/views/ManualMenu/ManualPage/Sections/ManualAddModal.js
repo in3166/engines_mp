@@ -15,14 +15,12 @@ function ManualAddModal(props) {
 
   const getParts = () => {
     axios.get('/api/parts/getAllParts').then(res => {
-      console.log(res.data.parts);
       setParts(res.data.parts);
     });
   };
 
   const getEngines = () => {
     axios.get('/api/engines/getAllEngines').then(res => {
-      console.log(res.data.engines);
       setEngines(res.data.engines);
     });
   };
@@ -40,7 +38,7 @@ function ManualAddModal(props) {
       part: manual?.part,
       engine: manual?.engine,
     };
-    console.log(body);
+
     dispatch(addManual(body))
       .then(res => {
         if (res.payload.success) {

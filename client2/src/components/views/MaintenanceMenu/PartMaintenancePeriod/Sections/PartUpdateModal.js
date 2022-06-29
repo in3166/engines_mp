@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Modal, Form, message } from 'antd';
 import { useForm } from 'react-hook-form';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
+import { Modal, Form, message } from 'antd';
 import { updatePart } from '../../../../../_actions/part_actions';
 
 function PartUpdateModal(props) {
@@ -32,7 +32,6 @@ function PartUpdateModal(props) {
       _id: part._id,
       maintenancePeriod: partText?.maintenancePeriod,
     };
-    console.log('body: ', body);
 
     dispatch(updatePart(body))
       .then(res => {

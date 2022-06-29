@@ -22,9 +22,6 @@ function UpdateModal(props) {
       case '일반 사용자':
         role = { id: 0, name: modalData.role };
         break;
-      // case '전문가':
-      //   role = { id: 2, name: modalData.role };
-      //   break;
       case '엔지니어':
         role = { id: 3, name: modalData.role };
         break;
@@ -36,8 +33,6 @@ function UpdateModal(props) {
       id: modalData.id,
       role,
     };
-
-    // console.log(body);
 
     dispatch(changeRole(body))
       .then(res => {

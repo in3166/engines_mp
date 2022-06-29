@@ -17,11 +17,8 @@ function UserUpdateModal(props) {
   } = props;
   const dispatch = useDispatch();
 
-  console.log('selectedUsers[0]?.role?.: ', selectedUsers[0]?.role);
   // 수정 모달 OK 버튼 - redux
   const modalOnOk = user => {
-    console.log('user?.: ', selectedUsers);
-
     const department = Departments.find(v => {
       return v.name === user?.department;
     });
@@ -38,9 +35,6 @@ function UserUpdateModal(props) {
       case '일반 사용자':
         role = { id: 0, name: user.role };
         break;
-      // case '전문가':
-      //   role = { id: 2, name: user.role };
-      //   break;
       case '엔지니어':
         role = { id: 3, name: user.role };
         break;
@@ -58,7 +52,6 @@ function UserUpdateModal(props) {
       position: position._id,
       role,
     };
-    console.log('body: ', body);
     dispatch(updateUser(body))
       .then(res => {
         if (res.payload.success) {

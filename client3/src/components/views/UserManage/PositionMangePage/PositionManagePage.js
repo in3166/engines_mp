@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import {
   Table,
   Space,
@@ -16,8 +17,6 @@ import {
   ReloadOutlined,
 } from '@ant-design/icons';
 
-import { useDispatch } from 'react-redux';
-import PropTypes from 'prop-types';
 import columns from './data/columns';
 import {
   getAllPositions,
@@ -26,18 +25,14 @@ import {
 import PositionAddModal from './Sections/PositionAddModal';
 import PositionUpdateModal from './Sections/PositionUpdateModal';
 
-function PositionManagePage(props) {
+function PositionManagePage() {
   const dispatch = useDispatch();
-  const { user } = props;
   const [Positions, setPositions] = useState([]);
   const [selectedRowKeys, setselectedRowKeys] = useState([]);
   const [Loading, setLoading] = useState(false);
   const [ShowAddModal, setShowAddModal] = useState(false);
   const [ShowUpdateModal, setShowUpdateModal] = useState(false);
   const [SelectedPosition, setSelectedPosition] = useState({});
-  console.log(user);
-  // console.log(Departments);
-  console.log('selectedRowKeys; ', ...selectedRowKeys);
 
   const getPositions = () => {
     setLoading(true);
@@ -70,7 +65,6 @@ function PositionManagePage(props) {
   };
 
   const deleteConfirm = position => {
-    console.log('depart del: ', position);
     let body;
     if (position) {
       body = {
@@ -82,7 +76,6 @@ function PositionManagePage(props) {
         _id: selID,
       };
     }
-    console.log('body: ', body);
     dispatch(deletePosition(body))
       .then(res => {
         const oktem = [];
@@ -240,20 +233,8 @@ function PositionManagePage(props) {
           />
         </div>
       </Spin>
-
-      {/* <UpdateModal
-          modalData={modalData}
-          getAllUsers={getAllUsers}
-          handleRoleChange={handleRoleChange}
-          modalVisible={modalVisible}
-          setModalVisible={setModalVisible}
-        /> */}
     </>
   );
 }
 
 export default PositionManagePage;
-
-PositionManagePage.propTypes = {
-  user: PropTypes.objectOf(PropTypes.object).isRequired,
-};

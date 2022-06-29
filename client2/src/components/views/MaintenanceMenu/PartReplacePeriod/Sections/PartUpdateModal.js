@@ -31,7 +31,6 @@ function PartUpdateModal(props) {
       _id: part._id,
       actualLifespan: partText?.actualLifespan,
     };
-    // console.log('body: ', body);
 
     dispatch(updatePart(body))
       .then(res => {

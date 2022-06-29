@@ -50,9 +50,7 @@ function PartDeleteModal(props) {
         message.error(`[Error]: ${err}`);
       })
       .finally(() => {
-        console.log('지우고 새로');
         getParts();
-        console.log('지우고 새로 끗');
         setshowDeleteConfirm(false);
       });
   };

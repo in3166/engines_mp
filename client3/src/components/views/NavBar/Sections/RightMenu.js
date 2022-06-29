@@ -6,7 +6,6 @@ import { withRouter, Link, useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 
-// import { UserOutlined } from '@ant-design/icons';
 import { FaUserCircle } from 'react-icons/fa';
 import { USER_SERVER } from '../../../Config';
 
@@ -21,7 +20,6 @@ function RightMenu(props) {
     </div>
   );
 
-  // console.log(user)
   const logoutHandler = () => {
     axios.get(`${USER_SERVER}/logout`).then(response => {
       if (response.status === 200) {

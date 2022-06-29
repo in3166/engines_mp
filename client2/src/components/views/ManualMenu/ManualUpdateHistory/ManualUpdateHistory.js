@@ -1,29 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { Breadcrumb, message, Spin, Space, Button } from 'antd';
-import PropTypes from 'prop-types';
-// import { DeleteFilled, PlusOutlined, EditOutlined } from '@ant-design/icons';
 import { useDispatch } from 'react-redux';
 import { ReloadOutlined } from '@ant-design/icons';
 import ManualTable from './Sections/ManualHistoryTable';
-// import TableButtons from '../../../utils/TableButtons/TableButtons';
 import { getAllManuals } from '../../../../_actions/manual_actions';
-import DateFormat from '../../../utils/DateFormatFunc/DateFormat';
+import DateFormat from '../../../utils/getDateFormat';
 
-function ManualUpdateHistory(props) {
-  const { user } = props;
-
+function ManualUpdateHistory() {
   const [Manuals, setManuals] = useState([]);
   const [selectedRowKeys, setselectedRowKeys] = useState([]);
   const [loading, setloading] = useState(false);
   const dispatch = useDispatch();
 
-  console.log('Manuals: ', DateFormat(new Date(Manuals[0]?.updatedAt)));
-
   const getManuals = () => {
     setloading(true);
     dispatch(getAllManuals())
       .then(res => {
-        // console.log('res: ', res);
         if (res.payload.success) {
           setselectedRowKeys([]);
           res.payload.manuals.map(v => {
@@ -50,8 +42,7 @@ function ManualUpdateHistory(props) {
   };
 
   useMountEffect(getManuals);
-  // if (!user?.userData?.isAuth) return null;
-  console.log(user);
+
   return (
     <>
       <Breadcrumb style={{ margin: '16px 0' }}>
@@ -89,7 +80,3 @@ function ManualUpdateHistory(props) {
 }
 
 export default ManualUpdateHistory;
-
-ManualUpdateHistory.propTypes = {
-  user: PropTypes.objectOf(PropTypes.object).isRequired,
-};

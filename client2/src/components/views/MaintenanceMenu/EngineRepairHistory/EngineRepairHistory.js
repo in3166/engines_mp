@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Breadcrumb, Tabs, message, Button, Spin } from 'antd';
 import { ReloadOutlined } from '@ant-design/icons';
 import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
 import EngineList from './Sections/EngineList';
 import { getAllSites } from '../../../../_actions/site_actions';
 import './Sections/antdTable.css';
@@ -16,9 +16,6 @@ function EnginePartsPage(props) {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const site = useSelector(state => state.site.sites);
-
-  // console.log('site: ', site?.sites);
-  // console.log(site.sites);
 
   const reload = () => {
     setLoading(true);
@@ -50,8 +47,6 @@ function EnginePartsPage(props) {
     useEffect(fun, []);
   };
   useMountEffect(getSites);
-
-  // if (!user?.userData?.isAuth) return null;
 
   return (
     <div style={{ width: '100%' }}>
