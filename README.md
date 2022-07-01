@@ -187,3 +187,6 @@
 <img src="https://github.com/in3166/predict_react/blob/master/img/user.png" />
 <img src="https://github.com/in3166/predict_react/blob/master/img/user1.png" />
 <img src="https://github.com/in3166/predict_react/blob/master/img/user2.png" />
+
+![pre_bu](https://user-images.githubusercontent.com/45654988/176819081-f8282c54-207c-4d92-be1e-48e679231fe1.JPG)
+
