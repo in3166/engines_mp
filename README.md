@@ -71,8 +71,8 @@
 
 - Conditional Rendering 중 잠깐 화면이 나오는 문제
 
-  - Client3의 `LanderingPage`
-  - userData가 undefined이어도 있는걸로? 생각
+  - Client3의 `RanderingPage`
+  - userData가 undefined이어도 있는걸로 생각한다.
   - `user?.userData?.role !== undefined`를 추가해 해결
 
 - `Added non-passive event listener to a scroll-blocking 'wheel' event.` 경고 발생
