@@ -131,7 +131,6 @@
 <img src="https://github.com/in3166/predict_react/blob/master/img/메인.png" />
 <img src="https://github.com/in3166/predict_react/blob/master/img/예측.png" />
 
-
 ![pre_set](https://user-images.githubusercontent.com/45654988/202990738-9ff5cd14-0fdb-4c1b-86dc-19a48e8024c0.JPG)
 ![pre_user](https://user-images.githubusercontent.com/45654988/202990792-05ba8691-7a12-4ab0-b27d-41df1c3e4c7c.JPG)
 ![pre_bu](https://user-images.githubusercontent.com/45654988/176819081-f8282c54-207c-4d92-be1e-48e679231fe1.JPG)
@@ -140,13 +139,13 @@
 
 <br><br>
 
-## API
+## 고장예측 API
 
 `Jupyter Nodebook` `python` `tensorflow` `keras` `pandas` `Flask`
 
-- 고장 예측 API
-  - 시계열 데이터를 입력받으면 예측 데이터와 그래프를 반환
-    - *위 기술을 공부하여 예제 프로젝트를 위해 임시로 생성했습니다.*
+- 시계열 데이터를 입력받으면 예측 데이터와 그래프를 반환
+  - *위 기술을 공부하여 예제 프로젝트를 위해 임시로 생성했습니다.*
+<br>
 
 - `LSTM (상태유지 스택 순환신경망)` 알고리즘 사용하여 예측 데이터 생성
 - 데이터를 평탄화하여 시계열 데이터로 만들고 예측 데이터를 반환한다.
@@ -185,9 +184,11 @@ Trainable params: 337,540
 Non-trainable params: 0
 ```
 
-<img src="https://github.com/in3166/predict_react/blob/master/img/data1.png" width="80%" />
-<img src="https://github.com/in3166/predict_react/blob/master/img/data2.png" width="70%" />
-<img src="https://github.com/in3166/predict_react/blob/master/img/data3.jpg" width="70%" />
+<img src="/predict_react/img/data1.png" width="50%" />
+
+<img src="/predict_react/img/data2.png" width="90%" />
+
+<img src="/predict_react/img/data3.jpg" width="90%" />
 
 <br><br>
 
