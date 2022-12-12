@@ -184,11 +184,11 @@ Trainable params: 337,540
 Non-trainable params: 0
 ```
 
-<img src="/predict_react/img/data1.png" width="50%" />
+<img src="https://github.com/in3166/engines_mp/blob/master/img/data1.PNG" width="50%" />
 
-<img src="/predict_react/img/data2.png" width="90%" />
+<img src="https://github.com/in3166/engines_mp/blob/master/img/data2.png" width="90%" />
 
-<img src="/predict_react/img/data3.jpg" width="90%" />
+<img src="https://github.com/in3166/engines_mp/blob/master/img/data3.jpg" width="90%" />
 
 <br><br>
 
