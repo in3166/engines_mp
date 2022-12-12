@@ -186,7 +186,7 @@ Non-trainable params: 0
 
 <img src="https://github.com/in3166/engines_mp/blob/master/img/data1.PNG" width="50%" />
 
-<img src="https://github.com/in3166/engines_mp/blob/master/img/data2.png" width="90%" />
+<img src="https://github.com/in3166/engines_mp/blob/master/img/data2.PNG" width="90%" />
 
 <img src="https://github.com/in3166/engines_mp/blob/master/img/data3.jpg" width="90%" />
 
