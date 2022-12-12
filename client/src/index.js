@@ -1,13 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter } from 'react-router-dom';
 import './index.css';
 import 'antd/dist/antd.css';
-import { BrowserRouter } from 'react-router-dom';
+
 // app에 redux 연결
 import { Provider } from 'react-redux';
 import { applyMiddleware, createStore } from 'redux';
 import promiseMiddleware from 'redux-promise';
 import ReduxThunk from 'redux-thunk';
+
 import reportWebVitals from './reportWebVitals';
 import App from './App';
 import Reducer from './_reducers';

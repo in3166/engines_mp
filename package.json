@@ -6,27 +6,20 @@
   "scripts": {
     "node": "nodemon ./server/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "concurrently \"npm run node\" \"npm run start --prefix client\" \"npm run start --prefix client2\" \"npm run start --prefix client3\"",
-    "nodemon": "concurrently \"npm run node\" \"npm run start --prefix client\" \"npm run start --prefix client2\" \"npm run start --prefix client3\"",
+    "nodemon": "concurrently \"npm run node\" \"npm run start --prefix client\"",
     "screen": "screen"
   },
   "nodemonConfig": {
     "ignore": [
-      "client/*",
-      "client2/*",
-      "client3/*"
+      "client/*"
     ]
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/in3166/predict_react.git"
+    "url": "git+https://github.com/in3166/toyz-shop.git"
   },
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/in3166/predict_react/issues"
-  },
-  "homepage": "https://github.com/in3166/predict_react#readme",
   "dependencies": {
     "async": "^3.2.0",
     "axios": "^0.21.1",
