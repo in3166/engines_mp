@@ -1,4 +1,6 @@
 # 엔진 관리 및 고장 예측 서비스
+
+## 기능
 - Site, 엔진, 부품, 회원 관리
   - Site, 엔진, 부품, 회원을 추가, 삭제, 수정할 수 있다.
 
@@ -17,6 +19,7 @@
 - 각 엔진 별 데이터를 받아 엔진의 고장 여부 및 예측을 보여준다.
   - 압력, 온도 등의 데이터를 보여준다.
   - 예측 정보를 API에서 받아와 그래프로 그려준다.
+  - 예측 정보가 특정 수치를 넘어가면 사용자에게 알람을 해준다.
 
   <br>
 
@@ -29,7 +32,7 @@
 
 <br><br>
 
-## Client
+## Client ()
 
 ### 구조
 
@@ -70,8 +73,8 @@
 
 - Conditional Rendering 중 잠깐 화면이 나오는 문제
 
-  - Client3의 `LanderingPage`
-  - userData가 undefined이어도 있는걸로? 생각
+  - Client3의 `RanderingPage`
+  - userData가 undefined이어도 있는걸로 생각한다.
   - `user?.userData?.role !== undefined`를 추가해 해결
 
 - `Added non-passive event listener to a scroll-blocking 'wheel' event.` 경고 발생
@@ -80,12 +83,11 @@
   - => ANTD 사용 중 오류 발생 -> 해제
 
 - vscode `listen EACCES: permission denied` (포트 사용 중)
-  - net stop winnat
-  - net start winnat
+  - `net stop winnat`
+  - `net start winnat`
 
-### 사용 모듈
+### 라이브러리
 
-- React 라이브러리
 - `axios`
 - `prop-types`
 - `npm i @ant-design/icons`
@@ -100,11 +102,10 @@
 - `react-redux`
 - `redux-promise`: dispatch에게 `Promise`을 받는 방법을 알려주는 미들웨어
 - `redux-thunk`: dispatch에게 `function`을 받는 방법을 알려주는 미들웨어
-- `npm install react-icons --save`
 
 <br><br>
 
-## Server
+## Server (Express)
 
 ### 구조
 
@@ -119,6 +120,39 @@
   - mongoDB 모델 정의
 - /routes
   - 라우팅
+
+### 라이브러리
+
+- `bcrypt`
+- `jsonwebtoken`
+- `concurrently`
+- `async`
+- `sequlize`
+- `Mongoose`
+
+<br><br>
+
+## API
+
+- python 고장 예측 알고리즘 API
+  - LSTM 알고리즘 사용
+
+
+<br><br>
+
+## 서비스 화면
+
+<img src="https://github.com/in3166/predict_react/blob/master/img/메인.png" />
+<img src="https://github.com/in3166/predict_react/blob/master/img/예측.png" />
+
+![화면](https://user-images.githubusercontent.com/45654988/202990874-a60c6d98-fe8f-4595-bc1e-59884e235c6b.PNG)
+![pre_set](https://user-images.githubusercontent.com/45654988/202990738-9ff5cd14-0fdb-4c1b-86dc-19a48e8024c0.JPG)
+![pre_user](https://user-images.githubusercontent.com/45654988/202990792-05ba8691-7a12-4ab0-b27d-41df1c3e4c7c.JPG)
+![pre_bu](https://user-images.githubusercontent.com/45654988/176819081-f8282c54-207c-4d92-be1e-48e679231fe1.JPG)
+
+![erd](https://user-images.githubusercontent.com/45654988/202990982-47661afc-0eee-4182-bf96-c2212738d464.PNG)
+
+<br><br>
 
 ### 참고
 
@@ -156,34 +190,3 @@
 - gitignore 수정 후 적용하기
   - 우선 git 캐시 삭제 후 커밋하기
     - `git rm --cached setupProxy.js`
-
-### 사용 모듈
-
-- `Express`
-- `bcrypt 라이브러리`
-- `jsonwebtoken 라이브러리`
-- `concurrently 라이브러리`
-- `async 라이브러리`
-
-<br><br>
-
-## API
-
-- python 고장 예측 알고리즘 API
-
-<br><br>
-
-## DB
-
-- Mongo DB
-- Mongoose 라이브러리
-
-<br><br>
-
-## 서비스 화면
-
-<img src="https://github.com/in3166/predict_react/blob/master/img/메인.png" />
-<img src="https://github.com/in3166/predict_react/blob/master/img/예측.png" />
-<img src="https://github.com/in3166/predict_react/blob/master/img/user.png" />
-<img src="https://github.com/in3166/predict_react/blob/master/img/user1.png" />
-<img src="https://github.com/in3166/predict_react/blob/master/img/user2.png" />
